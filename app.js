@@ -407,10 +407,14 @@ function bindUI() {
   els.statusForm.addEventListener("submit", saveStatusEdit);
   els.tierForm.addEventListener("submit", saveTierEdit);
   bindAutoApplyForm();
-  document.addEventListener("click", hideContextMenu);
+  document.addEventListener("pointerdown", (event) => {
+    if (event.button === 0 && !event.target.closest(".context-menu")) hideContextMenu();
+  });
   document.addEventListener("contextmenu", (event) => {
     if (!event.target.closest("#roadmap")) hideContextMenu();
   });
+  window.addEventListener("resize", hideContextMenu);
+  window.addEventListener("scroll", hideContextMenu, true);
   els.editForm.elements.tags.addEventListener("input", renderTagPreview);
   els.editForm.elements.segment.addEventListener("change", () => {
     selectedSegmentId = els.editForm.elements.segment.value;
@@ -425,8 +429,8 @@ function bindUI() {
       return;
     }
     if (event.target.closest(".unit-card,.meta-bar,.month-head,.tier-label,.context-menu")) return;
-    if (selectedId) openChartContextMenu(event, { leftClick: true });
-    else select(null);
+    hideContextMenu();
+    select(null);
   });
 
   els.catalogSearch.addEventListener("input", (e) => {
@@ -1091,13 +1095,23 @@ function openUnitContextMenu(event, unitId, segmentId = null) {
 function showContextMenu(clientX, clientY, items) {
   const menu = els.contextMenu;
   menu.innerHTML = "";
+  menu.style.maxHeight = "";
+  menu.style.overflow = "visible";
+  menu.style.left = "0px";
+  menu.style.top = "0px";
   items.forEach(item => menu.appendChild(contextMenuItem(item)));
-  menu.style.left = `${clientX}px`;
-  menu.style.top = `${clientY}px`;
   menu.classList.remove("hidden");
+  positionMenuInViewport(menu, clientX, clientY);
+}
+function positionMenuInViewport(menu, clientX, clientY) {
+  const margin = 8;
   const rect = menu.getBoundingClientRect();
-  if (rect.right > window.innerWidth - 8) menu.style.left = `${Math.max(8, window.innerWidth - rect.width - 8)}px`;
-  if (rect.bottom > window.innerHeight - 8) menu.style.top = `${Math.max(8, window.innerHeight - rect.height - 8)}px`;
+  const maxLeft = Math.max(margin, window.innerWidth - rect.width - margin);
+  const maxTop = Math.max(margin, window.innerHeight - rect.height - margin);
+  const left = clamp(clientX, margin, maxLeft);
+  const top = clamp(clientY, margin, maxTop);
+  menu.style.left = `${left}px`;
+  menu.style.top = `${top}px`;
 }
 function contextMenuItem(item) {
   if (item.children?.length) {
@@ -1110,6 +1124,8 @@ function contextMenuItem(item) {
     const sub = document.createElement("div");
     sub.className = "context-submenu";
     item.children.forEach(child => sub.appendChild(contextMenuItem(child)));
+    wrap.addEventListener("mouseenter", () => positionSubmenu(wrap, sub));
+    wrap.addEventListener("focusin", () => positionSubmenu(wrap, sub));
     wrap.append(btn, sub);
     return wrap;
   }
@@ -1125,8 +1141,34 @@ function contextMenuItem(item) {
   });
   return btn;
 }
+function positionSubmenu(wrap, sub) {
+  const margin = 8;
+  sub.classList.remove("open-left");
+  wrap.classList.remove("open-left");
+  sub.style.top = "-6px";
+  sub.style.visibility = "hidden";
+  sub.style.display = "block";
+  const wrapRect = wrap.getBoundingClientRect();
+  let subRect = sub.getBoundingClientRect();
+  if (wrapRect.right + 6 + subRect.width > window.innerWidth - margin) {
+    sub.classList.add("open-left");
+    wrap.classList.add("open-left");
+  }
+  let top = -6;
+  let actualTop = wrapRect.top + top;
+  if (actualTop + subRect.height > window.innerHeight - margin) {
+    top -= (actualTop + subRect.height) - (window.innerHeight - margin);
+  }
+  actualTop = wrapRect.top + top;
+  if (actualTop < margin) top += margin - actualTop;
+  sub.style.top = `${Math.round(top)}px`;
+  sub.style.visibility = "";
+  sub.style.display = "";
+}
 function hideContextMenu() {
-  els.contextMenu?.classList.add("hidden");
+  if (!els.contextMenu) return;
+  els.contextMenu.classList.add("hidden");
+  els.contextMenu.innerHTML = "";
 }
 function addSegmentAtWeek(unitId, week) {
   const unit = state.units.find(u => u.id === unitId);

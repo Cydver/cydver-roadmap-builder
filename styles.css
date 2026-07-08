@@ -241,3 +241,37 @@ textarea { resize: vertical; min-height: 80px; }
 .context-submenu-wrap:hover > .context-submenu { display: block; }
 .context-menu .menu-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 999px; margin-right: 8px; vertical-align: -1px; box-shadow: 0 0 0 1px rgba(255,255,255,.35); }
 .context-menu button:has(.menu-swatch) { display: flex; align-items: center; gap: 8px; }
+
+/* v5.5 context-menu fixes */
+.context-menu { overflow: visible; }
+.context-submenu-wrap { position: relative; }
+.context-submenu-wrap::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  right: -12px;
+  width: 18px;
+  display: block;
+}
+.context-submenu-wrap:has(.context-submenu.open-left)::after {
+  right: auto;
+  left: -12px;
+}
+.context-submenu {
+  left: calc(100% + 4px);
+  top: -6px;
+  z-index: 2001;
+}
+.context-submenu.open-left {
+  left: auto;
+  right: calc(100% + 4px);
+}
+.context-submenu-wrap:hover > .context-submenu,
+.context-submenu-wrap:focus-within > .context-submenu {
+  display: block;
+}
+.context-submenu-wrap.open-left::after {
+  right: auto;
+  left: -12px;
+}
