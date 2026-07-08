@@ -53,6 +53,7 @@
           <div class="field"><label>Icon URL/path</label><input name="icon" /></div>
           <div class="field two"><label>Type</label><select name="kind"><option value="ms">MS</option><option value="pilot">Pilot</option><option value="custom">Custom</option></select></div>
           <div class="field two"><label>Tier</label><select name="tier"></select></div>
+          <div class="field two"><label>Row position</label><select name="rowOffset"><option value="0">In row</option><option value="-0.5">Between row above</option><option value="0.5">Between row below</option></select></div>
           <div class="grid2">
             <div class="field"><label>Release week</label><input name="week" type="number" min="1" /></div>
             <div class="field"><label>Lane</label><input name="lane" type="number" min="1" /></div>
@@ -69,7 +70,7 @@
             <button id="btnDeleteSegment" type="button" class="danger">Delete segment</button>
           </div>
 
-          <div class="field"><label>Tags</label><input name="tags" placeholder="PVP, PVE, Core, Tech, Def" /></div>
+          <div class="field"><label>Tags</label><input name="tags" placeholder="PVP, PVE, Core, Tech, Def, Sub, CB, Must P5" /></div>
           <div class="tag-controls">
             <select id="tagDropdown" aria-label="Add tag">
               <option value="PVP">PVP</option>
@@ -77,6 +78,9 @@
               <option value="Core">Core</option>
               <option value="Tech">Tech</option>
               <option value="Def">Def</option>
+              <option value="Sub">Sub</option>
+              <option value="CB">CB</option>
+              <option value="Must P5">Must P5</option>
             </select>
             <button id="btnAddTag" type="button">Add tag</button>
             <button id="btnClearTags" type="button">Clear</button>
@@ -93,9 +97,10 @@
         <h2>How to edit</h2>
         <ul class="instructions">
           <li>Click catalog item <strong>Add</strong>, then drag the icon card.</li>
-          <li>Click month headers to rename them; use +/− Month to change the timeline.</li>
+          <li>Click month headers to rename them; right-click month headers to switch between 4 and 5 weeks.</li>
           <li>Drag colored bars to move meta duration. Drag handles to resize.</li>
           <li>Select a unit, then left-click or right-click an empty chart cell to add a segment at that week.</li>
+          <li>Use Row position to place a unit in-row or visually between adjacent pull rows.</li>
           <li>Right-click units/bars for quick actions; double-click a unit to rename it.</li>
           <li>Click a legend status to edit its label/color.</li>
           <li>Click left row headers to rename or recolor them.</li>

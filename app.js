@@ -29,9 +29,9 @@ function suggestedMonthLabel(index) {
 }
 const DEFAULT_TIERS = [
   { id: "human", label: "Human Rights", color: "#ff4b59" },
-  { id: "must", label: "Must Pull", color: "#47a9ff" },
-  { id: "ideal", label: "Ideally Pull", color: "#67ef87" },
-  { id: "luxury", label: "Luxury Pull", color: "#ffcc4d" },
+  { id: "must", label: "Era-Defining", color: "#47a9ff" },
+  { id: "ideal", label: "Strong", color: "#67ef87" },
+  { id: "luxury", label: "Rotational", color: "#ffcc4d" },
   { id: "skip", label: "Skip", color: "#8d96a6" }
 ];
 const DEFAULT_META_STATUSES = [
@@ -42,9 +42,11 @@ const DEFAULT_META_STATUSES = [
   { id: "s5", label: "Situational", color: "#c18cff" }
 ];
 const LEGACY_TIER_COLORS = { must: ["#ffa12a"], ideal: ["#47a9ff"], luxury: ["#a66bff"], skip: ["#9aa0ab", "#c18cff", "#a66bff", "#8b5cf6", "#9333ea", "#7c3aed", "#6d28d9"] };
+const LEGACY_TIER_LABELS = { must: ["Must Pull"], ideal: ["Ideally Pull"], luxury: ["Luxury Pull"] };
 const LEGACY_STATUS_COLORS = { s2: "#37e6ff" };
 const OLD_STATUS_MAP = { top: "s1", strong: "s3", niche: "s5", fading: "s4", custom: "s5" };
-const TAG_OPTIONS = ["PVP", "PVE", "Core", "Tech", "Def"];
+const TAG_OPTIONS = ["PVP", "PVE", "Core", "Tech", "Def", "Sub", "CB", "Must P5"];
+const MUST_P5_TAG = "Must P5";
 const TAG_ORDER = new Map(TAG_OPTIONS.map((tag, i) => [tag.toLowerCase(), i]));
 const CELL_W = 200;
 const LEFT_W = 260;
@@ -66,6 +68,7 @@ const DEFAULT_ROADMAP = {
   months: [...DEFAULT_MONTHS],
   tiers: structuredClone(DEFAULT_TIERS),
   metaStatuses: structuredClone(DEFAULT_META_STATUSES),
+  monthWeeks: DEFAULT_MONTHS.map(() => 4),
   units: []
 };
 
@@ -105,7 +108,27 @@ const els = {
 };
 
 function clamp(value, min, max) { return Math.max(min, Math.min(max, value)); }
-function weekCount() { return Math.max(1, (state.months || DEFAULT_MONTHS).length * 4); }
+function normalizeMonthWeekCount(value) { return Number(value) === 5 ? 5 : 4; }
+function getMonthWeeks() {
+  const months = Array.isArray(state.months) && state.months.length ? state.months : DEFAULT_MONTHS;
+  const raw = Array.isArray(state.monthWeeks) ? state.monthWeeks : [];
+  return months.map((_, i) => normalizeMonthWeekCount(raw[i]));
+}
+function weekCount() { return Math.max(1, getMonthWeeks().reduce((sum, weeks) => sum + weeks, 0)); }
+function monthStartWeek(index) { return 1 + getMonthWeeks().slice(0, index).reduce((sum, weeks) => sum + weeks, 0); }
+function weekToMonthWeek(week) {
+  const total = weekCount();
+  const normalized = clamp(Math.round(Number(week) || 1), 1, total);
+  const counts = getMonthWeeks();
+  let start = 1;
+  for (let i = 0; i < counts.length; i++) {
+    const end = start + counts[i] - 1;
+    if (normalized <= end) return { monthIndex: i, weekInMonth: normalized - start + 1, monthStart: start, monthEnd: end };
+    start = end + 1;
+  }
+  const last = Math.max(0, counts.length - 1);
+  return { monthIndex: last, weekInMonth: counts[last] || 1, monthStart: Math.max(1, total - (counts[last] || 1) + 1), monthEnd: total };
+}
 function getTiers() { return state.tiers?.length ? state.tiers : DEFAULT_TIERS; }
 function tierIndex(id) { return Math.max(0, getTiers().findIndex(t => t.id === id)); }
 function tierById(id) { return getTiers().find(t => t.id === id) || getTiers()[0] || DEFAULT_TIERS[0]; }
@@ -113,9 +136,7 @@ function tierIds() { return getTiers().map(t => t.id); }
 function getStatuses() { return state.metaStatuses?.length ? state.metaStatuses : DEFAULT_META_STATUSES; }
 function metaStatus(id) { return getStatuses().find(s => s.id === id) || getStatuses()[2] || DEFAULT_META_STATUSES[2]; }
 function formatWeek(week) {
-  const normalized = normalizeWeek(week);
-  const monthIndex = Math.floor((normalized - 1) / 4);
-  const weekInMonth = ((normalized - 1) % 4) + 1;
+  const { monthIndex, weekInMonth } = weekToMonthWeek(week);
   const label = state.months?.[monthIndex] || DEFAULT_MONTHS[monthIndex] || `Month ${monthIndex + 1}`;
   return `${label} W${weekInMonth}`;
 }
@@ -123,6 +144,47 @@ function formatWeekRange(start, end) {
   return start === end ? formatWeek(start) : `${formatWeek(start)}–${formatWeek(end)}`;
 }
 function weekX(week) { return LEFT_W + (week - 1) * CELL_W; }
+function normalizeRowOffset(value) {
+  const n = Number(value) || 0;
+  if (n <= -0.25) return -0.5;
+  if (n >= 0.25) return 0.5;
+  return 0;
+}
+function rowOffsetLabel(value) {
+  const offset = normalizeRowOffset(value);
+  if (offset < 0) return "Between this row and row above";
+  if (offset > 0) return "Between this row and row below";
+  return "In row";
+}
+function rowOffsetForIcon(unit) {
+  const offset = normalizeRowOffset(unit?.rowOffset);
+  if (!offset) return 0;
+  const baseCenter = ICON_TOP + ICON_W / 2;
+  return offset < 0 ? -Math.round(baseCenter) : Math.max(0, Math.round(tierHeight(unit.tier) - baseCenter));
+}
+function rowOffsetForBar(unit) {
+  const offset = normalizeRowOffset(unit?.rowOffset);
+  if (!offset) return 0;
+  const baseCenter = BAR_TOP + BAR_H / 2;
+  return offset < 0 ? -Math.round(baseCenter) : Math.max(0, Math.round(tierHeight(unit.tier) - baseCenter));
+}
+function sameSlotOffset(unit) {
+  if (!unit) return { x: 0, y: 0, z: 0 };
+  const group = (state.units || [])
+    .filter(other => other.tier === unit.tier && normalizeWeek(other.week) === normalizeWeek(unit.week))
+    .sort((a, b) => (Number(a.lane) || 0) - (Number(b.lane) || 0) || kindSort(a.kind) - kindSort(b.kind) || a.name.localeCompare(b.name) || a.id.localeCompare(b.id));
+  if (group.length <= 1) return { x: 0, y: 0, z: 0 };
+  const index = Math.max(0, group.findIndex(other => other.id === unit.id));
+  const center = (group.length - 1) / 2;
+  return { x: Math.round((index - center) * 30), y: Math.round(index * 18), z: index };
+}
+function kindSort(kind) {
+  if (kind === "ms") return 0;
+  if (kind === "pilot") return 1;
+  return 2;
+}
+function hasTag(unit, tag) { return !!unit?.tags?.some(t => t.toLowerCase() === tag.toLowerCase()); }
+function hasMustP5(unit) { return hasTag(unit, MUST_P5_TAG); }
 function visibleLaneCount(tierId) {
   let maxLane = 0;
   for (const unit of state.units || []) {
@@ -146,11 +208,18 @@ function tierY(tierId) {
 function laneY(unitOrTier, laneMaybe) {
   const tier = typeof unitOrTier === "string" ? unitOrTier : unitOrTier.tier;
   const lane = typeof unitOrTier === "string" ? laneMaybe : unitOrTier.lane;
-  return tierY(tier) + BAR_TOP + (lane - 1) * BAR_GAP;
+  const offset = typeof unitOrTier === "string" ? 0 : rowOffsetForBar(unitOrTier);
+  return tierY(tier) + BAR_TOP + (lane - 1) * BAR_GAP + offset;
 }
 function laneCenterY(tier, lane) { return laneY(tier, lane) + BAR_H / 2; }
-function iconY(unit) { return tierY(unit.tier) + ICON_TOP; }
-function iconX(unit) { return weekX(unit.week) + Math.round((CELL_W - ICON_W) / 2); }
+function iconY(unit) {
+  const offset = sameSlotOffset(unit);
+  return clamp(tierY(unit.tier) + ICON_TOP + rowOffsetForIcon(unit) + offset.y, HEADER_H - ICON_W / 2, baseChartHeight() - ICON_W);
+}
+function iconX(unit) {
+  const offset = sameSlotOffset(unit);
+  return clamp(weekX(unit.week) + Math.round((CELL_W - ICON_W) / 2) + offset.x, LEFT_W, baseChartWidth() - ICON_W);
+}
 function normalizeWeek(n) { return clamp(Math.round(Number(n) || 1), 1, weekCount()); }
 function normalizeLane(n) { return clamp(Math.round(Number(n) || 1), 1, 99); }
 function idOfWeekFromX(x) { return normalizeWeek(Math.round((x - LEFT_W - CELL_W / 2) / CELL_W) + 1); }
@@ -219,6 +288,13 @@ function normalizeState() {
   }
   state.months = state.months.map((m, i) => sanitizeText(m) || suggestedMonthLabel(i)).slice(0, 12);
   if (!state.months.length) state.months = [...DEFAULT_MONTHS];
+  const rawMonthWeeks = Array.isArray(state.monthWeeks) ? state.monthWeeks : [];
+  state.monthWeeks = state.months.map((_, i) => normalizeMonthWeekCount(rawMonthWeeks[i]));
+  while (state.months.length < 12 && weekCount() < maxUsedWeekInUnits(unitsBeforeNormalize)) {
+    const nextIndex = state.months.length;
+    state.months.push(suggestedMonthLabel(nextIndex));
+    state.monthWeeks.push(4);
+  }
 
   const oldTierLabels = new Map((state.tiers || []).map(t => [t.id, t.label]));
   const oldTierColors = new Map((state.tiers || []).map(t => [t.id, t.color]));
@@ -227,7 +303,9 @@ function normalizeState() {
     const oldColor = oldColorRaw.toLowerCase();
     const legacyColors = LEGACY_TIER_COLORS[fallback.id] || [];
     const wasLegacyDefault = legacyColors.some(c => c.toLowerCase() === oldColor);
-    const label = sanitizeText(oldTierLabels.get(fallback.id)) || fallback.label;
+    const oldLabel = sanitizeText(oldTierLabels.get(fallback.id));
+    const wasLegacyLabel = (LEGACY_TIER_LABELS[fallback.id] || []).some(l => l.toLowerCase() === oldLabel.toLowerCase());
+    const label = oldLabel && !wasLegacyLabel ? oldLabel : fallback.label;
     const oldIsValid = /^#[0-9a-f]{6}$/i.test(oldColorRaw);
     const forceSkipGrey = fallback.id === "skip" && (!oldColorRaw || wasLegacyDefault || ["#c18cff", "#a66bff", "#8b5cf6", "#9333ea", "#7c3aed", "#6d28d9"].includes(oldColor));
     const color = oldIsValid && !wasLegacyDefault && !forceSkipGrey ? oldColorRaw : fallback.color;
@@ -279,6 +357,7 @@ function normalizeState() {
       tier,
       week: normalizeWeek(u.week || 1),
       lane: normalizeLane(u.lane || 1),
+      rowOffset: normalizeRowOffset(u.rowOffset ?? u.tierOffset ?? 0),
       icon: u.icon || "",
       tags: cleanTags(rawTags),
       note: u.note || "",
@@ -288,6 +367,7 @@ function normalizeState() {
 
   for (const unit of state.units) {
     unit.week = normalizeWeek(unit.week);
+    unit.rowOffset = normalizeRowOffset(unit.rowOffset);
     unit.segments.forEach(seg => {
       seg.start = normalizeWeek(seg.start);
       seg.end = normalizeWeek(seg.end);
@@ -321,26 +401,29 @@ function buildStaticGrid() {
   corner.style.width = `${LEFT_W}px`;
   els.roadmap.appendChild(corner);
 
+  const monthWeeks = getMonthWeeks();
   state.months.forEach((month, i) => {
     const head = document.createElement("button");
     head.type = "button";
     head.className = "month-head month-button";
-    head.style.left = `${LEFT_W + i * 4 * CELL_W}px`;
-    head.style.width = `${4 * CELL_W}px`;
+    head.style.left = `${weekX(monthStartWeek(i))}px`;
+    head.style.width = `${monthWeeks[i] * CELL_W}px`;
     head.textContent = month;
-    head.title = "Click to rename this month";
+    head.setAttribute("aria-label", `${month}. Click to rename. Right-click for 4/5-week options.`);
     head.addEventListener("click", (event) => {
       event.stopPropagation();
       renameMonth(i);
     });
+    head.addEventListener("contextmenu", (event) => openMonthContextMenu(event, i));
     els.roadmap.appendChild(head);
   });
 
   for (let w = 1; w <= weekCount(); w++) {
     const week = document.createElement("div");
+    const { weekInMonth } = weekToMonthWeek(w);
     week.className = "week-head";
     week.style.left = `${weekX(w)}px`;
-    week.textContent = `W${((w - 1) % 4) + 1}`;
+    week.textContent = `W${weekInMonth}`;
     els.roadmap.appendChild(week);
   }
 
@@ -352,7 +435,7 @@ function buildStaticGrid() {
     label.style.height = `${tierHeight(tier.id)}px`;
     label.style.color = tier.color;
     label.textContent = tier.label;
-    label.title = "Click to rename this row";
+    label.setAttribute("aria-label", `${tier.label}. Click to rename or recolor this row.`);
     label.addEventListener("click", (event) => {
       event.stopPropagation();
       openTierEditor(tier.id);
@@ -360,11 +443,18 @@ function buildStaticGrid() {
     els.roadmap.appendChild(label);
   });
 
+  const monthBoundaries = new Set([0]);
+  getMonthWeeks().reduce((sum, weeks) => {
+    const next = sum + weeks;
+    monthBoundaries.add(next);
+    return next;
+  }, 0);
   for (let w = 0; w <= weekCount(); w++) {
+    const isMonthBoundary = monthBoundaries.has(w);
     const line = document.createElement("div");
-    line.className = `grid-line v${w % 4 === 0 ? " month" : ""}`;
+    line.className = `grid-line v${isMonthBoundary ? " month" : ""}`;
     line.style.left = `${LEFT_W + w * CELL_W}px`;
-    line.style.height = w % 4 === 0 ? "100%" : `${baseChartHeight() - HEADER_H}px`;
+    line.style.height = isMonthBoundary ? "100%" : `${baseChartHeight() - HEADER_H}px`;
     els.roadmap.appendChild(line);
   }
 
@@ -508,7 +598,7 @@ function renderLegend() {
     btn.type = "button";
     btn.className = "legend-item";
     btn.innerHTML = `<i class="dot" style="background:${status.color}"></i><span>${escapeHtml(status.label)}</span>`;
-    btn.title = "Click to edit this meta status";
+    btn.setAttribute("aria-label", `Edit meta status: ${status.label}`);
     btn.addEventListener("click", () => openStatusEditor(status.id));
     els.legend.appendChild(btn);
   });
@@ -567,11 +657,32 @@ function renameMonth(index) {
   renderAll();
   autoSave();
 }
+function openMonthContextMenu(event, index) {
+  event.preventDefault();
+  event.stopPropagation();
+  const currentWeeks = getMonthWeeks()[index] || 4;
+  const month = state.months[index] || `Month ${index + 1}`;
+  showContextMenu(event.clientX, event.clientY, [
+    { label: `Rename ${month}…`, action: () => renameMonth(index) },
+    { label: `${currentWeeks === 4 ? "✓ " : ""}Use 4 weeks`, action: () => setMonthWeekCount(index, 4) },
+    { label: `${currentWeeks === 5 ? "✓ " : ""}Use 5 weeks`, action: () => setMonthWeekCount(index, 5) }
+  ]);
+}
+function setMonthWeekCount(index, weeks) {
+  state.monthWeeks = getMonthWeeks();
+  state.monthWeeks[index] = normalizeMonthWeekCount(weeks);
+  normalizeState();
+  state.updated = new Date().toISOString();
+  renderAll();
+  autoSave();
+  setStatus(`${state.months[index] || `Month ${index + 1}`} set to ${state.monthWeeks[index]} week(s).`);
+}
 function addMonth() {
   const next = state.months.length + 1;
   const value = prompt("New month label:", suggestedMonthLabel(next - 1));
   if (value === null) return;
   state.months.push(sanitizeText(value) || suggestedMonthLabel(next - 1));
+  state.monthWeeks = [...getMonthWeeks().slice(0, state.months.length - 1), 4];
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
@@ -581,6 +692,7 @@ function removeMonth() {
   const removed = state.months[state.months.length - 1];
   if (!confirm(`Remove the last month: ${removed}? Any units/bars beyond the new end will be clamped.`)) return;
   state.months.pop();
+  state.monthWeeks = getMonthWeeks().slice(0, state.months.length);
   normalizeState();
   state.updated = new Date().toISOString();
   renderAll();
@@ -591,11 +703,13 @@ function renderUnits() {
   state.units.forEach(unit => {
     const card = document.createElement("article");
     const isDraggingUnit = drag?.type === "unit" && drag.id === unit.id && Number.isFinite(drag.previewLeft);
-    card.className = `unit-card${selectedId === unit.id && !selectedSegmentId ? " selected" : ""}${isDraggingUnit ? " dragging" : ""}`;
+    const slot = sameSlotOffset(unit);
+    card.className = `unit-card${selectedId === unit.id && !selectedSegmentId ? " selected" : ""}${isDraggingUnit ? " dragging" : ""}${hasMustP5(unit) ? " must-p5" : ""}${normalizeRowOffset(unit.rowOffset) ? " between-row" : ""}`;
     card.dataset.id = unit.id;
     card.style.left = `${isDraggingUnit ? drag.previewLeft : iconX(unit)}px`;
     card.style.top = `${isDraggingUnit ? drag.previewTop : iconY(unit)}px`;
-    card.title = unit.note || unit.name;
+    card.style.zIndex = String((isDraggingUnit ? 80 : 10) + slot.z);
+    card.setAttribute("aria-label", unit.name);
 
     if (unit.icon) {
       const img = document.createElement("img");
@@ -610,13 +724,18 @@ function renderUnits() {
 
     const tags = document.createElement("div");
     tags.className = "tags";
-    unit.tags.slice(0, 6).forEach(t => {
+    unit.tags.slice(0, 8).forEach(t => {
       const span = document.createElement("span");
       span.className = `tag ${tagClass(t)}`;
       span.textContent = t;
       tags.appendChild(span);
     });
     card.appendChild(tags);
+
+    const kindBadge = document.createElement("span");
+    kindBadge.className = `kind-badge ${unit.kind === "pilot" ? "pilot" : unit.kind === "ms" ? "ms" : "custom"}`;
+    kindBadge.textContent = unit.kind === "pilot" ? "Pilot" : unit.kind === "ms" ? "MS" : "Custom";
+    card.appendChild(kindBadge);
 
     const plate = document.createElement("div");
     plate.className = "nameplate";
@@ -671,6 +790,9 @@ function tagClass(tag) {
   if (t === "core") return "core";
   if (t === "tech") return "tech";
   if (t === "def") return "def";
+  if (t === "sub") return "sub";
+  if (t === "cb") return "cb";
+  if (t === "must p5" || t === "must-p5") return "must-p5";
   return "custom";
 }
 function placeholder(name) {
@@ -718,6 +840,7 @@ function renderForm() {
   f.icon.value = unit.icon;
   f.kind.value = unit.kind;
   f.tier.value = unit.tier;
+  if (f.rowOffset) f.rowOffset.value = String(normalizeRowOffset(unit.rowOffset));
   f.week.max = String(weekCount());
   f.week.value = unit.week;
   f.lane.value = unit.lane;
@@ -743,6 +866,7 @@ function applyForm(options = {}) {
   unit.icon = f.icon.value.trim();
   unit.kind = f.kind.value;
   unit.tier = f.tier.value;
+  unit.rowOffset = normalizeRowOffset(f.rowOffset?.value ?? unit.rowOffset);
   unit.week = normalizeWeek(f.week.value);
   unit.lane = normalizeLane(f.lane.value);
   unit.tags = cleanTags(f.tags.value.split(","));
@@ -762,7 +886,7 @@ function applyForm(options = {}) {
 }
 
 function bindAutoApplyForm() {
-  const immediateNames = new Set(["kind", "tier", "week", "lane", "segment", "metaStart", "metaEnd", "metaStatus", "tags"]);
+  const immediateNames = new Set(["kind", "tier", "rowOffset", "week", "lane", "segment", "metaStart", "metaEnd", "metaStatus", "tags"]);
   els.editForm.querySelectorAll("input, select, textarea").forEach(input => {
     if (input.name === "segment") return;
     const handler = () => scheduleAutoApply(immediateNames.has(input.name) ? 40 : 420);
@@ -896,6 +1020,7 @@ function addUnit(partial = {}) {
     tier,
     week: releaseWeek,
     lane: partial.lane || autoLaneFor(tier, segments),
+    rowOffset: normalizeRowOffset(partial.rowOffset || 0),
     icon: partial.icon || "",
     tags: cleanTags(partial.tags || partial.badges || []),
     note: partial.note || "",
@@ -1115,6 +1240,11 @@ function openUnitContextMenu(event, unitId, segmentId = null) {
     { label: "Rename unit…", action: () => renameUnit(unitId) },
     { label: "Edit note…", action: () => editUnitNote(unitId) },
     { label: "Edit tags…", action: () => editUnitTags(unitId) },
+    { label: "Row position", children: [
+      { label: `${normalizeRowOffset(unit?.rowOffset) === -0.5 ? "✓ " : ""}Between row above`, action: () => setUnitRowOffset(unitId, -0.5) },
+      { label: `${normalizeRowOffset(unit?.rowOffset) === 0 ? "✓ " : ""}In row`, action: () => setUnitRowOffset(unitId, 0) },
+      { label: `${normalizeRowOffset(unit?.rowOffset) === 0.5 ? "✓ " : ""}Between row below`, action: () => setUnitRowOffset(unitId, 0.5) }
+    ] },
     { label: "Toggle tag", children: TAG_OPTIONS.map(tag => ({ label: `${unit?.tags?.some(t => t.toLowerCase() === tag.toLowerCase()) ? "✓ " : ""}${tag}`, action: () => toggleUnitTag(unitId, tag) })) }
   ];
   if (segmentId) {
@@ -1271,6 +1401,17 @@ function toggleUnitTag(unitId, tag) {
   renderAll();
   autoSave();
 }
+function setUnitRowOffset(unitId, offset) {
+  const unit = state.units.find(u => u.id === unitId);
+  if (!unit) return;
+  unit.rowOffset = normalizeRowOffset(offset);
+  selectedId = unit.id;
+  selectedSegmentId = null;
+  state.updated = new Date().toISOString();
+  renderAll();
+  autoSave();
+  setStatus(`${unit.name} row position: ${rowOffsetLabel(unit.rowOffset)}.`);
+}
 
 function saveLocal() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -1360,7 +1501,7 @@ function renderTagPreview() {
     const chip = document.createElement("span");
     chip.className = `tag ${tagClass(tag)}`;
     chip.textContent = tag;
-    chip.title = `Remove ${tag}`;
+    chip.setAttribute("aria-label", `Remove ${tag}`);
     chip.addEventListener("click", () => {
       setTagList(tagListFromInput().filter(t => t.toLowerCase() !== tag.toLowerCase()), true);
     });
@@ -1382,7 +1523,7 @@ function base64urlDecode(text) {
 }
 async function copyShareLink() {
   normalizeState();
-  const payload = { v: 3, updated: new Date().toISOString(), months: state.months, tiers: state.tiers, metaStatuses: state.metaStatuses, units: state.units };
+  const payload = { v: 4, updated: new Date().toISOString(), months: state.months, monthWeeks: getMonthWeeks(), tiers: state.tiers, metaStatuses: state.metaStatuses, units: state.units };
   const encoded = base64urlEncode(JSON.stringify(payload));
   const url = `${location.origin}${location.pathname}#roadmap=${encoded}`;
   try {
@@ -1464,13 +1605,17 @@ function drawTemplateToCanvas(ctx, width, height) {
   ctx.textBaseline = "middle";
   ctx.font = "900 18px Arial, sans-serif";
   ctx.fillStyle = "#eef3fb";
+  const monthWeeks = getMonthWeeks();
   state.months.forEach((month, i) => {
-    const x = LEFT_W + i * 4 * CELL_W;
-    ctx.fillText(month.toUpperCase(), x + 2 * CELL_W, MONTH_H / 2);
+    const x = weekX(monthStartWeek(i));
+    ctx.fillText(month.toUpperCase(), x + monthWeeks[i] * CELL_W / 2, MONTH_H / 2);
   });
   ctx.font = "900 14px Arial, sans-serif";
   ctx.fillStyle = "#dce4f0";
-  for (let w = 1; w <= weekCount(); w++) ctx.fillText(`W${((w - 1) % 4) + 1}`, weekX(w) + CELL_W / 2, MONTH_H + WEEK_H / 2);
+  for (let w = 1; w <= weekCount(); w++) {
+    const { weekInMonth } = weekToMonthWeek(w);
+    ctx.fillText(`W${weekInMonth}`, weekX(w) + CELL_W / 2, MONTH_H + WEEK_H / 2);
+  }
 
   ctx.textAlign = "left";
   ctx.font = "900 16px Arial, sans-serif";
@@ -1479,13 +1624,20 @@ function drawTemplateToCanvas(ctx, width, height) {
     ctx.fillText(tier.label.toUpperCase(), 22, tierY(tier.id) + tierHeight(tier.id) / 2);
   });
 
+  const monthBoundaries = new Set([0]);
+  getMonthWeeks().reduce((sum, weeks) => {
+    const next = sum + weeks;
+    monthBoundaries.add(next);
+    return next;
+  }, 0);
   for (let w = 0; w <= weekCount(); w++) {
     const x = LEFT_W + w * CELL_W;
+    const isMonthBoundary = monthBoundaries.has(w);
     ctx.beginPath();
-    ctx.moveTo(x + 0.5, w % 4 === 0 ? 0 : HEADER_H);
+    ctx.moveTo(x + 0.5, isMonthBoundary ? 0 : HEADER_H);
     ctx.lineTo(x + 0.5, height);
-    ctx.strokeStyle = w % 4 === 0 ? "rgba(255,255,255,.22)" : "rgba(255,255,255,.14)";
-    ctx.lineWidth = w % 4 === 0 ? 2 : 1;
+    ctx.strokeStyle = isMonthBoundary ? "rgba(255,255,255,.22)" : "rgba(255,255,255,.14)";
+    ctx.lineWidth = isMonthBoundary ? 2 : 1;
     ctx.stroke();
   }
   ctx.lineWidth = 1;
@@ -1533,13 +1685,35 @@ async function drawUnitToCanvas(ctx, unit) {
   ctx.lineWidth = 1;
   roundedRect(ctx, x + 0.5, y + 0.5, ICON_W - 1, ICON_W - 1, 12);
   ctx.stroke();
+  if (hasMustP5(unit)) {
+    ctx.strokeStyle = "#ff3b4d";
+    ctx.lineWidth = 4;
+    roundedRect(ctx, x + 2, y + 2, ICON_W - 4, ICON_W - 4, 12);
+    ctx.stroke();
+  }
+  drawKindBadgeToCanvas(ctx, unit, x, y);
   drawTagsToCanvas(ctx, unit.tags, x, y);
+}
+function drawKindBadgeToCanvas(ctx, unit, x, y) {
+  const label = unit.kind === "pilot" ? "Pilot" : unit.kind === "ms" ? "MS" : "Custom";
+  const w = label === "Custom" ? 52 : label === "Pilot" ? 42 : 30;
+  const h = 18;
+  roundedRect(ctx, x + 7, y + 7, w, h, 9);
+  ctx.fillStyle = unit.kind === "pilot" ? "rgba(99,211,255,.9)" : unit.kind === "ms" ? "rgba(255,255,255,.18)" : "rgba(0,0,0,.68)";
+  ctx.fill();
+  ctx.strokeStyle = "rgba(255,255,255,.48)";
+  ctx.stroke();
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "900 10px Arial, sans-serif";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(label, x + 7 + w / 2, y + 7 + h / 2 + 0.5);
 }
 function drawTagsToCanvas(ctx, tags, x, y) {
   let cy = y + 7;
   const right = x + ICON_W - 7;
   ctx.font = "900 10px Arial, sans-serif";
-  cleanTags(tags).slice(0, 6).forEach(tag => {
+  cleanTags(tags).slice(0, 8).forEach(tag => {
     const text = String(tag);
     const w = Math.ceil(ctx.measureText(text).width) + 12;
     const h = 17;
@@ -1644,6 +1818,9 @@ function tagBg(tag) {
   if (t === "core") return "rgba(247,180,53,.9)";
   if (t === "tech") return "rgba(171,108,255,.88)";
   if (t === "def") return "rgba(86,218,150,.88)";
+  if (t === "sub") return "rgba(79,214,190,.88)";
+  if (t === "cb") return "rgba(255,140,72,.9)";
+  if (t === "must p5" || t === "must-p5") return "rgba(255,43,66,.94)";
   return "rgba(0,0,0,.72)";
 }
 
@@ -1701,7 +1878,10 @@ function showTooltip(event, unit, segment = null) {
   tooltipEl.className = "tooltip";
   const activeId = segment?.id || selectedSegment(unit)?.id || null;
   const segmentsHtml = segmentListHtml(unit, activeId);
-  tooltipEl.innerHTML = `<strong>${escapeHtml(unit.name)}</strong><div>${escapeHtml(tierById(unit.tier).label)} · ${escapeHtml(formatWeek(unit.week))}</div>${segmentsHtml}${unit.tags.length ? `<div>Tags: ${unit.tags.map(escapeHtml).join(", ")}</div>` : ""}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
+  const mustP5Html = hasMustP5(unit) ? `<div class="tooltip-must-p5">Must P5</div>` : "";
+  const rowPositionHtml = normalizeRowOffset(unit.rowOffset) ? `<div class="tooltip-row-position">${escapeHtml(rowOffsetLabel(unit.rowOffset))}</div>` : "";
+  const tagHtml = unit.tags.length ? `<div class="tooltip-tags">Tags: ${unit.tags.map(tag => `<span class="tooltip-tag ${tagClass(tag)}">${escapeHtml(tag)}</span>`).join(" ")}</div>` : "";
+  tooltipEl.innerHTML = `<strong>${escapeHtml(unit.name)}</strong><div>${escapeHtml(tierById(unit.tier).label)} · ${escapeHtml(formatWeek(unit.week))}</div>${rowPositionHtml}${mustP5Html}${segmentsHtml}${tagHtml}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
   document.body.appendChild(tooltipEl);
   moveTooltip(event);
 }
