@@ -45,7 +45,7 @@ const LEGACY_TIER_COLORS = { must: ["#ffa12a"], ideal: ["#47a9ff"], luxury: ["#a
 const LEGACY_TIER_LABELS = { must: ["Must Pull"], ideal: ["Ideally Pull"], luxury: ["Luxury Pull"] };
 const LEGACY_STATUS_COLORS = { s2: "#37e6ff" };
 const OLD_STATUS_MAP = { top: "s1", strong: "s3", niche: "s5", fading: "s4", custom: "s5" };
-const TAG_OPTIONS = ["PVP", "PVE", "Core", "Tech", "Def", "Sub", "CB", "Must P5"];
+const TAG_OPTIONS = ["PVP", "PVE", "Must P5", "Core", "Tech", "Def", "Sub", "CB"];
 const MUST_P5_TAG = "Must P5";
 const TAG_ORDER = new Map(TAG_OPTIONS.map((tag, i) => [tag.toLowerCase(), i]));
 const CELL_W = 200;
@@ -81,6 +81,7 @@ let searchTerm = "";
 let tooltipEl = null;
 let drag = null;
 let suppressRoadmapClick = false;
+let ignoreNextUnitClick = false;
 let autoApplyTimer = null;
 let zoomScale = Number(localStorage.getItem(ZOOM_STORAGE_KEY) || "1") || 1;
 
@@ -168,27 +169,62 @@ function rowOffsetForBar(unit) {
   const baseCenter = BAR_TOP + BAR_H / 2;
   return offset < 0 ? -Math.round(baseCenter) : Math.max(0, Math.round(tierHeight(unit.tier) - baseCenter));
 }
+function isPilot(unit) { return String(unit?.kind || "").toLowerCase() === "pilot"; }
+function isMs(unit) { return String(unit?.kind || "").toLowerCase() === "ms"; }
+function hasMetaBars(unit) { return !isPilot(unit); }
+function sameVisualSlot(a, b) {
+  return !!a && !!b
+    && a.tier === b.tier
+    && normalizeWeek(a.week) === normalizeWeek(b.week)
+    && normalizeRowOffset(a.rowOffset) === normalizeRowOffset(b.rowOffset);
+}
+function defaultStackWeight(unit) {
+  if (isMs(unit)) return 30;
+  if (isPilot(unit)) return 10;
+  return 20;
+}
+function stackWeight(unit) {
+  const explicit = Number(unit?.stackOrder);
+  return Number.isFinite(explicit) && explicit > 0 ? 1000 + explicit : defaultStackWeight(unit);
+}
+function sameSlotGroup(unit) {
+  if (!unit) return [];
+  return (state.units || [])
+    .filter(other => sameVisualSlot(unit, other))
+    .sort((a, b) => stackWeight(a) - stackWeight(b) || a.name.localeCompare(b.name) || a.id.localeCompare(b.id));
+}
 function sameSlotOffset(unit) {
-  if (!unit) return { x: 0, y: 0, z: 0 };
-  const group = (state.units || [])
-    .filter(other => other.tier === unit.tier && normalizeWeek(other.week) === normalizeWeek(unit.week))
-    .sort((a, b) => (Number(a.lane) || 0) - (Number(b.lane) || 0) || kindSort(a.kind) - kindSort(b.kind) || a.name.localeCompare(b.name) || a.id.localeCompare(b.id));
+  const group = sameSlotGroup(unit);
   if (group.length <= 1) return { x: 0, y: 0, z: 0 };
   const index = Math.max(0, group.findIndex(other => other.id === unit.id));
-  const center = (group.length - 1) / 2;
-  return { x: Math.round((index - center) * 30), y: Math.round(index * 18), z: index };
+  const topIndex = group.length - 1;
+  if (index === topIndex) return { x: 0, y: 0, z: topIndex };
+  const depth = topIndex - index;
+  return { x: Math.min(54, 24 * depth), y: Math.min(42, 18 * depth), z: index };
+}
+function bringUnitToTopOfSlot(unitId) {
+  const unit = state.units.find(u => u.id === unitId);
+  if (!unit) return false;
+  const group = sameSlotGroup(unit);
+  if (group.length <= 1 || group[group.length - 1]?.id === unit.id) return false;
+  const maxOrder = Math.max(0, ...group.map(u => Number(u.stackOrder) || 0));
+  unit.stackOrder = maxOrder + 1;
+  state.updated = new Date().toISOString();
+  setStatus(`${unit.name} brought to the front of its release-week stack.`);
+  return true;
 }
 function kindSort(kind) {
-  if (kind === "ms") return 0;
-  if (kind === "pilot") return 1;
-  return 2;
+  if (kind === "pilot") return 0;
+  if (kind === "custom") return 1;
+  if (kind === "ms") return 2;
+  return 1;
 }
 function hasTag(unit, tag) { return !!unit?.tags?.some(t => t.toLowerCase() === tag.toLowerCase()); }
 function hasMustP5(unit) { return hasTag(unit, MUST_P5_TAG); }
 function visibleLaneCount(tierId) {
   let maxLane = 0;
   for (const unit of state.units || []) {
-    if (unit.tier === tierId) maxLane = Math.max(maxLane, Number(unit.lane) || 0);
+    if (unit.tier === tierId && hasMetaBars(unit)) maxLane = Math.max(maxLane, Number(unit.lane) || 0);
   }
   return maxLane;
 }
@@ -232,6 +268,21 @@ function idOfTierFromY(y) {
   }
   const tiers = getTiers();
   return tiers[tiers.length - 1].id;
+}
+function rowPlacementFromY(y) {
+  const tiers = getTiers();
+  let top = HEADER_H;
+  const betweenThreshold = 42;
+  for (let i = 0; i < tiers.length; i++) {
+    const tier = tiers[i];
+    const bottom = top + tierHeight(tier.id);
+    if (i < tiers.length - 1 && Math.abs(y - bottom) <= betweenThreshold) {
+      return { tier: tier.id, rowOffset: 0.5 };
+    }
+    if (y >= top && y < bottom) return { tier: tier.id, rowOffset: 0 };
+    top = bottom;
+  }
+  return { tier: tiers[tiers.length - 1].id, rowOffset: 0 };
 }
 function laneFromY(y, tier) {
   const firstCenter = laneCenterY(tier, 1);
@@ -358,6 +409,7 @@ function normalizeState() {
       week: normalizeWeek(u.week || 1),
       lane: normalizeLane(u.lane || 1),
       rowOffset: normalizeRowOffset(u.rowOffset ?? u.tierOffset ?? 0),
+      stackOrder: Number(u.stackOrder) || 0,
       icon: u.icon || "",
       tags: cleanTags(rawTags),
       note: u.note || "",
@@ -368,6 +420,7 @@ function normalizeState() {
   for (const unit of state.units) {
     unit.week = normalizeWeek(unit.week);
     unit.rowOffset = normalizeRowOffset(unit.rowOffset);
+    unit.stackOrder = Number(unit.stackOrder) || 0;
     unit.segments.forEach(seg => {
       seg.start = normalizeWeek(seg.start);
       seg.end = normalizeWeek(seg.end);
@@ -376,6 +429,7 @@ function normalizeState() {
     unit.segments.sort((a, b) => a.start - b.start || a.end - b.end);
   }
   for (const tier of getTiers()) reflowLanes(tier.id);
+  syncPilotLanes();
 }
 
 function renderAll() {
@@ -723,19 +777,25 @@ function renderUnits() {
     }
 
     const tags = document.createElement("div");
-    tags.className = "tags";
-    unit.tags.slice(0, 8).forEach(t => {
+    const displayTags = unit.tags.slice(0, 8);
+    tags.className = `tags${displayTags.length > 5 ? " two-col" : ""}`;
+    const appendTag = (container, t) => {
       const span = document.createElement("span");
       span.className = `tag ${tagClass(t)}`;
       span.textContent = t;
-      tags.appendChild(span);
-    });
+      container.appendChild(span);
+    };
+    if (displayTags.length > 5) {
+      [displayTags.slice(0, 5), displayTags.slice(5)].forEach(colTags => {
+        const column = document.createElement("div");
+        column.className = "tag-column";
+        colTags.forEach(t => appendTag(column, t));
+        tags.appendChild(column);
+      });
+    } else {
+      displayTags.forEach(t => appendTag(tags, t));
+    }
     card.appendChild(tags);
-
-    const kindBadge = document.createElement("span");
-    kindBadge.className = `kind-badge ${unit.kind === "pilot" ? "pilot" : unit.kind === "ms" ? "ms" : "custom"}`;
-    kindBadge.textContent = unit.kind === "pilot" ? "Pilot" : unit.kind === "ms" ? "MS" : "Custom";
-    card.appendChild(kindBadge);
 
     const plate = document.createElement("div");
     plate.className = "nameplate";
@@ -743,13 +803,27 @@ function renderUnits() {
     card.appendChild(plate);
 
     card.addEventListener("pointerdown", (event) => beginDragUnit(event, unit.id));
-    card.addEventListener("click", (event) => { event.stopPropagation(); select(unit.id, null); });
+    card.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (ignoreNextUnitClick) {
+        ignoreNextUnitClick = false;
+        return;
+      }
+      const restacked = bringUnitToTopOfSlot(unit.id);
+      select(unit.id, null);
+      if (restacked) {
+        renderAll();
+        autoSave();
+      }
+    });
     card.addEventListener("contextmenu", (event) => openUnitContextMenu(event, unit.id, null));
     card.addEventListener("dblclick", (event) => { event.stopPropagation(); renameUnit(unit.id); });
     card.addEventListener("mouseenter", (event) => showTooltip(event, unit));
     card.addEventListener("mouseleave", hideTooltip);
     card.addEventListener("pointermove", moveTooltip);
     els.roadmap.appendChild(card);
+
+    if (!hasMetaBars(unit)) return;
 
     unit.segments.forEach(segment => {
       const bar = document.createElement("div");
@@ -844,6 +918,7 @@ function renderForm() {
   f.week.max = String(weekCount());
   f.week.value = unit.week;
   f.lane.value = unit.lane;
+  els.editForm.querySelectorAll(".meta-editor").forEach(node => node.classList.toggle("hidden", isPilot(unit)));
   f.segment.innerHTML = unit.segments.map((s, i) => `<option value="${s.id}">Segment ${i + 1}: ${escapeHtml(formatWeekRange(s.start, s.end))} · ${escapeHtml(metaStatus(s.statusId).label)}</option>`).join("");
   if (segment) f.segment.value = segment.id;
   f.metaStart.max = String(weekCount());
@@ -872,7 +947,7 @@ function applyForm(options = {}) {
   unit.tags = cleanTags(f.tags.value.split(","));
   unit.note = f.note.value.trim();
   const segment = selectedSegment(unit);
-  if (segment) {
+  if (segment && hasMetaBars(unit)) {
     segment.start = normalizeWeek(f.metaStart.value);
     segment.end = normalizeWeek(f.metaEnd.value);
     if (segment.end < segment.start) [segment.start, segment.end] = [segment.end, segment.start];
@@ -880,6 +955,7 @@ function applyForm(options = {}) {
   }
   unit.segments.sort((a, b) => a.start - b.start || a.end - b.end);
   for (const tier of getTiers()) reflowLanes(tier.id);
+  syncPilotLanes();
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
@@ -988,7 +1064,7 @@ function deleteSelectedSegment() {
 
 function laneAvailable(tier, lane, segments, excludeId = null) {
   for (const unit of state.units) {
-    if (unit.id === excludeId || unit.tier !== tier || unit.lane !== lane) continue;
+    if (!hasMetaBars(unit) || unit.id === excludeId || unit.tier !== tier || unit.lane !== lane) continue;
     for (const seg of unit.segments) {
       for (const next of segments) {
         if (!(next.end < seg.start || next.start > seg.end)) return false;
@@ -1021,6 +1097,7 @@ function addUnit(partial = {}) {
     week: releaseWeek,
     lane: partial.lane || autoLaneFor(tier, segments),
     rowOffset: normalizeRowOffset(partial.rowOffset || 0),
+    stackOrder: Number(partial.stackOrder) || 0,
     icon: partial.icon || "",
     tags: cleanTags(partial.tags || partial.badges || []),
     note: partial.note || "",
@@ -1028,6 +1105,7 @@ function addUnit(partial = {}) {
   };
   state.units.push(newUnit);
   reflowLanes(tier);
+  syncPilotLanes();
   state.updated = new Date().toISOString();
   selectedId = newUnit.id;
   selectedSegmentId = null;
@@ -1040,6 +1118,7 @@ function deleteSelected() {
   selectedId = null;
   selectedSegmentId = null;
   for (const tier of getTiers()) reflowLanes(tier.id);
+  syncPilotLanes();
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
@@ -1063,6 +1142,7 @@ function beginDragUnit(event, id) {
     originTop,
     originWeek: unit.week,
     originTier: unit.tier,
+    originRowOffset: normalizeRowOffset(unit.rowOffset),
     originLane: unit.lane,
     offsetX: point.x - originLeft,
     offsetY: point.y - originTop,
@@ -1111,9 +1191,12 @@ function onPointerMove(event) {
     drag.previewLeft = rawX;
     drag.previewTop = rawY;
     const oldTier = unit.tier;
+    const oldOffset = normalizeRowOffset(unit.rowOffset);
+    const placement = rowPlacementFromY(rawY + ICON_W / 2);
     unit.week = idOfWeekFromX(rawX + ICON_W / 2);
-    unit.tier = idOfTierFromY(rawY + ICON_W / 2);
-    if (oldTier !== unit.tier) unit.lane = autoLaneFor(unit.tier, unit.segments, unit.id);
+    unit.tier = placement.tier;
+    unit.rowOffset = placement.rowOffset;
+    if (oldTier !== unit.tier || oldOffset !== unit.rowOffset) unit.lane = autoLaneFor(unit.tier, unit.segments, unit.id);
     renderAll();
   }
 
@@ -1143,6 +1226,7 @@ function onPointerUp() {
   if (!drag) return;
   const endedDrag = drag;
   if (endedDrag.type === "unit") finalizeUnitDrop(endedDrag);
+  if (endedDrag.type === "unit" && endedDrag.didMove) ignoreNextUnitClick = true;
   suppressRoadmapClick = true;
   drag = null;
   state.updated = new Date().toISOString();
@@ -1153,10 +1237,13 @@ function onPointerUp() {
 function finalizeUnitDrop(endedDrag) {
   const unit = state.units.find(u => u.id === endedDrag.id);
   if (!unit) return;
-  const displaced = state.units.find(other => other.id !== unit.id && other.tier === unit.tier && other.week === unit.week);
+  const displaced = hasMetaBars(unit)
+    ? state.units.find(other => hasMetaBars(other) && other.id !== unit.id && other.tier === unit.tier && other.week === unit.week && normalizeRowOffset(other.rowOffset) === normalizeRowOffset(unit.rowOffset))
+    : null;
   if (displaced) {
     displaced.week = normalizeWeek(endedDrag.originWeek);
     displaced.tier = endedDrag.originTier;
+    displaced.rowOffset = normalizeRowOffset(endedDrag.originRowOffset ?? 0);
     // Preserve the dragged unit's lane, so its meta bar stays visually attached to the unit being moved.
     // Only reassign the displaced unit when it would collide in its new slot.
     if (displaced.lane === unit.lane || !laneAvailable(displaced.tier, displaced.lane, displaced.segments, displaced.id)) {
@@ -1165,14 +1252,42 @@ function finalizeUnitDrop(endedDrag) {
   }
   reflowLanes(unit.tier);
   if (endedDrag.originTier !== unit.tier) reflowLanes(endedDrag.originTier);
+  syncPilotLanes();
 }
 function reflowLanes(tierId) {
   const units = state.units
-    .filter(u => u.tier === tierId)
+    .filter(u => u.tier === tierId && hasMetaBars(u))
     .sort((a, b) => b.week - a.week || a.name.localeCompare(b.name));
   units.forEach((unit, index) => { unit.lane = index + 1; });
 }
-function compactLanes(tierId) { reflowLanes(tierId); }
+function compactLanes(tierId) { reflowLanes(tierId); syncPilotLanes(); }
+function syncPilotLanes() {
+  for (const pilot of state.units.filter(isPilot)) {
+    const ms = pairedMsForPilot(pilot);
+    if (ms) pilot.lane = ms.lane;
+  }
+}
+function pairedMsForPilot(pilot) {
+  if (!isPilot(pilot)) return null;
+  const sameWeek = state.units.filter(unit => isMs(unit) && normalizeWeek(unit.week) === normalizeWeek(pilot.week));
+  if (!sameWeek.length) return null;
+  return sameWeek
+    .sort((a, b) => {
+      const aExact = sameVisualSlot(a, pilot) ? 1 : 0;
+      const bExact = sameVisualSlot(b, pilot) ? 1 : 0;
+      if (aExact !== bExact) return bExact - aExact;
+      const aTier = a.tier === pilot.tier ? 1 : 0;
+      const bTier = b.tier === pilot.tier ? 1 : 0;
+      if (aTier !== bTier) return bTier - aTier;
+      const aDistance = Math.abs(tierIndex(a.tier) + normalizeRowOffset(a.rowOffset) - (tierIndex(pilot.tier) + normalizeRowOffset(pilot.rowOffset)));
+      const bDistance = Math.abs(tierIndex(b.tier) + normalizeRowOffset(b.rowOffset) - (tierIndex(pilot.tier) + normalizeRowOffset(pilot.rowOffset)));
+      return aDistance - bDistance || stackWeight(b) - stackWeight(a) || a.name.localeCompare(b.name);
+    })[0] || null;
+}
+function metaOwnerForUnit(unit) {
+  if (!unit) return null;
+  return isPilot(unit) ? (pairedMsForPilot(unit) || null) : unit;
+}
 
 function laneAtPointY(y, tierId) {
   const count = visibleLaneCount(tierId);
@@ -1184,7 +1299,7 @@ function laneAtPointY(y, tierId) {
   return null;
 }
 function unitForLane(tierId, lane) {
-  return state.units.find(unit => unit.tier === tierId && unit.lane === lane) || null;
+  return state.units.find(unit => hasMetaBars(unit) && unit.tier === tierId && unit.lane === lane) || null;
 }
 function isEditableChartTarget(event) {
   return event.target.closest(".unit-card,.meta-bar,.month-head,.tier-label,.context-menu");
@@ -1195,7 +1310,9 @@ function openChartContextMenu(event, options = {}) {
   event.stopPropagation();
   const point = chartPoint(event);
   if (point.y < HEADER_H || point.x < LEFT_W) return;
-  const tier = idOfTierFromY(point.y);
+  const placement = rowPlacementFromY(point.y);
+  const tier = placement.tier;
+  const rowOffset = placement.rowOffset;
   const week = idOfWeekFromX(point.x);
   const lane = laneAtPointY(point.y, tier);
   const laneUnit = lane ? unitForLane(tier, lane) : null;
@@ -1207,23 +1324,29 @@ function openChartContextMenu(event, options = {}) {
     items.push({ label: `Select ${laneUnit.name}`, action: () => select(laneUnit.id, null) });
   }
 
-  if (selectedUnit && (!laneUnit || laneUnit.id !== selectedUnit.id)) {
-    items.push({ label: `Add segment to selected: ${selectedUnit.name}`, action: () => addSegmentAtWeek(selectedUnit.id, week) });
-    items.push({ label: `Move selected here`, action: () => moveSelectedUnitTo(tier, week) });
+  if (selectedUnit) {
+    const selectedMetaOwner = metaOwnerForUnit(selectedUnit);
+    if (selectedMetaOwner && (!laneUnit || laneUnit.id !== selectedMetaOwner.id)) {
+      const label = selectedMetaOwner.id === selectedUnit.id ? `Add segment to selected: ${selectedUnit.name}` : `Add segment to same-week MS: ${selectedMetaOwner.name}`;
+      items.push({ label, action: () => addSegmentAtWeek(selectedMetaOwner.id, week) });
+    }
+    if (!laneUnit || laneUnit.id !== selectedUnit.id) items.push({ label: `Move selected here`, action: () => moveSelectedUnitTo(tier, week, rowOffset) });
   }
 
-  items.push({ label: `Add blank unit at ${formatWeek(week)}`, action: () => addUnit({ name: "New Unit", tier, week }) });
+  items.push({ label: `Add blank unit at ${formatWeek(week)}`, action: () => addUnit({ name: "New Unit", tier, week, rowOffset }) });
   showContextMenu(event.clientX, event.clientY, items);
 }
-function moveSelectedUnitTo(tier, week) {
+function moveSelectedUnitTo(tier, week, rowOffset = 0) {
   const unit = getSelected();
   if (!unit) return;
   const oldTier = unit.tier;
   unit.tier = tier;
+  unit.rowOffset = normalizeRowOffset(rowOffset);
   unit.week = normalizeWeek(week);
   unit.lane = autoLaneFor(unit.tier, unit.segments, unit.id);
   reflowLanes(oldTier);
   reflowLanes(unit.tier);
+  syncPilotLanes();
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
@@ -1235,8 +1358,13 @@ function openUnitContextMenu(event, unitId, segmentId = null) {
   const point = chartPoint(event);
   const week = idOfWeekFromX(point.x);
   const unit = state.units.find(u => u.id === unitId);
-  const items = [
-    { label: `Add/split segment at ${formatWeek(week)}`, action: () => addSegmentAtWeek(unitId, week) },
+  const metaOwner = metaOwnerForUnit(unit);
+  const items = [];
+  if (metaOwner) {
+    const label = metaOwner.id === unitId ? `Add/split segment at ${formatWeek(week)}` : `Add/split same-week MS segment at ${formatWeek(week)}`;
+    items.push({ label, action: () => addSegmentAtWeek(metaOwner.id, week) });
+  }
+  items.push(
     { label: "Rename unit…", action: () => renameUnit(unitId) },
     { label: "Edit note…", action: () => editUnitNote(unitId) },
     { label: "Edit tags…", action: () => editUnitTags(unitId) },
@@ -1246,8 +1374,8 @@ function openUnitContextMenu(event, unitId, segmentId = null) {
       { label: `${normalizeRowOffset(unit?.rowOffset) === 0.5 ? "✓ " : ""}Between row below`, action: () => setUnitRowOffset(unitId, 0.5) }
     ] },
     { label: "Toggle tag", children: TAG_OPTIONS.map(tag => ({ label: `${unit?.tags?.some(t => t.toLowerCase() === tag.toLowerCase()) ? "✓ " : ""}${tag}`, action: () => toggleUnitTag(unitId, tag) })) }
-  ];
-  if (segmentId) {
+  );
+  if (segmentId && hasMetaBars(unit)) {
     items.push({
       label: "Change meta status",
       children: getStatuses().map(status => ({
@@ -1340,8 +1468,12 @@ function hideContextMenu() {
   els.contextMenu.innerHTML = "";
 }
 function addSegmentAtWeek(unitId, week) {
-  const unit = state.units.find(u => u.id === unitId);
-  if (!unit) return;
+  const requested = state.units.find(u => u.id === unitId);
+  const unit = metaOwnerForUnit(requested);
+  if (!unit || !hasMetaBars(unit)) {
+    setStatus("Pilots use their same-week MS meta bar. Add an MS in the same week first.");
+    return;
+  }
   selectedId = unit.id;
   addSegmentToSelected(week);
   setStatus(`Added/split segment for ${unit.name} at ${formatWeek(week)}.`);
@@ -1580,7 +1712,7 @@ async function exportPng() {
     ctx.scale(exportScale, exportScale);
     drawTemplateToCanvas(ctx, width, height);
     for (const unit of state.units) await drawUnitToCanvas(ctx, unit);
-    for (const unit of state.units) for (const segment of unit.segments) drawBarToCanvas(ctx, unit, segment);
+    for (const unit of state.units) if (hasMetaBars(unit)) for (const segment of unit.segments) drawBarToCanvas(ctx, unit, segment);
     canvas.toBlob((blob) => {
       if (!blob) {
         setStatus("PNG export failed: could not create blob.");
@@ -1691,34 +1823,27 @@ async function drawUnitToCanvas(ctx, unit) {
     roundedRect(ctx, x + 2, y + 2, ICON_W - 4, ICON_W - 4, 12);
     ctx.stroke();
   }
-  drawKindBadgeToCanvas(ctx, unit, x, y);
   drawTagsToCanvas(ctx, unit.tags, x, y);
 }
-function drawKindBadgeToCanvas(ctx, unit, x, y) {
-  const label = unit.kind === "pilot" ? "Pilot" : unit.kind === "ms" ? "MS" : "Custom";
-  const w = label === "Custom" ? 52 : label === "Pilot" ? 42 : 30;
-  const h = 18;
-  roundedRect(ctx, x + 7, y + 7, w, h, 9);
-  ctx.fillStyle = unit.kind === "pilot" ? "rgba(99,211,255,.9)" : unit.kind === "ms" ? "rgba(255,255,255,.18)" : "rgba(0,0,0,.68)";
-  ctx.fill();
-  ctx.strokeStyle = "rgba(255,255,255,.48)";
-  ctx.stroke();
-  ctx.fillStyle = "#ffffff";
-  ctx.font = "900 10px Arial, sans-serif";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText(label, x + 7 + w / 2, y + 7 + h / 2 + 0.5);
-}
 function drawTagsToCanvas(ctx, tags, x, y) {
-  let cy = y + 7;
+  const clean = cleanTags(tags).slice(0, 8);
   const right = x + ICON_W - 7;
+  const top = y + 7;
+  const h = 17;
+  const gap = 4;
   ctx.font = "900 10px Arial, sans-serif";
-  cleanTags(tags).slice(0, 8).forEach(tag => {
-    const text = String(tag);
-    const w = Math.ceil(ctx.measureText(text).width) + 12;
-    const h = 17;
-    const bx = right - w;
-    roundedRect(ctx, bx, cy, w, h, 8);
+  const widths = clean.map(tag => Math.ceil(ctx.measureText(String(tag)).width) + 12);
+  const firstCount = clean.length > 5 ? 5 : clean.length;
+  const firstColW = Math.max(0, ...widths.slice(0, firstCount));
+  const secondColW = clean.length > 5 ? Math.max(0, ...widths.slice(firstCount)) : 0;
+  clean.forEach((tag, i) => {
+    const inSecond = clean.length > 5 && i >= firstCount;
+    const row = inSecond ? i - firstCount : i;
+    const w = widths[i];
+    const colRight = inSecond ? right - firstColW - gap : right;
+    const bx = colRight - w;
+    const by = top + row * (h + gap);
+    roundedRect(ctx, bx, by, w, h, 8);
     ctx.fillStyle = tagBg(tag);
     ctx.fill();
     ctx.strokeStyle = "rgba(255,255,255,.52)";
@@ -1726,8 +1851,7 @@ function drawTagsToCanvas(ctx, tags, x, y) {
     ctx.fillStyle = "#fff";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText(text, bx + w / 2, cy + h / 2 + 0.5);
-    cy += h + 4;
+    ctx.fillText(String(tag), bx + w / 2, by + h / 2 + 0.5);
   });
 }
 function drawBarToCanvas(ctx, unit, segment) {
@@ -1874,14 +1998,16 @@ function placeholderDataUrl(name) {
 
 function showTooltip(event, unit, segment = null) {
   hideTooltip();
+  const displayUnit = metaOwnerForUnit(unit) || unit;
   tooltipEl = document.createElement("div");
   tooltipEl.className = "tooltip";
-  const activeId = segment?.id || selectedSegment(unit)?.id || null;
-  const segmentsHtml = segmentListHtml(unit, activeId);
-  const mustP5Html = hasMustP5(unit) ? `<div class="tooltip-must-p5">Must P5</div>` : "";
-  const rowPositionHtml = normalizeRowOffset(unit.rowOffset) ? `<div class="tooltip-row-position">${escapeHtml(rowOffsetLabel(unit.rowOffset))}</div>` : "";
-  const tagHtml = unit.tags.length ? `<div class="tooltip-tags">Tags: ${unit.tags.map(tag => `<span class="tooltip-tag ${tagClass(tag)}">${escapeHtml(tag)}</span>`).join(" ")}</div>` : "";
-  tooltipEl.innerHTML = `<strong>${escapeHtml(unit.name)}</strong><div>${escapeHtml(tierById(unit.tier).label)} · ${escapeHtml(formatWeek(unit.week))}</div>${rowPositionHtml}${mustP5Html}${segmentsHtml}${tagHtml}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
+  const activeId = segment?.id || selectedSegment(displayUnit)?.id || null;
+  const segmentsHtml = segmentListHtml(displayUnit, activeId);
+  const mustP5Html = hasMustP5(displayUnit) ? `<div class="tooltip-must-p5">Must P5</div>` : "";
+  const rowPositionHtml = normalizeRowOffset(displayUnit.rowOffset) ? `<div class="tooltip-row-position">${escapeHtml(rowOffsetLabel(displayUnit.rowOffset))}</div>` : "";
+  const tagHtml = displayUnit.tags.length ? `<div class="tooltip-tags">Tags: ${displayUnit.tags.map(tag => `<span class="tooltip-tag ${tagClass(tag)}">${escapeHtml(tag)}</span>`).join(" ")}</div>` : "";
+  const pilotLinkHtml = displayUnit.id !== unit.id ? `<div class="tooltip-link-note">Pilot shown with same-week MS tooltip: ${escapeHtml(unit.name)}</div>` : "";
+  tooltipEl.innerHTML = `<strong>${escapeHtml(displayUnit.name)}</strong><div>${escapeHtml(tierById(displayUnit.tier).label)} · ${escapeHtml(formatWeek(displayUnit.week))}</div>${pilotLinkHtml}${rowPositionHtml}${mustP5Html}${segmentsHtml}${tagHtml}${displayUnit.note ? `<p>${escapeHtml(displayUnit.note)}</p>` : ""}`;
   document.body.appendChild(tooltipEl);
   moveTooltip(event);
 }

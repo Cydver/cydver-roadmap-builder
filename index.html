@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gundam UCE Pull Roadmap Builder</title>
+  <title>Cydver's Pull Roadmap Builder</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="topbar">
     <div class="brand">
       <div>
-        <h1>Gundam UCE Pull Roadmap Builder</h1>
+        <h1>Cydver's Pull Roadmap Builder</h1>
       </div>
     </div>
     <div class="toolbar">
@@ -59,28 +59,28 @@
             <div class="field"><label>Lane</label><input name="lane" type="number" min="1" /></div>
           </div>
 
-          <div class="field"><label>Meta segment</label><select name="segment"></select></div>
-          <div class="grid2">
+          <div class="field meta-editor"><label>Meta segment</label><select name="segment"></select></div>
+          <div class="grid2 meta-editor">
             <div class="field"><label>Segment start</label><input name="metaStart" type="number" min="1" /></div>
             <div class="field"><label>Segment end</label><input name="metaEnd" type="number" min="1" /></div>
           </div>
-          <div class="field"><label>Meta status <span class="label-note">PVP only</span></label><select name="metaStatus" id="metaStatusSelect"></select></div>
-          <div class="row gap segment-actions">
+          <div class="field meta-editor"><label>Meta status <span class="label-note">PVP only</span></label><select name="metaStatus" id="metaStatusSelect"></select></div>
+          <div class="row gap segment-actions meta-editor">
             <button id="btnAddSegment" type="button">+ Add segment</button>
             <button id="btnDeleteSegment" type="button" class="danger">Delete segment</button>
           </div>
 
-          <div class="field"><label>Tags</label><input name="tags" placeholder="PVP, PVE, Core, Tech, Def, Sub, CB, Must P5" /></div>
+          <div class="field"><label>Tags</label><input name="tags" placeholder="PVP, PVE, Must P5, Core, Tech, Def, Sub, CB" /></div>
           <div class="tag-controls">
             <select id="tagDropdown" aria-label="Add tag">
               <option value="PVP">PVP</option>
               <option value="PVE">PVE</option>
+              <option value="Must P5">Must P5</option>
               <option value="Core">Core</option>
               <option value="Tech">Tech</option>
               <option value="Def">Def</option>
               <option value="Sub">Sub</option>
               <option value="CB">CB</option>
-              <option value="Must P5">Must P5</option>
             </select>
             <button id="btnAddTag" type="button">Add tag</button>
             <button id="btnClearTags" type="button">Clear</button>
@@ -100,7 +100,7 @@
           <li>Click month headers to rename them; right-click month headers to switch between 4 and 5 weeks.</li>
           <li>Drag colored bars to move meta duration. Drag handles to resize.</li>
           <li>Select a unit, then left-click or right-click an empty chart cell to add a segment at that week.</li>
-          <li>Use Row position to place a unit in-row or visually between adjacent pull rows.</li>
+          <li>Use Row position, or drag near a row boundary, to place a unit in-row or visually between adjacent pull rows.</li>
           <li>Right-click units/bars for quick actions; double-click a unit to rename it.</li>
           <li>Click a legend status to edit its label/color.</li>
           <li>Click left row headers to rename or recolor them.</li>
