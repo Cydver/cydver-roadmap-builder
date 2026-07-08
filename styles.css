@@ -168,6 +168,24 @@ textarea { resize: vertical; min-height: 80px; }
 .unit-card.must-p5 { border-color: rgba(255,59,77,.92); box-shadow: 0 0 0 3px rgba(255,59,77,.72), 0 10px 24px rgba(0,0,0,.35); }
 .unit-card.must-p5.selected { box-shadow: 0 0 0 3px rgba(255,59,77,.82), 0 14px 30px rgba(0,0,0,.45); }
 .unit-card.between-row { border-style: double; }
+.unit-card.compact-pilot {
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(0,0,0,.42);
+}
+.unit-card.compact-pilot .nameplate {
+  padding: 4px 6px;
+  font-size: calc(9.5px * var(--textBoost));
+  line-height: 1.05;
+}
+.unit-card.compact-pilot .tags {
+  right: 5px;
+  top: 5px;
+  transform: scale(.82);
+  transform-origin: top right;
+}
+.unit-card.compact-pilot .tag {
+  padding: calc(3px * var(--textBoost)) calc(5px * var(--textBoost));
+}
 .unit-card img { width: 100%; height: 100%; object-fit: cover; display: block; background: linear-gradient(135deg, #1a2330, #0c1118); }
 .unit-card .placeholder { width: 100%; height: 100%; display: grid; place-items: center; text-align: center; padding: 12px; color: var(--muted); font-weight: 800; background: linear-gradient(135deg,#111827,#0a0d14); }
 .unit-card .nameplate {
@@ -191,9 +209,12 @@ textarea { resize: vertical; min-height: 80px; }
   overflow: visible;
 }
 .meta-bar .bar-label {
-  position: absolute; left: 12px; right: 12px; top: 50%; transform: translateY(-50%);
+  position: absolute; left: 8px; right: 8px; top: 50%; transform: translateY(-50%) scaleY(.88); transform-origin: center;
   overflow: hidden; white-space: nowrap; text-overflow: ellipsis; pointer-events: none;
-  text-align: center; color: #fff; font-size: calc(10px * var(--textBoost)); font-weight: 950; letter-spacing: .03em; text-shadow: 0 1px 3px rgba(0,0,0,.75);
+  text-align: center; color: #fff; font-size: calc(12px * var(--barTextBoost, var(--textBoost))); font-weight: 1000; line-height: 1; letter-spacing: .01em;
+  -webkit-text-stroke: calc(.35px * var(--barTextBoost, var(--textBoost))) rgba(0,0,0,.75);
+  paint-order: stroke fill;
+  text-shadow: 0 1px 1px rgba(0,0,0,.92), 0 0 4px rgba(0,0,0,.82), 0 0 8px rgba(0,0,0,.55);
 }
 .meta-bar:active { cursor: grabbing; }
 .meta-bar.selected { outline: 3px solid white; outline-offset: 3px; z-index: 9; }

@@ -61,6 +61,8 @@ const BLANK_TIER_H = 250;
 const ICON_W = 176;
 const ICON_TOP = 28;
 const ICON_STACK_GAP = 14;
+const COMPACT_PILOT_W = 96;
+const COMPACT_STACK_GAP = 8;
 const BAR_TOP = 222;
 const BAR_GAP = 23;
 const BAR_H = 18;
@@ -118,8 +120,14 @@ function legibleTextScale(scale = zoomScale) {
   const normalized = clamp(Number(scale) || 1, 0.5, 1.6);
   return clamp(Math.pow(1 / normalized, 0.45), 1, 1.42);
 }
+function barLabelTextScale(scale = zoomScale) {
+  const normalized = clamp(Number(scale) || 1, 0.5, 1.6);
+  return clamp(Math.pow(1 / normalized, 0.85), 1, 1.82);
+}
 function fontPx(px, scale = zoomScale) { return Math.round(px * legibleTextScale(scale) * 10) / 10; }
+function barFontPx(px, scale = zoomScale) { return Math.round(px * barLabelTextScale(scale) * 10) / 10; }
 function canvasFont(weight, px, family = "Arial, sans-serif") { return `${weight} ${fontPx(px)}px ${family}`; }
+function canvasBarFont(weight, px, family = "Arial, sans-serif") { return `${weight} ${barFontPx(px)}px ${family}`; }
 function normalizeMonthWeekCount(value) { return Number(value) === 5 ? 5 : 4; }
 function getMonthWeeks() {
   const months = Array.isArray(state.months) && state.months.length ? state.months : DEFAULT_MONTHS;
@@ -189,11 +197,21 @@ function rowOffsetForBar(unit) {
 function isPilot(unit) { return String(unit?.kind || "").toLowerCase() === "pilot"; }
 function isMs(unit) { return String(unit?.kind || "").toLowerCase() === "ms"; }
 function hasMetaBars(unit) { return !isPilot(unit); }
+function rowSlotKey(unit) {
+  if (!unit) return "row:";
+  const offset = normalizeRowOffset(unit.rowOffset);
+  const tiers = getTiers();
+  const index = tierIndex(unit.tier);
+  if (!offset || index < 0) return `row:${unit.tier}`;
+  const upper = offset < 0 ? tiers[index - 1] : tiers[index];
+  const lower = offset < 0 ? tiers[index] : tiers[index + 1];
+  return upper && lower ? `between:${upper.id}|${lower.id}` : `row:${unit.tier}`;
+}
+function visualSlotKey(unit) {
+  return `${normalizeWeek(unit?.week)}|${rowSlotKey(unit)}`;
+}
 function sameVisualSlot(a, b) {
-  return !!a && !!b
-    && a.tier === b.tier
-    && normalizeWeek(a.week) === normalizeWeek(b.week)
-    && normalizeRowOffset(a.rowOffset) === normalizeRowOffset(b.rowOffset);
+  return !!a && !!b && normalizeWeek(a.week) === normalizeWeek(b.week) && rowSlotKey(a) === rowSlotKey(b);
 }
 function visualStackRank(unit) {
   if (isMs(unit)) return 0;
@@ -212,19 +230,35 @@ function sameSlotGroup(unit) {
       return orderDiff || a.name.localeCompare(b.name) || a.id.localeCompare(b.id);
     });
 }
+function isCompactBetweenSlot(group) {
+  return group.length > 1
+    && group.some(unit => normalizeRowOffset(unit.rowOffset))
+    && group.some(isMs)
+    && group.some(isPilot);
+}
+function slotSizeForUnit(unit, group = sameSlotGroup(unit)) {
+  return isCompactBetweenSlot(group) && isPilot(unit) ? COMPACT_PILOT_W : ICON_W;
+}
+function slotLayoutForGroup(group) {
+  const compact = isCompactBetweenSlot(group);
+  let y = 0;
+  const layout = new Map();
+  group.forEach((unit, index) => {
+    const size = slotSizeForUnit(unit, group);
+    const x = compact && size < ICON_W ? Math.round((ICON_W - size) / 2) : 0;
+    layout.set(unit.id, { x, y, size, z: group.length - index, index });
+    y += size + (compact ? COMPACT_STACK_GAP : ICON_STACK_GAP);
+  });
+  return { layout, groupHeight: Math.max(ICON_W, y - (compact ? COMPACT_STACK_GAP : ICON_STACK_GAP)), compact };
+}
 function sameSlotOffset(unit) {
   const group = sameSlotGroup(unit);
-  if (group.length <= 1) return { x: 0, y: 0, z: 0, index: 0, count: 1, groupHeight: ICON_W };
-  const index = Math.max(0, group.findIndex(other => other.id === unit.id));
-  return {
-    x: 0,
-    y: index * (ICON_W + ICON_STACK_GAP),
-    z: group.length - index,
-    index,
-    count: group.length,
-    groupHeight: group.length * ICON_W + (group.length - 1) * ICON_STACK_GAP
-  };
+  if (group.length <= 1) return { x: 0, y: 0, z: 0, index: 0, count: 1, groupHeight: ICON_W, size: ICON_W, compact: false };
+  const { layout, groupHeight, compact } = slotLayoutForGroup(group);
+  const slot = layout.get(unit.id) || { x: 0, y: 0, z: 0, index: 0, size: ICON_W };
+  return { ...slot, count: group.length, groupHeight, compact };
 }
+function iconSize(unit) { return sameSlotOffset(unit).size || ICON_W; }
 function unitZIndex(unit, slot = sameSlotOffset(unit), isDragging = false) {
   if (isDragging) return 10000;
   const stack = Math.max(0, Number(unit?.stackOrder) || 0);
@@ -232,7 +266,8 @@ function unitZIndex(unit, slot = sameSlotOffset(unit), isDragging = false) {
   return 20 + stack * 2 + (slot?.z || 0) + selectedBoost;
 }
 function iconRect(unit) {
-  return { left: iconX(unit), top: iconY(unit), right: iconX(unit) + ICON_W, bottom: iconY(unit) + ICON_W };
+  const size = iconSize(unit);
+  return { left: iconX(unit), top: iconY(unit), right: iconX(unit) + size, bottom: iconY(unit) + size };
 }
 function rectsOverlap(a, b) {
   return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
@@ -270,22 +305,21 @@ function refreshUnitZIndices() {
     card.style.zIndex = String(unitZIndex(unit));
   });
 }
-function maxIconStackDepth(tierId) {
-  const groups = new Map();
+function slotGroupHeight(group) { return slotLayoutForGroup(group).groupHeight || ICON_W; }
+function maxIconStackVisualHeight(tierId) {
+  const seen = new Set();
+  const heights = [ICON_W];
   for (const unit of state.units || []) {
     if (unit.tier !== tierId) continue;
-    const key = `${unit.tier}|${normalizeWeek(unit.week)}|${normalizeRowOffset(unit.rowOffset)}`;
-    groups.set(key, (groups.get(key) || 0) + 1);
+    const key = visualSlotKey(unit);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    heights.push(slotGroupHeight(sameSlotGroup(unit)));
   }
-  return Math.max(1, ...groups.values());
-}
-function iconStackHeight(depth) {
-  const count = Math.max(1, Number(depth) || 1);
-  return count * ICON_W + (count - 1) * ICON_STACK_GAP;
+  return Math.max(...heights);
 }
 function dynamicBarTop(tierId) {
-  const depth = maxIconStackDepth(tierId);
-  return Math.max(BAR_TOP, ICON_TOP + iconStackHeight(depth) + 18);
+  return Math.max(BAR_TOP, ICON_TOP + maxIconStackVisualHeight(tierId) + 18);
 }
 function kindSort(kind) {
   if (kind === "pilot") return 0;
@@ -304,8 +338,7 @@ function visibleLaneCount(tierId) {
 }
 function tierHeight(tierId) {
   const lanes = visibleLaneCount(tierId);
-  const stackDepth = maxIconStackDepth(tierId);
-  const iconContentHeight = ICON_TOP + iconStackHeight(stackDepth) + 28;
+  const iconContentHeight = ICON_TOP + maxIconStackVisualHeight(tierId) + 28;
   const minHeight = Math.max(BLANK_TIER_H, iconContentHeight);
   if (!lanes) return minHeight;
   return Math.max(minHeight, dynamicBarTop(tierId) + lanes * BAR_GAP + BAR_BOTTOM_PAD);
@@ -326,15 +359,17 @@ function laneY(unitOrTier, laneMaybe) {
 function laneCenterY(tier, lane) { return laneY(tier, lane) + BAR_H / 2; }
 function iconY(unit) {
   const slot = sameSlotOffset(unit);
+  const size = slot.size || ICON_W;
   const rowOffset = normalizeRowOffset(unit.rowOffset);
   let top = tierY(unit.tier) + ICON_TOP + slot.y;
   if (rowOffset > 0) top = tierY(unit.tier) + tierHeight(unit.tier) - slot.groupHeight / 2 + slot.y;
   if (rowOffset < 0) top = tierY(unit.tier) - slot.groupHeight / 2 + slot.y;
-  return clamp(top, HEADER_H - ICON_W / 2, baseChartHeight() - ICON_W);
+  return clamp(top, HEADER_H - size / 2, baseChartHeight() - size);
 }
 function iconX(unit) {
-  const offset = sameSlotOffset(unit);
-  return clamp(weekX(unit.week) + Math.round((CELL_W - ICON_W) / 2) + offset.x, LEFT_W, baseChartWidth() - ICON_W);
+  const slot = sameSlotOffset(unit);
+  const size = slot.size || ICON_W;
+  return clamp(weekX(unit.week) + Math.round((CELL_W - ICON_W) / 2) + slot.x, LEFT_W, baseChartWidth() - size);
 }
 function normalizeWeek(n) { return clamp(Math.round(Number(n) || 1), 1, weekCount()); }
 function normalizeLane(n) { return clamp(Math.round(Number(n) || 1), 1, 99); }
@@ -839,10 +874,14 @@ function renderUnits() {
     const card = document.createElement("article");
     const isDraggingUnit = drag?.type === "unit" && drag.id === unit.id && Number.isFinite(drag.previewLeft);
     const slot = sameSlotOffset(unit);
-    card.className = `unit-card${selectedId === unit.id && !selectedSegmentId ? " selected" : ""}${isDraggingUnit ? " dragging" : ""}${hasMustP5(unit) ? " must-p5" : ""}${normalizeRowOffset(unit.rowOffset) ? " between-row" : ""}`;
+    const compactPilot = slot.compact && isPilot(unit);
+    const size = slot.size || ICON_W;
+    card.className = `unit-card${selectedId === unit.id && !selectedSegmentId ? " selected" : ""}${isDraggingUnit ? " dragging" : ""}${hasMustP5(unit) ? " must-p5" : ""}${normalizeRowOffset(unit.rowOffset) ? " between-row" : ""}${compactPilot ? " compact-pilot" : ""}`;
     card.dataset.id = unit.id;
     card.style.left = `${isDraggingUnit ? drag.previewLeft : iconX(unit)}px`;
     card.style.top = `${isDraggingUnit ? drag.previewTop : iconY(unit)}px`;
+    card.style.width = `${isDraggingUnit ? ICON_W : size}px`;
+    card.style.height = `${isDraggingUnit ? ICON_W : size}px`;
     card.style.zIndex = String(unitZIndex(unit, slot, isDraggingUnit));
     card.setAttribute("aria-label", unit.name);
 
@@ -1262,14 +1301,15 @@ function onPointerMove(event) {
   if (Math.abs(point.x - drag.startX) > 3 || Math.abs(point.y - drag.startY) > 3) drag.didMove = true;
 
   if (drag.type === "unit") {
-    const rawX = clamp(point.x - drag.offsetX, LEFT_W, baseChartWidth() - ICON_W);
-    const rawY = clamp(point.y - drag.offsetY, HEADER_H, baseChartHeight() - ICON_W);
+    const dragSize = iconSize(unit);
+    const rawX = clamp(point.x - drag.offsetX, LEFT_W, baseChartWidth() - dragSize);
+    const rawY = clamp(point.y - drag.offsetY, HEADER_H, baseChartHeight() - dragSize);
     drag.previewLeft = rawX;
     drag.previewTop = rawY;
     const oldTier = unit.tier;
     const oldOffset = normalizeRowOffset(unit.rowOffset);
-    const placement = rowPlacementFromY(rawY + ICON_W / 2);
-    const nextWeek = idOfWeekFromX(rawX + ICON_W / 2);
+    const placement = rowPlacementFromY(rawY + dragSize / 2);
+    const nextWeek = idOfWeekFromX(rawX + dragSize / 2);
     unit.week = nextWeek;
     alignUnitSegmentsToReleaseWeek(unit);
     unit.tier = placement.tier;
@@ -1699,6 +1739,7 @@ function applyZoom() {
   if (!els.roadmap || !els.roadmapStage) return;
   els.roadmap.style.transform = `scale(${zoomScale})`;
   els.roadmap.style.setProperty("--textBoost", legibleTextScale().toFixed(3));
+  els.roadmap.style.setProperty("--barTextBoost", barLabelTextScale().toFixed(3));
   const gridLinePx = clamp(1 / zoomScale, 1, 2.2);
   els.roadmap.style.setProperty("--gridLine", `${gridLinePx.toFixed(2)}px`);
   els.roadmap.style.setProperty("--monthGridLine", `${(gridLinePx * 2).toFixed(2)}px`);
@@ -1898,45 +1939,50 @@ function drawTemplateToCanvas(ctx, width, height) {
 }
 async function drawUnitToCanvas(ctx, unit) {
   const x = iconX(unit), y = iconY(unit);
+  const size = iconSize(unit);
+  const radius = size < 140 ? 10 : 12;
+  const plateH = size < 140 ? 38 : 58;
   ctx.save();
-  roundedRect(ctx, x, y, ICON_W, ICON_W, 12);
+  roundedRect(ctx, x, y, size, size, radius);
   ctx.clip();
   const img = await loadImageForCanvas(unit.icon);
-  if (img) coverImage(ctx, img, x, y, ICON_W, ICON_W);
-  else drawPlaceholder(ctx, unit.name, x, y, ICON_W, ICON_W);
-  const grad = ctx.createLinearGradient(0, y + ICON_W - 58, 0, y + ICON_W);
+  if (img) coverImage(ctx, img, x, y, size, size);
+  else drawPlaceholder(ctx, unit.name, x, y, size, size);
+  const grad = ctx.createLinearGradient(0, y + size - plateH, 0, y + size);
   grad.addColorStop(0, "rgba(0,0,0,0)");
   grad.addColorStop(0.35, "rgba(0,0,0,.78)");
   grad.addColorStop(1, "rgba(0,0,0,.92)");
   ctx.fillStyle = grad;
-  ctx.fillRect(x, y + ICON_W - 58, ICON_W, 58);
+  ctx.fillRect(x, y + size - plateH, size, plateH);
   ctx.fillStyle = "#ffffff";
-  ctx.font = canvasFont(800, 12);
+  ctx.font = canvasFont(800, size < 140 ? 9.5 : 12);
   ctx.textBaseline = "bottom";
   ctx.textAlign = "left";
-  wrapText(ctx, unit.name, x + 8, y + ICON_W - 7, ICON_W - 16, fontPx(14), 2);
+  wrapText(ctx, unit.name, x + 8, y + size - 7, size - 16, fontPx(size < 140 ? 11 : 14), size < 140 ? 1 : 2);
   ctx.restore();
   ctx.strokeStyle = "rgba(255,255,255,.25)";
   ctx.lineWidth = 1;
-  roundedRect(ctx, x + 0.5, y + 0.5, ICON_W - 1, ICON_W - 1, 12);
+  roundedRect(ctx, x + 0.5, y + 0.5, size - 1, size - 1, radius);
   ctx.stroke();
   if (hasMustP5(unit)) {
     ctx.strokeStyle = "#ff3b4d";
-    ctx.lineWidth = 4;
-    roundedRect(ctx, x + 2, y + 2, ICON_W - 4, ICON_W - 4, 12);
+    ctx.lineWidth = size < 140 ? 3 : 4;
+    roundedRect(ctx, x + 2, y + 2, size - 4, size - 4, radius);
     ctx.stroke();
   }
-  drawTagsToCanvas(ctx, unit.tags, x, y);
+  drawTagsToCanvas(ctx, unit.tags, x, y, size);
 }
-function drawTagsToCanvas(ctx, tags, x, y) {
+function drawTagsToCanvas(ctx, tags, x, y, size = ICON_W) {
   const clean = cleanTags(tags).slice(0, 8);
   const boost = legibleTextScale();
-  const right = x + ICON_W - 7;
-  const top = y + 7;
-  const h = 17 * boost;
-  const gap = 4 * boost;
-  ctx.font = canvasFont(900, 10);
-  const widths = clean.map(tag => Math.ceil(ctx.measureText(String(tag)).width) + 12 * boost);
+  const compact = size < 140;
+  const tagScale = compact ? 0.82 : 1;
+  const right = x + size - 7 * tagScale;
+  const top = y + 7 * tagScale;
+  const h = 17 * boost * tagScale;
+  const gap = 4 * boost * tagScale;
+  ctx.font = canvasFont(900, compact ? 8.5 : 10);
+  const widths = clean.map(tag => Math.ceil(ctx.measureText(String(tag)).width) + 12 * boost * tagScale);
   const firstCount = clean.length > 5 ? 5 : clean.length;
   const firstColW = Math.max(0, ...widths.slice(0, firstCount));
   const secondColW = clean.length > 5 ? Math.max(0, ...widths.slice(firstCount)) : 0;
@@ -1947,7 +1993,7 @@ function drawTagsToCanvas(ctx, tags, x, y) {
     const colRight = inSecond ? right - firstColW - gap : right;
     const bx = colRight - w;
     const by = top + row * (h + gap);
-    roundedRect(ctx, bx, by, w, h, 8 * boost);
+    roundedRect(ctx, bx, by, w, h, 8 * boost * tagScale);
     ctx.fillStyle = tagBg(tag);
     ctx.fill();
     ctx.strokeStyle = "rgba(255,255,255,.52)";
@@ -1970,12 +2016,18 @@ function drawBarToCanvas(ctx, unit, segment) {
   ctx.stroke();
   ctx.save();
   ctx.clip();
-  ctx.fillStyle = "#ffffff";
-  ctx.globalAlpha = 0.94;
-  ctx.font = canvasFont(900, 10);
+  const text = `${unit.name} - ${metaStatus(segment.statusId).label}`;
+  ctx.globalAlpha = 1;
+  ctx.font = canvasBarFont(950, 12);
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText(`${unit.name} - ${metaStatus(segment.statusId).label}`, x + w / 2, y + BAR_H / 2 + 0.5, Math.max(20, w - 18));
+  ctx.lineJoin = "round";
+  ctx.miterLimit = 2;
+  ctx.lineWidth = Math.max(2, barFontPx(12) * 0.16);
+  ctx.strokeStyle = "rgba(0,0,0,.72)";
+  ctx.strokeText(text, x + w / 2, y + BAR_H / 2 + 0.5, Math.max(20, w - 14));
+  ctx.fillStyle = "#ffffff";
+  ctx.fillText(text, x + w / 2, y + BAR_H / 2 + 0.5, Math.max(20, w - 14));
   ctx.restore();
 }
 function isCanvasSafeUrl(src) {
@@ -2110,9 +2162,9 @@ function showTooltip(event, unit, segment = null) {
   const activeId = metaUnit ? (segment?.id || selectedSegment(metaUnit)?.id || null) : null;
   const segmentsHtml = metaUnit ? segmentListHtml(metaUnit, activeId) : "";
   const mustP5Html = hasMustP5(unit) ? `<div class="tooltip-must-p5">Must P5</div>` : "";
-  const rowPositionHtml = normalizeRowOffset(unit.rowOffset) ? `<div class="tooltip-row-position">${escapeHtml(rowOffsetLabel(unit.rowOffset, unit.tier))}</div>` : "";
+  const rowLabel = normalizeRowOffset(unit.rowOffset) ? rowOffsetLabel(unit.rowOffset, unit.tier) : tierById(unit.tier).label;
   const tagHtml = unit.tags.length ? `<div class="tooltip-tags">Tags: ${unit.tags.map(tag => `<span class="tooltip-tag ${tagClass(tag)}">${escapeHtml(tag)}</span>`).join(" ")}</div>` : "";
-  tooltipEl.innerHTML = `<strong>${escapeHtml(title)}</strong><div>${escapeHtml(tierById(unit.tier).label)} · ${escapeHtml(formatWeek(unit.week))}</div>${rowPositionHtml}${mustP5Html}${segmentsHtml}${tagHtml}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
+  tooltipEl.innerHTML = `<strong>${escapeHtml(title)}</strong><div>${escapeHtml(rowLabel)} · ${escapeHtml(formatWeek(unit.week))}</div>${mustP5Html}${segmentsHtml}${tagHtml}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
   document.body.appendChild(tooltipEl);
   moveTooltip(event);
 }
