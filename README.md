@@ -1,36 +1,22 @@
 # Gundam UCE Pull Roadmap Builder
 
-A GitHub Pages-ready visual builder for a Gundam UCE pull roadmap and PVP meta-longevity chart.
+A static, browser-based roadmap builder for **Gundam U.C. Engage**. It combines a pull-priority grid with draggable meta-longevity bars, so teams can track when units release and how long they stay relevant.
 
-The app is designed to help you place MS/pilot icons on a monthly pull-priority grid, attach short tags, and draw timeline bars showing how long each unit stays relevant in the meta.
+The app is designed for GitHub Pages and does not require a backend for normal use.
 
 ## Features
 
-- Dark visual roadmap layout for GitHub Pages.
-- Searchable local MS/pilot catalog generated from Altema.
+- Pull-priority timeline with editable month labels and row headers.
+- Searchable MS/pilot catalog generated from Altema list pages.
 - Draggable unit cards with local icon support.
-- Editable left-side tier headers.
-- Editable month labels, with controls to add or remove months.
-- Tags dropdown with normalized order: `PVP`, `PVE`, `Core`, `Tech`, `Def`.
-- Tags display vertically from the top-right of each unit icon.
-- Dynamic meta lanes that appear only when units or bars exist in a tier.
+- Unit tags: `PVP`, `PVE`, `Core`, `Tech`, `Def`.
+- Editable PVP meta-status legend and colors.
 - Draggable and resizable meta-longevity bars.
-- Multiple meta segments per unit, so a unit can change status over time.
-- Right-click a unit or bar to add a new meta segment directly at that week.
-- Meta bars show the unit name only.
-- Editable meta-status legend: click a legend pill to rename it or change its color.
-- Default PVP meta statuses:
-  - Human Rights
-  - Era-Defining
-  - Strong
-  - Rotational
-  - Situational
-- Default color order matches the left tier colors: red, blue, green, yellow, purple.
-- Auto-save to browser localStorage.
-- Import/export roadmap JSON.
-- Copy a share link with the roadmap embedded in the URL hash.
-- Export PNG.
-- Supports a cleaner published roadmap view through `data/roadmap.json`.
+- Multiple meta segments per unit for status changes over time.
+- Auto-save in the browser via `localStorage`.
+- JSON import/export for backups and publishing.
+- Share-link export using URL hash data.
+- PNG export for posting static snapshots.
 
 ## Repository structure
 
@@ -42,10 +28,10 @@ The app is designed to help you place MS/pilot icons on a monthly pull-priority 
 ├── package.json
 ├── README.md
 ├── data/
-│   ├── catalog.json
+│   ├── catalog.json          # generated catalog used by the app
 │   └── roadmap.json          # optional published roadmap
 ├── icons/
-│   └── altema/               # generated local icons
+│   └── altema/               # generated local icon files
 ├── tools/
 │   └── update-altema-catalog.mjs
 └── .github/
@@ -53,103 +39,48 @@ The app is designed to help you place MS/pilot icons on a monthly pull-priority 
         └── update-catalog.yml
 ```
 
-## GitHub Pages setup
+## Running locally
 
-1. Create a public GitHub repository.
-2. Upload the project files so `index.html` is at the repo root.
-3. Go to **Settings → Pages**.
-4. Set the source to your main branch and `/ root`.
-5. Open the published site URL once GitHub finishes deploying.
+Open `index.html` in a browser. Most features work from a local file, although catalog loading is most reliable when the project is served through GitHub Pages or another static web server.
 
-## Updating the Altema catalog
+## GitHub Pages deployment
 
-The browser app should load the local catalog from your repo. It does not need to fetch Altema live.
+1. Push the repository to GitHub.
+2. Open **Settings → Pages**.
+3. Set the source to the main branch and the repository root.
+4. Open the published GitHub Pages URL after deployment finishes.
 
-To update the catalog and icons:
+## Updating the catalog
 
-1. Go to your repository on GitHub.
-2. Open the **Actions** tab.
-3. Select **Update Altema catalog**.
-4. Click **Run workflow**.
-5. Wait for the green check.
-6. Reload the app and click **Load local catalog**.
+The app loads catalog data from local files in the repository. The included GitHub Action can regenerate those files.
 
-The workflow updates:
+Run **Actions → Update Altema catalog → Run workflow**. The workflow updates:
 
 ```text
 data/catalog.json
 icons/altema/
 ```
 
-Do not delete those files unless you intend to regenerate the catalog.
+## Publishing a roadmap
 
-## Basic editing workflow
+The builder auto-saves edits in the browser, but repository publishing uses JSON.
 
-1. Click **Load local catalog**.
-2. Search for an MS or pilot.
-3. Click **Add**.
-4. Drag the unit icon to the correct tier and week.
-5. Use the side panel to edit tags, notes, tier, week, and segment details.
-6. Drag or resize the meta bar directly on the chart.
-7. Right-click a unit or bar to add another meta segment.
-8. Click month headers, tier headers, or meta legend pills to edit them directly.
-9. Use **Export JSON** to save the roadmap data.
+For a clean public roadmap URL:
 
-## Sharing options
+1. Export the roadmap JSON from the app.
+2. Save it in the repository as `data/roadmap.json`.
+3. Share the site with `?view=published` added to the URL.
 
-### Quick share link
-
-Use **Copy Share Link**. This embeds the roadmap JSON inside the URL hash.
-
-This is convenient for quick sharing, but the link can become very long once the roadmap has many units.
-
-### Cleaner published roadmap
-
-For a cleaner link:
-
-1. Use **Export JSON**.
-2. Rename the exported file to:
+Example:
 
 ```text
-data/roadmap.json
+https://example-user.github.io/gundam-uce-roadmap/?view=published
 ```
 
-3. Upload/commit it to your repo.
-4. Share this URL:
+## Data and privacy
 
-```text
-https://YOUR-GITHUB-USERNAME.github.io/YOUR-REPO/?view=published
-```
+A standard GitHub Pages site is public when hosted from a public repository. For access control, deploy behind an authentication layer such as Cloudflare Workers, Vercel, Netlify Functions, or another service that can perform Discord OAuth checks.
 
-Clanmates can open that link without manually uploading JSON.
+## Asset notes
 
-## Privacy note
-
-A normal public GitHub Pages site is public. Anyone with the link may be able to view it.
-
-For actual Discord-only access, this static GitHub Pages version would need to be placed behind a separate login/gate, such as Discord OAuth through Cloudflare Workers, Vercel, or another small backend. The recommended low-permission approach is Discord OAuth with only basic identity and server membership checks.
-
-## Important notes
-
-- Keep `data/catalog.json` and `icons/altema/` when applying app patches.
-- PNG export works best when icons are hosted locally in `icons/altema/`.
-- If a remote icon blocks canvas export, the exporter may draw a placeholder instead of the icon.
-- Respect the source site's terms and the rights of game assets when publishing icons publicly.
-
-## Patch/update safety
-
-When applying a UI-only patch, usually replace only:
-
-```text
-index.html
-styles.css
-app.js
-README.md
-```
-
-Do **not** overwrite:
-
-```text
-data/catalog.json
-icons/altema/
-```
+Game artwork and icons belong to their respective rights holders. Use the catalog/icon scraper responsibly and follow the source site's terms and applicable asset usage rules.

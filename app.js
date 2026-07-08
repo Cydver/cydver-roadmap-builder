@@ -4,7 +4,7 @@ const DEFAULT_TIERS = [
   { id: "must", label: "Must Pull", color: "#47a9ff" },
   { id: "ideal", label: "Ideally Pull", color: "#67ef87" },
   { id: "luxury", label: "Luxury Pull", color: "#ffcc4d" },
-  { id: "skip", label: "Skip", color: "#c18cff" }
+  { id: "skip", label: "Skip", color: "#8d96a6" }
 ];
 const DEFAULT_META_STATUSES = [
   { id: "s1", label: "Human Rights", color: "#ff4b59" },
@@ -13,7 +13,7 @@ const DEFAULT_META_STATUSES = [
   { id: "s4", label: "Rotational", color: "#ffcc4d" },
   { id: "s5", label: "Situational", color: "#c18cff" }
 ];
-const LEGACY_TIER_COLORS = { must: "#ffa12a", ideal: "#47a9ff", luxury: "#a66bff", skip: "#9aa0ab" };
+const LEGACY_TIER_COLORS = { must: ["#ffa12a"], ideal: ["#47a9ff"], luxury: ["#a66bff"], skip: ["#9aa0ab", "#c18cff"] };
 const LEGACY_STATUS_COLORS = { s2: "#37e6ff" };
 const OLD_STATUS_MAP = { top: "s1", strong: "s3", niche: "s5", fading: "s4", custom: "s5" };
 const TAG_OPTIONS = ["PVP", "PVE", "Core", "Tech", "Def"];
@@ -180,7 +180,9 @@ function normalizeState() {
   const oldTierColors = new Map((state.tiers || []).map(t => [t.id, t.color]));
   state.tiers = DEFAULT_TIERS.map((fallback) => {
     const oldColor = oldTierColors.get(fallback.id);
-    const color = oldColor && oldColor.toLowerCase() !== (LEGACY_TIER_COLORS[fallback.id] || "").toLowerCase() && /^#[0-9a-f]{6}$/i.test(oldColor)
+    const legacyColors = LEGACY_TIER_COLORS[fallback.id] || [];
+    const wasLegacyDefault = legacyColors.some(c => c.toLowerCase() === String(oldColor || "").toLowerCase());
+    const color = oldColor && !wasLegacyDefault && /^#[0-9a-f]{6}$/i.test(oldColor)
       ? oldColor
       : fallback.color;
     return {
