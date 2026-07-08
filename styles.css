@@ -230,3 +230,14 @@ textarea { resize: vertical; min-height: 80px; }
   .brand { min-width: 0; }
   .chart-scroll { height: 70vh; }
 }
+.context-submenu-wrap { position: relative; }
+.context-menu button.has-submenu { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.context-menu .chevron { opacity: .7; font-size: 16px; line-height: 1; }
+.context-submenu {
+  display: none; position: absolute; left: calc(100% + 6px); top: -6px; min-width: 180px; padding: 6px;
+  background: rgba(12,17,25,.98); border: 1px solid rgba(255,255,255,.16); border-radius: 10px;
+  box-shadow: 0 18px 50px rgba(0,0,0,.45); backdrop-filter: blur(12px);
+}
+.context-submenu-wrap:hover > .context-submenu { display: block; }
+.context-menu .menu-swatch { display: inline-block; width: 10px; height: 10px; border-radius: 999px; margin-right: 8px; vertical-align: -1px; box-shadow: 0 0 0 1px rgba(255,255,255,.35); }
+.context-menu button:has(.menu-swatch) { display: flex; align-items: center; gap: 8px; }

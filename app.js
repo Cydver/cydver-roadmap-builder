@@ -1,4 +1,19 @@
-const DEFAULT_MONTHS = ["This Month", "Next Month", "2 Months Later", "3 Months Later", "4 Months Later"];
+const DEFAULT_MONTHS = makeDefaultMonthLabels(5);
+const OLD_GENERIC_MONTHS = ["This Month", "Next Month", "2 Months Later", "3 Months Later", "4 Months Later"];
+function makeDefaultMonthLabels(count, startDate = new Date()) {
+  const labels = [];
+  const base = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+  const fmt = new Intl.DateTimeFormat(undefined, { month: "short", year: "numeric" });
+  for (let i = 0; i < count; i++) labels.push(fmt.format(new Date(base.getFullYear(), base.getMonth() + i, 1)));
+  return labels;
+}
+function isGenericMonthLabels(months) {
+  if (!Array.isArray(months) || !months.length) return true;
+  return months.every((m, i) => String(m || "").trim() === (OLD_GENERIC_MONTHS[i] || `${i + 1} Months Later`));
+}
+function suggestedMonthLabel(index) {
+  return makeDefaultMonthLabels(index + 1)[index] || `Month ${index + 1}`;
+}
 const DEFAULT_TIERS = [
   { id: "human", label: "Human Rights", color: "#ff4b59" },
   { id: "must", label: "Must Pull", color: "#47a9ff" },
@@ -182,8 +197,8 @@ function init() {
 }
 
 function normalizeState() {
-  if (!Array.isArray(state.months) || !state.months.length) state.months = [...DEFAULT_MONTHS];
-  state.months = state.months.map(m => sanitizeText(m) || "Month").slice(0, 12);
+  if (!Array.isArray(state.months) || !state.months.length || isGenericMonthLabels(state.months)) state.months = makeDefaultMonthLabels(Math.max(5, state.months?.length || 5));
+  state.months = state.months.map((m, i) => sanitizeText(m) || suggestedMonthLabel(i)).slice(0, 12);
   if (!state.months.length) state.months = [...DEFAULT_MONTHS];
 
   const oldTierLabels = new Map((state.tiers || []).map(t => [t.id, t.label]));
@@ -194,10 +209,9 @@ function normalizeState() {
     const legacyColors = LEGACY_TIER_COLORS[fallback.id] || [];
     const wasLegacyDefault = legacyColors.some(c => c.toLowerCase() === oldColor);
     const label = sanitizeText(oldTierLabels.get(fallback.id)) || fallback.label;
-    const skipStillDefaultish = fallback.id === "skip" && /^skip$/i.test(label) && (!oldColor || wasLegacyDefault || oldColor.includes("193") || oldColor.includes("140") || oldColor.includes("255"));
-    const color = oldColorRaw && !wasLegacyDefault && !skipStillDefaultish && /^#[0-9a-f]{6}$/i.test(oldColorRaw)
-      ? oldColorRaw
-      : fallback.color;
+    const oldIsValid = /^#[0-9a-f]{6}$/i.test(oldColorRaw);
+    const forceSkipGrey = fallback.id === "skip" && (!oldColorRaw || wasLegacyDefault || ["#c18cff", "#a66bff", "#8b5cf6", "#9333ea", "#7c3aed", "#6d28d9"].includes(oldColor));
+    const color = oldIsValid && !wasLegacyDefault && !forceSkipGrey ? oldColorRaw : fallback.color;
     return { id: fallback.id, label, color };
   });
 
@@ -260,7 +274,9 @@ function normalizeState() {
       seg.end = normalizeWeek(seg.end);
       if (seg.end < seg.start) [seg.start, seg.end] = [seg.end, seg.start];
     });
+    unit.segments.sort((a, b) => a.start - b.start || a.end - b.end);
   }
+  for (const tier of getTiers()) reflowLanes(tier.id);
 }
 
 function renderAll() {
@@ -530,9 +546,9 @@ function renameMonth(index) {
 }
 function addMonth() {
   const next = state.months.length + 1;
-  const value = prompt("New month label:", `${next} Months Later`);
+  const value = prompt("New month label:", suggestedMonthLabel(next - 1));
   if (value === null) return;
-  state.months.push(sanitizeText(value) || `Month ${next}`);
+  state.months.push(sanitizeText(value) || suggestedMonthLabel(next - 1));
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
@@ -605,7 +621,7 @@ function renderUnits() {
       bar.style.setProperty("--bar", segmentColor(segment));
       const label = document.createElement("span");
       label.className = "bar-label";
-      label.textContent = unit.name;
+      label.textContent = `${unit.name} - ${metaStatus(segment.statusId).label}`;
       const left = document.createElement("span");
       left.className = "handle left";
       left.dataset.handle = "left";
@@ -672,8 +688,8 @@ function renderForm() {
   }
   els.noSelection.classList.add("hidden");
   els.editForm.classList.remove("hidden");
-  if (!selectedSegmentId || !unit.segments.some(s => s.id === selectedSegmentId)) selectedSegmentId = unit.segments[0]?.id || null;
-  const segment = selectedSegment(unit);
+  if (selectedSegmentId && !unit.segments.some(s => s.id === selectedSegmentId)) selectedSegmentId = null;
+  const segment = selectedSegmentId ? selectedSegment(unit) : (unit.segments[0] || null);
   const f = els.editForm.elements;
   f.name.value = unit.name;
   f.icon.value = unit.icon;
@@ -716,6 +732,7 @@ function applyForm(options = {}) {
     segment.statusId = f.metaStatus.value;
   }
   unit.segments.sort((a, b) => a.start - b.start || a.end - b.end);
+  for (const tier of getTiers()) reflowLanes(tier.id);
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
@@ -752,17 +769,66 @@ function scheduleAutoApply(delay = 250) {
 function addSegmentToSelected(startOverride = null, statusOverride = null) {
   const unit = getSelected();
   if (!unit) return;
-  const maxEnd = Math.max(...unit.segments.map(s => s.end));
-  const start = startOverride ? normalizeWeek(startOverride) : (maxEnd < weekCount() ? maxEnd + 1 : normalizeWeek(unit.week));
-  const end = Math.min(weekCount(), start + 3);
-  const segment = { id: crypto.randomUUID(), start, end, statusId: statusOverride || defaultMetaStatusId() };
-  unit.segments.push(segment);
-  unit.segments.sort((a, b) => a.start - b.start || a.end - b.end);
+  const desiredWeek = startOverride ? normalizeWeek(startOverride) : null;
+  let segment;
+  if (desiredWeek) segment = smartAddSegmentAtWeek(unit, desiredWeek, statusOverride);
+  else {
+    const maxEnd = Math.max(...unit.segments.map(s => s.end));
+    const start = maxEnd < weekCount() ? maxEnd + 1 : normalizeWeek(unit.week);
+    segment = addNonOverlappingSegment(unit, start, statusOverride || defaultMetaStatusId());
+  }
+  if (!segment) return;
+  selectedId = unit.id;
   selectedSegmentId = segment.id;
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
 }
+function addNonOverlappingSegment(unit, week, statusId = defaultMetaStatusId()) {
+  const start = normalizeWeek(week);
+  const next = unit.segments.filter(s => s.start > start).sort((a, b) => a.start - b.start)[0];
+  const previous = unit.segments.filter(s => s.end < start).sort((a, b) => b.end - a.end)[0];
+  const minStart = previous ? previous.end + 1 : 1;
+  const maxEnd = next ? next.start - 1 : weekCount();
+  if (start < minStart || start > maxEnd) return null;
+  const end = Math.min(maxEnd, start + 3);
+  const segment = { id: crypto.randomUUID(), start, end, statusId };
+  unit.segments.push(segment);
+  unit.segments.sort((a, b) => a.start - b.start || a.end - b.end);
+  return segment;
+}
+function smartAddSegmentAtWeek(unit, week, statusId = null) {
+  const w = normalizeWeek(week);
+  const current = unit.segments.find(s => s.start <= w && s.end >= w);
+  if (current) {
+    const newStatus = statusId || current.statusId;
+    if (current.start < w && w < current.end) {
+      const left = { id: crypto.randomUUID(), start: current.start, end: w, statusId: newStatus };
+      current.start = w + 1;
+      unit.segments.push(left);
+      unit.segments.sort((a, b) => a.start - b.start || a.end - b.end);
+      return left;
+    }
+    if (w === current.start && current.end > current.start) {
+      const one = { id: crypto.randomUUID(), start: w, end: w, statusId: newStatus };
+      current.start = w + 1;
+      unit.segments.push(one);
+      unit.segments.sort((a, b) => a.start - b.start || a.end - b.end);
+      return one;
+    }
+    if (w === current.end && current.end > current.start) {
+      const one = { id: crypto.randomUUID(), start: w, end: w, statusId: newStatus };
+      current.end = w - 1;
+      unit.segments.push(one);
+      unit.segments.sort((a, b) => a.start - b.start || a.end - b.end);
+      return one;
+    }
+    current.statusId = statusId || current.statusId;
+    return current;
+  }
+  return addNonOverlappingSegment(unit, w, statusId || defaultMetaStatusId());
+}
+
 function deleteSelectedSegment() {
   const unit = getSelected();
   if (!unit || unit.segments.length <= 1) return;
@@ -790,8 +856,9 @@ function autoLaneFor(tier, segments, excludeId = null) {
 }
 
 function addUnit(partial = {}) {
-  const tier = partial.tier || "must";
-  const releaseWeek = normalizeWeek(partial.week || 1);
+  const anchor = getSelected() || state.units[state.units.length - 1] || null;
+  const tier = partial.tier || anchor?.tier || "must";
+  const releaseWeek = normalizeWeek(partial.week ?? (anchor ? Math.min(weekCount(), anchor.week + 1) : 1));
   const segments = (partial.segments || [{ id: crypto.randomUUID(), start: partial.metaStart || releaseWeek, end: partial.metaEnd || Math.min(weekCount(), releaseWeek + 5), statusId: partial.metaStatus || defaultMetaStatusId() }]).map(seg => ({
     id: seg.id || crypto.randomUUID(),
     start: normalizeWeek(seg.start || seg.metaStart || releaseWeek),
@@ -812,6 +879,7 @@ function addUnit(partial = {}) {
     segments
   };
   state.units.push(newUnit);
+  reflowLanes(tier);
   state.updated = new Date().toISOString();
   selectedId = newUnit.id;
   selectedSegmentId = null;
@@ -823,6 +891,7 @@ function deleteSelected() {
   state.units = state.units.filter(u => u.id !== selectedId);
   selectedId = null;
   selectedSegmentId = null;
+  for (const tier of getTiers()) reflowLanes(tier.id);
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
@@ -946,21 +1015,16 @@ function finalizeUnitDrop(endedDrag) {
       displaced.lane = autoLaneFor(displaced.tier, displaced.segments, displaced.id);
     }
   }
-  compactLanes(unit.tier);
-  if (endedDrag.originTier !== unit.tier) compactLanes(endedDrag.originTier);
+  reflowLanes(unit.tier);
+  if (endedDrag.originTier !== unit.tier) reflowLanes(endedDrag.originTier);
 }
-function compactLanes(tierId) {
+function reflowLanes(tierId) {
   const units = state.units
     .filter(u => u.tier === tierId)
-    .sort((a, b) => a.lane - b.lane || b.week - a.week || a.name.localeCompare(b.name));
-  const oldToNew = new Map();
-  let next = 1;
-  for (const unit of units) {
-    const key = unit.lane;
-    if (!oldToNew.has(key)) oldToNew.set(key, next++);
-    unit.lane = oldToNew.get(key);
-  }
+    .sort((a, b) => b.week - a.week || a.name.localeCompare(b.name));
+  units.forEach((unit, index) => { unit.lane = index + 1; });
 }
+function compactLanes(tierId) { reflowLanes(tierId); }
 
 function isEditableChartTarget(event) {
   return event.target.closest(".unit-card,.meta-bar,.month-head,.tier-label,.context-menu");
@@ -990,8 +1054,8 @@ function moveSelectedUnitTo(tier, week) {
   unit.tier = tier;
   unit.week = normalizeWeek(week);
   unit.lane = autoLaneFor(unit.tier, unit.segments, unit.id);
-  compactLanes(oldTier);
-  compactLanes(unit.tier);
+  reflowLanes(oldTier);
+  reflowLanes(unit.tier);
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
@@ -1004,15 +1068,21 @@ function openUnitContextMenu(event, unitId, segmentId = null) {
   const week = idOfWeekFromX(point.x);
   const unit = state.units.find(u => u.id === unitId);
   const items = [
-    { label: `Add segment at ${formatWeek(week)}`, action: () => addSegmentAtWeek(unitId, week) },
+    { label: `Add/split segment at ${formatWeek(week)}`, action: () => addSegmentAtWeek(unitId, week) },
     { label: "Rename unit…", action: () => renameUnit(unitId) },
-    { label: "Edit note…", action: () => editUnitNote(unitId) }
+    { label: "Edit note…", action: () => editUnitNote(unitId) },
+    { label: "Edit tags…", action: () => editUnitTags(unitId) },
+    { label: "Toggle tag", children: TAG_OPTIONS.map(tag => ({ label: `${unit?.tags?.some(t => t.toLowerCase() === tag.toLowerCase()) ? "✓ " : ""}${tag}`, action: () => toggleUnitTag(unitId, tag) })) }
   ];
   if (segmentId) {
-    items.push(...getStatuses().map(status => ({
-      label: `Set segment: ${status.label}`,
-      action: () => setSegmentStatus(unitId, segmentId, status.id)
-    })));
+    items.push({
+      label: "Change meta status",
+      children: getStatuses().map(status => ({
+        label: `${status.label}`,
+        swatch: status.color,
+        action: () => setSegmentStatus(unitId, segmentId, status.id)
+      }))
+    });
     items.push({ label: "Delete this segment", action: () => { selectedId = unitId; selectedSegmentId = segmentId; deleteSelectedSegment(); } });
   }
   items.push({ label: "Delete unit", danger: true, action: () => { selectedId = unitId; deleteSelected(); } });
@@ -1021,24 +1091,39 @@ function openUnitContextMenu(event, unitId, segmentId = null) {
 function showContextMenu(clientX, clientY, items) {
   const menu = els.contextMenu;
   menu.innerHTML = "";
-  items.forEach(item => {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.textContent = item.label;
-    if (item.danger) btn.className = "danger";
-    btn.addEventListener("click", (event) => {
-      event.stopPropagation();
-      hideContextMenu();
-      item.action();
-    });
-    menu.appendChild(btn);
-  });
+  items.forEach(item => menu.appendChild(contextMenuItem(item)));
   menu.style.left = `${clientX}px`;
   menu.style.top = `${clientY}px`;
   menu.classList.remove("hidden");
   const rect = menu.getBoundingClientRect();
   if (rect.right > window.innerWidth - 8) menu.style.left = `${Math.max(8, window.innerWidth - rect.width - 8)}px`;
   if (rect.bottom > window.innerHeight - 8) menu.style.top = `${Math.max(8, window.innerHeight - rect.height - 8)}px`;
+}
+function contextMenuItem(item) {
+  if (item.children?.length) {
+    const wrap = document.createElement("div");
+    wrap.className = "context-submenu-wrap";
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "has-submenu";
+    btn.innerHTML = `<span>${escapeHtml(item.label)}</span><span class="chevron">›</span>`;
+    const sub = document.createElement("div");
+    sub.className = "context-submenu";
+    item.children.forEach(child => sub.appendChild(contextMenuItem(child)));
+    wrap.append(btn, sub);
+    return wrap;
+  }
+  const btn = document.createElement("button");
+  btn.type = "button";
+  if (item.swatch) btn.innerHTML = `<i class="menu-swatch" style="background:${item.swatch}"></i><span>${escapeHtml(item.label)}</span>`;
+  else btn.textContent = item.label;
+  if (item.danger) btn.className = "danger";
+  btn.addEventListener("click", (event) => {
+    event.stopPropagation();
+    hideContextMenu();
+    item.action();
+  });
+  return btn;
 }
 function hideContextMenu() {
   els.contextMenu?.classList.add("hidden");
@@ -1048,7 +1133,7 @@ function addSegmentAtWeek(unitId, week) {
   if (!unit) return;
   selectedId = unit.id;
   addSegmentToSelected(week);
-  setStatus(`Added segment to ${unit.name} at ${formatWeek(week)}.`);
+  setStatus(`Added/split segment for ${unit.name} at ${formatWeek(week)}.`);
 }
 function setSegmentStatus(unitId, segmentId, statusId) {
   const unit = state.units.find(u => u.id === unitId);
@@ -1078,6 +1163,28 @@ function editUnitNote(unitId) {
   const value = prompt("Edit note:", unit.note || "");
   if (value === null) return;
   unit.note = value.trim();
+  selectedId = unit.id;
+  state.updated = new Date().toISOString();
+  renderAll();
+  autoSave();
+}
+function editUnitTags(unitId) {
+  const unit = state.units.find(u => u.id === unitId);
+  if (!unit) return;
+  const value = prompt("Edit tags, separated by commas:", cleanTags(unit.tags).join(", "));
+  if (value === null) return;
+  unit.tags = cleanTags(value.split(","));
+  selectedId = unit.id;
+  state.updated = new Date().toISOString();
+  renderAll();
+  autoSave();
+}
+function toggleUnitTag(unitId, tag) {
+  const unit = state.units.find(u => u.id === unitId);
+  if (!unit) return;
+  const lower = tag.toLowerCase();
+  const has = unit.tags.some(t => t.toLowerCase() === lower);
+  unit.tags = cleanTags(has ? unit.tags.filter(t => t.toLowerCase() !== lower) : [...unit.tags, tag]);
   selectedId = unit.id;
   state.updated = new Date().toISOString();
   renderAll();
@@ -1385,7 +1492,7 @@ function drawBarToCanvas(ctx, unit, segment) {
   ctx.font = "900 10px Arial, sans-serif";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText(unit.name, x + w / 2, y + BAR_H / 2 + 0.5, Math.max(20, w - 18));
+  ctx.fillText(`${unit.name} - ${metaStatus(segment.statusId).label}`, x + w / 2, y + BAR_H / 2 + 0.5, Math.max(20, w - 18));
   ctx.restore();
 }
 function isCanvasSafeUrl(src) {
@@ -1512,7 +1619,7 @@ function showTooltip(event, unit, segment = null) {
   const seg = segment || selectedSegment(unit) || firstSegment(unit);
   tooltipEl = document.createElement("div");
   tooltipEl.className = "tooltip";
-  tooltipEl.innerHTML = `<strong>${escapeHtml(unit.name)}</strong><div>${escapeHtml(tierById(unit.tier).label)} · Release ${escapeHtml(formatWeek(unit.week))}</div>${seg ? `<div>Meta: ${escapeHtml(formatWeekRange(seg.start, seg.end))} · ${escapeHtml(metaStatus(seg.statusId).label)}</div>` : ""}${unit.tags.length ? `<div>Tags: ${unit.tags.map(escapeHtml).join(", ")}</div>` : ""}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
+  tooltipEl.innerHTML = `<strong>${escapeHtml(unit.name)}</strong><div>${escapeHtml(tierById(unit.tier).label)} · ${escapeHtml(formatWeek(unit.week))}</div>${seg ? `<div>Meta: ${escapeHtml(formatWeekRange(seg.start, seg.end))} · ${escapeHtml(metaStatus(seg.statusId).label)}</div>` : ""}${unit.tags.length ? `<div>Tags: ${unit.tags.map(escapeHtml).join(", ")}</div>` : ""}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
   document.body.appendChild(tooltipEl);
   moveTooltip(event);
 }
