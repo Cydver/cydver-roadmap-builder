@@ -29,9 +29,9 @@ function suggestedMonthLabel(index) {
 }
 const DEFAULT_TIERS = [
   { id: "human", label: "Human Rights", color: "#ff4b59" },
-  { id: "must", label: "Era-Defining", color: "#47a9ff" },
-  { id: "ideal", label: "Strong", color: "#67ef87" },
-  { id: "luxury", label: "Rotational", color: "#ffcc4d" },
+  { id: "must", label: "Must Pull", color: "#47a9ff" },
+  { id: "ideal", label: "Ideally Pull", color: "#67ef87" },
+  { id: "luxury", label: "Luxury Pull", color: "#ffcc4d" },
   { id: "skip", label: "Skip", color: "#8d96a6" }
 ];
 const DEFAULT_META_STATUSES = [
@@ -42,7 +42,11 @@ const DEFAULT_META_STATUSES = [
   { id: "s5", label: "Situational", color: "#c18cff" }
 ];
 const LEGACY_TIER_COLORS = { must: ["#ffa12a"], ideal: ["#47a9ff"], luxury: ["#a66bff"], skip: ["#9aa0ab", "#c18cff", "#a66bff", "#8b5cf6", "#9333ea", "#7c3aed", "#6d28d9"] };
-const LEGACY_TIER_LABELS = { must: ["Must Pull"], ideal: ["Ideally Pull"], luxury: ["Luxury Pull"] };
+const LEGACY_TIER_LABELS = {
+  must: ["Era-Defining"],
+  ideal: ["Strong"],
+  luxury: ["Rotational"]
+};
 const LEGACY_STATUS_COLORS = { s2: "#37e6ff" };
 const OLD_STATUS_MAP = { top: "s1", strong: "s3", niche: "s5", fading: "s4", custom: "s5" };
 const TAG_OPTIONS = ["PVP", "PVE", "Must P5", "Core", "Tech", "Def", "Sub", "CB"];
@@ -158,11 +162,17 @@ function normalizeRowOffset(value) {
   if (n >= 0.25) return 0.5;
   return 0;
 }
-function rowOffsetLabel(value) {
+function rowOffsetLabel(value, tierId = null) {
   const offset = normalizeRowOffset(value);
-  if (offset < 0) return "Between this row and row above";
-  if (offset > 0) return "Between this row and row below";
-  return "In row";
+  if (!offset) return "In row";
+  const tiers = getTiers();
+  const index = tierId ? tiers.findIndex(t => t.id === tierId) : -1;
+  if (index >= 0) {
+    const upper = offset < 0 ? tiers[index - 1] : tiers[index];
+    const lower = offset < 0 ? tiers[index] : tiers[index + 1];
+    if (upper && lower) return `${upper.label} - ${lower.label}`;
+  }
+  return offset < 0 ? "Between rows" : "Between rows";
 }
 function rowOffsetForIcon(unit) {
   const offset = normalizeRowOffset(unit?.rowOffset);
@@ -214,6 +224,51 @@ function sameSlotOffset(unit) {
     count: group.length,
     groupHeight: group.length * ICON_W + (group.length - 1) * ICON_STACK_GAP
   };
+}
+function unitZIndex(unit, slot = sameSlotOffset(unit), isDragging = false) {
+  if (isDragging) return 10000;
+  const stack = Math.max(0, Number(unit?.stackOrder) || 0);
+  const selectedBoost = selectedId === unit?.id && !selectedSegmentId ? 2 : 0;
+  return 20 + stack * 2 + (slot?.z || 0) + selectedBoost;
+}
+function iconRect(unit) {
+  return { left: iconX(unit), top: iconY(unit), right: iconX(unit) + ICON_W, bottom: iconY(unit) + ICON_W };
+}
+function rectsOverlap(a, b) {
+  return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+}
+function overlappingUnits(unit) {
+  if (!unit) return [];
+  const rect = iconRect(unit);
+  return (state.units || []).filter(other => other.id !== unit.id && rectsOverlap(rect, iconRect(other)));
+}
+function bringUnitToFront(unitId) {
+  if (drag) return;
+  const unit = state.units.find(u => u.id === unitId);
+  if (!unit) return;
+  const overlaps = overlappingUnits(unit);
+  if (!overlaps.length) return;
+  const slot = sameSlotOffset(unit);
+  const currentZ = unitZIndex(unit, slot);
+  const maxOverlapZ = Math.max(...overlaps.map(other => unitZIndex(other, sameSlotOffset(other))));
+  if (currentZ > maxOverlapZ) return;
+  let maxOrder = Math.max(0, ...state.units.map(u => Number(u.stackOrder) || 0));
+  if (maxOrder > 100000) {
+    state.units
+      .slice()
+      .sort((a, b) => (Number(a.stackOrder) || 0) - (Number(b.stackOrder) || 0))
+      .forEach((u, index) => { u.stackOrder = index; });
+    maxOrder = Math.max(0, ...state.units.map(u => Number(u.stackOrder) || 0));
+  }
+  unit.stackOrder = maxOrder + 1;
+  refreshUnitZIndices();
+}
+function refreshUnitZIndices() {
+  els.roadmap?.querySelectorAll?.(".unit-card").forEach(card => {
+    const unit = state.units.find(u => u.id === card.dataset.id);
+    if (!unit) return;
+    card.style.zIndex = String(unitZIndex(unit));
+  });
 }
 function maxIconStackDepth(tierId) {
   const groups = new Map();
@@ -788,7 +843,7 @@ function renderUnits() {
     card.dataset.id = unit.id;
     card.style.left = `${isDraggingUnit ? drag.previewLeft : iconX(unit)}px`;
     card.style.top = `${isDraggingUnit ? drag.previewTop : iconY(unit)}px`;
-    card.style.zIndex = String((isDraggingUnit ? 80 : 10) + slot.z);
+    card.style.zIndex = String(unitZIndex(unit, slot, isDraggingUnit));
     card.setAttribute("aria-label", unit.name);
 
     if (unit.icon) {
@@ -839,7 +894,7 @@ function renderUnits() {
     });
     card.addEventListener("contextmenu", (event) => openUnitContextMenu(event, unit.id, null));
     card.addEventListener("dblclick", (event) => { event.stopPropagation(); renameUnit(unit.id); });
-    card.addEventListener("mouseenter", (event) => showTooltip(event, unit));
+    card.addEventListener("mouseenter", (event) => { bringUnitToFront(unit.id); showTooltip(event, unit); });
     card.addEventListener("mouseleave", hideTooltip);
     card.addEventListener("pointermove", moveTooltip);
     els.roadmap.appendChild(card);
@@ -1413,9 +1468,9 @@ function openUnitContextMenu(event, unitId, segmentId = null) {
     { label: "Edit note…", action: () => editUnitNote(unitId) },
     { label: "Edit tags…", action: () => editUnitTags(unitId) },
     { label: "Row position", children: [
-      { label: `${normalizeRowOffset(unit?.rowOffset) === -0.5 ? "✓ " : ""}Between row above`, action: () => setUnitRowOffset(unitId, -0.5) },
+      { label: `${normalizeRowOffset(unit?.rowOffset) === -0.5 ? "✓ " : ""}${rowOffsetLabel(-0.5, unit?.tier)}`, action: () => setUnitRowOffset(unitId, -0.5) },
       { label: `${normalizeRowOffset(unit?.rowOffset) === 0 ? "✓ " : ""}In row`, action: () => setUnitRowOffset(unitId, 0) },
-      { label: `${normalizeRowOffset(unit?.rowOffset) === 0.5 ? "✓ " : ""}Between row below`, action: () => setUnitRowOffset(unitId, 0.5) }
+      { label: `${normalizeRowOffset(unit?.rowOffset) === 0.5 ? "✓ " : ""}${rowOffsetLabel(0.5, unit?.tier)}`, action: () => setUnitRowOffset(unitId, 0.5) }
     ] },
     { label: "Toggle tag", children: TAG_OPTIONS.map(tag => ({ label: `${unit?.tags?.some(t => t.toLowerCase() === tag.toLowerCase()) ? "✓ " : ""}${tag}`, action: () => toggleUnitTag(unitId, tag) })) }
   );
@@ -1586,7 +1641,7 @@ function setUnitRowOffset(unitId, offset) {
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
-  setStatus(`${unit.name} row position: ${rowOffsetLabel(unit.rowOffset)}.`);
+  setStatus(`${unit.name} row position: ${rowOffsetLabel(unit.rowOffset, unit.tier)}.`);
 }
 
 function saveLocal() {
@@ -1644,6 +1699,9 @@ function applyZoom() {
   if (!els.roadmap || !els.roadmapStage) return;
   els.roadmap.style.transform = `scale(${zoomScale})`;
   els.roadmap.style.setProperty("--textBoost", legibleTextScale().toFixed(3));
+  const gridLinePx = clamp(1 / zoomScale, 1, 2.2);
+  els.roadmap.style.setProperty("--gridLine", `${gridLinePx.toFixed(2)}px`);
+  els.roadmap.style.setProperty("--monthGridLine", `${(gridLinePx * 2).toFixed(2)}px`);
   els.roadmapStage.style.width = `${baseChartWidth() * zoomScale}px`;
   els.roadmapStage.style.height = `${baseChartHeight() * zoomScale}px`;
   if (els.zoomRange) els.zoomRange.value = String(Math.round(zoomScale * 100));
@@ -2052,7 +2110,7 @@ function showTooltip(event, unit, segment = null) {
   const activeId = metaUnit ? (segment?.id || selectedSegment(metaUnit)?.id || null) : null;
   const segmentsHtml = metaUnit ? segmentListHtml(metaUnit, activeId) : "";
   const mustP5Html = hasMustP5(unit) ? `<div class="tooltip-must-p5">Must P5</div>` : "";
-  const rowPositionHtml = normalizeRowOffset(unit.rowOffset) ? `<div class="tooltip-row-position">${escapeHtml(rowOffsetLabel(unit.rowOffset))}</div>` : "";
+  const rowPositionHtml = normalizeRowOffset(unit.rowOffset) ? `<div class="tooltip-row-position">${escapeHtml(rowOffsetLabel(unit.rowOffset, unit.tier))}</div>` : "";
   const tagHtml = unit.tags.length ? `<div class="tooltip-tags">Tags: ${unit.tags.map(tag => `<span class="tooltip-tag ${tagClass(tag)}">${escapeHtml(tag)}</span>`).join(" ")}</div>` : "";
   tooltipEl.innerHTML = `<strong>${escapeHtml(title)}</strong><div>${escapeHtml(tierById(unit.tier).label)} · ${escapeHtml(formatWeek(unit.week))}</div>${rowPositionHtml}${mustP5Html}${segmentsHtml}${tagHtml}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
   document.body.appendChild(tooltipEl);
