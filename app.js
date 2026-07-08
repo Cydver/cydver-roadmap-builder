@@ -1,4 +1,4 @@
-const DEFAULT_MONTHS = makeDefaultMonthLabels(5);
+const DEFAULT_MONTHS = makeDefaultMonthLabels(3);
 const OLD_GENERIC_MONTHS = ["This Month", "Next Month", "2 Months Later", "3 Months Later", "4 Months Later"];
 function makeDefaultMonthLabels(count, startDate = new Date()) {
   const labels = [];
@@ -10,6 +10,19 @@ function makeDefaultMonthLabels(count, startDate = new Date()) {
 function isGenericMonthLabels(months) {
   if (!Array.isArray(months) || !months.length) return true;
   return months.every((m, i) => String(m || "").trim() === (OLD_GENERIC_MONTHS[i] || `${i + 1} Months Later`));
+}
+function isGeneratedMonthLabels(months) {
+  if (!Array.isArray(months) || !months.length) return false;
+  const generated = makeDefaultMonthLabels(months.length);
+  return months.every((m, i) => String(m || "").trim() === generated[i]);
+}
+function maxUsedWeekInUnits(units = state.units || []) {
+  let max = 1;
+  for (const unit of units || []) {
+    max = Math.max(max, Number(unit.week) || 1);
+    for (const seg of unit.segments || []) max = Math.max(max, Number(seg.end || seg.metaEnd || seg.start || seg.metaStart) || 1);
+  }
+  return max;
 }
 function suggestedMonthLabel(index) {
   return makeDefaultMonthLabels(index + 1)[index] || `Month ${index + 1}`;
@@ -197,7 +210,13 @@ function init() {
 }
 
 function normalizeState() {
-  if (!Array.isArray(state.months) || !state.months.length || isGenericMonthLabels(state.months)) state.months = makeDefaultMonthLabels(Math.max(5, state.months?.length || 5));
+  const unitsBeforeNormalize = Array.isArray(state.units) ? state.units : [];
+  const monthsNeedDefault = !Array.isArray(state.months) || !state.months.length || isGenericMonthLabels(state.months);
+  const blankGeneratedDefault = !unitsBeforeNormalize.length && isGeneratedMonthLabels(state.months) && state.months.length !== DEFAULT_MONTHS.length;
+  if (monthsNeedDefault || blankGeneratedDefault) {
+    const neededMonths = Math.max(DEFAULT_MONTHS.length, Math.ceil(maxUsedWeekInUnits(unitsBeforeNormalize) / 4));
+    state.months = makeDefaultMonthLabels(Math.min(12, neededMonths));
+  }
   state.months = state.months.map((m, i) => sanitizeText(m) || suggestedMonthLabel(i)).slice(0, 12);
   if (!state.months.length) state.months = [...DEFAULT_MONTHS];
 
@@ -1030,6 +1049,18 @@ function reflowLanes(tierId) {
 }
 function compactLanes(tierId) { reflowLanes(tierId); }
 
+function laneAtPointY(y, tierId) {
+  const count = visibleLaneCount(tierId);
+  for (let lane = 1; lane <= count; lane++) {
+    const top = laneY(tierId, lane) - Math.max(5, (BAR_GAP - BAR_H) / 2);
+    const bottom = laneY(tierId, lane) + BAR_H + Math.max(5, (BAR_GAP - BAR_H) / 2);
+    if (y >= top && y <= bottom) return lane;
+  }
+  return null;
+}
+function unitForLane(tierId, lane) {
+  return state.units.find(unit => unit.tier === tierId && unit.lane === lane) || null;
+}
 function isEditableChartTarget(event) {
   return event.target.closest(".unit-card,.meta-bar,.month-head,.tier-label,.context-menu");
 }
@@ -1041,14 +1072,22 @@ function openChartContextMenu(event, options = {}) {
   if (point.y < HEADER_H || point.x < LEFT_W) return;
   const tier = idOfTierFromY(point.y);
   const week = idOfWeekFromX(point.x);
-  const items = [
-    { label: `Add blank unit at ${formatWeek(week)}`, action: () => addUnit({ name: "New Unit", tier, week }) }
-  ];
-  const unit = getSelected();
-  if (unit) {
-    items.unshift({ label: `Add segment to ${unit.name} at ${formatWeek(week)}`, action: () => addSegmentAtWeek(unit.id, week) });
-    items.push({ label: `Move ${unit.name} here`, action: () => moveSelectedUnitTo(tier, week) });
+  const lane = laneAtPointY(point.y, tier);
+  const laneUnit = lane ? unitForLane(tier, lane) : null;
+  const selectedUnit = getSelected();
+  const items = [];
+
+  if (laneUnit) {
+    items.push({ label: `Add/split segment for ${laneUnit.name} at ${formatWeek(week)}`, action: () => addSegmentAtWeek(laneUnit.id, week) });
+    items.push({ label: `Select ${laneUnit.name}`, action: () => select(laneUnit.id, null) });
   }
+
+  if (selectedUnit && (!laneUnit || laneUnit.id !== selectedUnit.id)) {
+    items.push({ label: `Add segment to selected: ${selectedUnit.name}`, action: () => addSegmentAtWeek(selectedUnit.id, week) });
+    items.push({ label: `Move selected here`, action: () => moveSelectedUnitTo(tier, week) });
+  }
+
+  items.push({ label: `Add blank unit at ${formatWeek(week)}`, action: () => addUnit({ name: "New Unit", tier, week }) });
   showContextMenu(event.clientX, event.clientY, items);
 }
 function moveSelectedUnitTo(tier, week) {
@@ -1658,12 +1697,23 @@ function placeholderDataUrl(name) {
 
 function showTooltip(event, unit, segment = null) {
   hideTooltip();
-  const seg = segment || selectedSegment(unit) || firstSegment(unit);
   tooltipEl = document.createElement("div");
   tooltipEl.className = "tooltip";
-  tooltipEl.innerHTML = `<strong>${escapeHtml(unit.name)}</strong><div>${escapeHtml(tierById(unit.tier).label)} · ${escapeHtml(formatWeek(unit.week))}</div>${seg ? `<div>Meta: ${escapeHtml(formatWeekRange(seg.start, seg.end))} · ${escapeHtml(metaStatus(seg.statusId).label)}</div>` : ""}${unit.tags.length ? `<div>Tags: ${unit.tags.map(escapeHtml).join(", ")}</div>` : ""}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
+  const activeId = segment?.id || selectedSegment(unit)?.id || null;
+  const segmentsHtml = segmentListHtml(unit, activeId);
+  tooltipEl.innerHTML = `<strong>${escapeHtml(unit.name)}</strong><div>${escapeHtml(tierById(unit.tier).label)} · ${escapeHtml(formatWeek(unit.week))}</div>${segmentsHtml}${unit.tags.length ? `<div>Tags: ${unit.tags.map(escapeHtml).join(", ")}</div>` : ""}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
   document.body.appendChild(tooltipEl);
   moveTooltip(event);
+}
+function segmentListHtml(unit, activeSegmentId = null) {
+  const segments = (unit.segments || []).slice().sort((a, b) => a.start - b.start || a.end - b.end);
+  if (!segments.length) return "";
+  const rows = segments.map(seg => {
+    const status = metaStatus(seg.statusId);
+    const active = activeSegmentId === seg.id ? " active" : "";
+    return `<div class="tooltip-segment${active}"><i style="background:${escapeHtml(status.color)}"></i><span>${escapeHtml(formatWeekRange(seg.start, seg.end))} · ${escapeHtml(status.label)}</span></div>`;
+  }).join("");
+  return `<div class="tooltip-segments"><div class="tooltip-segments-title">Meta segments</div>${rows}</div>`;
 }
 function moveTooltip(event) {
   if (!tooltipEl) return;
