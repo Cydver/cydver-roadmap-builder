@@ -13,7 +13,7 @@ const DEFAULT_META_STATUSES = [
   { id: "s4", label: "Rotational", color: "#ffcc4d" },
   { id: "s5", label: "Situational", color: "#c18cff" }
 ];
-const LEGACY_TIER_COLORS = { must: ["#ffa12a"], ideal: ["#47a9ff"], luxury: ["#a66bff"], skip: ["#9aa0ab", "#c18cff"] };
+const LEGACY_TIER_COLORS = { must: ["#ffa12a"], ideal: ["#47a9ff"], luxury: ["#a66bff"], skip: ["#9aa0ab", "#c18cff", "#a66bff", "#8b5cf6", "#9333ea", "#7c3aed", "#6d28d9"] };
 const LEGACY_STATUS_COLORS = { s2: "#37e6ff" };
 const OLD_STATUS_MAP = { top: "s1", strong: "s3", niche: "s5", fading: "s4", custom: "s5" };
 const TAG_OPTIONS = ["PVP", "PVE", "Core", "Tech", "Def"];
@@ -84,6 +84,16 @@ function tierById(id) { return getTiers().find(t => t.id === id) || getTiers()[0
 function tierIds() { return getTiers().map(t => t.id); }
 function getStatuses() { return state.metaStatuses?.length ? state.metaStatuses : DEFAULT_META_STATUSES; }
 function metaStatus(id) { return getStatuses().find(s => s.id === id) || getStatuses()[2] || DEFAULT_META_STATUSES[2]; }
+function formatWeek(week) {
+  const normalized = normalizeWeek(week);
+  const monthIndex = Math.floor((normalized - 1) / 4);
+  const weekInMonth = ((normalized - 1) % 4) + 1;
+  const label = state.months?.[monthIndex] || DEFAULT_MONTHS[monthIndex] || `Month ${monthIndex + 1}`;
+  return `${label} W${weekInMonth}`;
+}
+function formatWeekRange(start, end) {
+  return start === end ? formatWeek(start) : `${formatWeek(start)}–${formatWeek(end)}`;
+}
 function weekX(week) { return LEFT_W + (week - 1) * CELL_W; }
 function visibleLaneCount(tierId) {
   let maxLane = 0;
@@ -179,17 +189,16 @@ function normalizeState() {
   const oldTierLabels = new Map((state.tiers || []).map(t => [t.id, t.label]));
   const oldTierColors = new Map((state.tiers || []).map(t => [t.id, t.color]));
   state.tiers = DEFAULT_TIERS.map((fallback) => {
-    const oldColor = oldTierColors.get(fallback.id);
+    const oldColorRaw = String(oldTierColors.get(fallback.id) || "").trim();
+    const oldColor = oldColorRaw.toLowerCase();
     const legacyColors = LEGACY_TIER_COLORS[fallback.id] || [];
-    const wasLegacyDefault = legacyColors.some(c => c.toLowerCase() === String(oldColor || "").toLowerCase());
-    const color = oldColor && !wasLegacyDefault && /^#[0-9a-f]{6}$/i.test(oldColor)
-      ? oldColor
+    const wasLegacyDefault = legacyColors.some(c => c.toLowerCase() === oldColor);
+    const label = sanitizeText(oldTierLabels.get(fallback.id)) || fallback.label;
+    const skipStillDefaultish = fallback.id === "skip" && /^skip$/i.test(label) && (!oldColor || wasLegacyDefault || oldColor.includes("193") || oldColor.includes("140") || oldColor.includes("255"));
+    const color = oldColorRaw && !wasLegacyDefault && !skipStillDefaultish && /^#[0-9a-f]{6}$/i.test(oldColorRaw)
+      ? oldColorRaw
       : fallback.color;
-    return {
-      id: fallback.id,
-      label: sanitizeText(oldTierLabels.get(fallback.id)) || fallback.label,
-      color
-    };
+    return { id: fallback.id, label, color };
   });
 
   if (!Array.isArray(state.metaStatuses) || !state.metaStatuses.length) state.metaStatuses = structuredClone(DEFAULT_META_STATUSES);
@@ -393,12 +402,15 @@ function bindUI() {
     refreshSelectionUi();
   });
 
+  els.roadmap.addEventListener("contextmenu", openChartContextMenu);
   els.roadmap.addEventListener("click", (event) => {
     if (suppressRoadmapClick) {
       suppressRoadmapClick = false;
       return;
     }
-    if (!event.target.closest(".unit-card,.meta-bar,.month-head,.tier-label,.context-menu")) select(null);
+    if (event.target.closest(".unit-card,.meta-bar,.month-head,.tier-label,.context-menu")) return;
+    if (selectedId) openChartContextMenu(event, { leftClick: true });
+    else select(null);
   });
 
   els.catalogSearch.addEventListener("input", (e) => {
@@ -575,6 +587,7 @@ function renderUnits() {
     card.addEventListener("pointerdown", (event) => beginDragUnit(event, unit.id));
     card.addEventListener("click", (event) => { event.stopPropagation(); select(unit.id, null); });
     card.addEventListener("contextmenu", (event) => openUnitContextMenu(event, unit.id, null));
+    card.addEventListener("dblclick", (event) => { event.stopPropagation(); renameUnit(unit.id); });
     card.addEventListener("mouseenter", (event) => showTooltip(event, unit));
     card.addEventListener("mouseleave", hideTooltip);
     card.addEventListener("pointermove", moveTooltip);
@@ -603,6 +616,7 @@ function renderUnits() {
       bar.addEventListener("pointerdown", (event) => beginDragBar(event, unit.id, segment.id));
       bar.addEventListener("click", (event) => { event.stopPropagation(); select(unit.id, segment.id); });
       bar.addEventListener("contextmenu", (event) => openUnitContextMenu(event, unit.id, segment.id));
+      bar.addEventListener("dblclick", (event) => { event.stopPropagation(); openUnitContextMenu(event, unit.id, segment.id); });
       bar.addEventListener("mouseenter", (event) => showTooltip(event, unit, segment));
       bar.addEventListener("mouseleave", hideTooltip);
       bar.addEventListener("pointermove", moveTooltip);
@@ -668,7 +682,7 @@ function renderForm() {
   f.week.max = String(weekCount());
   f.week.value = unit.week;
   f.lane.value = unit.lane;
-  f.segment.innerHTML = unit.segments.map((s, i) => `<option value="${s.id}">Segment ${i + 1}: W${s.start}–W${s.end} · ${escapeHtml(metaStatus(s.statusId).label)}</option>`).join("");
+  f.segment.innerHTML = unit.segments.map((s, i) => `<option value="${s.id}">Segment ${i + 1}: ${escapeHtml(formatWeekRange(s.start, s.end))} · ${escapeHtml(metaStatus(s.statusId).label)}</option>`).join("");
   if (segment) f.segment.value = segment.id;
   f.metaStart.max = String(weekCount());
   f.metaEnd.max = String(weekCount());
@@ -830,6 +844,9 @@ function beginDragUnit(event, id) {
     startY: point.y,
     originLeft,
     originTop,
+    originWeek: unit.week,
+    originTier: unit.tier,
+    originLane: unit.lane,
     offsetX: point.x - originLeft,
     offsetY: point.y - originTop,
     previewLeft: originLeft,
@@ -907,6 +924,8 @@ function onPointerMove(event) {
 }
 function onPointerUp() {
   if (!drag) return;
+  const endedDrag = drag;
+  if (endedDrag.type === "unit") finalizeUnitDrop(endedDrag);
   suppressRoadmapClick = true;
   drag = null;
   state.updated = new Date().toISOString();
@@ -914,18 +933,90 @@ function onPointerUp() {
   autoSave();
   setTimeout(() => { if (suppressRoadmapClick) suppressRoadmapClick = false; }, 0);
 }
+function finalizeUnitDrop(endedDrag) {
+  const unit = state.units.find(u => u.id === endedDrag.id);
+  if (!unit) return;
+  const displaced = state.units.find(other => other.id !== unit.id && other.tier === unit.tier && other.week === unit.week);
+  if (displaced) {
+    displaced.week = normalizeWeek(endedDrag.originWeek);
+    displaced.tier = endedDrag.originTier;
+    // Preserve the dragged unit's lane, so its meta bar stays visually attached to the unit being moved.
+    // Only reassign the displaced unit when it would collide in its new slot.
+    if (displaced.lane === unit.lane || !laneAvailable(displaced.tier, displaced.lane, displaced.segments, displaced.id)) {
+      displaced.lane = autoLaneFor(displaced.tier, displaced.segments, displaced.id);
+    }
+  }
+  compactLanes(unit.tier);
+  if (endedDrag.originTier !== unit.tier) compactLanes(endedDrag.originTier);
+}
+function compactLanes(tierId) {
+  const units = state.units
+    .filter(u => u.tier === tierId)
+    .sort((a, b) => a.lane - b.lane || b.week - a.week || a.name.localeCompare(b.name));
+  const oldToNew = new Map();
+  let next = 1;
+  for (const unit of units) {
+    const key = unit.lane;
+    if (!oldToNew.has(key)) oldToNew.set(key, next++);
+    unit.lane = oldToNew.get(key);
+  }
+}
 
+function isEditableChartTarget(event) {
+  return event.target.closest(".unit-card,.meta-bar,.month-head,.tier-label,.context-menu");
+}
+function openChartContextMenu(event, options = {}) {
+  if (isEditableChartTarget(event)) return;
+  event.preventDefault();
+  event.stopPropagation();
+  const point = chartPoint(event);
+  if (point.y < HEADER_H || point.x < LEFT_W) return;
+  const tier = idOfTierFromY(point.y);
+  const week = idOfWeekFromX(point.x);
+  const items = [
+    { label: `Add blank unit at ${formatWeek(week)}`, action: () => addUnit({ name: "New Unit", tier, week }) }
+  ];
+  const unit = getSelected();
+  if (unit) {
+    items.unshift({ label: `Add segment to ${unit.name} at ${formatWeek(week)}`, action: () => addSegmentAtWeek(unit.id, week) });
+    items.push({ label: `Move ${unit.name} here`, action: () => moveSelectedUnitTo(tier, week) });
+  }
+  showContextMenu(event.clientX, event.clientY, items);
+}
+function moveSelectedUnitTo(tier, week) {
+  const unit = getSelected();
+  if (!unit) return;
+  const oldTier = unit.tier;
+  unit.tier = tier;
+  unit.week = normalizeWeek(week);
+  unit.lane = autoLaneFor(unit.tier, unit.segments, unit.id);
+  compactLanes(oldTier);
+  compactLanes(unit.tier);
+  state.updated = new Date().toISOString();
+  renderAll();
+  autoSave();
+}
 function openUnitContextMenu(event, unitId, segmentId = null) {
   event.preventDefault();
   event.stopPropagation();
   select(unitId, segmentId);
   const point = chartPoint(event);
   const week = idOfWeekFromX(point.x);
-  showContextMenu(event.clientX, event.clientY, [
-    { label: `Add segment at W${week}`, action: () => addSegmentAtWeek(unitId, week) },
-    ...(segmentId ? [{ label: "Delete this segment", action: () => { selectedId = unitId; selectedSegmentId = segmentId; deleteSelectedSegment(); } }] : []),
-    { label: "Delete unit", danger: true, action: () => { selectedId = unitId; deleteSelected(); } }
-  ]);
+  const unit = state.units.find(u => u.id === unitId);
+  const items = [
+    { label: `Add segment at ${formatWeek(week)}`, action: () => addSegmentAtWeek(unitId, week) },
+    { label: "Rename unit…", action: () => renameUnit(unitId) },
+    { label: "Edit note…", action: () => editUnitNote(unitId) }
+  ];
+  if (segmentId) {
+    items.push(...getStatuses().map(status => ({
+      label: `Set segment: ${status.label}`,
+      action: () => setSegmentStatus(unitId, segmentId, status.id)
+    })));
+    items.push({ label: "Delete this segment", action: () => { selectedId = unitId; selectedSegmentId = segmentId; deleteSelectedSegment(); } });
+  }
+  items.push({ label: "Delete unit", danger: true, action: () => { selectedId = unitId; deleteSelected(); } });
+  showContextMenu(event.clientX, event.clientY, items);
 }
 function showContextMenu(clientX, clientY, items) {
   const menu = els.contextMenu;
@@ -957,7 +1048,40 @@ function addSegmentAtWeek(unitId, week) {
   if (!unit) return;
   selectedId = unit.id;
   addSegmentToSelected(week);
-  setStatus(`Added segment to ${unit.name} at W${week}.`);
+  setStatus(`Added segment to ${unit.name} at ${formatWeek(week)}.`);
+}
+function setSegmentStatus(unitId, segmentId, statusId) {
+  const unit = state.units.find(u => u.id === unitId);
+  const segment = unit?.segments.find(s => s.id === segmentId);
+  if (!unit || !segment) return;
+  segment.statusId = statusId;
+  selectedId = unitId;
+  selectedSegmentId = segmentId;
+  state.updated = new Date().toISOString();
+  renderAll();
+  autoSave();
+}
+function renameUnit(unitId) {
+  const unit = state.units.find(u => u.id === unitId);
+  if (!unit) return;
+  const value = prompt("Rename unit:", unit.name);
+  if (value === null) return;
+  unit.name = sanitizeText(value) || unit.name;
+  selectedId = unit.id;
+  state.updated = new Date().toISOString();
+  renderAll();
+  autoSave();
+}
+function editUnitNote(unitId) {
+  const unit = state.units.find(u => u.id === unitId);
+  if (!unit) return;
+  const value = prompt("Edit note:", unit.note || "");
+  if (value === null) return;
+  unit.note = value.trim();
+  selectedId = unit.id;
+  state.updated = new Date().toISOString();
+  renderAll();
+  autoSave();
 }
 
 function saveLocal() {
@@ -1070,7 +1194,7 @@ function base64urlDecode(text) {
 }
 async function copyShareLink() {
   normalizeState();
-  const payload = { v: 2, updated: new Date().toISOString(), months: state.months, metaStatuses: state.metaStatuses, units: state.units };
+  const payload = { v: 3, updated: new Date().toISOString(), months: state.months, tiers: state.tiers, metaStatuses: state.metaStatuses, units: state.units };
   const encoded = base64urlEncode(JSON.stringify(payload));
   const url = `${location.origin}${location.pathname}#roadmap=${encoded}`;
   try {
@@ -1388,7 +1512,7 @@ function showTooltip(event, unit, segment = null) {
   const seg = segment || selectedSegment(unit) || firstSegment(unit);
   tooltipEl = document.createElement("div");
   tooltipEl.className = "tooltip";
-  tooltipEl.innerHTML = `<strong>${escapeHtml(unit.name)}</strong><div>${escapeHtml(tierById(unit.tier).label)} · Release W${unit.week}</div>${seg ? `<div>Meta: W${seg.start}–W${seg.end} · ${escapeHtml(metaStatus(seg.statusId).label)}</div>` : ""}${unit.tags.length ? `<div>Tags: ${unit.tags.map(escapeHtml).join(", ")}</div>` : ""}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
+  tooltipEl.innerHTML = `<strong>${escapeHtml(unit.name)}</strong><div>${escapeHtml(tierById(unit.tier).label)} · Release ${escapeHtml(formatWeek(unit.week))}</div>${seg ? `<div>Meta: ${escapeHtml(formatWeekRange(seg.start, seg.end))} · ${escapeHtml(metaStatus(seg.statusId).label)}</div>` : ""}${unit.tags.length ? `<div>Tags: ${unit.tags.map(escapeHtml).join(", ")}</div>` : ""}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
   document.body.appendChild(tooltipEl);
   moveTooltip(event);
 }
