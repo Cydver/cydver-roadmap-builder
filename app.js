@@ -1,4 +1,4 @@
-const MONTHS = ["This Month", "Next Month", "2 Months Later", "3 Months Later", "4 Months Later"];
+const DEFAULT_MONTHS = ["This Month", "Next Month", "2 Months Later", "3 Months Later", "4 Months Later"];
 const TIERS = [
   { id: "human", label: "Human Rights", color: "#ff4b59" },
   { id: "must", label: "Must Pull", color: "#ffa12a" },
@@ -6,39 +6,42 @@ const TIERS = [
   { id: "luxury", label: "Luxury Pull", color: "#a66bff" },
   { id: "skip", label: "Skip", color: "#9aa0ab" }
 ];
-const META_STATUSES = [
-  { id: "top", label: "Top meta", color: "#37e6ff" },
-  { id: "strong", label: "Strong", color: "#67ef87" },
-  { id: "niche", label: "Niche", color: "#c18cff" },
-  { id: "fading", label: "Fading", color: "#ffcc4d" },
-  { id: "custom", label: "Custom", color: "#8aa0ff" }
+const DEFAULT_META_STATUSES = [
+  { id: "s1", label: "Human Rights", color: "#ff4b59" },
+  { id: "s2", label: "Era-Defining", color: "#37e6ff" },
+  { id: "s3", label: "Strong", color: "#67ef87" },
+  { id: "s4", label: "Rotational", color: "#ffcc4d" },
+  { id: "s5", label: "Situational", color: "#c18cff" }
 ];
+const OLD_STATUS_MAP = { top: "s1", strong: "s3", niche: "s5", fading: "s4", custom: "s5" };
 const TAG_OPTIONS = ["PVP", "PVE", "Core", "Tech", "Def"];
-const LANE_COUNT = 4;
-const WEEK_COUNT = 20;
+const TAG_ORDER = new Map(TAG_OPTIONS.map((tag, i) => [tag.toLowerCase(), i]));
 const CELL_W = 200;
 const LEFT_W = 260;
 const MONTH_H = 58;
 const WEEK_H = 48;
 const HEADER_H = MONTH_H + WEEK_H;
-const TIER_H = 330;
+const BLANK_TIER_H = 250;
 const ICON_W = 176;
 const ICON_TOP = 28;
 const BAR_TOP = 222;
 const BAR_GAP = 23;
 const BAR_H = 18;
+const BAR_BOTTOM_PAD = 34;
 const STORAGE_KEY = "gundam-u-c-e-roadmap-builder-v1";
 const ZOOM_STORAGE_KEY = "gundam-u-c-e-roadmap-builder-zoom-v2";
 
 const DEFAULT_ROADMAP = {
   updated: new Date().toISOString(),
+  months: [...DEFAULT_MONTHS],
+  metaStatuses: structuredClone(DEFAULT_META_STATUSES),
   units: []
 };
 
 let state = structuredClone(DEFAULT_ROADMAP);
 let catalog = [];
 let selectedId = null;
-let selectedPart = "unit";
+let selectedSegmentId = null;
 let filterKind = "all";
 let searchTerm = "";
 let tooltipEl = null;
@@ -60,14 +63,38 @@ const els = {
   zoomRange: document.getElementById("zoomRange"),
   zoomLabel: document.getElementById("zoomLabel"),
   tagDropdown: document.getElementById("tagDropdown"),
-  tagPreview: document.getElementById("tagPreview")
+  tagPreview: document.getElementById("tagPreview"),
+  legend: document.getElementById("legend"),
+  statusDialog: document.getElementById("statusDialog"),
+  statusForm: document.getElementById("statusForm")
 };
 
 function clamp(value, min, max) { return Math.max(min, Math.min(max, value)); }
+function weekCount() { return Math.max(1, (state.months || DEFAULT_MONTHS).length * 4); }
 function tierIndex(id) { return Math.max(0, TIERS.findIndex(t => t.id === id)); }
-function metaStatus(id) { return META_STATUSES.find(s => s.id === id) || META_STATUSES[1]; }
+function getStatuses() { return state.metaStatuses?.length ? state.metaStatuses : DEFAULT_META_STATUSES; }
+function metaStatus(id) { return getStatuses().find(s => s.id === id) || getStatuses()[2] || DEFAULT_META_STATUSES[2]; }
 function weekX(week) { return LEFT_W + (week - 1) * CELL_W; }
-function tierY(tier) { return HEADER_H + tierIndex(tier) * TIER_H; }
+function visibleLaneCount(tierId) {
+  let maxLane = 0;
+  for (const unit of state.units || []) {
+    if (unit.tier === tierId) maxLane = Math.max(maxLane, Number(unit.lane) || 0);
+  }
+  return maxLane;
+}
+function tierHeight(tierId) {
+  const lanes = visibleLaneCount(tierId);
+  if (!lanes) return BLANK_TIER_H;
+  return Math.max(BLANK_TIER_H, BAR_TOP + lanes * BAR_GAP + BAR_BOTTOM_PAD);
+}
+function tierY(tierId) {
+  let y = HEADER_H;
+  for (const tier of TIERS) {
+    if (tier.id === tierId) return y;
+    y += tierHeight(tier.id);
+  }
+  return y;
+}
 function laneY(unitOrTier, laneMaybe) {
   const tier = typeof unitOrTier === "string" ? unitOrTier : unitOrTier.tier;
   const lane = typeof unitOrTier === "string" ? laneMaybe : unitOrTier.lane;
@@ -76,10 +103,18 @@ function laneY(unitOrTier, laneMaybe) {
 function laneCenterY(tier, lane) { return laneY(tier, lane) + BAR_H / 2; }
 function iconY(unit) { return tierY(unit.tier) + ICON_TOP; }
 function iconX(unit) { return weekX(unit.week) + Math.round((CELL_W - ICON_W) / 2); }
-function normalizeWeek(n) { return clamp(Math.round(Number(n) || 1), 1, WEEK_COUNT); }
-function normalizeLane(n) { return clamp(Math.round(Number(n) || 1), 1, LANE_COUNT); }
+function normalizeWeek(n) { return clamp(Math.round(Number(n) || 1), 1, weekCount()); }
+function normalizeLane(n) { return clamp(Math.round(Number(n) || 1), 1, 99); }
 function idOfWeekFromX(x) { return normalizeWeek(Math.round((x - LEFT_W - CELL_W / 2) / CELL_W) + 1); }
-function idOfTierFromY(y) { return TIERS[clamp(Math.floor((y - HEADER_H) / TIER_H), 0, TIERS.length - 1)].id; }
+function idOfTierFromY(y) {
+  let top = HEADER_H;
+  for (const tier of TIERS) {
+    const bottom = top + tierHeight(tier.id);
+    if (y < bottom) return tier.id;
+    top = bottom;
+  }
+  return TIERS[TIERS.length - 1].id;
+}
 function laneFromY(y, tier) {
   const firstCenter = laneCenterY(tier, 1);
   return normalizeLane(Math.round((y - firstCenter) / BAR_GAP) + 1);
@@ -88,37 +123,117 @@ function chartPoint(event) {
   const rect = els.roadmap.getBoundingClientRect();
   return { x: (event.clientX - rect.left) / zoomScale, y: (event.clientY - rect.top) / zoomScale };
 }
-function baseChartWidth() { return LEFT_W + WEEK_COUNT * CELL_W; }
-function baseChartHeight() { return HEADER_H + TIERS.length * TIER_H; }
+function baseChartWidth() { return LEFT_W + weekCount() * CELL_W; }
+function baseChartHeight() { return HEADER_H + TIERS.reduce((sum, t) => sum + tierHeight(t.id), 0); }
 function setStatus(message) { els.saveStatus.textContent = message; }
 function sanitizeText(text) { return String(text || "").replace(/\s+/g, " ").trim(); }
 function cleanTags(tags) {
-  const out = [];
+  const byKey = new Map();
   (tags || []).forEach(tag => {
     const clean = sanitizeText(tag);
-    if (clean && !out.some(t => t.toLowerCase() === clean.toLowerCase())) out.push(clean);
+    if (!clean) return;
+    const canonical = TAG_OPTIONS.find(t => t.toLowerCase() === clean.toLowerCase()) || clean;
+    byKey.set(canonical.toLowerCase(), canonical);
   });
-  return out.slice(0, 8);
+  return [...byKey.values()].sort((a, b) => {
+    const ai = TAG_ORDER.has(a.toLowerCase()) ? TAG_ORDER.get(a.toLowerCase()) : 100 + a.toLowerCase().charCodeAt(0);
+    const bi = TAG_ORDER.has(b.toLowerCase()) ? TAG_ORDER.get(b.toLowerCase()) : 100 + b.toLowerCase().charCodeAt(0);
+    return ai === bi ? a.localeCompare(b) : ai - bi;
+  }).slice(0, 8);
 }
 function statusColor(id) { return metaStatus(id).color; }
-function barColor(unit) { return unit.metaStatus === "custom" ? (unit.color || metaStatus("custom").color) : statusColor(unit.metaStatus); }
-function defaultMetaStatusForKind(kind) { return kind === "custom" ? "niche" : "strong"; }
-function defaultColorForKind(kind) { return statusColor(defaultMetaStatusForKind(kind)); }
+function segmentColor(segment) { return statusColor(segment.statusId); }
+function defaultMetaStatusId() { return getStatuses()[2]?.id || DEFAULT_META_STATUSES[2].id; }
+function firstSegment(unit) { return unit?.segments?.[0] || null; }
+function selectedSegment(unit = getSelected()) {
+  if (!unit) return null;
+  return unit.segments.find(s => s.id === selectedSegmentId) || unit.segments[0] || null;
+}
 
 function init() {
   const loadedFromHash = loadFromShareHash();
   if (!loadedFromHash) loadLocal();
-  buildStaticGrid();
   buildTierSelect();
-  buildMetaStatusSelect();
   bindUI();
   renderAll();
   setZoom(zoomScale, false);
   maybeLoadPublishedRoadmap();
 }
 
+function normalizeState() {
+  if (!Array.isArray(state.months) || !state.months.length) state.months = [...DEFAULT_MONTHS];
+  state.months = state.months.map(m => sanitizeText(m) || "Month").slice(0, 12);
+  if (!state.months.length) state.months = [...DEFAULT_MONTHS];
+
+  if (!Array.isArray(state.metaStatuses) || !state.metaStatuses.length) state.metaStatuses = structuredClone(DEFAULT_META_STATUSES);
+  state.metaStatuses = state.metaStatuses.slice(0, 8).map((s, i) => ({
+    id: sanitizeText(s.id) || `s${i + 1}`,
+    label: sanitizeText(s.label) || DEFAULT_META_STATUSES[i]?.label || `Status ${i + 1}`,
+    color: /^#[0-9a-f]{6}$/i.test(s.color || "") ? s.color : DEFAULT_META_STATUSES[i]?.color || "#8aa0ff"
+  }));
+  const statusIds = new Set(state.metaStatuses.map(s => s.id));
+  const fallbackStatus = defaultMetaStatusId();
+
+  state.units = (state.units || []).map((u) => {
+    const oldStatus = OLD_STATUS_MAP[u.metaStatus] || u.metaStatus;
+    const metaStart = normalizeWeek(u.metaStart || u.week || 1);
+    const metaEnd = normalizeWeek(u.metaEnd || u.metaStart || u.week || 1);
+    let segments = Array.isArray(u.segments) ? u.segments : [];
+    if (!segments.length) {
+      segments = [{ id: crypto.randomUUID(), start: Math.min(metaStart, metaEnd), end: Math.max(metaStart, metaEnd), statusId: statusIds.has(oldStatus) ? oldStatus : fallbackStatus }];
+    }
+    segments = segments.map(seg => {
+      const start = normalizeWeek(seg.start || seg.metaStart || metaStart || 1);
+      const end = normalizeWeek(seg.end || seg.metaEnd || metaEnd || start);
+      const mapped = OLD_STATUS_MAP[seg.statusId] || OLD_STATUS_MAP[seg.metaStatus] || seg.statusId || oldStatus;
+      return {
+        id: seg.id || crypto.randomUUID(),
+        start: Math.min(start, end),
+        end: Math.max(start, end),
+        statusId: statusIds.has(mapped) ? mapped : fallbackStatus
+      };
+    }).sort((a, b) => a.start - b.start || a.end - b.end);
+    const tier = TIERS.some(t => t.id === u.tier) ? u.tier : "must";
+    const rawTags = Array.isArray(u.tags) ? u.tags : (Array.isArray(u.badges) ? u.badges : []);
+    return {
+      id: u.id || crypto.randomUUID(),
+      name: sanitizeText(u.name || "Unnamed Unit"),
+      kind: u.kind || "custom",
+      tier,
+      week: normalizeWeek(u.week || 1),
+      lane: normalizeLane(u.lane || 1),
+      icon: u.icon || "",
+      tags: cleanTags(rawTags),
+      note: u.note || "",
+      segments
+    };
+  });
+
+  for (const unit of state.units) {
+    unit.week = normalizeWeek(unit.week);
+    unit.segments.forEach(seg => {
+      seg.start = normalizeWeek(seg.start);
+      seg.end = normalizeWeek(seg.end);
+      if (seg.end < seg.start) [seg.start, seg.end] = [seg.end, seg.start];
+    });
+  }
+}
+
+function renderAll() {
+  normalizeState();
+  buildStaticGrid();
+  renderLegend();
+  buildMetaStatusSelect();
+  renderUnits();
+  renderForm();
+  applyZoom();
+}
+
 function buildStaticGrid() {
   els.roadmap.innerHTML = "";
+  els.roadmap.style.setProperty("--weeks", weekCount());
+  els.roadmap.style.width = `${baseChartWidth()}px`;
+  els.roadmap.style.height = `${baseChartHeight()}px`;
 
   const corner = document.createElement("div");
   corner.className = "month-head corner";
@@ -126,16 +241,22 @@ function buildStaticGrid() {
   corner.style.width = `${LEFT_W}px`;
   els.roadmap.appendChild(corner);
 
-  MONTHS.forEach((month, i) => {
-    const head = document.createElement("div");
-    head.className = "month-head";
+  state.months.forEach((month, i) => {
+    const head = document.createElement("button");
+    head.type = "button";
+    head.className = "month-head month-button";
     head.style.left = `${LEFT_W + i * 4 * CELL_W}px`;
     head.style.width = `${4 * CELL_W}px`;
     head.textContent = month;
+    head.title = "Click to rename this month";
+    head.addEventListener("click", (event) => {
+      event.stopPropagation();
+      renameMonth(i);
+    });
     els.roadmap.appendChild(head);
   });
 
-  for (let w = 1; w <= WEEK_COUNT; w++) {
+  for (let w = 1; w <= weekCount(); w++) {
     const week = document.createElement("div");
     week.className = "week-head";
     week.style.left = `${weekX(w)}px`;
@@ -143,30 +264,37 @@ function buildStaticGrid() {
     els.roadmap.appendChild(week);
   }
 
-  TIERS.forEach((tier, i) => {
+  TIERS.forEach((tier) => {
     const label = document.createElement("div");
     label.className = `tier-label ${tier.id}`;
-    label.style.top = `${HEADER_H + i * TIER_H}px`;
+    label.style.top = `${tierY(tier.id)}px`;
+    label.style.height = `${tierHeight(tier.id)}px`;
     label.textContent = tier.label;
     els.roadmap.appendChild(label);
   });
 
-  for (let w = 0; w <= WEEK_COUNT; w++) {
+  for (let w = 0; w <= weekCount(); w++) {
     const line = document.createElement("div");
     line.className = `grid-line v${w % 4 === 0 ? " month" : ""}`;
     line.style.left = `${LEFT_W + w * CELL_W}px`;
-    els.roadmap.appendChild(line);
-  }
-
-  for (let r = 0; r <= TIERS.length; r++) {
-    const line = document.createElement("div");
-    line.className = "grid-line h";
-    line.style.top = `${HEADER_H + r * TIER_H}px`;
+    line.style.height = w % 4 === 0 ? "100%" : `${baseChartHeight() - HEADER_H}px`;
     els.roadmap.appendChild(line);
   }
 
   TIERS.forEach((tier) => {
-    for (let lane = 1; lane <= LANE_COUNT; lane++) {
+    const line = document.createElement("div");
+    line.className = "grid-line h";
+    line.style.top = `${tierY(tier.id)}px`;
+    els.roadmap.appendChild(line);
+  });
+  const bottom = document.createElement("div");
+  bottom.className = "grid-line h";
+  bottom.style.top = `${baseChartHeight()}px`;
+  els.roadmap.appendChild(bottom);
+
+  TIERS.forEach((tier) => {
+    const count = visibleLaneCount(tier.id);
+    for (let lane = 1; lane <= count; lane++) {
       const track = document.createElement("div");
       track.className = "lane-track";
       track.style.top = `${laneY(tier.id, lane)}px`;
@@ -177,12 +305,14 @@ function buildStaticGrid() {
 
 function buildTierSelect() {
   const select = els.editForm.elements.tier;
-  select.innerHTML = TIERS.map(t => `<option value="${t.id}">${t.label}</option>`).join("");
+  select.innerHTML = TIERS.map(t => `<option value="${t.id}">${escapeHtml(t.label)}</option>`).join("");
 }
 
 function buildMetaStatusSelect() {
+  const selectedValue = els.editForm.elements.metaStatus?.value;
   const select = els.editForm.elements.metaStatus;
-  select.innerHTML = META_STATUSES.map(s => `<option value="${s.id}">${s.label}</option>`).join("");
+  select.innerHTML = getStatuses().map(s => `<option value="${s.id}">${escapeHtml(s.label)}</option>`).join("");
+  if (selectedValue && getStatuses().some(s => s.id === selectedValue)) select.value = selectedValue;
 }
 
 function bindUI() {
@@ -194,19 +324,23 @@ function bindUI() {
   document.getElementById("btnExportPng").addEventListener("click", exportPng);
   document.getElementById("btnLoadCatalog").addEventListener("click", loadCatalog);
   document.getElementById("btnDelete").addEventListener("click", deleteSelected);
+  document.getElementById("btnAddMonth").addEventListener("click", addMonth);
+  document.getElementById("btnRemoveMonth").addEventListener("click", removeMonth);
+  document.getElementById("btnAddSegment").addEventListener("click", addSegmentToSelected);
+  document.getElementById("btnDeleteSegment").addEventListener("click", deleteSelectedSegment);
   document.getElementById("btnZoomOut").addEventListener("click", () => setZoom(zoomScale - 0.1));
   document.getElementById("btnZoomIn").addEventListener("click", () => setZoom(zoomScale + 0.1));
   document.getElementById("btnZoomReset").addEventListener("click", () => setZoom(1));
   els.zoomRange.addEventListener("input", () => setZoom(Number(els.zoomRange.value) / 100));
   document.getElementById("btnAddTag").addEventListener("click", addTagFromDropdown);
   document.getElementById("btnClearTags").addEventListener("click", clearTagsForSelected);
+  document.getElementById("btnCancelStatusEdit").addEventListener("click", () => els.statusDialog.close());
+  els.statusForm.addEventListener("submit", saveStatusEdit);
   els.editForm.elements.tags.addEventListener("input", renderTagPreview);
-  els.editForm.elements.metaStatus.addEventListener("change", () => {
-    const f = els.editForm.elements;
-    if (f.metaStatus.value !== "custom") f.color.value = statusColor(f.metaStatus.value);
-  });
-  els.editForm.elements.color.addEventListener("input", () => {
-    els.editForm.elements.metaStatus.value = "custom";
+  els.editForm.elements.segment.addEventListener("change", () => {
+    selectedSegmentId = els.editForm.elements.segment.value;
+    renderForm();
+    refreshSelectionUi();
   });
 
   els.roadmap.addEventListener("click", (event) => {
@@ -214,7 +348,7 @@ function bindUI() {
       suppressRoadmapClick = false;
       return;
     }
-    if (!event.target.closest(".unit-card,.meta-bar")) select(null);
+    if (!event.target.closest(".unit-card,.meta-bar,.month-head")) select(null);
   });
 
   els.catalogSearch.addEventListener("input", (e) => {
@@ -237,9 +371,10 @@ function bindUI() {
     const text = await file.text();
     try {
       const json = JSON.parse(text);
-      state = { updated: new Date().toISOString(), units: Array.isArray(json) ? json : (json.units || []) };
+      state = Array.isArray(json) ? { ...structuredClone(DEFAULT_ROADMAP), units: json } : { ...structuredClone(DEFAULT_ROADMAP), ...json };
       normalizeState();
       selectedId = null;
+      selectedSegmentId = null;
       renderAll();
       autoSave();
       setStatus(`Imported ${state.units.length} unit(s).`);
@@ -265,44 +400,75 @@ function bindUI() {
   });
 }
 
-function normalizeState() {
-  state.units = (state.units || []).map((u) => {
-    const metaId = META_STATUSES.some(s => s.id === u.metaStatus) ? u.metaStatus : defaultMetaStatusForKind(u.kind || "custom");
-    const color = /^#[0-9a-f]{6}$/i.test(u.color || "") ? u.color : statusColor(metaId);
-    const rawTags = Array.isArray(u.tags) ? u.tags : (Array.isArray(u.badges) ? u.badges : []);
-    const metaStart = normalizeWeek(u.metaStart || u.week || 1);
-    const metaEnd = normalizeWeek(u.metaEnd || u.metaStart || u.week || 1);
-    return {
-      id: u.id || crypto.randomUUID(),
-      name: sanitizeText(u.name || "Unnamed Unit"),
-      kind: u.kind || "custom",
-      tier: TIERS.some(t => t.id === u.tier) ? u.tier : "must",
-      week: normalizeWeek(u.week || 1),
-      lane: normalizeLane(u.lane || 1),
-      icon: u.icon || "",
-      tags: cleanTags(rawTags),
-      note: u.note || "",
-      metaStart: Math.min(metaStart, metaEnd),
-      metaEnd: Math.max(metaStart, metaEnd),
-      metaStatus: metaId,
-      color
-    };
+function renderLegend() {
+  els.legend.innerHTML = "";
+  getStatuses().forEach(status => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "legend-item";
+    btn.innerHTML = `<i class="dot" style="background:${status.color}"></i><span>${escapeHtml(status.label)}</span>`;
+    btn.title = "Click to edit this meta status";
+    btn.addEventListener("click", () => openStatusEditor(status.id));
+    els.legend.appendChild(btn);
   });
 }
 
-function renderAll() {
+function openStatusEditor(statusId) {
+  const status = metaStatus(statusId);
+  const f = els.statusForm.elements;
+  f.statusId.value = status.id;
+  f.label.value = status.label;
+  f.color.value = status.color;
+  els.statusDialog.showModal();
+}
+
+function saveStatusEdit(event) {
+  event.preventDefault();
+  const f = els.statusForm.elements;
+  const status = state.metaStatuses.find(s => s.id === f.statusId.value);
+  if (!status) return;
+  status.label = sanitizeText(f.label.value) || status.label;
+  status.color = /^#[0-9a-f]{6}$/i.test(f.color.value) ? f.color.value : status.color;
+  state.updated = new Date().toISOString();
+  els.statusDialog.close();
+  renderAll();
+  autoSave();
+}
+
+function renameMonth(index) {
+  const current = state.months[index] || `Month ${index + 1}`;
+  const value = prompt("Rename month label:", current);
+  if (value === null) return;
+  state.months[index] = sanitizeText(value) || current;
+  state.updated = new Date().toISOString();
+  renderAll();
+  autoSave();
+}
+function addMonth() {
+  const next = state.months.length + 1;
+  const value = prompt("New month label:", `${next} Months Later`);
+  if (value === null) return;
+  state.months.push(sanitizeText(value) || `Month ${next}`);
+  state.updated = new Date().toISOString();
+  renderAll();
+  autoSave();
+}
+function removeMonth() {
+  if (state.months.length <= 1) return alert("You need at least one month.");
+  const removed = state.months[state.months.length - 1];
+  if (!confirm(`Remove the last month: ${removed}? Any units/bars beyond the new end will be clamped.`)) return;
+  state.months.pop();
   normalizeState();
-  buildStaticGrid();
-  renderUnits();
-  renderForm();
-  applyZoom();
+  state.updated = new Date().toISOString();
+  renderAll();
+  autoSave();
 }
 
 function renderUnits() {
   state.units.forEach(unit => {
     const card = document.createElement("article");
     const isDraggingUnit = drag?.type === "unit" && drag.id === unit.id && Number.isFinite(drag.previewLeft);
-    card.className = `unit-card${selectedId === unit.id && selectedPart === "unit" ? " selected" : ""}${isDraggingUnit ? " dragging" : ""}`;
+    card.className = `unit-card${selectedId === unit.id && !selectedSegmentId ? " selected" : ""}${isDraggingUnit ? " dragging" : ""}`;
     card.dataset.id = unit.id;
     card.style.left = `${isDraggingUnit ? drag.previewLeft : iconX(unit)}px`;
     card.style.top = `${isDraggingUnit ? drag.previewTop : iconY(unit)}px`;
@@ -335,36 +501,36 @@ function renderUnits() {
     card.appendChild(plate);
 
     card.addEventListener("pointerdown", (event) => beginDragUnit(event, unit.id));
-    card.addEventListener("click", (event) => { event.stopPropagation(); select(unit.id, "unit"); });
+    card.addEventListener("click", (event) => { event.stopPropagation(); select(unit.id, null); });
     card.addEventListener("mouseenter", (event) => showTooltip(event, unit));
     card.addEventListener("mouseleave", hideTooltip);
     card.addEventListener("pointermove", moveTooltip);
     els.roadmap.appendChild(card);
 
-    const bar = document.createElement("div");
-    bar.className = `meta-bar status-${unit.metaStatus}${selectedId === unit.id && selectedPart === "bar" ? " selected" : ""}`;
-    bar.dataset.id = unit.id;
-    bar.style.left = `${weekX(unit.metaStart) + 12}px`;
-    bar.style.top = `${laneY(unit)}px`;
-    bar.style.width = `${(unit.metaEnd - unit.metaStart + 1) * CELL_W - 24}px`;
-    bar.style.setProperty("--bar", barColor(unit));
-    const label = document.createElement("span");
-    label.className = "bar-label";
-    label.textContent = `${metaStatus(unit.metaStatus).label}: ${unit.name}`;
-    bar.appendChild(label);
-    const left = document.createElement("span");
-    left.className = "handle left";
-    left.dataset.handle = "left";
-    const right = document.createElement("span");
-    right.className = "handle right";
-    right.dataset.handle = "right";
-    bar.append(left, right);
-    bar.addEventListener("pointerdown", (event) => beginDragBar(event, unit.id));
-    bar.addEventListener("click", (event) => { event.stopPropagation(); select(unit.id, "bar"); });
-    bar.addEventListener("mouseenter", (event) => showTooltip(event, unit));
-    bar.addEventListener("mouseleave", hideTooltip);
-    bar.addEventListener("pointermove", moveTooltip);
-    els.roadmap.appendChild(bar);
+    unit.segments.forEach(segment => {
+      const bar = document.createElement("div");
+      const selected = selectedId === unit.id && selectedSegmentId === segment.id;
+      bar.className = `meta-bar${selected ? " selected" : ""}`;
+      bar.dataset.id = unit.id;
+      bar.dataset.segmentId = segment.id;
+      bar.style.left = `${weekX(segment.start) + 12}px`;
+      bar.style.top = `${laneY(unit)}px`;
+      bar.style.width = `${(segment.end - segment.start + 1) * CELL_W - 24}px`;
+      bar.style.setProperty("--bar", segmentColor(segment));
+      const left = document.createElement("span");
+      left.className = "handle left";
+      left.dataset.handle = "left";
+      const right = document.createElement("span");
+      right.className = "handle right";
+      right.dataset.handle = "right";
+      bar.append(left, right);
+      bar.addEventListener("pointerdown", (event) => beginDragBar(event, unit.id, segment.id));
+      bar.addEventListener("click", (event) => { event.stopPropagation(); select(unit.id, segment.id); });
+      bar.addEventListener("mouseenter", (event) => showTooltip(event, unit, segment));
+      bar.addEventListener("mouseleave", hideTooltip);
+      bar.addEventListener("pointermove", moveTooltip);
+      els.roadmap.appendChild(bar);
+    });
   });
 }
 
@@ -377,36 +543,33 @@ function tagClass(tag) {
   if (t === "def") return "def";
   return "custom";
 }
-
 function placeholder(name) {
   const div = document.createElement("div");
   div.className = "placeholder";
   div.textContent = initials(name);
   return div;
 }
-
 function initials(name) {
   const parts = sanitizeText(name).split(/[\s・()\-_/]+/).filter(Boolean);
   if (!parts.length) return "?";
   return parts.slice(0, 2).map(p => p[0]).join("").toUpperCase();
 }
 
-function select(id, part = "unit") {
+function select(id, segmentId = null) {
   selectedId = id;
-  selectedPart = part;
+  selectedSegmentId = segmentId;
+  if (id && segmentId === undefined) selectedSegmentId = null;
   refreshSelectionUi();
   renderForm();
 }
-
 function refreshSelectionUi() {
   document.querySelectorAll(".unit-card").forEach(card => {
-    card.classList.toggle("selected", card.dataset.id === selectedId && selectedPart === "unit");
+    card.classList.toggle("selected", card.dataset.id === selectedId && !selectedSegmentId);
   });
   document.querySelectorAll(".meta-bar").forEach(bar => {
-    bar.classList.toggle("selected", bar.dataset.id === selectedId && selectedPart === "bar");
+    bar.classList.toggle("selected", bar.dataset.id === selectedId && bar.dataset.segmentId === selectedSegmentId);
   });
 }
-
 function getSelected() { return state.units.find(u => u.id === selectedId); }
 
 function renderForm() {
@@ -418,20 +581,27 @@ function renderForm() {
   }
   els.noSelection.classList.add("hidden");
   els.editForm.classList.remove("hidden");
+  if (!selectedSegmentId || !unit.segments.some(s => s.id === selectedSegmentId)) selectedSegmentId = unit.segments[0]?.id || null;
+  const segment = selectedSegment(unit);
   const f = els.editForm.elements;
   f.name.value = unit.name;
   f.icon.value = unit.icon;
   f.kind.value = unit.kind;
   f.tier.value = unit.tier;
+  f.week.max = String(weekCount());
   f.week.value = unit.week;
   f.lane.value = unit.lane;
-  f.metaStart.value = unit.metaStart;
-  f.metaEnd.value = unit.metaEnd;
+  f.segment.innerHTML = unit.segments.map((s, i) => `<option value="${s.id}">Segment ${i + 1}: W${s.start}–W${s.end} · ${escapeHtml(metaStatus(s.statusId).label)}</option>`).join("");
+  if (segment) f.segment.value = segment.id;
+  f.metaStart.max = String(weekCount());
+  f.metaEnd.max = String(weekCount());
+  f.metaStart.value = segment?.start || unit.week;
+  f.metaEnd.value = segment?.end || unit.week;
+  buildMetaStatusSelect();
+  f.metaStatus.value = segment?.statusId || defaultMetaStatusId();
   f.tags.value = unit.tags.join(", ");
-  f.metaStatus.value = unit.metaStatus;
-  f.color.value = unit.color || statusColor(unit.metaStatus);
   f.note.value = unit.note;
-  document.querySelector(".custom-color-field")?.classList.toggle("is-muted", unit.metaStatus !== "custom");
+  document.getElementById("btnDeleteSegment").disabled = unit.segments.length <= 1;
   renderTagPreview();
 }
 
@@ -445,47 +615,94 @@ function applyForm() {
   unit.tier = f.tier.value;
   unit.week = normalizeWeek(f.week.value);
   unit.lane = normalizeLane(f.lane.value);
-  unit.metaStart = normalizeWeek(f.metaStart.value);
-  unit.metaEnd = normalizeWeek(f.metaEnd.value);
-  if (unit.metaEnd < unit.metaStart) [unit.metaStart, unit.metaEnd] = [unit.metaEnd, unit.metaStart];
   unit.tags = cleanTags(f.tags.value.split(","));
-  unit.metaStatus = f.metaStatus.value;
-  unit.color = unit.metaStatus === "custom" ? f.color.value : statusColor(unit.metaStatus);
   unit.note = f.note.value.trim();
+  const segment = selectedSegment(unit);
+  if (segment) {
+    segment.start = normalizeWeek(f.metaStart.value);
+    segment.end = normalizeWeek(f.metaEnd.value);
+    if (segment.end < segment.start) [segment.start, segment.end] = [segment.end, segment.start];
+    segment.statusId = f.metaStatus.value;
+  }
+  unit.segments.sort((a, b) => a.start - b.start || a.end - b.end);
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
 }
 
+function addSegmentToSelected() {
+  const unit = getSelected();
+  if (!unit) return;
+  const maxEnd = Math.max(...unit.segments.map(s => s.end));
+  const start = maxEnd < weekCount() ? maxEnd + 1 : normalizeWeek(unit.week);
+  const end = Math.min(weekCount(), start + 3);
+  const segment = { id: crypto.randomUUID(), start, end, statusId: defaultMetaStatusId() };
+  unit.segments.push(segment);
+  selectedSegmentId = segment.id;
+  state.updated = new Date().toISOString();
+  renderAll();
+  autoSave();
+}
+function deleteSelectedSegment() {
+  const unit = getSelected();
+  if (!unit || unit.segments.length <= 1) return;
+  unit.segments = unit.segments.filter(s => s.id !== selectedSegmentId);
+  selectedSegmentId = unit.segments[0]?.id || null;
+  state.updated = new Date().toISOString();
+  renderAll();
+  autoSave();
+}
+
+function laneAvailable(tier, lane, segments, excludeId = null) {
+  for (const unit of state.units) {
+    if (unit.id === excludeId || unit.tier !== tier || unit.lane !== lane) continue;
+    for (const seg of unit.segments) {
+      for (const next of segments) {
+        if (!(next.end < seg.start || next.start > seg.end)) return false;
+      }
+    }
+  }
+  return true;
+}
+function autoLaneFor(tier, segments, excludeId = null) {
+  for (let lane = 1; lane <= 99; lane++) if (laneAvailable(tier, lane, segments, excludeId)) return lane;
+  return 1;
+}
+
 function addUnit(partial = {}) {
-  const metaStatusId = partial.metaStatus || defaultMetaStatusForKind(partial.kind || "custom");
+  const tier = partial.tier || "must";
+  const releaseWeek = normalizeWeek(partial.week || 1);
+  const segments = (partial.segments || [{ id: crypto.randomUUID(), start: partial.metaStart || releaseWeek, end: partial.metaEnd || Math.min(weekCount(), releaseWeek + 5), statusId: partial.metaStatus || defaultMetaStatusId() }]).map(seg => ({
+    id: seg.id || crypto.randomUUID(),
+    start: normalizeWeek(seg.start || seg.metaStart || releaseWeek),
+    end: normalizeWeek(seg.end || seg.metaEnd || Math.min(weekCount(), releaseWeek + 5)),
+    statusId: metaStatus(seg.statusId || seg.metaStatus || partial.metaStatus || defaultMetaStatusId()).id
+  }));
+  segments.forEach(seg => { if (seg.end < seg.start) [seg.start, seg.end] = [seg.end, seg.start]; });
   const newUnit = {
     id: crypto.randomUUID(),
     name: partial.name || "New Unit",
     kind: partial.kind || "custom",
-    tier: partial.tier || "must",
-    week: partial.week || 1,
-    lane: partial.lane || 1,
+    tier,
+    week: releaseWeek,
+    lane: partial.lane || autoLaneFor(tier, segments),
     icon: partial.icon || "",
     tags: cleanTags(partial.tags || partial.badges || []),
     note: partial.note || "",
-    metaStart: partial.metaStart || partial.week || 1,
-    metaEnd: partial.metaEnd || Math.min(WEEK_COUNT, (partial.week || 1) + 5),
-    metaStatus: metaStatusId,
-    color: partial.color || statusColor(metaStatusId)
+    segments
   };
   state.units.push(newUnit);
   state.updated = new Date().toISOString();
   selectedId = newUnit.id;
-  selectedPart = "unit";
+  selectedSegmentId = null;
   renderAll();
   autoSave();
 }
-
 function deleteSelected() {
   if (!selectedId) return;
   state.units = state.units.filter(u => u.id !== selectedId);
   selectedId = null;
+  selectedSegmentId = null;
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
@@ -496,7 +713,7 @@ function beginDragUnit(event, id) {
   const unit = state.units.find(u => u.id === id);
   if (!unit) return;
   event.stopPropagation();
-  select(id, "unit");
+  select(id, null);
   const point = chartPoint(event);
   const originLeft = iconX(unit);
   const originTop = iconY(unit);
@@ -516,23 +733,24 @@ function beginDragUnit(event, id) {
   event.currentTarget.setPointerCapture?.(event.pointerId);
   event.preventDefault();
 }
-
-function beginDragBar(event, id) {
+function beginDragBar(event, id, segmentId) {
   if (event.button !== 0) return;
   const unit = state.units.find(u => u.id === id);
-  if (!unit) return;
+  const segment = unit?.segments.find(s => s.id === segmentId);
+  if (!unit || !segment) return;
   event.stopPropagation();
-  select(id, "bar");
+  select(id, segmentId);
   const handle = event.target.dataset.handle || "move";
   const point = chartPoint(event);
   drag = {
     type: "bar",
     handle,
     id,
+    segmentId,
     startX: point.x,
     startY: point.y,
-    originStart: unit.metaStart,
-    originEnd: unit.metaEnd,
+    originStart: segment.start,
+    originEnd: segment.end,
     originLane: unit.lane,
     originTier: unit.tier,
     didMove: false
@@ -540,7 +758,6 @@ function beginDragBar(event, id) {
   event.currentTarget.setPointerCapture?.(event.pointerId);
   event.preventDefault();
 }
-
 function onPointerMove(event) {
   if (!drag) return;
   const unit = state.units.find(u => u.id === drag.id);
@@ -553,25 +770,27 @@ function onPointerMove(event) {
     const rawY = clamp(point.y - drag.offsetY, HEADER_H, baseChartHeight() - ICON_W);
     drag.previewLeft = rawX;
     drag.previewTop = rawY;
+    const oldTier = unit.tier;
     unit.week = idOfWeekFromX(rawX + ICON_W / 2);
     unit.tier = idOfTierFromY(rawY + ICON_W / 2);
-    unit.metaStart = clamp(unit.metaStart, 1, WEEK_COUNT);
-    unit.metaEnd = clamp(unit.metaEnd, unit.metaStart, WEEK_COUNT);
+    if (oldTier !== unit.tier) unit.lane = autoLaneFor(unit.tier, unit.segments, unit.id);
     renderAll();
   }
 
   if (drag.type === "bar") {
+    const segment = unit.segments.find(s => s.id === drag.segmentId);
+    if (!segment) return;
     const dxWeeks = Math.round((point.x - drag.startX) / CELL_W);
     const dy = point.y - drag.startY;
     if (drag.handle === "left") {
-      unit.metaStart = clamp(drag.originStart + dxWeeks, 1, unit.metaEnd);
+      segment.start = clamp(drag.originStart + dxWeeks, 1, segment.end);
     } else if (drag.handle === "right") {
-      unit.metaEnd = clamp(drag.originEnd + dxWeeks, unit.metaStart, WEEK_COUNT);
+      segment.end = clamp(drag.originEnd + dxWeeks, segment.start, weekCount());
     } else {
       const span = drag.originEnd - drag.originStart;
-      const newStart = clamp(drag.originStart + dxWeeks, 1, WEEK_COUNT - span);
-      unit.metaStart = newStart;
-      unit.metaEnd = newStart + span;
+      const newStart = clamp(drag.originStart + dxWeeks, 1, weekCount() - span);
+      segment.start = newStart;
+      segment.end = newStart + span;
       const centerY = laneCenterY(drag.originTier, drag.originLane) + dy;
       const tier = idOfTierFromY(centerY);
       unit.tier = tier;
@@ -580,17 +799,14 @@ function onPointerMove(event) {
     renderAll();
   }
 }
-
 function onPointerUp() {
   if (!drag) return;
   suppressRoadmapClick = true;
-  const hadDrag = drag;
   drag = null;
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
   setTimeout(() => { if (suppressRoadmapClick) suppressRoadmapClick = false; }, 0);
-  return hadDrag;
 }
 
 function saveLocal() {
@@ -611,7 +827,7 @@ function loadLocal() {
       localStorage.removeItem(STORAGE_KEY);
       return;
     }
-    state = parsed;
+    state = { ...structuredClone(DEFAULT_ROADMAP), ...parsed };
     normalizeState();
   } catch { state = structuredClone(DEFAULT_ROADMAP); }
 }
@@ -624,10 +840,12 @@ function clearLocal() {
   localStorage.removeItem(STORAGE_KEY);
   state = structuredClone(DEFAULT_ROADMAP);
   selectedId = null;
+  selectedSegmentId = null;
   renderAll();
   setStatus("Local data cleared. Blank template ready.");
 }
 function exportJson() {
+  normalizeState();
   const blob = new Blob([JSON.stringify({ ...state, updated: new Date().toISOString() }, null, 2)], { type: "application/json" });
   downloadBlob(blob, `gundam-u-c-e-roadmap-${new Date().toISOString().slice(0,10)}.json`);
 }
@@ -656,9 +874,7 @@ function setZoom(value, persist = true) {
   if (persist) localStorage.setItem(ZOOM_STORAGE_KEY, String(zoomScale));
 }
 
-function tagListFromInput() {
-  return cleanTags(els.editForm.elements.tags.value.split(","));
-}
+function tagListFromInput() { return cleanTags(els.editForm.elements.tags.value.split(",")); }
 function setTagList(tags, apply = false) {
   els.editForm.elements.tags.value = cleanTags(tags).join(", ");
   renderTagPreview();
@@ -702,7 +918,8 @@ function base64urlDecode(text) {
   return new TextDecoder().decode(bytes);
 }
 async function copyShareLink() {
-  const payload = { v: 1, updated: new Date().toISOString(), units: state.units };
+  normalizeState();
+  const payload = { v: 2, updated: new Date().toISOString(), months: state.months, metaStatuses: state.metaStatuses, units: state.units };
   const encoded = base64urlEncode(JSON.stringify(payload));
   const url = `${location.origin}${location.pathname}#roadmap=${encoded}`;
   try {
@@ -717,9 +934,10 @@ function loadFromShareHash() {
   if (!match) return false;
   try {
     const json = JSON.parse(base64urlDecode(match[1]));
-    state = { updated: new Date().toISOString(), units: Array.isArray(json) ? json : (json.units || []) };
+    state = Array.isArray(json) ? { ...structuredClone(DEFAULT_ROADMAP), units: json } : { ...structuredClone(DEFAULT_ROADMAP), ...json };
     normalizeState();
     selectedId = null;
+    selectedSegmentId = null;
     return true;
   } catch (error) {
     alert(`Could not load roadmap from share link: ${error.message}`);
@@ -733,9 +951,10 @@ async function maybeLoadPublishedRoadmap() {
     const response = await fetch("data/roadmap.json", { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
-    state = { updated: new Date().toISOString(), units: Array.isArray(data) ? data : (data.units || []) };
+    state = Array.isArray(data) ? { ...structuredClone(DEFAULT_ROADMAP), units: data } : { ...structuredClone(DEFAULT_ROADMAP), ...data };
     normalizeState();
     selectedId = null;
+    selectedSegmentId = null;
     renderAll();
     setStatus(`Loaded published roadmap with ${state.units.length} unit(s).`);
   } catch (error) {
@@ -745,65 +964,59 @@ async function maybeLoadPublishedRoadmap() {
 
 async function exportPng() {
   setStatus("Rendering PNG…");
-  const exportScale = 2;
-  const width = baseChartWidth();
-  const height = baseChartHeight();
-  const canvas = document.createElement("canvas");
-  canvas.width = width * exportScale;
-  canvas.height = height * exportScale;
-  const ctx = canvas.getContext("2d");
-  ctx.scale(exportScale, exportScale);
-  drawTemplateToCanvas(ctx, width, height);
-  for (const unit of state.units) {
-    await drawUnitToCanvas(ctx, unit);
+  try {
+    normalizeState();
+    const exportScale = 2;
+    const width = baseChartWidth();
+    const height = baseChartHeight();
+    const canvas = document.createElement("canvas");
+    canvas.width = width * exportScale;
+    canvas.height = height * exportScale;
+    const ctx = canvas.getContext("2d");
+    ctx.scale(exportScale, exportScale);
+    drawTemplateToCanvas(ctx, width, height);
+    for (const unit of state.units) await drawUnitToCanvas(ctx, unit);
+    for (const unit of state.units) for (const segment of unit.segments) drawBarToCanvas(ctx, unit, segment);
+    canvas.toBlob((blob) => {
+      if (!blob) {
+        setStatus("PNG export failed: could not create blob.");
+        return;
+      }
+      downloadBlob(blob, `gundam-u-c-e-roadmap-${new Date().toISOString().slice(0,10)}.png`);
+      setStatus("PNG exported.");
+    }, "image/png");
+  } catch (error) {
+    setStatus(`PNG export failed: ${error.message}`);
   }
-  for (const unit of state.units) {
-    drawBarToCanvas(ctx, unit);
-  }
-  canvas.toBlob((png) => {
-    if (!png) {
-      setStatus("PNG export failed.");
-      alert("PNG export failed. Try reloading the page and exporting again.");
-      return;
-    }
-    downloadBlob(png, `gundam-u-c-e-roadmap-${new Date().toISOString().slice(0,10)}.png`);
-    setStatus("PNG exported.");
-  }, "image/png");
 }
 
 function drawTemplateToCanvas(ctx, width, height) {
   ctx.fillStyle = "#050609";
   ctx.fillRect(0, 0, width, height);
-  ctx.strokeStyle = "rgba(255,255,255,.2)";
-  ctx.lineWidth = 1;
-  ctx.strokeRect(0.5, 0.5, width - 1, height - 1);
-
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
   ctx.fillStyle = "rgba(255,255,255,.025)";
   ctx.fillRect(0, 0, width, MONTH_H);
   ctx.fillRect(0, MONTH_H, width, WEEK_H);
 
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
   ctx.font = "900 18px Arial, sans-serif";
   ctx.fillStyle = "#eef3fb";
-  MONTHS.forEach((month, i) => {
+  state.months.forEach((month, i) => {
     const x = LEFT_W + i * 4 * CELL_W;
     ctx.fillText(month.toUpperCase(), x + 2 * CELL_W, MONTH_H / 2);
   });
   ctx.font = "900 14px Arial, sans-serif";
   ctx.fillStyle = "#dce4f0";
-  for (let w = 1; w <= WEEK_COUNT; w++) {
-    ctx.fillText(`W${((w - 1) % 4) + 1}`, weekX(w) + CELL_W / 2, MONTH_H + WEEK_H / 2);
-  }
+  for (let w = 1; w <= weekCount(); w++) ctx.fillText(`W${((w - 1) % 4) + 1}`, weekX(w) + CELL_W / 2, MONTH_H + WEEK_H / 2);
 
   ctx.textAlign = "left";
   ctx.font = "900 16px Arial, sans-serif";
-  TIERS.forEach((tier, i) => {
+  TIERS.forEach((tier) => {
     ctx.fillStyle = tier.color;
-    ctx.fillText(tier.label.toUpperCase(), 22, HEADER_H + i * TIER_H + TIER_H / 2);
+    ctx.fillText(tier.label.toUpperCase(), 22, tierY(tier.id) + tierHeight(tier.id) / 2);
   });
 
-  for (let w = 0; w <= WEEK_COUNT; w++) {
+  for (let w = 0; w <= weekCount(); w++) {
     const x = LEFT_W + w * CELL_W;
     ctx.beginPath();
     ctx.moveTo(x + 0.5, w % 4 === 0 ? 0 : HEADER_H);
@@ -813,19 +1026,19 @@ function drawTemplateToCanvas(ctx, width, height) {
     ctx.stroke();
   }
   ctx.lineWidth = 1;
-  for (let r = 0; r <= TIERS.length; r++) {
-    const y = HEADER_H + r * TIER_H;
+  TIERS.forEach((tier) => {
+    const y = tierY(tier.id);
     ctx.beginPath();
     ctx.moveTo(0, y + 0.5);
     ctx.lineTo(width, y + 0.5);
     ctx.strokeStyle = "rgba(255,255,255,.14)";
     ctx.stroke();
-  }
+  });
 
   TIERS.forEach(tier => {
-    for (let lane = 1; lane <= LANE_COUNT; lane++) {
+    for (let lane = 1; lane <= visibleLaneCount(tier.id); lane++) {
       const y = laneY(tier.id, lane);
-      roundedRect(ctx, LEFT_W + 10, y, WEEK_COUNT * CELL_W - 20, BAR_H, 9);
+      roundedRect(ctx, LEFT_W + 10, y, weekCount() * CELL_W - 20, BAR_H, 9);
       ctx.fillStyle = "rgba(255,255,255,.035)";
       ctx.fill();
       ctx.strokeStyle = "rgba(255,255,255,.08)";
@@ -833,18 +1046,14 @@ function drawTemplateToCanvas(ctx, width, height) {
     }
   });
 }
-
 async function drawUnitToCanvas(ctx, unit) {
   const x = iconX(unit), y = iconY(unit);
   ctx.save();
   roundedRect(ctx, x, y, ICON_W, ICON_W, 12);
   ctx.clip();
   const img = await loadImageForCanvas(unit.icon);
-  if (img) {
-    coverImage(ctx, img, x, y, ICON_W, ICON_W);
-  } else {
-    drawPlaceholder(ctx, unit.name, x, y, ICON_W, ICON_W);
-  }
+  if (img) coverImage(ctx, img, x, y, ICON_W, ICON_W);
+  else drawPlaceholder(ctx, unit.name, x, y, ICON_W, ICON_W);
   const grad = ctx.createLinearGradient(0, y + ICON_W - 58, 0, y + ICON_W);
   grad.addColorStop(0, "rgba(0,0,0,0)");
   grad.addColorStop(0.35, "rgba(0,0,0,.78)");
@@ -857,20 +1066,17 @@ async function drawUnitToCanvas(ctx, unit) {
   ctx.textAlign = "left";
   wrapText(ctx, unit.name, x + 8, y + ICON_W - 7, ICON_W - 16, 14, 2);
   ctx.restore();
-
   ctx.strokeStyle = "rgba(255,255,255,.25)";
   ctx.lineWidth = 1;
   roundedRect(ctx, x + 0.5, y + 0.5, ICON_W - 1, ICON_W - 1, 12);
   ctx.stroke();
-
   drawTagsToCanvas(ctx, unit.tags, x, y);
 }
-
 function drawTagsToCanvas(ctx, tags, x, y) {
   let cy = y + 7;
   const right = x + ICON_W - 7;
   ctx.font = "900 10px Arial, sans-serif";
-  tags.slice(0, 6).forEach(tag => {
+  cleanTags(tags).slice(0, 6).forEach(tag => {
     const text = String(tag);
     const w = Math.ceil(ctx.measureText(text).width) + 12;
     const h = 17;
@@ -887,30 +1093,17 @@ function drawTagsToCanvas(ctx, tags, x, y) {
     cy += h + 4;
   });
 }
-
-function drawBarToCanvas(ctx, unit) {
-  const x = weekX(unit.metaStart) + 12;
+function drawBarToCanvas(ctx, unit, segment) {
+  const x = weekX(segment.start) + 12;
   const y = laneY(unit);
-  const w = (unit.metaEnd - unit.metaStart + 1) * CELL_W - 24;
+  const w = (segment.end - segment.start + 1) * CELL_W - 24;
   roundedRect(ctx, x, y, w, BAR_H, BAR_H / 2);
-  ctx.fillStyle = barColor(unit);
+  ctx.fillStyle = segmentColor(segment);
   ctx.fill();
   ctx.strokeStyle = "rgba(255,255,255,.28)";
   ctx.lineWidth = 1;
   ctx.stroke();
-  ctx.fillStyle = "rgba(0,0,0,.72)";
-  ctx.font = "900 11px Arial, sans-serif";
-  ctx.textBaseline = "middle";
-  ctx.textAlign = "left";
-  const label = `${metaStatus(unit.metaStatus).label}: ${unit.name}`;
-  ctx.save();
-  ctx.beginPath();
-  roundedRect(ctx, x + 8, y, Math.max(0, w - 16), BAR_H, 6);
-  ctx.clip();
-  ctx.fillText(label, x + 10, y + BAR_H / 2 + 0.5);
-  ctx.restore();
 }
-
 function isCanvasSafeUrl(src) {
   if (!src) return false;
   if (/^data:/i.test(src)) return true;
@@ -955,7 +1148,7 @@ function roundedRect(ctx, x, y, w, h, r) {
   ctx.arcTo(x + w, y, x + w, y + h, rr);
   ctx.arcTo(x + w, y + h, x, y + h, rr);
   ctx.arcTo(x, y + h, x, y, rr);
-  ctx.arcTo(x, y, x + w, y, rr);
+  ctx.arcTo(x, y, x + rr, y, rr);
   ctx.closePath();
 }
 function wrapText(ctx, text, x, bottomY, maxWidth, lineHeight, maxLines) {
@@ -995,7 +1188,6 @@ async function loadCatalog() {
     els.catalogStatus.textContent = `Could not load local catalog: ${error.message}`;
   }
 }
-
 function renderCatalog() {
   const template = document.getElementById("catalogItemTemplate");
   const list = catalog.filter(item => {
@@ -1019,26 +1211,24 @@ function renderCatalog() {
         kind: item.kind || item.type || "custom",
         icon: item.icon || "",
         tags: [],
-        note: item.sourceUrl ? `Source: ${item.sourceUrl}` : "",
-        metaStatus: defaultMetaStatusForKind(item.kind || item.type),
-        color: defaultColorForKind(item.kind || item.type)
+        note: item.sourceUrl ? `Source: ${item.sourceUrl}` : ""
       });
     });
     els.catalogList.appendChild(node);
   });
 }
-
 function placeholderDataUrl(name) {
   const label = initials(name || "?").slice(0, 2);
   const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96'><rect width='96' height='96' fill='%23131b25'/><text x='48' y='54' text-anchor='middle' font-family='Arial' font-size='26' fill='%23d9e4f5' font-weight='700'>${label}</text></svg>`;
   return `data:image/svg+xml,${svg}`;
 }
 
-function showTooltip(event, unit) {
+function showTooltip(event, unit, segment = null) {
   hideTooltip();
+  const seg = segment || selectedSegment(unit) || firstSegment(unit);
   tooltipEl = document.createElement("div");
   tooltipEl.className = "tooltip";
-  tooltipEl.innerHTML = `<strong>${escapeHtml(unit.name)}</strong><div>${escapeHtml(TIERS[tierIndex(unit.tier)].label)} · W${unit.week} · lane ${unit.lane}</div><div>Meta: W${unit.metaStart}–W${unit.metaEnd} · ${escapeHtml(metaStatus(unit.metaStatus).label)}</div>${unit.tags.length ? `<div>Tags: ${unit.tags.map(escapeHtml).join(", ")}</div>` : ""}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
+  tooltipEl.innerHTML = `<strong>${escapeHtml(unit.name)}</strong><div>${escapeHtml(TIERS[tierIndex(unit.tier)].label)} · Release W${unit.week}</div>${seg ? `<div>Meta: W${seg.start}–W${seg.end} · ${escapeHtml(metaStatus(seg.statusId).label)}</div>` : ""}${unit.tags.length ? `<div>Tags: ${unit.tags.map(escapeHtml).join(", ")}</div>` : ""}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
   document.body.appendChild(tooltipEl);
   moveTooltip(event);
 }

@@ -1,106 +1,57 @@
 # Gundam UCE Pull Roadmap Builder
 
-A static GitHub Pages app for building a visual Gundam UCE pull-priority roadmap with draggable unit icons, tags, notes, and Gantt-style meta-longevity bars.
+This is a GitHub Pages-ready visual builder for a Gundam UCE pull roadmap and PVP meta-longevity chart.
 
-## What it does
+## What v4 changes
 
-- Displays a dark-mode roadmap with 5 months × 4 weeks.
-- Rows: Human Rights, Must Pull, Ideally Pull, Luxury Pull, Skip.
-- Starts as a clean blank template by default.
-- Lets you add MS/pilot cards from a searchable local catalog.
-- Lets you drag cards between weeks/tiers.
-- Lets you drag/resize meta-longevity bars.
-- Supports 4 meta lanes per tier row.
-- Adds tag chips from a dropdown: PVP, PVE, Core, Tech, Def.
-- Ties bar colors to editable meta statuses: Top meta, Strong, Niche, Fading, Custom.
-- Saves edits to browser localStorage.
-- Exports/imports roadmap JSON.
-- Copies a self-contained share link using URL hash data.
-- Exports PNG using a direct canvas renderer. Remote icons that cannot be drawn are replaced with placeholders instead of failing the whole export.
-- Includes a GitHub Action scraper for:
-  - MS: https://altema.jp/gundamuce/msrea/4
-  - Pilots: https://altema.jp/gundamuce/chararea/4
+- Blank template by default.
+- Tags are sorted consistently as: PVP, PVE, Core, Tech, Def.
+- Meta bars no longer show text labels on the bar.
+- Tooltips no longer show lane numbers.
+- Lane tracks are hidden until units exist in that tier.
+- Lanes grow dynamically as you add or drag units/bars into new lanes.
+- Month labels are editable by clicking the month header.
+- Timeline months can be added/removed with + Month and − Month.
+- Meta status labels/colors are editable by clicking the legend pills.
+- Default PVP meta statuses are: Human Rights, Era-Defining, Strong, Rotational, Situational.
+- A unit can now have multiple meta segments, so one MS can change status over time.
 
-## Recommended setup on GitHub Pages
+## Updating an existing repo
 
-1. Create a new public GitHub repository.
-2. Upload all files from this folder.
-3. Go to **Settings → Pages**.
-4. Set source to your main branch, root folder.
-5. Open the published site URL.
+Upload only these files to the repo root:
 
-GitHub Pages serves static HTML/CSS/JS directly from a repository, which is exactly what this app uses.
-
-## Getting the real Altema catalog/icons
-
-To generate the real catalog:
-
-1. Push the repo to GitHub.
-2. Go to **Actions → Update Altema catalog → Run workflow**.
-3. The workflow fetches the Altema MS/pilot pages, downloads icon images into `icons/altema/`, and writes `data/catalog.json`.
-4. Refresh the site and click **Load local catalog**.
-
-You can also run it locally:
-
-```bash
-npm install
-npm run update-catalog
+```text
+index.html
+styles.css
+app.js
+README.md
 ```
 
-## Editing workflow
+Do not overwrite or delete:
 
-1. Click **Load local catalog**.
-2. Search for a unit or pilot.
-3. Click **Add**.
-4. Drag the icon card to its release week/tier.
-5. Drag the colored meta bar or resize its handles.
-6. Edit tags, meta status, note, tier, week, lane, and meta dates in the side panel.
-7. Click **Export JSON** and commit that JSON as your saved roadmap.
+```text
+data/catalog.json
+icons/altema/
+```
 
-## Sharing options
+Those are your fetched catalog/icons.
 
-### Quick share link
+## Publishing a clan-ready roadmap
 
-Click **Copy Share Link**. This puts the roadmap JSON into the URL hash. It is easy, but it can get very long once the chart has lots of units.
-
-### Cleaner clan link
-
-Export JSON, rename the file to:
+Use **Export JSON**, then upload the exported file as:
 
 ```text
 data/roadmap.json
 ```
 
-Commit it to the repo. Then share this URL:
+Clanmates can then open:
 
 ```text
 https://YOUR-GITHUB-USERNAME.github.io/YOUR-REPO/?view=published
 ```
 
-That URL loads `data/roadmap.json` automatically, so clanmates do not need to upload JSON.
+They do not need to import JSON manually.
 
-## Important notes
+## Sharing with a URL
 
-- This version removes the browser live Altema fetch button. Use the GitHub Action scraper to generate `data/catalog.json` and `icons/altema/`, then use **Load local catalog** in the app.
-- PNG export works best with icons hosted locally in your repo. If an icon is remote and blocks canvas drawing, the exporter now draws a placeholder instead of failing the whole image.
-- Respect the source site's terms and the rights of game assets when publishing icons publicly.
-
-## v3 editor notes
-
-- Blank template by default; no example MS or pilot cards.
-- Removed the info bubble from unit cards because the entire card already has a hover tooltip.
-- Renamed Badges to Tags.
-- Tags now stack vertically from the top-right corner of each icon.
-- Added fixed meta status options so bar meaning and color stay linked.
-- Replaced thin lane guide lines with full lane tracks aligned exactly behind the bars.
-- Improved unit dragging so the card follows the pointer while snapping still resolves to week/tier.
-- Added published-roadmap loading via `?view=published`.
-
-When patching an existing repo that already has a full catalog, replace only these files unless you intentionally want to regenerate the catalog:
-
-- `index.html`
-- `styles.css`
-- `app.js`
-- `README.md` optional
-
-Do not upload a fresh starter `data/catalog.json` over your existing catalog unless you are okay regenerating it with the GitHub Action.
+Use **Copy Share Link** for small or medium roadmaps. It embeds the roadmap data into the URL hash. For large roadmaps, `data/roadmap.json` is cleaner.
