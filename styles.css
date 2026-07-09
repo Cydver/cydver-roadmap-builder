@@ -165,8 +165,12 @@ textarea { resize: vertical; min-height: 80px; }
 .unit-card.dragging { opacity: .9; z-index: 80; box-shadow: 0 20px 44px rgba(0,0,0,.55); }
 .unit-card:active { cursor: grabbing; }
 .unit-card.selected { outline: 3px solid var(--accent); outline-offset: 2px; z-index: 30; }
-.unit-card.must-p5 { border-color: rgba(255,59,77,.92); box-shadow: 0 0 0 3px rgba(255,59,77,.72), 0 10px 24px rgba(0,0,0,.35); }
-.unit-card.must-p5.selected { box-shadow: 0 0 0 3px rgba(255,59,77,.82), 0 14px 30px rgba(0,0,0,.45); }
+.unit-card.must-p5 { border-color: rgba(255,59,77,.96); box-shadow: 0 0 0 4px rgba(255,59,77,.78), 0 10px 24px rgba(0,0,0,.35); }
+.unit-card.buff { border-color: rgba(67,220,125,.96); box-shadow: 0 0 0 4px rgba(67,220,125,.74), 0 10px 24px rgba(0,0,0,.35); }
+.unit-card.must-p5.buff { border-color: rgba(255,59,77,.96); box-shadow: 0 0 0 4px rgba(255,59,77,.82), 0 0 0 8px rgba(67,220,125,.66), 0 10px 24px rgba(0,0,0,.35); }
+.unit-card.must-p5.selected { box-shadow: 0 0 0 4px rgba(255,59,77,.88), 0 14px 30px rgba(0,0,0,.45); }
+.unit-card.buff.selected { box-shadow: 0 0 0 4px rgba(67,220,125,.84), 0 14px 30px rgba(0,0,0,.45); }
+.unit-card.must-p5.buff.selected { box-shadow: 0 0 0 4px rgba(255,59,77,.9), 0 0 0 8px rgba(67,220,125,.72), 0 14px 30px rgba(0,0,0,.45); }
 .unit-card.between-row { border-style: double; }
 .unit-card.compact-pilot {
   border-radius: 10px;
@@ -197,7 +201,7 @@ textarea { resize: vertical; min-height: 80px; }
 .tags.two-col { display: flex; flex-direction: row-reverse; align-items: flex-start; justify-content: flex-start; gap: 4px; max-width: 178px; }
 .tags.two-col .tag-column { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
 .tag { font-size: calc(10px * var(--textBoost)); font-weight: 900; line-height: 1; padding: calc(4px * var(--textBoost)) calc(7px * var(--textBoost)); border-radius: 999px; background: rgba(0,0,0,.72); color: #fff; border: 1px solid rgba(255,255,255,.45); backdrop-filter: blur(4px); box-shadow: 0 2px 8px rgba(0,0,0,.25); }
-.tag.pvp { background: rgba(230,64,91,.88); } .tag.pve { background: rgba(63,143,245,.88); } .tag.core { background: rgba(247,180,53,.9); } .tag.tech { background: rgba(171,108,255,.88); } .tag.def { background: rgba(86,218,150,.88); } .tag.sub { background: rgba(79,214,190,.88); } .tag.cb { background: rgba(255,140,72,.9); } .tag.must-p5 { background: rgba(255,43,66,.95); border-color: rgba(255,255,255,.72); box-shadow: 0 0 0 2px rgba(255,43,66,.38), 0 2px 8px rgba(0,0,0,.25); text-transform: uppercase; }
+.tag.pvp { background: rgba(230,64,91,.88); } .tag.pve { background: rgba(63,143,245,.88); } .tag.buff { background: rgba(67,220,125,.92); border-color: rgba(218,255,231,.78); } .tag.core { background: rgba(247,180,53,.9); } .tag.tech { background: rgba(171,108,255,.88); } .tag.def { background: rgba(86,218,150,.88); } .tag.sub { background: rgba(79,214,190,.88); } .tag.cb { background: rgba(255,140,72,.9); } .tag.must-p5 { background: rgba(255,43,66,.95); border-color: rgba(255,255,255,.72); box-shadow: 0 0 0 2px rgba(255,43,66,.38), 0 2px 8px rgba(0,0,0,.25); text-transform: uppercase; }
 .meta-bar {
   position: absolute;
   height: 18px;
@@ -234,10 +238,12 @@ textarea { resize: vertical; min-height: 80px; }
 }
 .tooltip strong { display:block; margin-bottom: 4px; }
 .tooltip-must-p5 { display: inline-block; margin-top: 7px; color: #ff5868; font-weight: 950; text-transform: uppercase; letter-spacing: .06em; text-shadow: 0 0 12px rgba(255,43,66,.35); }
+.tooltip-buff { display: inline-block; margin-top: 7px; color: #43dc7d; font-weight: 950; text-transform: uppercase; letter-spacing: .06em; text-shadow: 0 0 12px rgba(67,220,125,.35); }
 .tooltip-row-position { margin-top: 5px; color: #f7d36a; font-size: 12px; font-weight: 900; }
 .tooltip-tags { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-top: 6px; color: var(--muted); }
 .tooltip-tag { color: #dce4f0; font-weight: 900; }
 .tooltip-tag.must-p5 { color: #ff5868; text-transform: uppercase; }
+.tooltip-tag.buff { color: #43dc7d; }
 
 .tooltip-segments { margin: 8px 0; display: grid; gap: 4px; }
 .tooltip-segments-title { color: var(--muted); font-size: 11px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 1px; }

@@ -49,8 +49,10 @@ const LEGACY_TIER_LABELS = {
 };
 const LEGACY_STATUS_COLORS = { s2: "#37e6ff" };
 const OLD_STATUS_MAP = { top: "s1", strong: "s3", niche: "s5", fading: "s4", custom: "s5" };
-const TAG_OPTIONS = ["PVP", "PVE", "Must P5", "Core", "Tech", "Def", "Sub", "CB"];
+const TAG_OPTIONS = ["PVP", "PVE", "Must P5", "Buff", "Core", "Tech", "Def", "Sub", "CB"];
+const MAX_TAGS = 10;
 const MUST_P5_TAG = "Must P5";
+const BUFF_TAG = "Buff";
 const TAG_ORDER = new Map(TAG_OPTIONS.map((tag, i) => [tag.toLowerCase(), i]));
 const CELL_W = 200;
 const LEFT_W = 260;
@@ -329,10 +331,12 @@ function kindSort(kind) {
 }
 function hasTag(unit, tag) { return !!unit?.tags?.some(t => t.toLowerCase() === tag.toLowerCase()); }
 function hasMustP5(unit) { return hasTag(unit, MUST_P5_TAG); }
+function hasBuff(unit) { return hasTag(unit, BUFF_TAG); }
+function hasVisibleMetaSegments(unit) { return hasMetaBars(unit) && Array.isArray(unit?.segments) && unit.segments.length > 0; }
 function visibleLaneCount(tierId) {
   let maxLane = 0;
   for (const unit of state.units || []) {
-    if (unit.tier === tierId && hasMetaBars(unit)) maxLane = Math.max(maxLane, Number(unit.lane) || 0);
+    if (unit.tier === tierId && hasVisibleMetaSegments(unit)) maxLane = Math.max(maxLane, Number(unit.lane) || 0);
   }
   return maxLane;
 }
@@ -423,7 +427,7 @@ function cleanTags(tags) {
     const ai = TAG_ORDER.has(a.toLowerCase()) ? TAG_ORDER.get(a.toLowerCase()) : 100 + a.toLowerCase().charCodeAt(0);
     const bi = TAG_ORDER.has(b.toLowerCase()) ? TAG_ORDER.get(b.toLowerCase()) : 100 + b.toLowerCase().charCodeAt(0);
     return ai === bi ? a.localeCompare(b) : ai - bi;
-  }).slice(0, 8);
+  }).slice(0, MAX_TAGS);
 }
 function statusColor(id) { return metaStatus(id).color; }
 function segmentColor(segment) { return statusColor(segment.statusId); }
@@ -500,8 +504,9 @@ function normalizeState() {
     const oldStatus = OLD_STATUS_MAP[u.metaStatus] || u.metaStatus;
     const metaStart = normalizeWeek(u.metaStart || u.week || 1);
     const metaEnd = normalizeWeek(u.metaEnd || u.metaStart || u.week || 1);
-    let segments = Array.isArray(u.segments) ? u.segments : [];
-    if (!segments.length) {
+    const hasExplicitSegments = Array.isArray(u.segments);
+    let segments = hasExplicitSegments ? u.segments : [];
+    if (!hasExplicitSegments) {
       segments = [{ id: crypto.randomUUID(), start: Math.min(metaStart, metaEnd), end: Math.max(metaStart, metaEnd), statusId: statusIds.has(oldStatus) ? oldStatus : fallbackStatus }];
     }
     segments = segments.map(seg => {
@@ -673,7 +678,7 @@ function bindUI() {
   document.getElementById("btnDelete").addEventListener("click", deleteSelected);
   document.getElementById("btnAddMonth").addEventListener("click", addMonth);
   document.getElementById("btnRemoveMonth").addEventListener("click", removeMonth);
-  document.getElementById("btnAddSegment").addEventListener("click", addSegmentToSelected);
+  document.getElementById("btnAddSegment").addEventListener("click", () => addSegmentToSelected());
   document.getElementById("btnDeleteSegment").addEventListener("click", deleteSelectedSegment);
   document.getElementById("btnZoomOut").addEventListener("click", () => setZoom(zoomScale - 0.1));
   document.getElementById("btnZoomIn").addEventListener("click", () => setZoom(zoomScale + 0.1));
@@ -876,7 +881,7 @@ function renderUnits() {
     const slot = sameSlotOffset(unit);
     const compactPilot = slot.compact && isPilot(unit);
     const size = slot.size || ICON_W;
-    card.className = `unit-card${selectedId === unit.id && !selectedSegmentId ? " selected" : ""}${isDraggingUnit ? " dragging" : ""}${hasMustP5(unit) ? " must-p5" : ""}${normalizeRowOffset(unit.rowOffset) ? " between-row" : ""}${compactPilot ? " compact-pilot" : ""}`;
+    card.className = `unit-card${selectedId === unit.id && !selectedSegmentId ? " selected" : ""}${isDraggingUnit ? " dragging" : ""}${hasMustP5(unit) ? " must-p5" : ""}${hasBuff(unit) ? " buff" : ""}${normalizeRowOffset(unit.rowOffset) ? " between-row" : ""}${compactPilot ? " compact-pilot" : ""}`;
     card.dataset.id = unit.id;
     card.style.left = `${isDraggingUnit ? drag.previewLeft : iconX(unit)}px`;
     card.style.top = `${isDraggingUnit ? drag.previewTop : iconY(unit)}px`;
@@ -897,7 +902,7 @@ function renderUnits() {
     }
 
     const tags = document.createElement("div");
-    const displayTags = unit.tags.slice(0, 8);
+    const displayTags = unit.tags.slice(0, MAX_TAGS);
     tags.className = `tags${displayTags.length > 5 ? " two-col" : ""}`;
     const appendTag = (container, t) => {
       const span = document.createElement("span");
@@ -976,6 +981,7 @@ function tagClass(tag) {
   const t = String(tag || "").toLowerCase();
   if (t === "pvp") return "pvp";
   if (t === "pve") return "pve";
+  if (t === "buff") return "buff";
   if (t === "core") return "core";
   if (t === "tech") return "tech";
   if (t === "def") return "def";
@@ -1034,17 +1040,23 @@ function renderForm() {
   f.week.value = unit.week;
   f.lane.value = unit.lane;
   els.editForm.querySelectorAll(".meta-editor").forEach(node => node.classList.toggle("hidden", isPilot(unit)));
-  f.segment.innerHTML = unit.segments.map((s, i) => `<option value="${s.id}">Segment ${i + 1}: ${escapeHtml(formatWeekRange(s.start, s.end))} · ${escapeHtml(metaStatus(s.statusId).label)}</option>`).join("");
+  f.segment.innerHTML = unit.segments.length
+    ? unit.segments.map((s, i) => `<option value="${s.id}">Segment ${i + 1}: ${escapeHtml(formatWeekRange(s.start, s.end))} · ${escapeHtml(metaStatus(s.statusId).label)}</option>`).join("")
+    : `<option value="">No meta bars</option>`;
   if (segment) f.segment.value = segment.id;
+  f.segment.disabled = !unit.segments.length;
   f.metaStart.max = String(weekCount());
   f.metaEnd.max = String(weekCount());
   f.metaStart.value = segment?.start || unit.week;
   f.metaEnd.value = segment?.end || unit.week;
   buildMetaStatusSelect();
   f.metaStatus.value = segment?.statusId || defaultMetaStatusId();
+  f.metaStart.disabled = !segment;
+  f.metaEnd.disabled = !segment;
+  f.metaStatus.disabled = !segment;
   f.tags.value = unit.tags.join(", ");
   f.note.value = unit.note;
-  document.getElementById("btnDeleteSegment").disabled = unit.segments.length <= 1;
+  document.getElementById("btnDeleteSegment").disabled = !segment;
   renderTagPreview();
 }
 
@@ -1111,8 +1123,8 @@ function addSegmentToSelected(startOverride = null, statusOverride = null) {
   let segment;
   if (desiredWeek) segment = smartAddSegmentAtWeek(unit, desiredWeek, statusOverride);
   else {
-    const maxEnd = Math.max(...unit.segments.map(s => s.end));
-    const start = maxEnd < weekCount() ? maxEnd + 1 : normalizeWeek(unit.week);
+    const maxEnd = unit.segments.length ? Math.max(...unit.segments.map(s => s.end)) : 0;
+    const start = maxEnd && maxEnd < weekCount() ? maxEnd + 1 : normalizeWeek(unit.week);
     segment = addNonOverlappingSegment(unit, start, statusOverride || defaultMetaStatusId());
   }
   if (!segment) return;
@@ -1169,9 +1181,13 @@ function smartAddSegmentAtWeek(unit, week, statusId = null) {
 
 function deleteSelectedSegment() {
   const unit = getSelected();
-  if (!unit || unit.segments.length <= 1) return;
-  unit.segments = unit.segments.filter(s => s.id !== selectedSegmentId);
+  if (!unit || !unit.segments.length) return;
+  const segmentId = selectedSegment(unit)?.id;
+  if (!segmentId) return;
+  unit.segments = unit.segments.filter(s => s.id !== segmentId);
   selectedSegmentId = unit.segments[0]?.id || null;
+  for (const tier of getTiers()) reflowLanes(tier.id);
+  syncPilotLanes();
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
@@ -1375,7 +1391,7 @@ function finalizeUnitDrop(endedDrag) {
 }
 function reflowLanes(tierId) {
   const units = state.units
-    .filter(u => u.tier === tierId && hasMetaBars(u))
+    .filter(u => u.tier === tierId && hasVisibleMetaSegments(u))
     .sort((a, b) => normalizeWeek(a.week) - normalizeWeek(b.week)
       || normalizeRowOffset(a.rowOffset) - normalizeRowOffset(b.rowOffset)
       || a.name.localeCompare(b.name));
@@ -1437,7 +1453,7 @@ function laneAtPointY(y, tierId) {
   return null;
 }
 function unitForLane(tierId, lane) {
-  return state.units.find(unit => hasMetaBars(unit) && unit.tier === tierId && unit.lane === lane) || null;
+  return state.units.find(unit => hasVisibleMetaSegments(unit) && unit.tier === tierId && unit.lane === lane) || null;
 }
 function isEditableChartTarget(event) {
   return event.target.closest(".unit-card,.meta-bar,.month-head,.tier-label,.context-menu");
@@ -1855,7 +1871,7 @@ async function exportPng() {
     const ctx = canvas.getContext("2d");
     ctx.scale(exportScale, exportScale);
     drawTemplateToCanvas(ctx, width, height);
-    for (const unit of state.units) if (hasMetaBars(unit)) for (const segment of unit.segments) drawBarToCanvas(ctx, unit, segment);
+    for (const unit of state.units) if (hasVisibleMetaSegments(unit)) for (const segment of unit.segments) drawBarToCanvas(ctx, unit, segment);
     for (const unit of state.units) await drawUnitToCanvas(ctx, unit);
     canvas.toBlob((blob) => {
       if (!blob) {
@@ -1964,16 +1980,30 @@ async function drawUnitToCanvas(ctx, unit) {
   ctx.lineWidth = 1;
   roundedRect(ctx, x + 0.5, y + 0.5, size - 1, size - 1, radius);
   ctx.stroke();
-  if (hasMustP5(unit)) {
-    ctx.strokeStyle = "#ff3b4d";
-    ctx.lineWidth = size < 140 ? 3 : 4;
-    roundedRect(ctx, x + 2, y + 2, size - 4, size - 4, radius);
-    ctx.stroke();
-  }
+  drawIconTagBordersToCanvas(ctx, unit, x, y, size, radius);
   drawTagsToCanvas(ctx, unit.tags, x, y, size);
 }
+function drawIconTagBordersToCanvas(ctx, unit, x, y, size, radius) {
+  const rings = [];
+  if (hasMustP5(unit)) rings.push({ color: "#ff3b4d", alpha: "rgba(255,59,77,.28)" });
+  if (hasBuff(unit)) rings.push({ color: "#43dc7d", alpha: "rgba(67,220,125,.24)" });
+  rings.forEach((ring, i) => {
+    const inset = 2 + i * 5;
+    const line = size < 140 ? 4 : 5;
+    ctx.save();
+    ctx.strokeStyle = ring.color;
+    ctx.lineWidth = line;
+    roundedRect(ctx, x + inset, y + inset, size - inset * 2, size - inset * 2, Math.max(6, radius - i * 2));
+    ctx.stroke();
+    ctx.strokeStyle = ring.alpha;
+    ctx.lineWidth = line + 3;
+    roundedRect(ctx, x + inset, y + inset, size - inset * 2, size - inset * 2, Math.max(6, radius - i * 2));
+    ctx.stroke();
+    ctx.restore();
+  });
+}
 function drawTagsToCanvas(ctx, tags, x, y, size = ICON_W) {
-  const clean = cleanTags(tags).slice(0, 8);
+  const clean = cleanTags(tags).slice(0, MAX_TAGS);
   const boost = legibleTextScale();
   const compact = size < 140;
   const tagScale = compact ? 0.82 : 1;
@@ -2095,6 +2125,7 @@ function tagBg(tag) {
   const t = String(tag || "").toLowerCase();
   if (t === "pvp") return "rgba(230,64,91,.88)";
   if (t === "pve") return "rgba(63,143,245,.88)";
+  if (t === "buff") return "rgba(67,220,125,.92)";
   if (t === "core") return "rgba(247,180,53,.9)";
   if (t === "tech") return "rgba(171,108,255,.88)";
   if (t === "def") return "rgba(86,218,150,.88)";
@@ -2162,9 +2193,10 @@ function showTooltip(event, unit, segment = null) {
   const activeId = metaUnit ? (segment?.id || selectedSegment(metaUnit)?.id || null) : null;
   const segmentsHtml = metaUnit ? segmentListHtml(metaUnit, activeId) : "";
   const mustP5Html = hasMustP5(unit) ? `<div class="tooltip-must-p5">Must P5</div>` : "";
+  const buffHtml = hasBuff(unit) ? `<div class="tooltip-buff">Buff</div>` : "";
   const rowLabel = normalizeRowOffset(unit.rowOffset) ? rowOffsetLabel(unit.rowOffset, unit.tier) : tierById(unit.tier).label;
   const tagHtml = unit.tags.length ? `<div class="tooltip-tags">Tags: ${unit.tags.map(tag => `<span class="tooltip-tag ${tagClass(tag)}">${escapeHtml(tag)}</span>`).join(" ")}</div>` : "";
-  tooltipEl.innerHTML = `<strong>${escapeHtml(title)}</strong><div>${escapeHtml(rowLabel)} · ${escapeHtml(formatWeek(unit.week))}</div>${mustP5Html}${segmentsHtml}${tagHtml}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
+  tooltipEl.innerHTML = `<strong>${escapeHtml(title)}</strong><div>${escapeHtml(rowLabel)} · ${escapeHtml(formatWeek(unit.week))}</div>${mustP5Html}${buffHtml}${segmentsHtml}${tagHtml}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
   document.body.appendChild(tooltipEl);
   moveTooltip(event);
 }
