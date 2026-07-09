@@ -205,13 +205,13 @@ textarea { resize: vertical; min-height: 80px; }
 .tag.pvp { background: rgba(230,64,91,.88); } .tag.pve { background: rgba(63,143,245,.88); } .tag.buff { background: rgba(67,220,125,.92); border-color: rgba(218,255,231,.78); } .tag.core { background: rgba(247,180,53,.9); } .tag.tech { background: rgba(171,108,255,.88); } .tag.def { background: rgba(86,218,150,.88); } .tag.sub { background: rgba(79,214,190,.88); } .tag.cb { background: rgba(255,140,72,.9); } .tag.must-p5 { background: rgba(255,43,66,.95); border-color: rgba(255,255,255,.72); box-shadow: 0 0 0 2px rgba(255,43,66,.38), 0 2px 8px rgba(0,0,0,.25); text-transform: uppercase; }
 .meta-link {
   position: absolute;
-  height: 8px;
-  border-radius: 999px;
+  height: 18px;
+  border-radius: 0;
   z-index: 7;
   pointer-events: none;
   background: linear-gradient(90deg, var(--link-from, #47a9ff), var(--link-to, #47a9ff));
   box-shadow: 0 0 0 1px rgba(255,255,255,.22), 0 3px 10px rgba(0,0,0,.3);
-  opacity: .78;
+  opacity: .9;
 }
 .meta-bar {
   position: absolute;
@@ -223,6 +223,8 @@ textarea { resize: vertical; min-height: 80px; }
   background: var(--bar, #47a9ff);
   overflow: visible;
 }
+.meta-bar.segment-inner-left { border-top-left-radius: 2px; border-bottom-left-radius: 2px; }
+.meta-bar.segment-inner-right { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
 .meta-bar .bar-label {
   position: absolute; left: 8px; right: 8px; top: 50%; transform: translateY(-50%) scaleY(.88); transform-origin: center;
   overflow: hidden; white-space: nowrap; text-overflow: ellipsis; pointer-events: none;
@@ -234,6 +236,7 @@ textarea { resize: vertical; min-height: 80px; }
 .meta-bar:active { cursor: grabbing; }
 .meta-bar.selected { outline: 3px solid white; outline-offset: 3px; z-index: 9; }
 .meta-bar .handle { position: absolute; top: -5px; z-index: 2; width: 12px; height: 28px; border-radius: 999px; background: rgba(255,255,255,.85); box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+.meta-bar .handle.internal { display: none; }
 .meta-bar .handle.left { left: -5px; cursor: ew-resize; }
 .meta-bar .handle.right { right: -5px; cursor: ew-resize; }
 .tag-controls { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px; align-items: center; margin: -4px 0 8px; }

@@ -72,7 +72,7 @@ const COMPACT_STACK_GAP = 8;
 const BAR_TOP = 222;
 const BAR_GAP = 23;
 const BAR_H = 18;
-const META_LINK_H = 8;
+const META_LINK_H = BAR_H;
 const META_LINK_OVERLAP = 3;
 const BAR_BOTTOM_PAD = 34;
 const STORAGE_KEY = "gundam-u-c-e-roadmap-builder-v1";
@@ -960,11 +960,14 @@ function renderUnits() {
     if (!hasMetaBars(unit)) return;
 
     renderMetaSegmentLinks(unit);
-    sortedVisibleSegments(unit).forEach(segment => {
+    const visibleSegments = sortedVisibleSegments(unit);
+    visibleSegments.forEach((segment, index) => {
       const rect = segmentBarRect(unit, segment);
       const bar = document.createElement("div");
       const selected = selectedId === unit.id && selectedSegmentId === segment.id;
-      bar.className = `meta-bar${selected ? " selected" : ""}`;
+      const isFirstSegment = index === 0;
+      const isLastSegment = index === visibleSegments.length - 1;
+      bar.className = `meta-bar${selected ? " selected" : ""}${isFirstSegment ? " segment-first" : " segment-inner-left"}${isLastSegment ? " segment-last" : " segment-inner-right"}`;
       bar.dataset.id = unit.id;
       bar.dataset.segmentId = segment.id;
       bar.style.left = `${rect.x}px`;
@@ -975,10 +978,10 @@ function renderUnits() {
       label.className = "bar-label";
       label.textContent = `${unit.name} - ${metaStatus(segment.statusId).label}`;
       const left = document.createElement("span");
-      left.className = "handle left";
+      left.className = `handle left${isFirstSegment ? "" : " internal"}`;
       left.dataset.handle = "left";
       const right = document.createElement("span");
-      right.className = "handle right";
+      right.className = `handle right${isLastSegment ? "" : " internal"}`;
       right.dataset.handle = "right";
       bar.append(label, left, right);
       bar.addEventListener("pointerdown", (event) => beginDragBar(event, unit.id, segment.id));
@@ -2173,7 +2176,11 @@ function drawMetaLinksToCanvas(ctx, unit) {
 }
 function drawBarToCanvas(ctx, unit, segment) {
   const { x, y, w } = segmentBarRect(unit, segment);
-  roundedRect(ctx, x, y, w, BAR_H, BAR_H / 2);
+  const segments = sortedVisibleSegments(unit);
+  const index = segments.findIndex(s => s.id === segment.id);
+  const roundLeft = index <= 0;
+  const roundRight = index === -1 || index === segments.length - 1;
+  roundedRectSides(ctx, x, y, w, BAR_H, BAR_H / 2, roundLeft, roundRight);
   ctx.fillStyle = segmentColor(segment);
   ctx.fill();
   ctx.strokeStyle = "rgba(255,255,255,.28)";
@@ -2232,6 +2239,28 @@ function drawPlaceholder(ctx, name, x, y, w, h) {
   ctx.textBaseline = "middle";
   ctx.fillText(initials(name), x + w / 2, y + h / 2);
 }
+
+function roundedRectSides(ctx, x, y, w, h, r, roundLeft = true, roundRight = true) {
+  const rr = Math.min(r, w / 2, h / 2);
+  const leftR = roundLeft ? rr : 0;
+  const rightR = roundRight ? rr : 0;
+  ctx.beginPath();
+  ctx.moveTo(x + leftR, y);
+  ctx.lineTo(x + w - rightR, y);
+  if (rightR) ctx.arcTo(x + w, y, x + w, y + rightR, rightR);
+  else ctx.lineTo(x + w, y);
+  ctx.lineTo(x + w, y + h - rightR);
+  if (rightR) ctx.arcTo(x + w, y + h, x + w - rightR, y + h, rightR);
+  else ctx.lineTo(x + w, y + h);
+  ctx.lineTo(x + leftR, y + h);
+  if (leftR) ctx.arcTo(x, y + h, x, y + h - leftR, leftR);
+  else ctx.lineTo(x, y + h);
+  ctx.lineTo(x, y + leftR);
+  if (leftR) ctx.arcTo(x, y, x + leftR, y, leftR);
+  else ctx.lineTo(x, y);
+  ctx.closePath();
+}
+
 function roundedRect(ctx, x, y, w, h, r) {
   const rr = Math.min(r, w / 2, h / 2);
   ctx.beginPath();
