@@ -2374,8 +2374,22 @@ function segmentListHtml(unit, activeSegmentId = null) {
 }
 function moveTooltip(event) {
   if (!tooltipEl) return;
-  tooltipEl.style.left = `${event.clientX + 14}px`;
-  tooltipEl.style.top = `${event.clientY + 14}px`;
+  const margin = 12;
+  const offset = 16;
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 0;
+  tooltipEl.style.maxWidth = `${Math.max(180, Math.min(320, viewportWidth - (margin * 2)))}px`;
+  const rect = tooltipEl.getBoundingClientRect();
+  const maxLeft = Math.max(margin, viewportWidth - rect.width - margin);
+  const maxTop = Math.max(margin, viewportHeight - rect.height - margin);
+  let left = event.clientX + offset;
+  let top = event.clientY + offset;
+  if (left + rect.width + margin > viewportWidth) left = event.clientX - rect.width - offset;
+  if (top + rect.height + margin > viewportHeight) top = event.clientY - rect.height - offset;
+  left = Math.min(Math.max(left, margin), maxLeft);
+  top = Math.min(Math.max(top, margin), maxTop);
+  tooltipEl.style.left = `${Math.round(left)}px`;
+  tooltipEl.style.top = `${Math.round(top)}px`;
 }
 function hideTooltip() { tooltipEl?.remove(); tooltipEl = null; }
 function escapeHtml(text) { return String(text || "").replace(/[&<>'"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[ch])); }
