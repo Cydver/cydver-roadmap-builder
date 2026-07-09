@@ -114,7 +114,8 @@ textarea { resize: vertical; min-height: 80px; }
 .zoom-controls { display: flex; align-items: center; gap: 7px; flex-wrap: nowrap; }
 .zoom-controls button { padding: 7px 10px; min-width: 34px; }
 .zoom-controls input[type="range"] { width: 150px; padding: 0; accent-color: var(--accent); }
-.chart-scroll { height: calc(100vh - 120px); overflow: auto; padding: 24px; background: radial-gradient(circle at top left, rgba(59,130,246,.08), transparent 40%), #070a0e; }
+.chart-scroll { height: calc(100vh - 120px); overflow: auto; padding: 24px; background: radial-gradient(circle at top left, rgba(59,130,246,.08), transparent 40%), #070a0e; cursor: grab; overscroll-behavior: contain; }
+.chart-scroll.panning, .chart-scroll.panning * { cursor: grabbing !important; user-select: none; }
 .roadmap-stage { position: relative; transform-origin: 0 0; }
 .roadmap {
   position: relative;

@@ -52,6 +52,9 @@ const OLD_STATUS_MAP = { top: "s1", strong: "s3", niche: "s5", fading: "s4", cus
 const TAG_OPTIONS = ["PVP", "PVE", "Must P5", "Buff", "Core", "Tech", "Def", "Sub", "CB"];
 const MAX_TAGS = 10;
 const TAGS_PER_COLUMN = 5;
+const MIN_ZOOM = 0.2;
+const MAX_ZOOM = 1.6;
+const ZOOM_BUTTON_STEP = 0.1;
 const MUST_P5_TAG = "Must P5";
 const BUFF_TAG = "Buff";
 const TAG_ORDER = new Map(TAG_OPTIONS.map((tag, i) => [tag.toLowerCase(), i]));
@@ -90,6 +93,7 @@ let filterKind = "all";
 let searchTerm = "";
 let tooltipEl = null;
 let drag = null;
+let panDrag = null;
 let suppressRoadmapClick = false;
 let ignoreNextUnitClick = false;
 let autoApplyTimer = null;
@@ -120,12 +124,12 @@ const els = {
 
 function clamp(value, min, max) { return Math.max(min, Math.min(max, value)); }
 function legibleTextScale(scale = zoomScale) {
-  const normalized = clamp(Number(scale) || 1, 0.5, 1.6);
-  return clamp(Math.pow(1 / normalized, 0.45), 1, 1.42);
+  const normalized = clamp(Number(scale) || 1, MIN_ZOOM, MAX_ZOOM);
+  return clamp(Math.pow(1 / normalized, 0.65), 1, 3);
 }
 function barLabelTextScale(scale = zoomScale) {
-  const normalized = clamp(Number(scale) || 1, 0.5, 1.6);
-  return clamp(Math.pow(1 / normalized, 0.85), 1, 1.82);
+  const normalized = clamp(Number(scale) || 1, MIN_ZOOM, MAX_ZOOM);
+  return clamp(Math.pow(1 / normalized, 0.9), 1, 3.4);
 }
 function fontPx(px, scale = zoomScale) { return Math.round(px * legibleTextScale(scale) * 10) / 10; }
 function barFontPx(px, scale = zoomScale) { return Math.round(px * barLabelTextScale(scale) * 10) / 10; }
@@ -681,10 +685,15 @@ function bindUI() {
   document.getElementById("btnRemoveMonth").addEventListener("click", removeMonth);
   document.getElementById("btnAddSegment").addEventListener("click", () => addSegmentToSelected());
   document.getElementById("btnDeleteSegment").addEventListener("click", deleteSelectedSegment);
-  document.getElementById("btnZoomOut").addEventListener("click", () => setZoom(zoomScale - 0.1));
-  document.getElementById("btnZoomIn").addEventListener("click", () => setZoom(zoomScale + 0.1));
+  document.getElementById("btnZoomOut").addEventListener("click", () => setZoom(zoomScale - ZOOM_BUTTON_STEP));
+  document.getElementById("btnZoomIn").addEventListener("click", () => setZoom(zoomScale + ZOOM_BUTTON_STEP));
   document.getElementById("btnZoomReset").addEventListener("click", () => setZoom(1));
-  els.zoomRange.addEventListener("input", () => setZoom(Number(els.zoomRange.value) / 100));
+  if (els.zoomRange) {
+    els.zoomRange.min = String(Math.round(MIN_ZOOM * 100));
+    els.zoomRange.max = String(Math.round(MAX_ZOOM * 100));
+    els.zoomRange.step = "5";
+    els.zoomRange.addEventListener("input", () => setZoom(Number(els.zoomRange.value) / 100));
+  }
   document.getElementById("btnAddTag").addEventListener("click", addTagFromDropdown);
   document.getElementById("btnClearTags").addEventListener("click", clearTagsForSelected);
   document.getElementById("btnCancelStatusEdit").addEventListener("click", () => els.statusDialog.close());
@@ -707,6 +716,7 @@ function bindUI() {
     refreshSelectionUi();
   });
 
+  els.chartScroll?.addEventListener("pointerdown", beginTimelinePan);
   els.roadmap.addEventListener("contextmenu", openChartContextMenu);
   els.roadmap.addEventListener("click", (event) => {
     if (suppressRoadmapClick) {
@@ -759,6 +769,7 @@ function bindUI() {
 
   document.addEventListener("pointermove", onPointerMove);
   document.addEventListener("pointerup", onPointerUp);
+  document.addEventListener("pointercancel", onPointerUp);
   document.addEventListener("keydown", (event) => {
     if (event.key === "Delete" || event.key === "Backspace") {
       const active = document.activeElement?.tagName;
@@ -1256,6 +1267,54 @@ function deleteSelected() {
   autoSave();
 }
 
+function isTimelinePanBlockedTarget(target) {
+  return !!target?.closest?.(
+    ".unit-card,.meta-bar,.month-head,.tier-label,.context-menu,button,input,select,textarea,a,label,.tag-preview,.tag-controls"
+  );
+}
+function isLikelyScrollbarGrab(event, scrollEl) {
+  const rect = scrollEl.getBoundingClientRect();
+  const gutter = 18;
+  return event.clientX >= rect.right - gutter || event.clientY >= rect.bottom - gutter;
+}
+function beginTimelinePan(event) {
+  if (event.button !== 0 || drag || !els.chartScroll) return;
+  if (isTimelinePanBlockedTarget(event.target)) return;
+  if (isLikelyScrollbarGrab(event, els.chartScroll)) return;
+  panDrag = {
+    pointerId: event.pointerId,
+    startClientX: event.clientX,
+    startClientY: event.clientY,
+    startScrollLeft: els.chartScroll.scrollLeft,
+    startScrollTop: els.chartScroll.scrollTop,
+    didMove: false
+  };
+  els.chartScroll.classList.add("panning");
+  els.chartScroll.setPointerCapture?.(event.pointerId);
+}
+function updateTimelinePan(event) {
+  if (!panDrag || !els.chartScroll) return;
+  const dx = event.clientX - panDrag.startClientX;
+  const dy = event.clientY - panDrag.startClientY;
+  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) panDrag.didMove = true;
+  if (!panDrag.didMove) return;
+  els.chartScroll.scrollLeft = panDrag.startScrollLeft - dx;
+  els.chartScroll.scrollTop = panDrag.startScrollTop - dy;
+  hideContextMenu();
+  event.preventDefault();
+}
+function finishTimelinePan(event) {
+  const endedPan = panDrag;
+  panDrag = null;
+  els.chartScroll?.classList.remove("panning");
+  if (endedPan?.pointerId != null) els.chartScroll?.releasePointerCapture?.(endedPan.pointerId);
+  if (endedPan?.didMove) {
+    suppressRoadmapClick = true;
+    event?.preventDefault?.();
+    setTimeout(() => { if (suppressRoadmapClick) suppressRoadmapClick = false; }, 0);
+  }
+}
+
 function beginDragUnit(event, id) {
   if (event.button !== 0) return;
   const unit = state.units.find(u => u.id === id);
@@ -1311,6 +1370,10 @@ function beginDragBar(event, id, segmentId) {
   event.preventDefault();
 }
 function onPointerMove(event) {
+  if (panDrag) {
+    updateTimelinePan(event);
+    return;
+  }
   if (!drag) return;
   const unit = state.units.find(u => u.id === drag.id);
   if (!unit) return;
@@ -1357,7 +1420,11 @@ function onPointerMove(event) {
     renderAll();
   }
 }
-function onPointerUp() {
+function onPointerUp(event) {
+  if (panDrag) {
+    finishTimelinePan(event);
+    return;
+  }
   if (!drag) return;
   const endedDrag = drag;
   if (endedDrag.type === "unit") finalizeUnitDrop(endedDrag);
@@ -1757,7 +1824,7 @@ function applyZoom() {
   els.roadmap.style.transform = `scale(${zoomScale})`;
   els.roadmap.style.setProperty("--textBoost", legibleTextScale().toFixed(3));
   els.roadmap.style.setProperty("--barTextBoost", barLabelTextScale().toFixed(3));
-  const gridLinePx = clamp(1 / zoomScale, 1, 2.2);
+  const gridLinePx = clamp(1 / zoomScale, 1, 5);
   els.roadmap.style.setProperty("--gridLine", `${gridLinePx.toFixed(2)}px`);
   els.roadmap.style.setProperty("--monthGridLine", `${(gridLinePx * 2).toFixed(2)}px`);
   els.roadmapStage.style.width = `${baseChartWidth() * zoomScale}px`;
@@ -1766,7 +1833,7 @@ function applyZoom() {
   if (els.zoomLabel) els.zoomLabel.textContent = `${Math.round(zoomScale * 100)}%`;
 }
 function setZoom(value, persist = true) {
-  zoomScale = clamp(Math.round(Number(value || 1) * 100) / 100, 0.5, 1.6);
+  zoomScale = clamp(Math.round(Number(value || 1) * 100) / 100, MIN_ZOOM, MAX_ZOOM);
   applyZoom();
   if (persist) localStorage.setItem(ZOOM_STORAGE_KEY, String(zoomScale));
 }
