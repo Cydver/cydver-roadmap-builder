@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-08T14:25:34.670Z",
+  "generatedAt": "2026-07-15T05:47:30.256Z",
   "sources": [
     "https://altema.jp/gundamuce/msrea/4",
     "https://altema.jp/gundamuce/chararea/4"
@@ -3085,6 +3085,17 @@
       "attribute": "",
       "role": "",
       "rating": "8.5"
+    },
+    {
+      "id": "altema-pilot-0b699d0736",
+      "kind": "pilot",
+      "name": "アゴス・ラガート(C0462)",
+      "icon": "icons/altema/pilot-アゴス・ラガート-c0462-f2906662.jpg",
+      "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/372.jpg",
+      "sourceUrl": "https://altema.jp/gundamuce/chara/372",
+      "attribute": "",
+      "role": "",
+      "rating": "8.0"
     },
     {
       "id": "altema-pilot-c2f3a099fa",
