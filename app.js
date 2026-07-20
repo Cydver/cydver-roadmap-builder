@@ -2994,15 +2994,19 @@ function openUnitProfile(unitId, activeSegmentId = null) {
           ${profilePanelHeaderHtml(ms, "MOBILE SUIT", "No paired MS")}
           ${ms ? profileInvestmentHtml(ms) : ""}
           ${ms ? profileMetaHtml(ms, activeId) : ""}
-          ${ms ? profileScrollableNotesHtml("PVP Notes", ms.notesPvp, "No PVP notes added.", "unit-profile-pvp-notes") : ""}
         </section>
         <section class="unit-profile-panel unit-profile-pilot-panel">
           <div class="unit-profile-pilot-primary">
             ${profilePanelHeaderHtml(pilot, "PILOT", "No paired pilot")}
             ${pilot ? profileScrollableNotesHtml("Pilot Notes", [pilot.notesPvp, pilot.notesPve].filter(Boolean).join("\n\n"), "No pilot notes added.", "unit-profile-pilot-notes") : ""}
           </div>
-          <div class="unit-profile-pve-slot">
-            ${ms ? profileScrollableNotesHtml("MS PVE Notes", ms.notesPve, "No PVE notes added.", "unit-profile-pve-notes") : `<div class="unit-profile-note-empty standalone">No paired MS PVE notes.</div>`}
+        </section>
+        <section class="unit-profile-ms-notes-band" aria-label="Mobile Suit notes">
+          <div class="unit-profile-ms-note-cell unit-profile-ms-pvp-cell">
+            ${ms ? profileScrollableNotesHtml("PVP Notes", ms.notesPvp, "No PVP notes added.", "unit-profile-pvp-notes") : `<div class="unit-profile-note-empty standalone">No paired MS PVP notes.</div>`}
+          </div>
+          <div class="unit-profile-ms-note-cell unit-profile-ms-pve-cell">
+            ${ms ? profileScrollableNotesHtml("PVE Notes", ms.notesPve, "No PVE notes added.", "unit-profile-pve-notes") : `<div class="unit-profile-note-empty standalone">No paired MS PVE notes.</div>`}
           </div>
         </section>
       </div>
