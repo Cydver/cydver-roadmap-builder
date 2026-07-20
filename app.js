@@ -807,9 +807,12 @@ function bindUI() {
     if (event.button !== 0) return;
     if (!event.target.closest(".unit-card")) lastUnitClick = { id: null, at: 0 };
     if (!event.target.closest(".context-menu")) hideContextMenu();
-    if (tooltipPinned && !event.target.closest(".unit-card,.meta-bar,.month-head,.tier-label,.context-menu,button,input,select,textarea,a,label,.tag-preview,.tag-controls")) {
+    if (tooltipPinned && !event.target.closest(".unit-card,.meta-bar,.month-head,.tier-label,.context-menu,.unit-tooltip-card,button,input,select,textarea,a,label,.tag-preview,.tag-controls")) {
       hideTooltip(true);
     }
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && tooltipPinned) hideTooltip(true);
   });
   document.addEventListener("contextmenu", (event) => {
     if (!event.target.closest("#roadmap")) hideContextMenu();
@@ -2788,15 +2791,33 @@ function showTooltip(event, unit, segment = null, options = {}) {
   const pairedMs = isPilot(unit) ? pairedMsForPilot(unit) : null;
   const metaUnit = hasMetaBars(unit) ? unit : pairedMs;
   const title = pairedMs ? `${unit.name} (${pairedMs.name})` : unit.name;
-  tooltipEl = document.createElement("div");
-  tooltipEl.className = "tooltip";
   const activeId = metaUnit ? (segment?.id || selectedSegment(metaUnit)?.id || null) : null;
-  const segmentsHtml = metaUnit ? segmentListHtml(metaUnit, activeId) : "";
   const rowLabel = normalizeRowOffset(unit.rowOffset) ? rowOffsetLabel(unit.rowOffset, unit.tier) : tierById(unit.tier).label;
-  const tagHtml = unit.tags.length ? `<div class="tooltip-tags">Tags: ${unit.tags.map(tag => `<span class="tooltip-tag ${tagClass(tag)}">${escapeHtml(tag)}</span>`).join(" ")}</div>` : "";
+  const tierColor = tierById(unit.tier).color || "#8d96a6";
+  const tagHtml = unit.tags.length
+    ? `<div class="tooltip-tags">${unit.tags.map(tag => `<span class="tooltip-tag ${tagClass(tag)}">${escapeHtml(tag)}</span>`).join("")}</div>`
+    : "";
   const investmentHtml = tooltipInvestmentHtml(unit);
+  const metaHtml = metaUnit ? tooltipMetaHtml(metaUnit, activeId, isPilot(unit)) : "";
   const notesHtml = tooltipNotesHtml(unit);
-  tooltipEl.innerHTML = `<strong>${escapeHtml(title)}</strong><div>${escapeHtml(rowLabel)} · ${escapeHtml(formatWeek(unit.week))}</div>${segmentsHtml}${tagHtml}${investmentHtml}${notesHtml}`;
+
+  tooltipEl = document.createElement("div");
+  tooltipEl.className = `tooltip unit-tooltip-card${shouldPin ? " pinned" : ""}`;
+  tooltipEl.setAttribute("role", "tooltip");
+  tooltipEl.innerHTML = `
+    <div class="tooltip-card-header">
+      <h3 class="tooltip-card-title">${escapeHtml(title)}</h3>
+      <div class="tooltip-card-context">
+        <span class="tooltip-tier-badge" style="--tooltip-tier-color:${escapeHtml(tierColor)}">${escapeHtml(rowLabel)}</span>
+        <span class="tooltip-release">${escapeHtml(formatWeek(unit.week))}</span>
+      </div>
+      ${tagHtml}
+    </div>
+    <div class="tooltip-card-body">
+      ${investmentHtml}
+      ${metaHtml}
+      ${notesHtml}
+    </div>`;
   document.body.appendChild(tooltipEl);
   moveTooltip(event, true);
   tooltipPinned = shouldPin;
@@ -2805,41 +2826,48 @@ function showTooltip(event, unit, segment = null, options = {}) {
 function multilineHtml(text) {
   return escapeHtml(String(text || "").trim()).replace(/\r?\n/g, "<br>");
 }
+
+function tooltipSection(title, body, extraClass = "") {
+  if (!body) return "";
+  return `<section class="tooltip-card-section${extraClass ? ` ${extraClass}` : ""}"><div class="tooltip-section-title">${escapeHtml(title)}</div>${body}</section>`;
+}
+
 function tooltipInvestmentHtml(unit) {
   if (!isMs(unit)) return "";
   const minimum = normalizePotentialLevel(unit.minPotential);
   const ideal = normalizePotentialLevel(unit.idealPotential);
   if (minimum == null && ideal == null) return "";
-  const rows = [];
-  if (minimum != null) rows.push(`<div class="tooltip-investment-row"><span>Minimum</span><strong>P${minimum}</strong></div>`);
-  if (ideal != null) rows.push(`<div class="tooltip-investment-row"><span>Ideal</span><strong>P${ideal}</strong></div>`);
-  return `<div class="tooltip-investment"><div class="tooltip-note-title">Investment</div>${rows.join("")}</div>`;
+  const stats = [];
+  if (minimum != null) stats.push(`<div class="tooltip-investment-stat"><span class="tooltip-investment-label">Minimum</span><strong class="tooltip-investment-value">P${minimum}</strong></div>`);
+  if (ideal != null) stats.push(`<div class="tooltip-investment-stat"><span class="tooltip-investment-label">Ideal</span><strong class="tooltip-investment-value">P${ideal}</strong></div>`);
+  return tooltipSection("Investment", `<div class="tooltip-investment-summary">${stats.join("")}</div>`, "tooltip-investment");
 }
 
 function tooltipNotesHtml(unit) {
   if (isPilot(unit)) {
     const notes = [unit.notesPvp, unit.notesPve].filter(Boolean).join("\n\n");
-    return notes ? `<div class="tooltip-notes"><div class="tooltip-note-section"><div class="tooltip-note-title">Notes</div><div class="tooltip-note-body">${multilineHtml(notes)}</div></div></div>` : "";
+    return notes ? tooltipSection("Notes", `<div class="tooltip-note-body">${multilineHtml(notes)}</div>`, "tooltip-notes-section") : "";
   }
-  const sections = [];
-  if (unit.notesPvp) sections.push(`<div class="tooltip-note-section"><div class="tooltip-note-title">PVP</div><div class="tooltip-note-body">${multilineHtml(unit.notesPvp)}</div></div>`);
-  if (unit.notesPve) sections.push(`<div class="tooltip-note-section"><div class="tooltip-note-title">PVE</div><div class="tooltip-note-body">${multilineHtml(unit.notesPve)}</div></div>`);
-  return sections.length ? `<div class="tooltip-notes">${sections.join("")}</div>` : "";
+  const blocks = [];
+  if (unit.notesPvp) blocks.push(`<div class="tooltip-note-block"><span class="tooltip-note-mode">PVP</span><div class="tooltip-note-body">${multilineHtml(unit.notesPvp)}</div></div>`);
+  if (unit.notesPve) blocks.push(`<div class="tooltip-note-block"><span class="tooltip-note-mode">PVE</span><div class="tooltip-note-body">${multilineHtml(unit.notesPve)}</div></div>`);
+  return blocks.length ? tooltipSection("Notes", `<div class="tooltip-note-list">${blocks.join("")}</div>`, "tooltip-notes-section") : "";
 }
 
-function segmentListHtml(unit, activeSegmentId = null) {
+function tooltipMetaHtml(unit, activeSegmentId = null, inheritedFromMs = false) {
   const segments = (unit.segments || []).slice().sort((a, b) => a.start - b.start || a.end - b.end);
   if (!segments.length) return "";
   const rows = segments.map(seg => {
     const status = metaStatus(seg.statusId);
     const active = activeSegmentId === seg.id ? " active" : "";
-    return `<div class="tooltip-segment${active}"><i style="background:${escapeHtml(status.color)}"></i><span>${escapeHtml(formatWeekRange(seg.start, seg.end))} · ${escapeHtml(status.label)}</span></div>`;
+    return `<div class="tooltip-meta-row${active}"><i class="tooltip-meta-dot" style="background:${escapeHtml(status.color)}"></i><span class="tooltip-meta-status">${escapeHtml(status.label)}</span><span class="tooltip-meta-range">${escapeHtml(formatWeekRange(seg.start, seg.end))}</span></div>`;
   }).join("");
-  return `<div class="tooltip-segments"><div class="tooltip-segments-title">Meta segments</div>${rows}</div>`;
+  return tooltipSection(inheritedFromMs ? "MS PVP Meta" : "PVP Meta", `<div class="tooltip-meta-list">${rows}</div>`, "tooltip-meta-section");
 }
+
 function moveTooltip(event, force = false) {
   if (!tooltipEl || (tooltipPinned && !force)) return;
-  positionFloatingTooltip(tooltipEl, event, 320);
+  positionFloatingTooltip(tooltipEl, event, 360);
 }
 function hideTooltip(force = false) {
   const shouldForce = force === true;
