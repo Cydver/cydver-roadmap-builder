@@ -1,10 +1,11 @@
 {
-  "generatedAt": "2026-07-15T05:47:30.256Z",
+  "generatedAt": "2026-07-20T13:13:40.447Z",
   "sources": [
     "https://altema.jp/gundamuce/msrea/4",
-    "https://altema.jp/gundamuce/chararea/4"
+    "https://altema.jp/gundamuce/chararea/4",
+    "https://gundam.fandom.com/wiki/"
   ],
-  "note": "Generated from Altema list pages. If icons are remote URLs instead of icons/altema files, the image download step was blocked but the app can still display them.",
+  "note": "Generated from Altema list pages, then canonical English MS/pilot names are resolved against the English Gundam Wiki by verified Japanese-name matches. Unverified matches are never substituted.",
   "items": [
     {
       "id": "altema-ms-1380bf1660",
@@ -15,7 +16,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/415",
       "attribute": "緑",
       "role": "砲撃",
-      "rating": "9.5"
+      "rating": "9.5",
+      "nameJa": "ZZガンダム(覚醒)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-1abc48640f",
@@ -26,7 +29,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/412",
       "attribute": "青",
       "role": "汎用",
-      "rating": "9.5"
+      "rating": "9.5",
+      "nameJa": "キュベレイ(覚醒)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-b24601d773",
@@ -37,7 +42,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/395",
       "attribute": "緑",
       "role": "砲撃",
-      "rating": "9.5"
+      "rating": "9.5",
+      "nameJa": "G-アルケイン(フルドレス)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-d2f343a057",
@@ -48,7 +55,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/392",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "9.5"
+      "rating": "9.5",
+      "nameJa": "ユニコーンガンダム(NT-D/覚醒)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-a5ddc83f9e",
@@ -59,7 +68,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/391",
       "attribute": "青",
       "role": "汎用",
-      "rating": "9.5"
+      "rating": "9.5",
+      "nameJa": "シナンジュ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-aa5da92dea",
@@ -70,7 +81,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/408",
       "attribute": "黄",
       "role": "強襲",
-      "rating": "9"
+      "rating": "9",
+      "nameJa": "ターンX(黄)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-50698b2013",
@@ -81,7 +94,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/403",
       "attribute": "赤",
       "role": "重装",
-      "rating": "9"
+      "rating": "9",
+      "nameJa": "ユニコーンガンダム ペルフェクティビリティ・ディバイン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-a2a10846b5",
@@ -92,7 +107,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/363",
       "attribute": "黄",
       "role": "狙撃",
-      "rating": "9"
+      "rating": "9",
+      "nameJa": "エルメス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-d945240dd9",
@@ -103,7 +120,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/341",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "9"
+      "rating": "9",
+      "nameJa": "キュベレイ(赤)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-60f183bba0",
@@ -114,7 +133,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/338",
       "attribute": "赤",
       "role": "狙撃",
-      "rating": "9"
+      "rating": "9",
+      "nameJa": "νガンダム(LFF&HMBL装備)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-9111abdde9",
@@ -125,7 +146,22 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/209",
       "attribute": "紫",
       "role": "支援",
-      "rating": "9"
+      "rating": "9",
+      "nameJa": "ギャン",
+      "nameSource": "altema-unresolved"
+    },
+    {
+      "id": "altema-ms-d13c5f05f4",
+      "kind": "ms",
+      "name": "バルギル(紫)",
+      "icon": "icons/altema/ms-バルギル-紫-8f6ae811.jpg",
+      "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/418.jpg",
+      "sourceUrl": "https://altema.jp/gundamuce/ms/418",
+      "attribute": "紫",
+      "role": "強襲",
+      "rating": "8.5",
+      "nameJa": "バルギル(紫)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-20dbb65fe6",
@@ -136,7 +172,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/405",
       "attribute": "黄",
       "role": "強襲",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "G-ルシファー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-997a2dc2d2",
@@ -147,7 +185,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/387",
       "attribute": "黄",
       "role": "支援",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ギャン(黄)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-dabd48cbf1",
@@ -158,7 +198,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/379",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ターンX",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-f9283c4908",
@@ -169,7 +211,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/377",
       "attribute": "紫",
       "role": "狙撃",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "スーパーエンゲージガンダム(UR)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-809b666b2a",
@@ -180,7 +224,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/371",
       "attribute": "青",
       "role": "重装",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "V2アサルトバスターガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-8bfad0a138",
@@ -191,7 +237,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/367",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "クロスボーン・ガンダムX1フルクロス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-c7c4eaca2d",
@@ -202,7 +250,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/358",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "G-セルフ 大気圏用バックパック",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-58481c3082",
@@ -213,7 +263,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/351",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "∀ガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-2b02c8927b",
@@ -224,7 +276,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/337",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ハンブラビ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-c64ab8b5fe",
@@ -235,7 +289,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/336",
       "attribute": "紫",
       "role": "砲撃",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "V2ABCガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-1404f75c61",
@@ -246,7 +302,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/329",
       "attribute": "黄",
       "role": "強襲",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ガンダム(黄)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-a346478475",
@@ -257,7 +315,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/327",
       "attribute": "緑",
       "role": "重装",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ZZガンダム(HGC装備)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-91e5d561eb",
@@ -268,7 +328,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/320",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ユニコーンガンダム(HML装備)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-203ce71f56",
@@ -279,7 +341,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/304",
       "attribute": "緑",
       "role": "支援",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "フェネクス(NT-D/NTver.)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-1aaca3168f",
@@ -290,7 +354,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/282",
       "attribute": "黄",
       "role": "重装",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "νガンダムHWS",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-4766aa59d2",
@@ -301,7 +367,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/246",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ガンダムF91(最大稼働)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-1fadd067ad",
@@ -312,7 +380,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/417",
       "attribute": "紫",
       "role": "強襲",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ダハック",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-3eec827955",
@@ -323,7 +393,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/414",
       "attribute": "緑",
       "role": "支援",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ガンキャノン(緑)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-d7906bb9ff",
@@ -334,7 +406,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/410",
       "attribute": "青",
       "role": "強襲",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "G-セルフ 宇宙用バックパック",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-95a24b8805",
@@ -345,7 +419,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/402",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "エンゲージガンダム(ガンダムパンチ装備)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-6630de5312",
@@ -356,7 +432,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/399",
       "attribute": "紫",
       "role": "狙撃",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ウーンドウォート",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-aa57ad7f84",
@@ -367,7 +445,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/398",
       "attribute": "紫",
       "role": "重装",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "Ξガンダム(紫)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-098d4d0788",
@@ -378,7 +458,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/397",
       "attribute": "紫",
       "role": "支援",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ガンダムEz8(紫)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-c5347898c0",
@@ -389,7 +471,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/388",
       "attribute": "黄",
       "role": "汎用",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "∀ガンダム(黄)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-b12ad5f83f",
@@ -400,7 +484,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/386",
       "attribute": "黄",
       "role": "汎用",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "エンゲージガンダム ブースター装備",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-5fde54be58",
@@ -411,7 +497,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/383",
       "attribute": "赤",
       "role": "狙撃",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "アッシマー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-c99cd2771b",
@@ -422,7 +510,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/381",
       "attribute": "赤",
       "role": "狙撃",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "G-アルケイン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-b80338beb6",
@@ -433,7 +523,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/375",
       "attribute": "緑",
       "role": "重装",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "Ex-Sガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-c09f8e4676",
@@ -444,7 +536,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/368",
       "attribute": "青",
       "role": "支援",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ヘイズル2号機",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-18fdf77c41",
@@ -455,7 +549,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/359",
       "attribute": "黄",
       "role": "汎用",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "エンゲージガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-da50d85eea",
@@ -466,7 +562,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/355",
       "attribute": "緑",
       "role": "白兵",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "GQuuuuuuX(オメガ・サイコミュ起動時)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-7bf09b0637",
@@ -477,7 +575,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/352",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "リック・ディジェ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-d7c56f34c3",
@@ -488,7 +588,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/347",
       "attribute": "紫",
       "role": "支援",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ガンダム5号機[Bst]",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-556cc2d1ac",
@@ -499,7 +601,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/342",
       "attribute": "青",
       "role": "支援",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "リガズィード",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-2423c31013",
@@ -510,7 +614,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/332",
       "attribute": "紫",
       "role": "砲撃",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ゴトラタン(砲撃)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-8b32458000",
@@ -521,7 +627,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/328",
       "attribute": "黄",
       "role": "強襲",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ザクⅢ改",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-16b0c03898",
@@ -532,7 +640,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/315",
       "attribute": "青",
       "role": "汎用",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ナラティブガンダムB2装備",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-35600068ef",
@@ -543,7 +653,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/307",
       "attribute": "黄",
       "role": "狙撃",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ジオング(狙撃)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-107f17fa88",
@@ -554,7 +666,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/295",
       "attribute": "紫",
       "role": "重装",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "アレックス(チョバムアーマー)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-5d312be2ef",
@@ -565,7 +679,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/284",
       "attribute": "赤",
       "role": "支援",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "キュベレイMk-Ⅱ(プル機/支援)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-17d0b7020c",
@@ -576,7 +692,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/268",
       "attribute": "青",
       "role": "重装",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "クィン・マンサ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-3f46750bdb",
@@ -587,7 +705,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/264",
       "attribute": "青",
       "role": "支援",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "メタス(UR)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-e7eb8d6c44",
@@ -598,7 +718,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/259",
       "attribute": "紫",
       "role": "重装",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ジ・O(木星帰りの男)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-ff7df87259",
@@ -609,7 +731,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/215",
       "attribute": "黄",
       "role": "狙撃",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ザンネック",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-0a6cc73f56",
@@ -620,7 +744,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/197",
       "attribute": "赤",
       "role": "砲撃",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "RX-78F00 HMT ガンダム高機動型",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-fa4e7f562c",
@@ -631,7 +757,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/180",
       "attribute": "青",
       "role": "支援",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "エンゲージゼロ・ヨンファヴィン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-29b2f318d9",
@@ -642,7 +770,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/167",
       "attribute": "赤",
       "role": "重装",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ペーネロペー(重装)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-ec2a7ec729",
@@ -653,7 +783,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/156",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ユニコーンガンダム(PF)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-a6adc87a3e",
@@ -664,7 +796,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/154",
       "attribute": "青",
       "role": "砲撃",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "Sガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-2b5861c04e",
@@ -675,7 +809,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/141",
       "attribute": "赤",
       "role": "砲撃",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "サイコ・ザク",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-05b97bca96",
@@ -686,7 +822,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/139",
       "attribute": "黄",
       "role": "汎用",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "フェネクス(NTver.)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-1c18efc0ba",
@@ -697,7 +835,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/112",
       "attribute": "緑",
       "role": "砲撃",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ZZガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-203b44cbc2",
@@ -708,7 +848,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/107",
       "attribute": "紫",
       "role": "強襲",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "バルギル（ガンダムヘッド）",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-0ff8d8d27b",
@@ -719,7 +861,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/102",
       "attribute": "青",
       "role": "重装",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "ガンダム試作2号機",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-e1e832c420",
@@ -730,7 +874,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/91",
       "attribute": "青",
       "role": "汎用",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "サザビー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-cfd6a70e46",
@@ -741,7 +887,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/8",
       "attribute": "紫",
       "role": "重装",
-      "rating": "8"
+      "rating": "8",
+      "nameJa": "フルアーマー・ガンダム(サンダーボルト版)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-a441543f9b",
@@ -752,7 +900,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/416",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バンシィ・ノルン(NT-D)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-f513d6f418",
@@ -763,7 +913,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/413",
       "attribute": "緑",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム試作2号機(緑)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-17eb12a168",
@@ -774,7 +926,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/411",
       "attribute": "青",
       "role": "支援",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ズサ(青)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-71d8167daf",
@@ -785,7 +939,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/407",
       "attribute": "黄",
       "role": "狙撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アリュゼウス(フライト・フォーム)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-a39e48e44b",
@@ -796,7 +952,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/406",
       "attribute": "黄",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リバウ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-58ee868e62",
@@ -807,7 +965,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/401",
       "attribute": "赤",
       "role": "支援",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "エンゲージゼロ・ヴァイスクレーエ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-6591ca1a95",
@@ -818,7 +978,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/394",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "コレンカプル",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-d29663c63a",
@@ -829,7 +991,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/393",
       "attribute": "緑",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ヘイズル・アウスラ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-73e9dd6bb5",
@@ -840,7 +1004,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/390",
       "attribute": "青",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ヘイズル改(高機動仕様)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-4aac1d18b7",
@@ -851,7 +1017,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/389",
       "attribute": "青",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "GFreD",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-052ab6a750",
@@ -862,7 +1030,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/384",
       "attribute": "赤",
       "role": "狙撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "サザビー初期試験型(重力下仕様)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-00fb198fe2",
@@ -873,7 +1043,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/382",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クロスボーン・ガンダムX1 ハーフクロス（キンケドゥ搭乗仕様）",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-4d619ded99",
@@ -884,7 +1056,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/378",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ゲルググ・ウェルテクス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-16c1e428c7",
@@ -895,7 +1069,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/374",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バイアラン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-f6803dcd8a",
@@ -906,7 +1082,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/373",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "カプル",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-1e3203e7ce",
@@ -917,7 +1095,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/370",
       "attribute": "青",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ドライセン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-267ad2e851",
@@ -928,7 +1108,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/369",
       "attribute": "青",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "モンテーロ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-2987910009",
@@ -939,7 +1121,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/366",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "赤いガンダム(0079)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-9bb46b19ef",
@@ -950,7 +1134,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/364",
       "attribute": "赤",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "FAZZ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-da465b8b34",
@@ -961,7 +1147,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/361",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "赤いガンダム(0085)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-13451f6002",
@@ -972,7 +1160,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/356",
       "attribute": "緑",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ゴールドスモー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-21e783b435",
@@ -983,7 +1173,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/349",
       "attribute": "紫",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガーベラ・テトラ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-659cbd3e96",
@@ -994,7 +1186,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/346",
       "attribute": "青",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ムーンガンダム(汎用)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-c7481de655",
@@ -1005,7 +1199,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/344",
       "attribute": "青",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "グレート・ジオング",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-c7903dc344",
@@ -1016,7 +1212,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/340",
       "attribute": "赤",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "GQuuuuuuX(UR)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-bdb6eb2a03",
@@ -1027,7 +1225,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/334",
       "attribute": "紫",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リゲルグ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-4c923eb0af",
@@ -1038,7 +1238,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/331",
       "attribute": "黄",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "Zガンダム(IFクロー＆IFブラスター装備)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-c1006bbef5",
@@ -1049,7 +1251,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/324",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダムEX",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-8b48c7ba43",
@@ -1060,7 +1264,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/323",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム試作2号機(MLRS)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-66e4a95ab9",
@@ -1071,7 +1277,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/321",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リ・ガズィ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-d118fc499f",
@@ -1082,7 +1290,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/318",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム試作1号機フルバーニアン(赤)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-33398f2dfe",
@@ -1093,7 +1303,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/316",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シナンジュ・スタイン(NTver.赤)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-4490f83422",
@@ -1104,7 +1316,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/314",
       "attribute": "青",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "グフ・カスタム(UR)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-2ce94f3a64",
@@ -1115,7 +1329,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/311",
       "attribute": "青",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ビギナ・ギナ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-c06bbfc4fd",
@@ -1126,7 +1342,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/310",
       "attribute": "黄",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダムF91(ツイン・ヴェスバー装着型)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-daffb6a69a",
@@ -1137,7 +1355,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/308",
       "attribute": "黄",
       "role": "支援",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アッガイ(ダリル機)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-7b54f85d34",
@@ -1148,7 +1368,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/305",
       "attribute": "黄",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ローゼン・ズール",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-4864e2fe11",
@@ -1159,7 +1381,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/302",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ブルーディスティニー3号機",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-7429a10a43",
@@ -1170,7 +1394,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/299",
       "attribute": "緑",
       "role": "狙撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シータプラス(狙撃)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-58380a0eec",
@@ -1181,7 +1407,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/298",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ユニコーンガンダムPF(NT-D)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-82ba58035f",
@@ -1192,7 +1420,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/294",
       "attribute": "紫",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ギーセン・ドーガ(ハイデマリー機)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-e543472e28",
@@ -1203,7 +1433,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/293",
       "attribute": "紫",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム4号機［Bst］",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-8b73eccdeb",
@@ -1214,7 +1446,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/290",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ナラティブガンダム(C装備)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-381c0bac34",
@@ -1225,7 +1459,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/289",
       "attribute": "赤",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クロスボーン・ガンダムX3",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-b16935ee80",
@@ -1236,7 +1472,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/286",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クェス専用ヤクト・ドーガ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-5909d8cdf8",
@@ -1247,7 +1485,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/283",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ペーネロペー(汎用)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-6aa3114d0e",
@@ -1258,7 +1498,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/279",
       "attribute": "黄",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "パラス・アテネ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-d73b96e61c",
@@ -1269,7 +1511,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/277",
       "attribute": "黄",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ブラックライダー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-70cecb18d9",
@@ -1280,7 +1524,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/276",
       "attribute": "黄",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "V2バスターガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-d9e57c0350",
@@ -1291,7 +1537,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/275",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シナンジュ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-691ed1d5d4",
@@ -1302,7 +1550,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/274",
       "attribute": "緑",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ゲンガオゾ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-460ee35e44",
@@ -1313,7 +1563,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/272",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム5号機",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-aee8fb886d",
@@ -1324,7 +1576,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/270",
       "attribute": "緑",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ゲーマルク",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-359b05dc55",
@@ -1335,7 +1589,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/265",
       "attribute": "青",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ブルーディスティニー2号機",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-46508ef3fb",
@@ -1346,7 +1602,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/262",
       "attribute": "青",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クシャトリヤ・リペアード",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-ff22466798",
@@ -1357,7 +1615,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/261",
       "attribute": "青",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クロスボーン・ガンダムX2",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-498008b1fb",
@@ -1368,7 +1628,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/260",
       "attribute": "黄",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "Zガンダム(Zの鼓動)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-950bae12ba",
@@ -1379,7 +1641,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/257",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ゴトラタン(汎用)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-48a9688ac5",
@@ -1390,7 +1654,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/256",
       "attribute": "紫",
       "role": "狙撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ディジェ+ド・ダイ改",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-5433d963ee",
@@ -1401,7 +1667,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/255",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "V2アサルトガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-87f71d8bc2",
@@ -1412,7 +1680,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/251",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "マグナ・マーテル（覚醒）",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-6b0e731cb7",
@@ -1423,7 +1693,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/250",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム4号機",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-4832293ef4",
@@ -1434,7 +1706,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/249",
       "attribute": "赤",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ファーヴニル",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-b44dec0acb",
@@ -1445,7 +1719,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/247",
       "attribute": "赤",
       "role": "狙撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダムMk-Ⅱ(エゥーゴ)+FA",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-6a21d539d6",
@@ -1456,7 +1732,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/243",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ハイゴッグ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-67d021de98",
@@ -1467,7 +1745,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/242",
       "attribute": "緑",
       "role": "狙撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リグ・コンティオ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-78584e812c",
@@ -1478,7 +1758,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/240",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アトラスガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-2630409586",
@@ -1489,7 +1771,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/239",
       "attribute": "黄",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "νガンダム(DFF装備型)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-512a1654ad",
@@ -1500,7 +1784,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/236",
       "attribute": "黄",
       "role": "狙撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ホワイトライダー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-d903ea3c58",
@@ -1511,7 +1797,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/234",
       "attribute": "黄",
       "role": "支援",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ナラティブガンダム(B装備)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-63a58cd87e",
@@ -1522,7 +1810,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/233",
       "attribute": "黄",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バウンド・ドック",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-753ffdb912",
@@ -1533,7 +1823,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/232",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "トーリスリッター",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-d2e52af4fe",
@@ -1544,7 +1836,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/231",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シーマ専用ゲルググM",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-7cc935a466",
@@ -1555,7 +1849,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/230",
       "attribute": "紫",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "グレイ・ゼータ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-d88432efc8",
@@ -1566,7 +1862,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/229",
       "attribute": "紫",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ドム・ノーミーデス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-c33d472bda",
@@ -1577,7 +1875,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/227",
       "attribute": "紫",
       "role": "狙撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム+Gファイター",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-b4bd5bfe31",
@@ -1588,7 +1888,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/226",
       "attribute": "青",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "フルアーマーZZガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-7182bd812e",
@@ -1599,7 +1901,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/225",
       "attribute": "青",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア専用リック・ドム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-60686d1694",
@@ -1610,7 +1914,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/224",
       "attribute": "青",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ザクⅣ(イリア・パゾム機)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-e6e44eeff9",
@@ -1621,7 +1927,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/223",
       "attribute": "青",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "イフリート改",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-ba5cfe546b",
@@ -1632,7 +1940,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/221",
       "attribute": "赤",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "フルアーマー・ユニコーンガンダム(NT-D)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-9a77ddfa45",
@@ -1643,7 +1953,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/220",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム・エアリアル(改修型)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-9c7fee4f78",
@@ -1654,7 +1966,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/219",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "レッド・ゼータ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-c2ae81c532",
@@ -1665,7 +1979,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/218",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "メッサーラ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-97f3ee97d1",
@@ -1676,7 +1992,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/217",
       "attribute": "黄",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム試作3号機ステイメン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-db281dfd32",
@@ -1687,7 +2005,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/216",
       "attribute": "黄",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ゲドラフ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-bc6e71644b",
@@ -1698,7 +2018,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/214",
       "attribute": "黄",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ZZ-GR",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-c9ca93d8f9",
@@ -1709,7 +2031,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/212",
       "attribute": "黄",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ダグ・ドール",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-4b2f1e635d",
@@ -1720,7 +2044,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/211",
       "attribute": "紫",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "サザビー(紫)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-a7fca8eda6",
@@ -1731,7 +2057,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/207",
       "attribute": "紫",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダムピクシー(初期配備型)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-bbe97545f2",
@@ -1742,7 +2070,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/206",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "Zガンダム3号機",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-641c8a7fc6",
@@ -1753,7 +2083,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/204",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "νガンダム(緑)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-29c1498920",
@@ -1764,7 +2096,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/203",
       "attribute": "緑",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ディジェ(ルオ商会仕様)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-af5c2279fd",
@@ -1775,7 +2109,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/201",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ギャプラン(UR)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-51f8254741",
@@ -1786,7 +2122,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/200",
       "attribute": "緑",
       "role": "支援",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ドーベン・ウルフ(指揮官機)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-bcfab5b47e",
@@ -1797,7 +2135,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/199",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ナラティブガンダム(緑)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-032da1f8be",
@@ -1808,7 +2148,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/198",
       "attribute": "緑",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ヘイズル改",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-fcca39ce6c",
@@ -1819,7 +2161,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/196",
       "attribute": "赤",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リック・ドム(サンダーボルト版)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-b1cd87d861",
@@ -1830,7 +2174,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/195",
       "attribute": "赤",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "フルアーマー・ガンダム(TB版・砲撃)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-3e2cd3bfa0",
@@ -1841,7 +2187,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/194",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "エンゲージゼロ・ヨンファヴィン(覚醒)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-a85f7f74e8",
@@ -1852,7 +2200,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/192",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "量産型キュベレイ(リン機)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-4464fcc410",
@@ -1863,7 +2213,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/191",
       "attribute": "赤",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "マグナ・マーテル",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-873126c934",
@@ -1874,7 +2226,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/190",
       "attribute": "青",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ジオング(砲撃)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-93d963bcef",
@@ -1885,7 +2239,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/189",
       "attribute": "青",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "メッサーF01型",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-3263ece0e2",
@@ -1896,7 +2252,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/188",
       "attribute": "青",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "Ξガンダム(砲撃)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-f83c8ff150",
@@ -1907,7 +2265,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/187",
       "attribute": "青",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シナンジュ・スタイン(NTver.青)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-1b8f170024",
@@ -1918,7 +2278,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/185",
       "attribute": "青",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ユニコーンガンダム(白き一角獣)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-956bfd7a09",
@@ -1929,7 +2291,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/182",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バンシィ・ノルン(黒き獅子)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-e8e89c0dc1",
@@ -1940,7 +2304,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/181",
       "attribute": "青",
       "role": "支援",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "量産型キュベレイ（レイ機）",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-6d2b58eb17",
@@ -1951,7 +2317,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/178",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アレックス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-e7a3f2f8a7",
@@ -1962,7 +2330,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/177",
       "attribute": "緑",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ザクⅢ改(TWA)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-6d2351892d",
@@ -1973,7 +2343,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/176",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "量産型キュベレイ(ノン機)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-8375892128",
@@ -1984,7 +2356,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/175",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "キュベレイMk-Ⅱ(プルツー機)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-009f81de69",
@@ -1995,7 +2369,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/174",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クロスボーン・ガンダムX1",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-3ea05bdc23",
@@ -2006,7 +2382,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/173",
       "attribute": "紫",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ブルーディスティニー1号機",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-b5c7b0cfca",
@@ -2017,7 +2395,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/172",
       "attribute": "紫",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア専用ゲルググ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-f62360863f",
@@ -2028,7 +2408,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/170",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "FAエンゲージガンダム(Cプラン)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-2ef96dc7cc",
@@ -2039,7 +2421,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/169",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "エンゲージゼロ(サイコミュ試験型)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-459b3fed2e",
@@ -2050,7 +2434,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/168",
       "attribute": "紫",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "Zガンダム(HML)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-387a2b0a0d",
@@ -2061,7 +2447,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/166",
       "attribute": "赤",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バンシィ・ノルン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-5339db1eda",
@@ -2072,7 +2460,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/164",
       "attribute": "赤",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "FAエンゲージガンダム(Bプラン)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-53dbd82793",
@@ -2083,7 +2473,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/163",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ギャプラン・トレーナー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-1e4c56c646",
@@ -2094,7 +2486,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/162",
       "attribute": "赤",
       "role": "支援",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "エンゲージゼロ(インコム搭載型)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-7a577e2eff",
@@ -2105,7 +2499,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/161",
       "attribute": "黄",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "サザビー(立像記念)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-2715e84768",
@@ -2116,7 +2512,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/160",
       "attribute": "黄",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "オーヴェロン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-cb73d79d09",
@@ -2127,7 +2525,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/158",
       "attribute": "赤",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "FAエンゲージガンダム(Aプラン)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-0ee5010a99",
@@ -2138,7 +2538,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/157",
       "attribute": "黄",
       "role": "支援",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア専用ズゴック",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-50ab9fa431",
@@ -2149,7 +2551,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/155",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リック・ディジェ改",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-8816a3e082",
@@ -2160,7 +2564,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/151",
       "attribute": "緑",
       "role": "支援",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダムEz8",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-a8b7a86888",
@@ -2171,7 +2577,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/150",
       "attribute": "青",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "V2ガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-d22182956a",
@@ -2182,7 +2590,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/149",
       "attribute": "青",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ティターニア",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-8d12a88e8e",
@@ -2193,7 +2603,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/148",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ペイルライダー(空間戦仕様)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-9c47106955",
@@ -2204,7 +2616,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/144",
       "attribute": "赤",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "Ξガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-55ebe74cd7",
@@ -2215,7 +2629,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/143",
       "attribute": "黄",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "URガンキャノン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-81d5dbc12d",
@@ -2226,7 +2642,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/142",
       "attribute": "黄",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ジョニー・ライデン専用ゲルググ・キャノン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-3adfb96ac1",
@@ -2237,7 +2655,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/140",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "デルタプラス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-c383a6c9e8",
@@ -2248,7 +2668,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/137",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "エンゲージガンダム(ファンネル装備型)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-a0e8db2799",
@@ -2259,7 +2681,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/133",
       "attribute": "青",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ジムⅢパワードFA",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-69d4811d07",
@@ -2270,7 +2694,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/132",
       "attribute": "黄",
       "role": "白兵",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ムーンガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-12a3cacfc6",
@@ -2281,7 +2707,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/131",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "キュベレイ(紫)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-e68c7d100c",
@@ -2292,7 +2720,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/128",
       "attribute": "紫",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バンシィ(NT-D)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-719853693a",
@@ -2303,7 +2733,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/127",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "高機動型ケンプファー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-2b65ca3d55",
@@ -2314,7 +2746,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/126",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム試作4号機",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-987685b072",
@@ -2325,7 +2759,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/125",
       "attribute": "青",
       "role": "狙撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "νガンダム(立像記念)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-ad1124f441",
@@ -2336,7 +2772,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/124",
       "attribute": "青",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "フルアーマー・ユニコーン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-9fc043f518",
@@ -2347,7 +2785,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/122",
       "attribute": "青",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バイアラン・カスタム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-837f0ef2ea",
@@ -2358,7 +2798,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/121",
       "attribute": "黄",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "エンゲージガンダム(ブースター装備)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-9c61afa559",
@@ -2369,7 +2811,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/119",
       "attribute": "紫",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダムF91",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-43ac16944d",
@@ -2380,7 +2824,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/117",
       "attribute": "緑",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ジ・O",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-7a93785aba",
@@ -2391,7 +2837,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/115",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "エンゲージゼロ・追加ブースター装備型",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-b50f8ccadc",
@@ -2402,7 +2850,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/114",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム試作1号機フルバーニアン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-d1dd20099f",
@@ -2413,7 +2863,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/110",
       "attribute": "黄",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ベルガ・ダラス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-f45098d93c",
@@ -2424,7 +2876,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/109",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バルギル",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-be5e44e9a6",
@@ -2435,7 +2889,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/108",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シータプラス(汎用)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-8e7eab8214",
@@ -2446,7 +2902,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/106",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クシャトリヤ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-f5e9e8103b",
@@ -2457,7 +2915,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/104",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ハンマ・ハンマ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-b6d55144a3",
@@ -2468,7 +2928,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/100",
       "attribute": "青",
       "role": "砲撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "G-3ガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-928bcc5b69",
@@ -2479,7 +2941,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/99",
       "attribute": "紫",
       "role": "狙撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シスクード(ティターンズ)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-eb0d94e938",
@@ -2490,7 +2954,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/98",
       "attribute": "黄",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "Zガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-a9067e6238",
@@ -2501,7 +2967,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/96",
       "attribute": "青",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "百式",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-dc2c3c25ec",
@@ -2512,7 +2980,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/94",
       "attribute": "紫",
       "role": "狙撃",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ザクⅠ＋ビッグガン（サンダーボルト版）",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-853f4eb810",
@@ -2523,7 +2993,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/92",
       "attribute": "青",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "サイコミュシステム高機動試験機",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-2419eeaae0",
@@ -2534,7 +3006,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/90",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "νガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-6918f63414",
@@ -2545,7 +3019,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/89",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア専用ザクⅡ(THE ORIGIN)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-25509e2d2e",
@@ -2556,7 +3032,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/88",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム(THE ORIGIN)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-c70ce53fcf",
@@ -2567,7 +3045,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/86",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ユニコーンガンダム(NT-D)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-8a181e1e9c",
@@ -2578,7 +3058,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/85",
       "attribute": "黄",
       "role": "重装",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガトー専用リック・ドム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-320b59ffa5",
@@ -2589,7 +3071,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/84",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "マツナガ専用高機動型ザクⅡ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-0d5da39bc9",
@@ -2600,7 +3084,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/82",
       "attribute": "青",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム(青)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-25b3386b9f",
@@ -2611,7 +3097,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/70",
       "attribute": "赤",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ザクⅠ(シャア機)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-cc6f4d4b18",
@@ -2622,7 +3110,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/52",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "Vガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-0401deeb4e",
@@ -2633,7 +3123,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/48",
       "attribute": "青",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リ・ガズィ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-73f191c7b7",
@@ -2644,7 +3136,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/47",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "キュベレイMk-Ⅱ(プル機/強襲)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-7fa95edef7",
@@ -2655,7 +3149,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/44",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ナラティブガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-6fd6ae2c40",
@@ -2666,7 +3162,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/43",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ナイチンゲール",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-e73997f31f",
@@ -2677,7 +3175,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/36",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ケンプファー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-3c37b1e9ea",
@@ -2688,7 +3188,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/34",
       "attribute": "青",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム試作1号機",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-55893ce354",
@@ -2699,7 +3201,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/32",
       "attribute": "青",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "Hi-νガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-3d3f5553e0",
@@ -2710,7 +3214,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/28",
       "attribute": "緑",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダム(緑)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-1fd1daa941",
@@ -2721,7 +3227,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/26",
       "attribute": "青",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガンダムMk-Ⅱ(ティターンズ仕様)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-e7a3782b3f",
@@ -2732,7 +3240,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/17",
       "attribute": "緑",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シナンジュ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-7a741d91cc",
@@ -2743,7 +3253,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/14",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア専用ザクⅡ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-05136b86b7",
@@ -2754,7 +3266,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/9",
       "attribute": "赤",
       "role": "強襲",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バンシィ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-ms-ee3a0c29c7",
@@ -2765,7 +3279,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/ms/7",
       "attribute": "黄",
       "role": "汎用",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ユニコーンガンダム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-ed2e9b835f",
@@ -2776,7 +3292,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/369",
       "attribute": "",
       "role": "",
-      "rating": "9.5"
+      "rating": "9.5",
+      "nameJa": "ジュドー・アーシタ(C0459)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-ec22701c11",
@@ -2787,7 +3305,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/366",
       "attribute": "",
       "role": "",
-      "rating": "9.5"
+      "rating": "9.5",
+      "nameJa": "ハマーン・カーン(C0456)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-017c77fcbf",
@@ -2798,7 +3318,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/349",
       "attribute": "",
       "role": "",
-      "rating": "9.5"
+      "rating": "9.5",
+      "nameJa": "アイーダ・スルガン(C0438)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-80d31b2c8a",
@@ -2809,7 +3331,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/346",
       "attribute": "",
       "role": "",
-      "rating": "9.5"
+      "rating": "9.5",
+      "nameJa": "バナージ・リンクス(C0036)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-24935b807c",
@@ -2820,7 +3344,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/345",
       "attribute": "",
       "role": "",
-      "rating": "9.5"
+      "rating": "9.5",
+      "nameJa": "フル・フロンタル",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-375cf3b8ae",
@@ -2831,7 +3357,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/362",
       "attribute": "",
       "role": "",
-      "rating": "9.0"
+      "rating": "9.0",
+      "nameJa": "ギム・ギンガナム(C0452)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-db58cfa01b",
@@ -2842,7 +3370,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/357",
       "attribute": "",
       "role": "",
-      "rating": "9.0"
+      "rating": "9.0",
+      "nameJa": "バナージ・リンクス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-d0358fb6e8",
@@ -2853,7 +3383,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/317",
       "attribute": "",
       "role": "",
-      "rating": "9.0"
+      "rating": "9.0",
+      "nameJa": "ララァ・スン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-26445a22b3",
@@ -2864,7 +3396,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/296",
       "attribute": "",
       "role": "",
-      "rating": "9.0"
+      "rating": "9.0",
+      "nameJa": "ハマーン・カーン(C0378)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-0ca67d36be",
@@ -2875,7 +3409,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/293",
       "attribute": "",
       "role": "",
-      "rating": "9.0"
+      "rating": "9.0",
+      "nameJa": "アムロ・レイ(C0374)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-8332bc59a6",
@@ -2886,7 +3422,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/167",
       "attribute": "",
       "role": "",
-      "rating": "9.0"
+      "rating": "9.0",
+      "nameJa": "マ・クベ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-41dbffb1b7",
@@ -2897,7 +3435,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/359",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ラライヤ・アクパール",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-b10b14dc08",
@@ -2908,7 +3448,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/341",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "マ・クベ(C0428)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-426dfa9883",
@@ -2919,7 +3461,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/333",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ギム・ギンガナム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-190ecf9c6c",
@@ -2930,7 +3474,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/331",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ユート・オールディス(C0417)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-63439ec4a0",
@@ -2941,7 +3487,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/325",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ウッソ・エヴィン(C0412)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-d7ed21f7c0",
@@ -2952,7 +3500,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/321",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "トビア・アロナクス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-aa245e5844",
@@ -2963,7 +3513,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/312",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ベルリ・ゼナム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-b858c0e66b",
@@ -2974,7 +3526,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/306",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ロラン・セアック",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-47b805db42",
@@ -2985,7 +3539,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/292",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ヤザン・ゲーブル",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-f3ea09cb9a",
@@ -2996,7 +3552,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/291",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ウッソ・エヴィン(C0373)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-2e789b44cf",
@@ -3007,7 +3565,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/284",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "アムロ・レイ(C0364)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-712c4fced3",
@@ -3018,7 +3578,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/282",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ジュドー・アーシタ(C0361)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-712c503ca0",
@@ -3029,7 +3591,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/277",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "バナージ・リンクス(C0355)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-e8af881f81",
@@ -3040,7 +3604,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/261",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "ヨナ・バシュタ(C0340)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9f7a43d973",
@@ -3051,7 +3617,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/239",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "アムロ・レイ(C0312)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-380ae7d94b",
@@ -3062,7 +3630,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/205",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "シーブック・アノー(C0281)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-248947cf83",
@@ -3073,7 +3643,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/127",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "スレッガー・ロウ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-af2b5ab3c1",
@@ -3084,7 +3656,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/119",
       "attribute": "",
       "role": "",
-      "rating": "8.5"
+      "rating": "8.5",
+      "nameJa": "フォウ・ムラサメ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-0b699d0736",
@@ -3095,7 +3669,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/372",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "アゴス・ラガート(C0462)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-c2f3a099fa",
@@ -3106,7 +3682,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/371",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "クリム・ニック(C0461)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-afda2d87c0",
@@ -3117,7 +3695,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/368",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "カイ・シデン(C0458)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-c2f3391db1",
@@ -3128,7 +3708,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/364",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ベルリ・ゼナム(C0454)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-b06c96715e",
@@ -3139,7 +3721,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/356",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ユート・オールディス(C0446)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-eb05b7b012",
@@ -3150,7 +3734,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/353",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "フォウ・ムラサメ(C0442)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-e2892cbf0f",
@@ -3161,7 +3747,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/352",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ハサウェイ・ノア(C0441)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-dccd3a5e38",
@@ -3172,7 +3760,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/342",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ロラン・セアック(C0429)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-b50a6e2c43",
@@ -3183,7 +3773,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/340",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ユート・オールディス(C0427)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-dcc1b2d471",
@@ -3194,7 +3786,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/337",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ブラン・ブルターク",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-8ed98e5053",
@@ -3205,7 +3799,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/335",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "アイーダ・スルガン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-778a734904",
@@ -3216,7 +3812,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/329",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "エル・ビアンノ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-28782dd8a9",
@@ -3227,7 +3825,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/322",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "エマ・シーン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-95d9010edb",
@@ -3238,7 +3838,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/313",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ユート・オールディス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-46fe5e2735",
@@ -3249,7 +3851,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/309",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "アマテ・ユズリハ(C0390)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-1d6257be5b",
@@ -3260,7 +3864,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/307",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "アムロ・レイ(C0383)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-fbc790b740",
@@ -3271,7 +3877,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/302",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "フォルド・ロムフェロー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-5b3e5dcf11",
@@ -3282,7 +3890,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/297",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "サフィラ・ガードナー(C0290)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-0c646484e2",
@@ -3293,7 +3903,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/287",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "カテジナ・ルース",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-aeb0880921",
@@ -3304,7 +3916,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/283",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "マシュマー・セロ(C0362)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-78d3e44fa4",
@@ -3315,7 +3929,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/272",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ヨナ・バシュタ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-385af4de68",
@@ -3326,7 +3942,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/264",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "シャア・アズナブル(C0338)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-74c6c4407f",
@@ -3337,7 +3955,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/252",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "クリスチーナ・マッケンジー(C0326)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-62c5b745df",
@@ -3348,7 +3968,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/242",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "エルピー・プル(C0320)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-30f86b843d",
@@ -3359,7 +3981,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/226",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "プルツー(C0232)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-8ca8dad7f6",
@@ -3370,7 +3994,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/222",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ファ・ユイリィ(C0300)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-1063a3ff2f",
@@ -3381,7 +4007,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/217",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "パプテマス・シロッコ(C0293)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-a169346046",
@@ -3392,7 +4020,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/171",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ファラ・グリフォン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-749b1c0d20",
@@ -3403,7 +4033,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/158",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "アムロ・レイ(C0219)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-d318f057c5",
@@ -3414,7 +4046,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/146",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ペッシェ・モンターニュ(C0201)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-ab2b50ffba",
@@ -3425,7 +4059,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/136",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "レーン・エイム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-d8962712ac",
@@ -3436,7 +4072,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/128",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "バナージ・リンクス(C0180)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-57e0564ac4",
@@ -3447,7 +4085,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/125",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ルー・ルカ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-aa6757fed8",
@@ -3458,7 +4098,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/115",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ダリル・ローレンツ(C0173)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-4a326c9eaa",
@@ -3469,7 +4111,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/113",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ヨナ・バシュタ(C0064)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-22196578c2",
@@ -3480,7 +4124,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/93",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ジュドー・アーシタ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-03dbe75644",
@@ -3491,7 +4137,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/90",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "ユッタ・カーシム(C0067)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-4af862efbc",
@@ -3502,7 +4150,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/86",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "アナベル・ガトー(C0110)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-0c54b31f6a",
@@ -3513,7 +4163,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/77",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "シャア・アズナブル(C0083)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9dd9bea963",
@@ -3524,7 +4176,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/20",
       "attribute": "",
       "role": "",
-      "rating": "8.0"
+      "rating": "8.0",
+      "nameJa": "イオ・フレミング",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-d3843e25b1",
@@ -3535,7 +4189,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/370",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リディ・マーセナス(C0460)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9ab28f00bb",
@@ -3546,7 +4202,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/367",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アナベル・ガトー(C0457)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-0c240808d3",
@@ -3557,7 +4215,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/365",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ペッシェ・モンターニュ(C0455)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-d6e32f2afc",
@@ -3568,7 +4228,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/361",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "レーン・エイム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-e8b9cdc046",
@@ -3579,7 +4241,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/360",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "フル・フロンタル(C0451)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9f90bfedda",
@@ -3590,7 +4254,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/355",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ペッシェ・モンターニュ(C0445)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-67bb2fb272",
@@ -3601,7 +4267,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/348",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "コレン・ナンダー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-f412af4e11",
@@ -3612,7 +4280,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/347",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クワトロ・バジーナ(C0436)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-a070d6ca6f",
@@ -3623,7 +4293,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/344",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "カクリコン・カクーラー(C0431)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-7f0e447291",
@@ -3634,7 +4306,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/343",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ニャアン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-45ac45f3dc",
@@ -3645,7 +4319,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/338",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア・アズナブル",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9cbd6e0cc9",
@@ -3656,7 +4332,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/336",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "キンケドゥ・ナウ(C0423)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-73ffc2b42c",
@@ -3667,7 +4345,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/332",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ジョニー・ライデン(C0418)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-2bed55a6f2",
@@ -3678,7 +4358,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/328",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ジェリド・メサ(C0414)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-ad23c9f216",
@@ -3689,7 +4371,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/327",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ソシエ・ハイム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-d940217bba",
@@ -3700,7 +4384,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/324",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ラカン・ダカラン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-dc7f9c1e89",
@@ -3711,7 +4397,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/323",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クリム・ニック",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-03d050e137",
@@ -3722,7 +4410,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/320",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア・アズナブル(GQ)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-812e8e22b5",
@@ -3733,7 +4423,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/318",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ルー・ルカ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-fcc73b3333",
@@ -3744,7 +4436,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/315",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シュウジ・イトウ(C0395)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9dfde3100e",
@@ -3755,7 +4449,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/310",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ハリー・オード",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-ce83d07b1b",
@@ -3766,7 +4462,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/304",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シーマ・ガラハウ(C0385)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-09f71e8f5e",
@@ -3777,7 +4475,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/301",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ユッタ・カーシム(C0382)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-ee5167477b",
@@ -3788,7 +4488,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/299",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア・アズナブル(C0380)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-de832415d8",
@@ -3799,7 +4501,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/295",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アマテ・ユズリハ(C0377)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-cff326badc",
@@ -3810,7 +4514,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/289",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "イリア・パゾム(C0371)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-bdfaa64fe5",
@@ -3821,7 +4527,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/286",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "カミーユ・ビダン(C0366)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-191cd18643",
@@ -3832,7 +4540,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/281",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "イリヤ・ソラリ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-5736a72de4",
@@ -3843,7 +4553,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/280",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アナベル・ガトー(C0358)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-6eb6bf1239",
@@ -3854,7 +4566,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/278",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アムロ・レイ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-51bc51eb5e",
@@ -3865,7 +4579,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/275",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "コウ・ウラキ(C0354)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-bdd655d1bc",
@@ -3876,7 +4592,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/273",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ゾルタン・アッカネン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-e2039eb80f",
@@ -3887,7 +4605,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/271",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ノリス・パッカード(C0348)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-3dd1678a49",
@@ -3898,7 +4618,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/268",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "セシリー・フェアチャイルド(C0346)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-4425b37569",
@@ -3909,7 +4631,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/267",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シーブック・アノー(C0345)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-f0bfe79ae6",
@@ -3920,7 +4644,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/265",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ダリル・ローレンツ(C0343)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-2630a80139",
@@ -3931,7 +4657,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/262",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アンジェロ・ザウパー(C0341)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-c7b11d16d5",
@@ -3942,7 +4670,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/259",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ユウ・カジマ(C0337)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-43457bdd11",
@@ -3953,7 +4683,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/256",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "サフィラ・ガードナー(C0334)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-ff538589ec",
@@ -3964,7 +4696,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/255",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バナージ・リンクス(C0331)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-fd5301efe9",
@@ -3975,7 +4709,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/251",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ハイデマリー・ハウグ(C0327)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-83edb272fb",
@@ -3986,7 +4722,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/250",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ルース・カッセル(C0328)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-eba4f0683b",
@@ -3997,7 +4735,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/247",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ヨナ・バシュタ(C0325)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-a715854de8",
@@ -4008,7 +4748,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/246",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "トビア・アロナクス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-971e39f094",
@@ -4019,7 +4761,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/243",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クェス・パラヤ(C0321)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-3ee5e6c95f",
@@ -4030,7 +4774,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/240",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "レーン・エイム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9b2886ff6c",
@@ -4041,7 +4787,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/236",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "レコア・ロンド",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-7d20140422",
@@ -4052,7 +4800,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/235",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ダグザ・マックール",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-c6c1ef8f76",
@@ -4063,7 +4813,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/233",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ウッソ・エヴィン(C0271)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-e03ae5dc19",
@@ -4074,7 +4826,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/232",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "フル・フロンタル",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-57fe649cf4",
@@ -4085,7 +4839,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/229",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ファラ・グリフォン(C0308)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-6512fe3530",
@@ -4096,7 +4852,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/228",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "フォルド・ロムフェロー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-b0f1b2ca4d",
@@ -4107,7 +4865,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/227",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "キャラ・スーン(C0267)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-201010b653",
@@ -4118,7 +4878,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/223",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "マリオン・ウェルチ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-a91d28f299",
@@ -4129,7 +4891,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/221",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "マリーダ・クルス(C0299)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-d81856a50e",
@@ -4140,7 +4904,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/219",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "トビア・アロナクス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-e3291fc9ae",
@@ -4151,7 +4917,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/218",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "カミーユ・ビダン(C0294)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-539fdb735a",
@@ -4162,7 +4930,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/216",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "カテジナ・ルース(C0261)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-6b81f50287",
@@ -4173,7 +4943,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/214",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アムロ・レイ(C0292)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-2fd7300b70",
@@ -4184,7 +4956,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/213",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ウッソ・エヴィン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-1ad17499db",
@@ -4195,7 +4969,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/210",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "セリーヌ・ロム(C0217)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-ba41174e61",
@@ -4206,7 +4982,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/209",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ルース・カッセル",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-bc0d144a5c",
@@ -4217,7 +4995,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/208",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ソフィ・フラン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-d101704ddb",
@@ -4228,7 +5008,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/206",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "カミーユ・ビダン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-6d4e58be2d",
@@ -4239,7 +5021,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/202",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガブリエル・ラミレス・ガルシア",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-727319c30c",
@@ -4250,7 +5034,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/201",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クロノクル・アシャー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-5218c73158",
@@ -4261,7 +5047,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/199",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "イオ・フレミング(C0279)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-120619b797",
@@ -4272,7 +5060,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/198",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アムロ・レイ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-b7ae5191a2",
@@ -4283,7 +5073,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/197",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ベルナンド・モンシア",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-e7af034eab",
@@ -4294,7 +5086,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/194",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クリスチーナ・マッケンジー(C0276)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-abd7506db9",
@@ -4305,7 +5099,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/193",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ヨナ・バシュタ(C0265)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-aeb6fdbb49",
@@ -4316,7 +5112,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/191",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ジェリド・メサ(C0264)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-7e4fb81d18",
@@ -4327,7 +5125,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/190",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クロエ・クローチェ(C0218)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-093dd0ac1e",
@@ -4338,7 +5138,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/189",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シーマ・ガラハウ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-2d509d97fa",
@@ -4349,7 +5151,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/188",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "グレイ・ウルフ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-c9a4d4a74b",
@@ -4360,7 +5164,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/187",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ミア・ブリンクマン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-d01a119121",
@@ -4371,7 +5177,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/185",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アムロ・レイ(C0229)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-86233a30b9",
@@ -4382,7 +5190,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/184",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ジュドー・アーシタ(C0257)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-4968d3a902",
@@ -4393,7 +5203,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/183",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア・アズナブル(C0225)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-a469a089e9",
@@ -4404,7 +5216,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/182",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "イリア・パゾム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-39ffde2632",
@@ -4415,7 +5229,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/180",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ニムバス・シュターゼン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-6a180ec866",
@@ -4426,7 +5242,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/179",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バナージ・リンクス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-fadd54a9ad",
@@ -4437,7 +5255,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/178",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "スレッタ・マーキュリー(C0252)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-a05bdb9ccf",
@@ -4448,7 +5268,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/176",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "レッド・スネーク",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-e363e1208d",
@@ -4459,7 +5281,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/175",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "サラ・ザビアロフ(C0247)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-81a0c3dc48",
@@ -4470,7 +5294,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/174",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "コウ・ウラキ(C0227)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-647980e014",
@@ -4481,7 +5307,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/173",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "カテジナ・ルース(C0231)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-b05a7cc7ab",
@@ -4492,7 +5320,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/172",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ジュドー・アーシタ(C0223)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-cc03030966",
@@ -4503,7 +5333,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/170",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リュース・クランゲル",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-843b95ecc9",
@@ -4514,7 +5346,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/169",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア・アズナブル(C0236)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-436e3c704c",
@@ -4525,7 +5359,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/166",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リリス・エイデン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-8b69714208",
@@ -4536,7 +5372,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/165",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ファ・ユイリィ(C0245)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-2e236e1fe0",
@@ -4547,7 +5385,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/163",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アムロ・レイ(C0235)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-96c29ca57b",
@@ -4558,7 +5398,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/162",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ミシェル・ルオ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-22cb802644",
@@ -4569,7 +5411,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/161",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ロザミア・バダム(C0221)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-5a626ff466",
@@ -4580,7 +5424,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/160",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ラカン・ダカラン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-8f56fc4e12",
@@ -4591,7 +5437,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/159",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "レコア・ロンド(C0191)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-6668ce2488",
@@ -4602,7 +5450,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/157",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ケリィ・レズナー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-a323bb5c87",
@@ -4613,7 +5463,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/156",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "イオ・フレミング(0215)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-d44cc81a3b",
@@ -4624,7 +5476,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/155",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ペッシェ・モンターニュ(C0216)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-dae96be844",
@@ -4635,7 +5489,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/154",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-13f82a2430",
@@ -4646,7 +5502,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/153",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "セリーヌ・ロム",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-36ed0e68b5",
@@ -4657,7 +5515,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/152",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア・アズナブル(C0204)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-627325bb23",
@@ -4668,7 +5528,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/151",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ガウマン・ノビル",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-e159145cf6",
@@ -4679,7 +5541,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/150",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ゾルタン・アッカネン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-bf355621a5",
@@ -4690,7 +5554,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/149",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バナージ・リンクス(C0200)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-88e1557833",
@@ -4701,7 +5567,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/148",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リディ・マーセナス(C0199)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-7d2146c52e",
@@ -4712,7 +5580,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/147",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "レイ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-965023074a",
@@ -4723,7 +5593,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/145",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クリスチーナ・マッケンジー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9f451d782a",
@@ -4734,7 +5606,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/144",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ダントン・ハイレッグ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-6b3137f0a9",
@@ -4745,7 +5619,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/143",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ノン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-d2ea66d264",
@@ -4756,7 +5632,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/142",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "プルツー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-31c655ea2c",
@@ -4767,7 +5645,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/141",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "キンケドゥ・ナウ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-bde52a689a",
@@ -4778,7 +5658,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/140",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ユウ・カジマ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-58b9973bd7",
@@ -4789,7 +5671,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/139",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア・アズナブル(C0193)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-5fb5d245c9",
@@ -4800,7 +5684,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/138",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ペッシェ・モンターニュ(C0192)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9b79b2f3d1",
@@ -4811,7 +5697,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/137",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "カミーユ・ビダン(C0190)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-6ab531507d",
@@ -4822,7 +5710,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/135",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リディ・マーセナス(C0189)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-74376a5902",
@@ -4833,7 +5723,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/134",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア・アズナブル(C0147)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-ea7ccc60d6",
@@ -4844,7 +5736,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/133",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ロザミィ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-c25dabdc02",
@@ -4855,7 +5749,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/132",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ペッシェ・モンターニュ(C0186)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-858022fc47",
@@ -4866,7 +5762,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/131",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "マシロ・オークス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-982e46f76b",
@@ -4877,7 +5775,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/129",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア・アズナブル(C0181)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-f464a513ec",
@@ -4888,7 +5788,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/126",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アムロ・レイ(C0167)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-7e69b0cdac",
@@ -4899,7 +5801,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/123",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シロー・アマダ(C0038)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-8e28c4a6ea",
@@ -4910,7 +5814,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/122",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ウッソ・エヴィン(C0179)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-ef5ca73911",
@@ -4921,7 +5827,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/121",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アルマ・シュティルナー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-b9c6806a17",
@@ -4932,7 +5840,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/120",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クロエ・クローチェ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9c4911aecb",
@@ -4943,7 +5853,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/118",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ハサウェイ・ノア",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-d74b3ed40e",
@@ -4954,7 +5866,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/117",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "カイ・シデン(C0178)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9f25766eaa",
@@ -4965,7 +5879,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/116",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ジョニー・ライデン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-8df8157f72",
@@ -4976,7 +5892,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/114",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リディ・マーセナス(C0174)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-da9dd0894a",
@@ -4987,7 +5905,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/109",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ウバルド・モリーナ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-e7ca11c9c2",
@@ -4998,7 +5918,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/108",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ユッタ・カーシム(C0166)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-75ca2cc7aa",
@@ -5009,7 +5931,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/107",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ハマーン・カーン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-68fb418cf1",
@@ -5020,7 +5944,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/106",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "プルトゥエルブ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-4d2a6f72d2",
@@ -5031,7 +5957,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/105",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ミチェル・カノ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-e49a792437",
@@ -5042,7 +5970,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/104",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シーマ・ガラハウ(C0049)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-e3c3e30a12",
@@ -5053,7 +5983,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/103",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アムロ・レイ(C0146)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-c6d0d17d40",
@@ -5064,7 +5996,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/102",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バナージ・リンクス(C0154)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-2a1a0ae1b8",
@@ -5075,7 +6009,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/101",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アイナ・サハリン",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-149f8b1044",
@@ -5086,7 +6022,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/100",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シーブック・アノー(C0084)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9fcf6a0169",
@@ -5097,7 +6035,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/99",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "セイラ・マス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-738e296a75",
@@ -5108,7 +6048,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/98",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "パプテマス・シロッコ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9a8a5bdd77",
@@ -5119,7 +6061,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/96",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ペッシェ・モンターニュ(C0098)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-e59b634778",
@@ -5130,7 +6074,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/94",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "コウ・ウラキ(C0009)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-8bd53b8102",
@@ -5141,7 +6087,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/92",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ドレル・ロナ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-b870eb2f95",
@@ -5152,7 +6100,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/91",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "サフィラ・ガードナー",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9df44aaef6",
@@ -5163,7 +6113,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/89",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "マリーダ・クルス",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-02e292275b",
@@ -5174,7 +6126,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/88",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "マシュマー・セロ(C0139)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-5426445e1c",
@@ -5185,7 +6139,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/84",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アムロ・レイ(C0001)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-6989ad14a1",
@@ -5196,7 +6152,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/82",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "カミーユ・ビダン(C0051)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-47780cfabf",
@@ -5207,7 +6165,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/81",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "クワトロ・バジーナ(C0016)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-2f5a548d8a",
@@ -5218,7 +6178,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/80",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ダリル・ローレンツ(C0041)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-6f134dcdfb",
@@ -5229,7 +6191,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/78",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ペッシェ・モンターニュ(C0020)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-a93b609d48",
@@ -5240,7 +6204,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/75",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アムロ・レイ(C0014)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-4f8fe7346f",
@@ -5251,7 +6217,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/74",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア・アズナブル(C0085)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-881c8e8f27",
@@ -5262,7 +6230,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/73",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アムロ・レイ(C0060)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-d981f22176",
@@ -5273,7 +6243,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/72",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バナージ・リンクス(C0036)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-fc96c451d0",
@@ -5284,7 +6256,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/71",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アナベル・ガトー(C0043)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-ab27a3f4cc",
@@ -5295,7 +6269,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/56",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ヨナ・バシュタ(C0107)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-dcfbabace3",
@@ -5306,7 +6282,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/44",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ジェリド・メサ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-c8ae8baa5d",
@@ -5317,7 +6295,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/42",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "コウ・ウラキ(C0080)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-5948226675",
@@ -5328,7 +6308,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/25",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア・アズナブル(C0048)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-05f2b75e8d",
@@ -5339,7 +6321,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/24",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "リディ・マーセナス(C0047)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-69224c5e8c",
@@ -5350,7 +6334,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/23",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シン・マツナガ",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-9497c6d9e5",
@@ -5361,7 +6347,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/18",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "アムロ・レイ(C0033)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-33a61fa32e",
@@ -5372,7 +6360,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/17",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "ウッソ・エヴィン(C0032)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-fcea78aa6b",
@@ -5383,7 +6373,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/14",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア・アズナブル(C0027)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-7f4111940f",
@@ -5394,7 +6386,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/11",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "カミーユ・ビダン(C0015)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-34c5aa20a5",
@@ -5405,7 +6399,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/6",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "フル・フロンタル",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-50000640fa",
@@ -5416,7 +6412,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/5",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "バナージ・リンクス(C0006)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-0ef7c8d7b0",
@@ -5427,7 +6425,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/3",
       "attribute": "",
       "role": "",
-      "rating": "7.5"
+      "rating": "7.5",
+      "nameJa": "シャア・アズナブル(C0004)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-deccf2ebed",
@@ -5438,7 +6438,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/29",
       "attribute": "",
       "role": "",
-      "rating": "6.5"
+      "rating": "6.5",
+      "nameJa": "ノリス・パッカード(C0061)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-4e338b2192",
@@ -5449,7 +6451,9 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/10",
       "attribute": "",
       "role": "",
-      "rating": "6.5"
+      "rating": "6.5",
+      "nameJa": "シロー・アマダ(C0013)",
+      "nameSource": "altema-unresolved"
     },
     {
       "id": "altema-pilot-2ff4d6fcc7",
@@ -5460,7 +6464,16 @@
       "sourceUrl": "https://altema.jp/gundamuce/chara/354",
       "attribute": "",
       "role": "",
-      "rating": "6.0"
+      "rating": "6.0",
+      "nameJa": "リン(C0443)",
+      "nameSource": "altema-unresolved"
     }
-  ]
+  ],
+  "nameResolution": {
+    "source": "The Gundam Wiki (Fandom)",
+    "sourceUrl": "https://gundam.fandom.com/wiki/",
+    "resolvedItems": 0,
+    "unresolvedItems": 497,
+    "strict": false
+  }
 }
