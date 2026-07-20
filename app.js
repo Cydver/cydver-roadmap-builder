@@ -67,8 +67,8 @@ const BLANK_TIER_H = 250;
 const ICON_W = 176;
 const ICON_TOP = 28;
 const ICON_STACK_GAP = 14;
-const COMPACT_PILOT_W = 96;
-const COMPACT_STACK_GAP = 8;
+const BETWEEN_PAIR_GAP = 8;
+const WIDE_CELL_W = ICON_W * 2 + BETWEEN_PAIR_GAP + 24;
 const BAR_TOP = 222;
 const BAR_GAP = 23;
 const BAR_H = 18;
@@ -122,8 +122,13 @@ const els = {
   statusForm: document.getElementById("statusForm"),
   tierDialog: document.getElementById("tierDialog"),
   tierForm: document.getElementById("tierForm"),
+  unitEditDialog: document.getElementById("unitEditDialog"),
+  unitEditDialogBody: document.getElementById("unitEditDialogBody"),
   contextMenu: document.getElementById("contextMenu")
 };
+
+let editFormHomeParent = null;
+let editFormHomeNextSibling = null;
 
 function clamp(value, min, max) { return Math.max(min, Math.min(max, value)); }
 function legibleTextScale(scale = zoomScale) {
@@ -173,7 +178,48 @@ function formatWeek(week) {
 function formatWeekRange(start, end) {
   return start === end ? formatWeek(start) : `${formatWeek(start)}–${formatWeek(end)}`;
 }
-function weekX(week) { return LEFT_W + (week - 1) * CELL_W; }
+function weekNeedsWideColumn(week) {
+  const targetWeek = normalizeWeek(week);
+  const slots = new Map();
+  for (const unit of state.units || []) {
+    if (normalizeWeek(unit.week) !== targetWeek || !normalizeRowOffset(unit.rowOffset)) continue;
+    const key = rowSlotKey(unit);
+    if (!key.startsWith("between:")) continue;
+    const entry = slots.get(key) || { ms: false, pilot: false };
+    if (isMs(unit)) entry.ms = true;
+    if (isPilot(unit)) entry.pilot = true;
+    slots.set(key, entry);
+    if (entry.ms && entry.pilot) return true;
+  }
+  return false;
+}
+function weekWidth(week) { return weekNeedsWideColumn(week) ? WIDE_CELL_W : CELL_W; }
+function weekX(week) {
+  let x = LEFT_W;
+  const target = clamp(Math.round(Number(week) || 1), 1, weekCount());
+  for (let w = 1; w < target; w++) x += weekWidth(w);
+  return x;
+}
+function weekBoundaryX(completedWeeks) {
+  let x = LEFT_W;
+  const count = clamp(Math.round(Number(completedWeeks) || 0), 0, weekCount());
+  for (let w = 1; w <= count; w++) x += weekWidth(w);
+  return x;
+}
+function weekSpanWidth(start, end) {
+  const first = Math.min(normalizeWeek(start), normalizeWeek(end));
+  const last = Math.max(normalizeWeek(start), normalizeWeek(end));
+  let width = 0;
+  for (let w = first; w <= last; w++) width += weekWidth(w);
+  return width;
+}
+function monthPixelWidth(index) {
+  const counts = getMonthWeeks();
+  const start = monthStartWeek(index);
+  let width = 0;
+  for (let offset = 0; offset < (counts[index] || 0); offset++) width += weekWidth(start + offset);
+  return width;
+}
 function normalizeRowOffset(value) {
   const n = Number(value) || 0;
   if (n <= -0.25) return -0.5;
@@ -246,18 +292,16 @@ function isCompactBetweenSlot(group) {
     && group.some(isMs)
     && group.some(isPilot);
 }
-function slotSizeForUnit(unit, group = sameSlotGroup(unit)) {
-  return isCompactBetweenSlot(group) && isPilot(unit) ? COMPACT_PILOT_W : ICON_W;
-}
+function slotSizeForUnit() { return ICON_W; }
 function slotLayoutForGroup(group) {
   const compact = isCompactBetweenSlot(group);
   const layout = new Map();
   if (compact) {
     const leftColumn = group.filter(unit => !isPilot(unit));
     const rightColumn = group.filter(isPilot);
-    const rightX = ICON_W + COMPACT_STACK_GAP;
+    const rightX = ICON_W + BETWEEN_PAIR_GAP;
     const leftHeight = leftColumn.length ? leftColumn.length * ICON_W + (leftColumn.length - 1) * ICON_STACK_GAP : 0;
-    const rightHeight = rightColumn.length ? rightColumn.length * COMPACT_PILOT_W + (rightColumn.length - 1) * COMPACT_STACK_GAP : 0;
+    const rightHeight = rightColumn.length ? rightColumn.length * ICON_W + (rightColumn.length - 1) * ICON_STACK_GAP : 0;
     const groupHeight = Math.max(ICON_W, leftHeight, rightHeight);
     let leftY = Math.max(0, Math.round((groupHeight - leftHeight) / 2));
     let rightY = Math.max(0, Math.round((groupHeight - rightHeight) / 2));
@@ -267,13 +311,13 @@ function slotLayoutForGroup(group) {
     });
     rightColumn.forEach((unit, index) => {
       const groupIndex = group.indexOf(unit);
-      layout.set(unit.id, { x: rightX, y: rightY, size: COMPACT_PILOT_W, z: group.length - groupIndex, index: groupIndex });
-      rightY += COMPACT_PILOT_W + COMPACT_STACK_GAP;
+      layout.set(unit.id, { x: rightX, y: rightY, size: ICON_W, z: group.length - groupIndex, index: groupIndex });
+      rightY += ICON_W + ICON_STACK_GAP;
     });
     return {
       layout,
       groupHeight,
-      groupWidth: ICON_W + COMPACT_STACK_GAP + COMPACT_PILOT_W,
+      groupWidth: ICON_W + BETWEEN_PAIR_GAP + ICON_W,
       compact
     };
   }
@@ -407,12 +451,18 @@ function iconX(unit) {
   const slot = sameSlotOffset(unit);
   const groupWidth = slot.groupWidth || ICON_W;
   const maxGroupLeft = Math.max(LEFT_W, baseChartWidth() - groupWidth);
-  const groupLeft = clamp(weekX(unit.week) + Math.round((CELL_W - groupWidth) / 2), LEFT_W, maxGroupLeft);
+  const groupLeft = clamp(weekX(unit.week) + Math.round((weekWidth(unit.week) - groupWidth) / 2), LEFT_W, maxGroupLeft);
   return groupLeft + slot.x;
 }
 function normalizeWeek(n) { return clamp(Math.round(Number(n) || 1), 1, weekCount()); }
 function normalizeLane(n) { return clamp(Math.round(Number(n) || 1), 1, 99); }
-function idOfWeekFromX(x) { return normalizeWeek(Math.round((x - LEFT_W - CELL_W / 2) / CELL_W) + 1); }
+function idOfWeekFromX(x) {
+  if (x <= LEFT_W) return 1;
+  for (let w = 1; w <= weekCount(); w++) {
+    if (x < weekX(w) + weekWidth(w)) return w;
+  }
+  return weekCount();
+}
 function idOfTierFromY(y) {
   let top = HEADER_H;
   for (const tier of getTiers()) {
@@ -446,7 +496,7 @@ function chartPoint(event) {
   const rect = els.roadmap.getBoundingClientRect();
   return { x: (event.clientX - rect.left) / zoomScale, y: (event.clientY - rect.top) / zoomScale };
 }
-function baseChartWidth() { return LEFT_W + weekCount() * CELL_W; }
+function baseChartWidth() { return weekBoundaryX(weekCount()); }
 function baseChartHeight() { return HEADER_H + getTiers().reduce((sum, t) => sum + tierHeight(t.id), 0); }
 function setStatus(message) { els.saveStatus.textContent = message; }
 function sanitizeText(text) { return String(text || "").replace(/\s+/g, " ").trim(); }
@@ -474,6 +524,8 @@ function selectedSegment(unit = getSelected()) {
 }
 
 function init() {
+  editFormHomeParent = els.editForm.parentNode;
+  editFormHomeNextSibling = els.editForm.nextSibling;
   const loadedFromHash = loadFromShareHash();
   if (!loadedFromHash) loadLocal();
   buildTierSelect();
@@ -487,8 +539,7 @@ function init() {
 function normalizeState() {
   const unitsBeforeNormalize = Array.isArray(state.units) ? state.units : [];
   const monthsNeedDefault = !Array.isArray(state.months) || !state.months.length || isGenericMonthLabels(state.months);
-  const blankGeneratedDefault = !unitsBeforeNormalize.length && isGeneratedMonthLabels(state.months) && state.months.length !== DEFAULT_MONTHS.length;
-  if (monthsNeedDefault || blankGeneratedDefault) {
+  if (monthsNeedDefault) {
     const neededMonths = Math.max(DEFAULT_MONTHS.length, Math.ceil(maxUsedWeekInUnits(unitsBeforeNormalize) / 4));
     state.months = makeDefaultMonthLabels(Math.min(12, neededMonths));
   }
@@ -617,9 +668,9 @@ function buildStaticGrid() {
     head.type = "button";
     head.className = "month-head month-button";
     head.style.left = `${weekX(monthStartWeek(i))}px`;
-    head.style.width = `${monthWeeks[i] * CELL_W}px`;
+    head.style.width = `${monthPixelWidth(i)}px`;
     head.textContent = month;
-    head.setAttribute("aria-label", `${month}. Click to rename. Right-click for 4/5-week options.`);
+    head.setAttribute("aria-label", `${month}. Click to rename. Right-click to add, delete, or change week count.`);
     head.addEventListener("click", (event) => {
       event.stopPropagation();
       renameMonth(i);
@@ -633,6 +684,7 @@ function buildStaticGrid() {
     const { weekInMonth } = weekToMonthWeek(w);
     week.className = "week-head";
     week.style.left = `${weekX(w)}px`;
+    week.style.width = `${weekWidth(w)}px`;
     week.textContent = `W${weekInMonth}`;
     els.roadmap.appendChild(week);
   }
@@ -663,7 +715,7 @@ function buildStaticGrid() {
     const isMonthBoundary = monthBoundaries.has(w);
     const line = document.createElement("div");
     line.className = `grid-line v${isMonthBoundary ? " month" : ""}`;
-    line.style.left = `${LEFT_W + w * CELL_W}px`;
+    line.style.left = `${weekBoundaryX(w)}px`;
     line.style.height = isMonthBoundary ? "100%" : `${baseChartHeight() - HEADER_H}px`;
     els.roadmap.appendChild(line);
   }
@@ -685,6 +737,7 @@ function buildStaticGrid() {
       const track = document.createElement("div");
       track.className = "lane-track";
       track.style.top = `${laneY(tier.id, lane)}px`;
+      track.style.width = `${Math.max(4, baseChartWidth() - LEFT_W - 20)}px`;
       els.roadmap.appendChild(track);
     }
   });
@@ -728,6 +781,11 @@ function bindUI() {
   document.getElementById("btnClearTags").addEventListener("click", clearTagsForSelected);
   document.getElementById("btnCancelStatusEdit").addEventListener("click", () => els.statusDialog.close());
   document.getElementById("btnCancelTierEdit").addEventListener("click", () => els.tierDialog.close());
+  document.getElementById("btnCloseUnitEdit").addEventListener("click", closeSelectedUnitDialog);
+  els.unitEditDialog.addEventListener("close", restoreEditFormHome);
+  els.unitEditDialog.addEventListener("click", (event) => {
+    if (event.target === els.unitEditDialog) closeSelectedUnitDialog();
+  });
   els.statusForm.addEventListener("submit", saveStatusEdit);
   els.tierForm.addEventListener("submit", saveTierEdit);
   bindAutoApplyForm();
@@ -885,39 +943,150 @@ function openMonthContextMenu(event, index) {
   const month = state.months[index] || `Month ${index + 1}`;
   showContextMenu(event.clientX, event.clientY, [
     { label: `Rename ${month}…`, action: () => renameMonth(index) },
+    { label: `Add month to left`, action: () => insertMonthAt(index) },
+    { label: `Add month to right`, action: () => insertMonthAt(index + 1) },
     { label: `${currentWeeks === 4 ? "✓ " : ""}Use 4 weeks`, action: () => setMonthWeekCount(index, 4) },
-    { label: `${currentWeeks === 5 ? "✓ " : ""}Use 5 weeks`, action: () => setMonthWeekCount(index, 5) }
+    { label: `${currentWeeks === 5 ? "✓ " : ""}Use 5 weeks`, action: () => setMonthWeekCount(index, 5) },
+    { label: `Delete ${month}`, danger: true, action: () => deleteMonthAt(index) }
   ]);
 }
 function setMonthWeekCount(index, weeks) {
+  const oldWeeks = getMonthWeeks()[index] || 4;
+  const nextWeeks = normalizeMonthWeekCount(weeks);
+  if (oldWeeks === nextWeeks) return;
+  const startWeek = monthStartWeek(index);
   state.monthWeeks = getMonthWeeks();
-  state.monthWeeks[index] = normalizeMonthWeekCount(weeks);
-  normalizeState();
-  state.updated = new Date().toISOString();
-  renderAll();
-  autoSave();
+  state.monthWeeks[index] = nextWeeks;
+  const delta = nextWeeks - oldWeeks;
+  if (delta > 0) shiftTimelineForInsertion(startWeek + oldWeeks, delta);
+  else if (delta < 0) removeTimelineRange(startWeek + nextWeeks, -delta);
+  finalizeMonthStructureChange();
   setStatus(`${state.months[index] || `Month ${index + 1}`} set to ${state.monthWeeks[index]} week(s).`);
 }
-function addMonth() {
-  const next = state.months.length + 1;
-  const value = prompt("New month label:", suggestedMonthLabel(next - 1));
-  if (value === null) return;
-  state.months.push(sanitizeText(value) || suggestedMonthLabel(next - 1));
-  state.monthWeeks = [...getMonthWeeks().slice(0, state.months.length - 1), 4];
+function monthLabelShift(label, delta) {
+  const parsed = new Date(`1 ${sanitizeText(label)}`);
+  if (Number.isNaN(parsed.getTime())) return null;
+  parsed.setMonth(parsed.getMonth() + delta);
+  return parsed.toLocaleString("en-US", { month: "short", year: "numeric" });
+}
+function suggestedInsertedMonthLabel(index) {
+  if (index < state.months.length) return monthLabelShift(state.months[index], -1) || suggestedMonthLabel(index);
+  if (index > 0) return monthLabelShift(state.months[index - 1], 1) || suggestedMonthLabel(index);
+  return suggestedMonthLabel(index);
+}
+function shiftTimelineForInsertion(startWeek, count) {
+  for (const unit of state.units || []) {
+    if (unit.week >= startWeek) unit.week += count;
+    for (const segment of unit.segments || []) {
+      if (segment.start >= startWeek) {
+        segment.start += count;
+        segment.end += count;
+      } else if (segment.end >= startWeek) {
+        segment.end += count;
+      }
+    }
+  }
+}
+function removeTimelineRange(startWeek, count) {
+  const endWeek = startWeek + count - 1;
+  const newTotal = Math.max(1, weekCount());
+  const mapUnitWeek = (week) => {
+    if (week < startWeek) return week;
+    if (week > endWeek) return week - count;
+    return clamp(startWeek, 1, newTotal);
+  };
+  for (const unit of state.units || []) {
+    unit.week = mapUnitWeek(unit.week);
+    for (const segment of unit.segments || []) {
+      const originalStart = segment.start;
+      const originalEnd = segment.end;
+      const startInside = originalStart >= startWeek && originalStart <= endWeek;
+      const endInside = originalEnd >= startWeek && originalEnd <= endWeek;
+      if (startInside && endInside) {
+        const target = clamp(startWeek, 1, newTotal);
+        segment.start = target;
+        segment.end = target;
+        continue;
+      }
+      segment.start = originalStart > endWeek ? originalStart - count : (startInside ? clamp(startWeek, 1, newTotal) : originalStart);
+      segment.end = originalEnd > endWeek ? originalEnd - count : (endInside ? clamp(startWeek - 1, 1, newTotal) : originalEnd);
+      segment.start = clamp(segment.start, 1, newTotal);
+      segment.end = clamp(segment.end, 1, newTotal);
+      if (segment.end < segment.start) segment.end = segment.start;
+    }
+  }
+}
+function finalizeMonthStructureChange() {
+  const total = weekCount();
+  for (const unit of state.units || []) {
+    unit.week = clamp(Math.round(Number(unit.week) || 1), 1, total);
+    for (const segment of unit.segments || []) {
+      segment.start = clamp(Math.round(Number(segment.start) || 1), 1, total);
+      segment.end = clamp(Math.round(Number(segment.end) || segment.start), 1, total);
+      if (segment.end < segment.start) [segment.start, segment.end] = [segment.end, segment.start];
+    }
+  }
+  for (const tier of getTiers()) reflowLanes(tier.id);
+  syncPilotLanes();
   state.updated = new Date().toISOString();
   renderAll();
   autoSave();
 }
-function removeMonth() {
+function insertMonthAt(index) {
+  if (state.months.length >= 12) return alert("The roadmap supports up to 12 months.");
+  const insertIndex = clamp(Math.round(Number(index) || 0), 0, state.months.length);
+  const value = prompt("New month label:", suggestedInsertedMonthLabel(insertIndex));
+  if (value === null) return;
+  const oldWeeks = getMonthWeeks();
+  const startWeek = insertIndex >= state.months.length ? weekCount() + 1 : monthStartWeek(insertIndex);
+  const insertedWeeks = 4;
+  state.months.splice(insertIndex, 0, sanitizeText(value) || suggestedInsertedMonthLabel(insertIndex));
+  state.monthWeeks = oldWeeks;
+  state.monthWeeks.splice(insertIndex, 0, insertedWeeks);
+  shiftTimelineForInsertion(startWeek, insertedWeeks);
+  finalizeMonthStructureChange();
+  setStatus(`Added ${state.months[insertIndex]} with ${insertedWeeks} weeks.`);
+}
+function deleteMonthAt(index) {
   if (state.months.length <= 1) return alert("You need at least one month.");
-  const removed = state.months[state.months.length - 1];
-  if (!confirm(`Remove the last month: ${removed}? Any units/bars beyond the new end will be clamped.`)) return;
-  state.months.pop();
-  state.monthWeeks = getMonthWeeks().slice(0, state.months.length);
-  normalizeState();
-  state.updated = new Date().toISOString();
-  renderAll();
-  autoSave();
+  const deleteIndex = clamp(Math.round(Number(index) || 0), 0, state.months.length - 1);
+  const counts = getMonthWeeks();
+  const removed = state.months[deleteIndex];
+  const startWeek = monthStartWeek(deleteIndex);
+  const removedWeeks = counts[deleteIndex] || 4;
+  if (!confirm(`Delete ${removed} entirely? Units inside this month will move to the nearest remaining week, and later timeline data will shift left.`)) return;
+  state.months.splice(deleteIndex, 1);
+  state.monthWeeks = counts;
+  state.monthWeeks.splice(deleteIndex, 1);
+  removeTimelineRange(startWeek, removedWeeks);
+  finalizeMonthStructureChange();
+  setStatus(`Deleted ${removed}.`);
+}
+function addMonth() { insertMonthAt(state.months.length); }
+function removeMonth() { deleteMonthAt(state.months.length - 1); }
+
+function openSelectedUnitDialog(unitId) {
+  const unit = state.units.find(u => u.id === unitId);
+  if (!unit || !els.unitEditDialog || !els.unitEditDialogBody) return;
+  select(unit.id, null);
+  hideTooltip(true);
+  hideContextMenu();
+  if (!editFormHomeParent) {
+    editFormHomeParent = els.editForm.parentNode;
+    editFormHomeNextSibling = els.editForm.nextSibling;
+  }
+  els.unitEditDialogBody.appendChild(els.editForm);
+  renderForm();
+  if (!els.unitEditDialog.open) els.unitEditDialog.showModal();
+}
+function restoreEditFormHome() {
+  if (!editFormHomeParent || els.editForm.parentNode === editFormHomeParent) return;
+  if (editFormHomeNextSibling && editFormHomeNextSibling.parentNode === editFormHomeParent) editFormHomeParent.insertBefore(els.editForm, editFormHomeNextSibling);
+  else editFormHomeParent.appendChild(els.editForm);
+}
+function closeSelectedUnitDialog() {
+  if (els.unitEditDialog?.open) els.unitEditDialog.close();
+  else restoreEditFormHome();
 }
 
 function renderUnits() {
@@ -925,9 +1094,8 @@ function renderUnits() {
     const card = document.createElement("article");
     const isDraggingUnit = drag?.type === "unit" && drag.id === unit.id && Number.isFinite(drag.previewLeft);
     const slot = sameSlotOffset(unit);
-    const compactPilot = slot.compact && isPilot(unit);
     const size = slot.size || ICON_W;
-    card.className = `unit-card${selectedId === unit.id && !selectedSegmentId ? " selected" : ""}${isDraggingUnit ? " dragging" : ""}${hasMustP5(unit) ? " must-p5" : ""}${hasBuff(unit) ? " buff" : ""}${normalizeRowOffset(unit.rowOffset) ? " between-row" : ""}${compactPilot ? " compact-pilot" : ""}`;
+    card.className = `unit-card${selectedId === unit.id && !selectedSegmentId ? " selected" : ""}${isDraggingUnit ? " dragging" : ""}${hasMustP5(unit) ? " must-p5" : ""}${hasBuff(unit) ? " buff" : ""}${normalizeRowOffset(unit.rowOffset) ? " between-row" : ""}`;
     card.dataset.id = unit.id;
     card.style.left = `${isDraggingUnit ? drag.previewLeft : iconX(unit)}px`;
     card.style.top = `${isDraggingUnit ? drag.previewTop : iconY(unit)}px`;
@@ -984,7 +1152,11 @@ function renderUnits() {
       if (isMs(unit) || isPilot(unit)) showTooltip(event, unit, null, { pin: true });
     });
     card.addEventListener("contextmenu", (event) => openUnitContextMenu(event, unit.id, null));
-    card.addEventListener("dblclick", (event) => { event.stopPropagation(); renameUnit(unit.id); });
+    card.addEventListener("dblclick", (event) => {
+      event.stopPropagation();
+      if (isMs(unit) || isPilot(unit)) openSelectedUnitDialog(unit.id);
+      else renameUnit(unit.id);
+    });
     card.addEventListener("mouseenter", (event) => { bringUnitToFront(unit.id); showTooltip(event, unit); });
     card.addEventListener("mouseleave", hideTooltip);
     card.addEventListener("pointermove", moveTooltip);
@@ -1054,7 +1226,7 @@ function segmentBarRect(unit, segment) {
   return {
     x: weekX(start) + 12,
     y: laneY(unit),
-    w: Math.max(4, (end - start + 1) * CELL_W - 24),
+    w: Math.max(4, weekSpanWidth(start, end) - 24),
     h: BAR_H
   };
 }
@@ -1345,6 +1517,7 @@ function addUnit(partial = {}) {
 }
 function deleteSelected() {
   if (!selectedId) return;
+  if (els.unitEditDialog?.open) closeSelectedUnitDialog();
   state.units = state.units.filter(u => u.id !== selectedId);
   selectedId = null;
   selectedSegmentId = null;
@@ -1448,6 +1621,7 @@ function beginDragBar(event, id, segmentId) {
     segmentId,
     startX: point.x,
     startY: point.y,
+    startPointerWeek: idOfWeekFromX(point.x),
     originStart: segment.start,
     originEnd: segment.end,
     originLane: unit.lane,
@@ -1489,7 +1663,7 @@ function onPointerMove(event) {
   if (drag.type === "bar") {
     const segment = unit.segments.find(s => s.id === drag.segmentId);
     if (!segment) return;
-    const dxWeeks = Math.round((point.x - drag.startX) / CELL_W);
+    const dxWeeks = idOfWeekFromX(point.x) - drag.startPointerWeek;
     const dy = point.y - drag.startY;
     if (drag.handle === "left") {
       segment.start = clamp(drag.originStart + dxWeeks, 1, segment.end);
@@ -2057,13 +2231,13 @@ function drawTemplateToCanvas(ctx, width, height) {
   const monthWeeks = getMonthWeeks();
   state.months.forEach((month, i) => {
     const x = weekX(monthStartWeek(i));
-    ctx.fillText(month.toUpperCase(), x + monthWeeks[i] * CELL_W / 2, MONTH_H / 2);
+    ctx.fillText(month.toUpperCase(), x + monthPixelWidth(i) / 2, MONTH_H / 2);
   });
   ctx.font = canvasFont(900, 14);
   ctx.fillStyle = "#dce4f0";
   for (let w = 1; w <= weekCount(); w++) {
     const { weekInMonth } = weekToMonthWeek(w);
-    ctx.fillText(`W${weekInMonth}`, weekX(w) + CELL_W / 2, MONTH_H + WEEK_H / 2);
+    ctx.fillText(`W${weekInMonth}`, weekX(w) + weekWidth(w) / 2, MONTH_H + WEEK_H / 2);
   }
 
   ctx.textAlign = "left";
@@ -2080,7 +2254,7 @@ function drawTemplateToCanvas(ctx, width, height) {
     return next;
   }, 0);
   for (let w = 0; w <= weekCount(); w++) {
-    const x = LEFT_W + w * CELL_W;
+    const x = weekBoundaryX(w);
     const isMonthBoundary = monthBoundaries.has(w);
     ctx.beginPath();
     ctx.moveTo(x + 0.5, isMonthBoundary ? 0 : HEADER_H);
@@ -2102,7 +2276,7 @@ function drawTemplateToCanvas(ctx, width, height) {
   getTiers().forEach(tier => {
     for (let lane = 1; lane <= visibleLaneCount(tier.id); lane++) {
       const y = laneY(tier.id, lane);
-      roundedRect(ctx, LEFT_W + 10, y, weekCount() * CELL_W - 20, BAR_H, 9);
+      roundedRect(ctx, LEFT_W + 10, y, baseChartWidth() - LEFT_W - 20, BAR_H, 9);
       ctx.fillStyle = "rgba(255,255,255,.035)";
       ctx.fill();
       ctx.strokeStyle = "rgba(255,255,255,.08)";

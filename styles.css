@@ -173,24 +173,6 @@ textarea { resize: vertical; min-height: 80px; }
 .unit-card.buff.selected { box-shadow: 0 0 0 4px rgba(67,220,125,.84), 0 14px 30px rgba(0,0,0,.45); }
 .unit-card.must-p5.buff.selected { box-shadow: 0 0 0 4px rgba(255,59,77,.9), 0 0 0 8px rgba(67,220,125,.72), 0 14px 30px rgba(0,0,0,.45); }
 .unit-card.between-row { border-style: double; }
-.unit-card.compact-pilot {
-  border-radius: 10px;
-  box-shadow: 0 8px 18px rgba(0,0,0,.42);
-}
-.unit-card.compact-pilot .nameplate {
-  padding: 4px 6px;
-  font-size: calc(9.5px * var(--textBoost));
-  line-height: 1.05;
-}
-.unit-card.compact-pilot .tags {
-  right: 5px;
-  top: 5px;
-  transform: scale(.82);
-  transform-origin: top right;
-}
-.unit-card.compact-pilot .tag {
-  padding: calc(3px * var(--textBoost)) calc(5px * var(--textBoost));
-}
 .unit-card img { width: 100%; height: 100%; object-fit: cover; display: block; background: linear-gradient(135deg, #1a2330, #0c1118); }
 .unit-card .placeholder { width: 100%; height: 100%; display: grid; place-items: center; text-align: center; padding: 12px; color: var(--muted); font-weight: 800; background: linear-gradient(135deg,#111827,#0a0d14); }
 .unit-card .nameplate {
@@ -335,3 +317,20 @@ textarea { resize: vertical; min-height: 80px; }
   right: auto;
   left: -12px;
 }
+
+
+/* Selected-unit editor dialog */
+.unit-edit-dialog {
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100vh - 40px);
+  overflow: auto;
+}
+.unit-edit-dialog-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.unit-edit-dialog-head h2 { margin: 0; }
+.unit-edit-dialog #editForm { margin: 0; }

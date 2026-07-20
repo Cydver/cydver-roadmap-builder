@@ -95,11 +95,11 @@
         <h2>How to edit</h2>
         <ul class="instructions">
           <li>Click catalog item <strong>Add</strong>, then drag the icon card.</li>
-          <li>Click month headers to rename them; right-click month headers to switch between 4 and 5 weeks.</li>
+          <li>Click month headers to rename them; right-click month headers to add left/right, delete, or switch between 4 and 5 weeks.</li>
           <li>Drag colored bars to move meta duration. Drag handles to resize.</li>
           <li>Select a unit, then left-click or right-click an empty chart cell to add a segment at that week.</li>
           <li>Use Row position, or drag near a row boundary, to place a unit in-row or visually between adjacent pull rows.</li>
-          <li>Right-click units/bars for quick actions; double-click a unit to rename it.</li>
+          <li>Right-click units/bars for quick actions; double-click an MS or pilot to open the Selected unit editor window.</li>
           <li>Click a legend status to edit its label/color.</li>
           <li>Click left row headers to rename or recolor them.</li>
         </ul>
@@ -159,6 +159,14 @@
         <button value="default" type="submit">Save</button>
       </div>
     </form>
+  </dialog>
+
+  <dialog id="unitEditDialog" class="status-dialog unit-edit-dialog">
+    <div class="unit-edit-dialog-head">
+      <h2>Selected unit</h2>
+      <button id="btnCloseUnitEdit" type="button">Close</button>
+    </div>
+    <div id="unitEditDialogBody"></div>
   </dialog>
 
   <div id="contextMenu" class="context-menu hidden" role="menu"></div>
