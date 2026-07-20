@@ -26,7 +26,7 @@ const wikiIdentityIndexCache = new Map();
 const translationCache = new Map();
 const WIKI_CATEGORY_BATCH_SIZE = Math.max(10, Math.min(50, Number(process.env.GUNDAM_WIKI_CATEGORY_BATCH_SIZE || 50)));
 const WIKI_IDENTITY_CATEGORIES = Object.freeze({ ms: 'Mobile Weapons', pilot: 'Characters' });
-let verifiedNameCache = { version: 1, entries: {} };
+let verifiedNameCache = { version: 2, entries: {} };
 let nextWikiRequestAt = 0;
 let globalWikiPauseUntil = 0;
 
@@ -363,9 +363,10 @@ async function buildWikiIdentityIndex(kind) {
 function extractJapaneseIdentityNames(source, extract) {
   const names = new Set();
   const add = value => {
-    const cleaned = cleanJapaneseIdentityValue(value);
-    if (!cleaned || !containsJapanese(cleaned) || cleaned.length > 180) return;
-    names.add(cleaned);
+    for (const cleaned of japaneseIdentityAliases(value)) {
+      if (!cleaned || !containsJapanese(cleaned) || cleaned.length > 180) continue;
+      names.add(cleaned);
+    }
   };
 
   const sourceLead = String(source || '').slice(0, 14000);
@@ -417,13 +418,56 @@ function cleanJapaneseIdentityValue(value) {
   return text;
 }
 
+function japaneseIdentityAliases(value) {
+  const cleaned = cleanJapaneseIdentityValue(value);
+  if (!cleaned) return [];
+
+  const aliases = new Set([cleaned]);
+  const firstJapaneseIndex = cleaned.search(/[\u3040-\u30ff\u3400-\u9fff]/u);
+  if (firstJapaneseIndex <= 0) return [...aliases];
+
+  const prefix = cleaned.slice(0, firstJapaneseIndex).trim();
+  const japaneseTail = cleaned.slice(firstJapaneseIndex).trim();
+  if (!prefix || !japaneseTail) return [...aliases];
+
+  // Rendered Gundam Wiki identity headings commonly look like:
+  //   MSN-06S シナンジュ
+  //   AMS-123X バルギル
+  //   LM314V21 V2ガンダム
+  // Altema normally omits the model code. Keep the full identity, but also index an
+  // alias with only the leading model-code token removed. This preserves meaningful
+  // Latin name prefixes such as V2 while making シナンジュ / バルギル directly matchable.
+  const prefixTokens = prefix.split(/\s+/).filter(Boolean);
+  if (prefixTokens.length && looksLikeModelCodeToken(prefixTokens[0])) {
+    const remainingPrefix = prefixTokens.slice(1).join(' ');
+    aliases.add(clean(`${remainingPrefix}${remainingPrefix ? ' ' : ''}${japaneseTail}`));
+  }
+
+  return [...aliases].filter(Boolean);
+}
+
+function looksLikeModelCodeToken(value) {
+  const token = clean(value);
+  if (token.length < 4 || !/\d/.test(token) || !/[A-Za-z]/.test(token)) return false;
+  return /^[A-Za-z0-9+./\-\[\]［］]+$/.test(token);
+}
+
 function preferWikiIdentityCandidate(candidate, existing) {
   const score = page => {
     const display = canonicalDisplayName(page.title, page.kind || 'ms');
     let value = 0;
-    if (/^[A-Z0-9][A-Z0-9+\-./\[\]]{1,24}\s+/i.test(page.title)) value += 20;
+
+    // Canonical mobile-weapon articles very often begin with the official model code
+    // (MSN-04 Sazabi, PMX-003 The-O, AMS-123X Varguil). Prefer those strongly over
+    // Gunpla/game/GBWC pages that may reuse the same Japanese base name.
+    if (/^[A-Z0-9][A-Z0-9+\-./\[\]]{1,24}\s+/i.test(page.title)) value += 80;
     if (/\((?:U\.C\.|Mobile Suit|Character|disambiguation)\)/i.test(page.title)) value -= 25;
-    value -= Math.min(20, display.length / 8);
+    if (/\((?:GBWC|Build|Game|Custom|SD|Version)[^)]*\)/i.test(page.title)) value -= 60;
+
+    // When two coded pages normalize to the same display name, the shorter article title
+    // is generally the base machine rather than a suffix variant such as MSN-04FF Sazabi.
+    value -= Math.min(30, clean(page.title).length / 3);
+    value -= Math.min(10, display.length / 12);
     return value;
   };
   return score(candidate) > score(existing);
@@ -940,13 +984,17 @@ async function loadVerifiedNameCache() {
   try {
     const parsed = JSON.parse(await readFile(verifiedNameCachePath, 'utf8'));
     if (!parsed || typeof parsed !== 'object') throw new Error('cache root is not an object');
+    if (Number(parsed.version) !== 2) {
+      console.warn(`Ignoring verified-name cache version ${parsed.version ?? 'unknown'}; rebuilding with identity-alias cache version 2.`);
+      return { version: 2, entries: {} };
+    }
     return {
-      version: 1,
+      version: 2,
       entries: parsed.entries && typeof parsed.entries === 'object' ? parsed.entries : {}
     };
   } catch (error) {
     if (error?.code !== 'ENOENT') console.warn(`Ignoring unreadable verified-name cache: ${error.message}`);
-    return { version: 1, entries: {} };
+    return { version: 2, entries: {} };
   }
 }
 
@@ -955,7 +1003,7 @@ async function saveVerifiedNameCache() {
     Object.entries(verifiedNameCache.entries || {}).sort(([a], [b]) => a.localeCompare(b, 'en'))
   );
   const payload = {
-    version: 1,
+    version: 2,
     generatedAt: new Date().toISOString(),
     source: WIKI_BASE,
     note: 'Auto-generated cache of names verified against English Gundam Wiki content. Do not use as a manual override table.',
@@ -1088,6 +1136,16 @@ function runSelfTests() {
   assert(parseRetryAfterMs('60') === 60000, 'Retry-After seconds should be honored.');
   assert(combineCanonicalBaseWithRemainder('サザビー(紫)', 'サザビー', 'Sazabi', 'purple') === 'Sazabi (purple)', 'Only descriptors should be machine-translated after a verified canonical base.');
 
+
+  const modelCodedAliases = extractJapaneseIdentityNames('', 'MSN-06S Sinanju (MSN-06S シナンジュ)');
+  assert(modelCodedAliases.includes('MSN-06S シナンジュ'), 'Category indexing should retain the full model-coded Japanese identity.');
+  assert(modelCodedAliases.includes('シナンジュ'), 'Category indexing should add a model-code-stripped Sinanju alias for Altema matching.');
+
+  const varguilAliases = extractJapaneseIdentityNames('', 'AMS-123X Varguil (AMS-123X バルギル)');
+  assert(varguilAliases.includes('バルギル'), 'Category indexing should add a model-code-stripped Varguil alias for Altema matching.');
+
+  const v2Aliases = extractJapaneseIdentityNames('', 'LM314V21 V2 Gundam (LM314V21 V2ガンダム)');
+  assert(v2Aliases.some(name => normalizeForMatch(name) === normalizeForMatch('V2ガンダム')), 'Model-code stripping must preserve meaningful Latin prefixes such as V2.');
 
   const indexedLeadNames = extractJapaneseIdentityNames(
     "{{Infobox Mobile Suit\n| Japanese Name = バルギル\n}}\n'''AMS-123X Varguil''' is a mobile suit.",
