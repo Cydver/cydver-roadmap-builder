@@ -85,6 +85,7 @@ const DEFAULT_ROADMAP = {
   months: [...DEFAULT_MONTHS],
   tiers: structuredClone(DEFAULT_TIERS),
   metaStatuses: structuredClone(DEFAULT_META_STATUSES),
+  tagDescriptions: {},
   monthWeeks: DEFAULT_MONTHS.map(() => 4),
   units: []
 };
@@ -525,6 +526,35 @@ function cleanTags(tags) {
     return ai === bi ? a.localeCompare(b) : ai - bi;
   }).slice(0, MAX_TAGS);
 }
+function normalizeTagDescriptions(input) {
+  const normalized = {};
+  if (!input || typeof input !== "object" || Array.isArray(input)) return normalized;
+  for (const [rawTag, rawDescription] of Object.entries(input)) {
+    const cleanTag = sanitizeText(rawTag);
+    const description = String(rawDescription || "").trim();
+    if (!cleanTag || !description) continue;
+    const canonical = TAG_OPTIONS.find(tag => tag.toLowerCase() === cleanTag.toLowerCase()) || cleanTag;
+    normalized[canonical] = description;
+  }
+  return normalized;
+}
+function tagDescription(tag) {
+  const key = String(tag || "").toLowerCase();
+  const match = Object.entries(state.tagDescriptions || {}).find(([name]) => name.toLowerCase() === key);
+  return match ? String(match[1] || "").trim() : "";
+}
+function knownTagsForDescriptionEditor() {
+  const tags = new Map(TAG_OPTIONS.map(tag => [tag.toLowerCase(), tag]));
+  for (const unit of state.units || []) {
+    for (const tag of unit.tags || []) if (!tags.has(tag.toLowerCase())) tags.set(tag.toLowerCase(), tag);
+  }
+  for (const tag of Object.keys(state.tagDescriptions || {})) if (!tags.has(tag.toLowerCase())) tags.set(tag.toLowerCase(), tag);
+  return [...tags.values()].sort((a, b) => {
+    const ai = TAG_ORDER.has(a.toLowerCase()) ? TAG_ORDER.get(a.toLowerCase()) : 1000;
+    const bi = TAG_ORDER.has(b.toLowerCase()) ? TAG_ORDER.get(b.toLowerCase()) : 1000;
+    return ai === bi ? a.localeCompare(b) : ai - bi;
+  });
+}
 function statusColor(id) { return metaStatus(id).color; }
 function segmentColor(segment) { return statusColor(segment.statusId); }
 function defaultMetaStatusId() { return getStatuses()[2]?.id || DEFAULT_META_STATUSES[2].id; }
@@ -595,6 +625,7 @@ function normalizeState() {
       color
     };
   });
+  state.tagDescriptions = normalizeTagDescriptions(state.tagDescriptions);
   const statusIds = new Set(state.metaStatuses.map(s => s.id));
   const fallbackStatus = defaultMetaStatusId();
 
@@ -782,6 +813,7 @@ function buildMetaStatusSelect() {
 }
 
 function bindUI() {
+  ensureTagDescriptionEditor();
   document.getElementById("btnAddBlank").addEventListener("click", () => addUnit({ name: "New Unit", kind: "custom" }));
   document.getElementById("btnExportJson").addEventListener("click", exportJson);
   document.getElementById("btnCopyShareLink").addEventListener("click", copyShareLink);
@@ -1098,7 +1130,7 @@ function openSelectedUnitDialog(unitId) {
   if (!unit || !els.unitEditDialog || !els.unitEditDialogBody) return;
   select(unit.id, null);
   hideTooltip(true);
-  closeUnitProfile();
+  closeUnitProfile(true);
   hideContextMenu();
   if (!editFormHomeParent) {
     editFormHomeParent = els.editForm.parentNode;
@@ -1769,7 +1801,7 @@ function handleUnitClickGesture(event, unitId) {
     if (profileOpenTimer) clearTimeout(profileOpenTimer);
     profileOpenTimer = null;
     lastUnitClick = { id: null, at: 0 };
-    closeUnitProfile();
+    closeUnitProfile(true);
     if (isMs(unit) || isPilot(unit)) openSelectedUnitDialog(unit.id);
     else renameUnit(unit.id);
     return;
@@ -2265,6 +2297,64 @@ function clearTagsForSelected() {
   if (!getSelected()) return;
   setTagList([], true);
 }
+function ensureTagDescriptionEditor() {
+  if (document.getElementById("tagDescriptionDialog")) return;
+  const controls = document.querySelector(".tag-controls");
+  if (controls && !document.getElementById("btnEditTagDescriptions")) {
+    const button = document.createElement("button");
+    button.id = "btnEditTagDescriptions";
+    button.type = "button";
+    button.textContent = "Edit descriptions";
+    button.addEventListener("click", openTagDescriptionEditor);
+    controls.appendChild(button);
+  }
+
+  const dialog = document.createElement("dialog");
+  dialog.id = "tagDescriptionDialog";
+  dialog.className = "status-dialog tag-description-dialog";
+  dialog.innerHTML = `
+    <form method="dialog" id="tagDescriptionForm">
+      <h2>Edit tag descriptions</h2>
+      <p class="hint">Descriptions appear when someone hovers a tag in the full unit profile. Leave a field blank for no explanation.</p>
+      <div id="tagDescriptionRows" class="tag-description-rows"></div>
+      <div class="row gap dialog-actions">
+        <button value="cancel" type="button" id="btnCancelTagDescriptionEdit">Cancel</button>
+        <button value="default" type="submit">Save</button>
+      </div>
+    </form>`;
+  document.body.appendChild(dialog);
+  dialog.querySelector("#btnCancelTagDescriptionEdit")?.addEventListener("click", () => dialog.close());
+  dialog.querySelector("#tagDescriptionForm")?.addEventListener("submit", saveTagDescriptionEditor);
+  dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
+}
+
+function openTagDescriptionEditor() {
+  const dialog = document.getElementById("tagDescriptionDialog");
+  const rows = document.getElementById("tagDescriptionRows");
+  if (!dialog || !rows) return;
+  rows.innerHTML = knownTagsForDescriptionEditor().map(tag => {
+    const description = tagDescription(tag);
+    return `<label class="tag-description-row"><span class="unit-profile-tag ${tagClass(tag)}">${escapeHtml(tag)}</span><textarea rows="2" data-tag="${escapeHtml(tag)}" placeholder="Explain what ${escapeHtml(tag)} means…">${escapeHtml(description)}</textarea></label>`;
+  }).join("");
+  dialog.showModal();
+}
+
+function saveTagDescriptionEditor(event) {
+  event.preventDefault();
+  const dialog = document.getElementById("tagDescriptionDialog");
+  const next = {};
+  dialog?.querySelectorAll("textarea[data-tag]").forEach(textarea => {
+    const tag = sanitizeText(textarea.dataset.tag);
+    const description = String(textarea.value || "").trim();
+    if (tag && description) next[tag] = description;
+  });
+  state.tagDescriptions = normalizeTagDescriptions(next);
+  state.updated = new Date().toISOString();
+  dialog?.close();
+  autoSave();
+  setStatus("Tag descriptions saved.");
+}
+
 function renderTagPreview() {
   if (!els.tagPreview) return;
   els.tagPreview.innerHTML = "";
@@ -2295,7 +2385,7 @@ function base64urlDecode(text) {
 }
 async function copyShareLink() {
   normalizeState();
-  const payload = { v: 4, updated: new Date().toISOString(), months: state.months, monthWeeks: getMonthWeeks(), tiers: state.tiers, metaStatuses: state.metaStatuses, units: state.units };
+  const payload = { v: 4, updated: new Date().toISOString(), months: state.months, monthWeeks: getMonthWeeks(), tiers: state.tiers, metaStatuses: state.metaStatuses, tagDescriptions: state.tagDescriptions, units: state.units };
   const encoded = base64urlEncode(JSON.stringify(payload));
   const url = `${location.origin}${location.pathname}#roadmap=${encoded}`;
   try {
@@ -2815,7 +2905,19 @@ function positionFloatingTooltip(element, event, maxWidth = 320) {
 
 function profileTagsHtml(unit) {
   if (!unit?.tags?.length) return "";
-  return `<div class="unit-profile-tags">${unit.tags.map(tag => `<span class="unit-profile-tag ${tagClass(tag)}">${escapeHtml(tag)}</span>`).join("")}</div>`;
+  return `<div class="unit-profile-tags">${unit.tags.map(tag => {
+    const description = tagDescription(tag);
+    return `<span class="unit-profile-tag ${tagClass(tag)}${description ? " has-description" : ""}" data-profile-tag="${escapeHtml(tag)}"${description ? ` aria-label="${escapeHtml(`${tag}: ${description}`)}"` : ""}>${escapeHtml(tag)}</span>`;
+  }).join("")}</div>`;
+}
+
+function bindProfileTagTooltips(root) {
+  root?.querySelectorAll(".unit-profile-tag[data-profile-tag]").forEach(chip => {
+    const tag = chip.dataset.profileTag || "";
+    const description = tagDescription(tag);
+    if (!description) return;
+    bindAppTooltip(chip, () => `<strong>${escapeHtml(tag)}</strong><div class="app-tooltip-description">${multilineHtml(description)}</div>`);
+  });
 }
 
 function profileArtHtml(unit, typeLabel) {
@@ -2842,7 +2944,7 @@ function profileInvestmentHtml(unit) {
   const cells = [];
   if (minimum != null) cells.push(`<div class="unit-profile-investment-stat"><span>Minimum</span><strong>P${minimum}</strong></div>`);
   if (ideal != null) cells.push(`<div class="unit-profile-investment-stat"><span>Ideal</span><strong>P${ideal}</strong></div>`);
-  return `<section class="unit-profile-section"><div class="unit-profile-section-title">Investment</div><div class="unit-profile-investment">${cells.join("")}</div></section>`;
+  return `<section class="unit-profile-section unit-profile-investment-section"><div class="unit-profile-section-title">Investment</div><div class="unit-profile-investment">${cells.join("")}</div></section>`;
 }
 
 function profileMetaHtml(unit, activeSegmentId = null) {
@@ -2854,21 +2956,12 @@ function profileMetaHtml(unit, activeSegmentId = null) {
     const description = String(status.description || "").trim();
     return `<div class="unit-profile-meta-row${activeSegmentId === seg.id ? " active" : ""}"><i style="background:${escapeHtml(status.color)}"></i><div class="unit-profile-meta-copy"><div class="unit-profile-meta-top"><strong>${escapeHtml(status.label)}</strong><span>${escapeHtml(formatWeekRange(seg.start, seg.end))}</span></div>${description ? `<p>${multilineHtml(description)}</p>` : ""}</div></div>`;
   }).join("");
-  return `<section class="unit-profile-section"><div class="unit-profile-section-title">PVP Meta</div><div class="unit-profile-meta-list">${rows}</div></section>`;
+  return `<section class="unit-profile-section unit-profile-meta-section"><div class="unit-profile-section-title">PVP Meta</div><div class="unit-profile-meta-list">${rows}</div></section>`;
 }
 
-function profileMsNotesHtml(unit) {
-  if (!unit) return "";
-  const blocks = [];
-  if (unit.notesPvp) blocks.push(`<div class="unit-profile-note"><span>PVP</span><div>${multilineHtml(unit.notesPvp)}</div></div>`);
-  if (unit.notesPve) blocks.push(`<div class="unit-profile-note"><span>PVE</span><div>${multilineHtml(unit.notesPve)}</div></div>`);
-  return blocks.length ? `<section class="unit-profile-section"><div class="unit-profile-section-title">Notes</div><div class="unit-profile-notes">${blocks.join("")}</div></section>` : "";
-}
-
-function profilePilotNotesHtml(unit) {
-  if (!unit) return "";
-  const notes = [unit.notesPvp, unit.notesPve].filter(Boolean).join("\n\n");
-  return notes ? `<section class="unit-profile-section"><div class="unit-profile-section-title">Notes</div><div class="unit-profile-pilot-note">${multilineHtml(notes)}</div></section>` : "";
+function profileScrollableNotesHtml(title, text, emptyText, extraClass = "") {
+  const content = String(text || "").trim();
+  return `<section class="unit-profile-section unit-profile-scroll-notes ${extraClass}"><div class="unit-profile-section-title">${escapeHtml(title)}</div><div class="unit-profile-note-scroll">${content ? `<div class="unit-profile-note-copy">${multilineHtml(content)}</div>` : `<div class="unit-profile-note-empty">${escapeHtml(emptyText)}</div>`}</div></section>`;
 }
 
 function profilePanelHeaderHtml(unit, label, emptyMessage) {
@@ -2884,7 +2977,7 @@ function openUnitProfile(unitId, activeSegmentId = null) {
   hideTooltip(true);
   hideAppTooltip();
   hideContextMenu();
-  closeUnitProfile();
+  closeUnitProfile(true);
 
   const ms = isMs(clicked) ? clicked : pairedMsForPilot(clicked);
   const pilot = isPilot(clicked) ? clicked : pairedPilotForMs(clicked);
@@ -2901,11 +2994,16 @@ function openUnitProfile(unitId, activeSegmentId = null) {
           ${profilePanelHeaderHtml(ms, "MOBILE SUIT", "No paired MS")}
           ${ms ? profileInvestmentHtml(ms) : ""}
           ${ms ? profileMetaHtml(ms, activeId) : ""}
-          ${ms ? profileMsNotesHtml(ms) : ""}
+          ${ms ? profileScrollableNotesHtml("PVP Notes", ms.notesPvp, "No PVP notes added.", "unit-profile-pvp-notes") : ""}
         </section>
         <section class="unit-profile-panel unit-profile-pilot-panel">
-          ${profilePanelHeaderHtml(pilot, "PILOT", "No paired pilot")}
-          ${pilot ? profilePilotNotesHtml(pilot) : ""}
+          <div class="unit-profile-pilot-primary">
+            ${profilePanelHeaderHtml(pilot, "PILOT", "No paired pilot")}
+            ${pilot ? profileScrollableNotesHtml("Pilot Notes", [pilot.notesPvp, pilot.notesPve].filter(Boolean).join("\n\n"), "No pilot notes added.", "unit-profile-pilot-notes") : ""}
+          </div>
+          <div class="unit-profile-pve-slot">
+            ${ms ? profileScrollableNotesHtml("MS PVE Notes", ms.notesPve, "No PVE notes added.", "unit-profile-pve-notes") : `<div class="unit-profile-note-empty standalone">No paired MS PVE notes.</div>`}
+          </div>
         </section>
       </div>
     </article>`;
@@ -2922,21 +3020,45 @@ function openUnitProfile(unitId, activeSegmentId = null) {
   document.body.appendChild(overlay);
   document.body.classList.add("unit-profile-open");
   unitProfileOverlay = overlay;
+  bindProfileTagTooltips(overlay);
   overlay.querySelector(".unit-profile-close")?.focus({ preventScroll: true });
 }
 
-function closeUnitProfile() {
+function closeUnitProfile(immediate = false) {
   if (profileOpenTimer) {
     clearTimeout(profileOpenTimer);
     profileOpenTimer = null;
   }
   if (!unitProfileOverlay) return;
   const overlay = unitProfileOverlay;
+  if (overlay.classList.contains("closing") && !immediate) return;
+  const returnFocus = profileReturnFocus;
   unitProfileOverlay = null;
-  overlay.remove();
-  document.body.classList.remove("unit-profile-open");
-  if (profileReturnFocus?.isConnected) profileReturnFocus.focus({ preventScroll: true });
   profileReturnFocus = null;
+  hideAppTooltip();
+
+  let finished = false;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    overlay.remove();
+    if (!document.querySelector(".unit-profile-overlay")) document.body.classList.remove("unit-profile-open");
+    if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true });
+  };
+
+  if (immediate || window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches) {
+    finish();
+    return;
+  }
+
+  overlay.classList.add("closing");
+  const onAnimationEnd = (event) => {
+    if (event.target !== overlay) return;
+    overlay.removeEventListener("animationend", onAnimationEnd);
+    finish();
+  };
+  overlay.addEventListener("animationend", onAnimationEnd);
+  setTimeout(finish, 260);
 }
 
 function showTooltip(event, unit, segment = null, options = {}) {
