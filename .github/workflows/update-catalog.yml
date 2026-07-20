@@ -21,10 +21,13 @@ jobs:
         run: cp data/catalog.json "$RUNNER_TEMP/catalog-before-scrape.json"
       - name: Scrape Altema catalog and icons
         run: npm run scrape-altema
-      - name: Resolve canonical English names from Gundam Wiki
+      - name: Resolve English U.C. ENGAGE names
         env:
           GUNDAM_PREVIOUS_CATALOG_PATH: ${{ runner.temp }}/catalog-before-scrape.json
           GUNDAM_TRANSLATION_FALLBACK: "1"
+          GAME8_MIN_INTERVAL_MS: "350"
+          GAME8_MAX_RETRIES: "4"
+          GAME8_ICON_CANDIDATES: "8"
           GUNDAM_WIKI_MIN_INTERVAL_MS: "1400"
           GUNDAM_WIKI_MAX_RETRIES: "6"
           GUNDAM_WIKI_429_FALLBACK_MS: "60000"
