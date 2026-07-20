@@ -22,7 +22,7 @@ const EN_WIKI_BASE = process.env.GUNDAM_WIKI_BASE_URL || 'https://gundam.fandom.
 const JA_WIKI_API = process.env.GUNDAM_WIKI_JA_API_URL || 'https://gundam.fandom.com/ja/api.php';
 const JA_WIKI_BASE = process.env.GUNDAM_WIKI_JA_BASE_URL || 'https://gundam.fandom.com/ja/wiki/';
 const WIKI_USER_AGENT = process.env.GUNDAM_WIKI_USER_AGENT ||
-  'CydverPullRoadmapCatalogBot/3.0 (GitHub Actions UCE English-name resolver)';
+  'CydverPullRoadmapCatalogBot/4.0 (GitHub Actions UCE English-name resolver)';
 const WIKI_MIN_INTERVAL_MS = Math.max(500, Number(process.env.GUNDAM_WIKI_MIN_INTERVAL_MS || 1400));
 const WIKI_MAX_RETRIES = Math.max(1, Number(process.env.GUNDAM_WIKI_MAX_RETRIES || 6));
 const WIKI_429_FALLBACK_MS = Math.max(5000, Number(process.env.GUNDAM_WIKI_429_FALLBACK_MS || 60000));
@@ -31,7 +31,7 @@ const TRANSLATION_ENABLED = !/^(0|false|no)$/i.test(process.env.GUNDAM_TRANSLATI
 const GOOGLE_TRANSLATE_URL = process.env.GUNDAM_GOOGLE_TRANSLATE_URL || 'https://translate.googleapis.com/translate_a/single';
 const MYMEMORY_TRANSLATE_URL = process.env.GUNDAM_MYMEMORY_TRANSLATE_URL || 'https://api.mymemory.translated.net/get';
 
-const CACHE_VERSION = 4;
+const CACHE_VERSION = 5;
 const RESOLUTION_CONCURRENCY = Math.max(1, Number(process.env.NAME_RESOLUTION_CONCURRENCY || 3));
 const GAME8_IMAGE_MATCH_MAX_DISTANCE = Math.max(0.02, Number(process.env.GAME8_IMAGE_MATCH_MAX_DISTANCE || 0.19));
 const GAME8_IMAGE_MATCH_STRONG_DISTANCE = Math.max(0.01, Number(process.env.GAME8_IMAGE_MATCH_STRONG_DISTANCE || 0.11));
@@ -284,9 +284,34 @@ async function loadGame8Index(kind) {
 async function buildGame8Index(kind) {
   const url = kind === 'ms' ? GAME8_MS_URL : GAME8_PILOT_URL;
   console.log(`Loading English U.C. ENGAGE ${kind} card index from Game8...`);
-  const { text, via } = await fetchGame8SourceText(url);
-  const entries = kind === 'ms' ? parseGame8MsIndex(text, url) : parseGame8PilotIndex(text, url);
-  if (!entries.length) throw new Error(`Parsed 0 ${kind} entries from Game8 ${via}.`);
+
+  let entries = [];
+  let via = '';
+  const parse = text => kind === 'ms' ? parseGame8MsIndex(text, url) : parseGame8PilotIndex(text, url);
+
+  // Game8 currently returns a successful HTML response to GitHub Actions, but
+  // the useful searchable table can be client-rendered and therefore absent
+  // from that raw response. A successful HTTP fetch is not proof that the
+  // index was actually available. Parse the direct response first, then fall
+  // back to the reader representation whenever parsing yields no cards.
+  try {
+    const directText = await fetchGame8TextDirect(url);
+    entries = parse(directText);
+    via = 'direct Game8 HTML';
+    if (!entries.length) {
+      console.warn(`Parsed 0 ${kind} entries from direct Game8 HTML; retrying with reader-rendered page text...`);
+    }
+  } catch (error) {
+    console.warn(`Direct Game8 fetch failed for ${url}: ${error.message}`);
+  }
+
+  if (!entries.length) {
+    const readerText = await fetchGame8ReaderText(url);
+    entries = parse(readerText);
+    via = 'Jina Reader Markdown';
+  }
+
+  if (!entries.length) throw new Error(`Parsed 0 ${kind} entries from both direct Game8 HTML and reader-rendered page text.`);
 
   for (const entry of entries) prepareGame8Entry(entry);
   const byCardId = new Map();
@@ -344,14 +369,21 @@ function parseGame8MsMarkdown(markdown, baseUrl) {
 
     const links = extractMarkdownLinks(line, baseUrl);
     const chosen = links.find(link => /\/games\/gundam-uce\/archives\//i.test(link.url) && looksLikeGame8UnitName(stripGame8CardPrefix(link.label, 'M')));
-    if (!chosen) continue;
-    const name = stripGame8CardPrefix(chosen.label, 'M');
+
+    // Reader-rendered Game8 tables do not consistently preserve links to each
+    // detail page. The first table column is still the localized UCE card name,
+    // so accept it as authoritative even when no anchor is present.
+    const columns = markdownTableColumns(line);
+    const firstColumnName = columns.length >= 4 ? stripGame8CardPrefix(columns[0], 'M') : '';
+    const name = chosen ? stripGame8CardPrefix(chosen.label, 'M') : firstColumnName;
+    if (!looksLikeGame8UnitName(name)) continue;
+
     const images = extractMarkdownImages(line, baseUrl);
     const icon = chooseGame8RowIcon(images, name);
     entries.push({
       kind: 'ms',
       name,
-      url: chosen.url,
+      url: chosen?.url || '',
       iconUrl: icon?.url || '',
       rarity,
       color,
@@ -477,6 +509,16 @@ function markdownLineText(line) {
     .replace(/!\[([^\]]*)\]\([^)]+\)/g, ' $1 ')
     .replace(/\[([^\]]+)\]\([^)]+\)/g, ' $1 ')
     .replace(/\|/g, ' '));
+}
+
+function markdownTableColumns(line) {
+  const raw = String(line || '');
+  if (!raw.includes('|')) return [];
+  return raw
+    .split('|')
+    .map(column => markdownLineText(column))
+    .filter(Boolean)
+    .filter(column => !/^:?-{3,}:?$/.test(column));
 }
 
 function extractMarkdownLinks(line, baseUrl) {
@@ -811,19 +853,13 @@ function hashDistance(a, b) {
   return diff / a.length;
 }
 
-async function fetchGame8SourceText(url) {
-  try {
-    return { text: await fetchGame8TextDirect(url), via: 'direct Game8 HTML' };
-  } catch (error) {
-    console.warn(`Direct Game8 fetch failed for ${url}: ${error.message}`);
-  }
-
+async function fetchGame8ReaderText(url) {
   const jinaUrl = `https://r.jina.ai/${url}`;
-  const text = await fetchTextGeneric(jinaUrl, {
+  return await fetchTextGeneric(jinaUrl, {
     label: 'Game8 Jina Reader fallback',
+    retries: GAME8_MAX_RETRIES,
     headers: { 'user-agent': GAME8_USER_AGENT, accept: 'text/markdown,text/plain,*/*' }
   });
-  return { text, via: 'Jina Reader Markdown fallback' };
 }
 
 async function fetchGame8TextDirect(url) {
@@ -2006,10 +2042,31 @@ async function runSelfTests() {
   assert(ms.length === 3, 'Game8 MS HTML parser should extract table cards.');
   assert(ms[0].name === 'Nu Gundam HWS' && ms[0].color === 'Yellow' && ms[0].category === 'Armored', 'Game8 MS metadata should be parsed.');
 
+  const msReaderMarkdown = `
+Mobile Suit | Rarity | Type | Category
+--- | --- | --- | ---
+Victory 2 Assault Buster Cannon Gundam | UR | Purple | Image: Gundam UC Engage - Bombardment Icon Bombardment
+Narrative Gundam B2-Packs | UR | Blue | Image: Gundam UC Engage - Generic Icon Generic
+Alex (Chobham Armor) | UR | Green | Image: Gundam UC Engage - Armored Icon Armored
+`;
+  const msReader = parseGame8MsIndex(msReaderMarkdown);
+  assert(msReader.length === 3, 'Game8 MS reader parser should extract unlinked rendered table rows.');
+  assert(msReader[0].name === 'Victory 2 Assault Buster Cannon Gundam' && msReader[0].category === 'Bombardment', 'Reader MS name/category should be authoritative without detail links.');
+  assert(msReader[1].name === 'Narrative Gundam B2-Packs' && msReader[1].color === 'Blue', 'Reader MS color should be parsed without links.');
+
   const pilotHtml = `<table><tr><td><a href="/games/gundam-uce/archives/9">［C0378］ Haman Karn</a></td><td>UR</td></tr><tr><td>［C0215］ Io Fleming</td><td>UR</td></tr></table>`;
   const pilots = parseGame8PilotIndex(pilotHtml);
   assert(pilots.length === 2, 'Game8 pilot parser should support linked and plain-text rows.');
   assert(pilots[0].cardId === 'C0378' && pilots[0].name === 'Haman Karn', 'Pilot C-ID should be retained.');
+
+  const pilotReaderMarkdown = `
+Pilot | Rarity | Series
+［C0378］ Haman Karn | UR | Image: Mobile Suit Zeta Gundam Icon
+［C0350］ Jona Basta | UR | Image: Mobile Suit Gundam Narrative Icon
+`;
+  const pilotReader = parseGame8PilotIndex(pilotReaderMarkdown);
+  assert(pilotReader.length === 2, 'Game8 pilot reader parser should extract unlinked rendered table rows.');
+  assert(pilotReader[0].cardId === 'C0378' && pilotReader[1].name === 'Jona Basta', 'Reader pilot C-IDs and names should parse without links.');
   assert(extractPilotCardId('イオ・フレミング(0215)') === 'C0215', 'Bare four-digit Altema pilot suffix should map to a Game8 C-ID.');
   assert(composeCatalogDisplayName('イオ・フレミング(0215)', 'pilot', 'Io Fleming') === 'Io Fleming(0215)', 'Pilot card suffix should remain visible.');
 
