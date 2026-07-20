@@ -106,6 +106,9 @@ let lastUnitClick = { id: null, at: 0 };
 let profileOpenTimer = null;
 let unitProfileOverlay = null;
 let profileReturnFocus = null;
+let unitNoteReaderOverlay = null;
+let unitNoteReaderReturnFocus = null;
+let unitProfileOverflowObserver = null;
 let autoApplyTimer = null;
 let zoomScale = Number(localStorage.getItem(ZOOM_STORAGE_KEY) || "1") || 1;
 
@@ -848,6 +851,7 @@ function bindUI() {
   });
   document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") return;
+    if (unitNoteReaderOverlay) { closeUnitNoteReader(); return; }
     if (unitProfileOverlay) { closeUnitProfile(); return; }
     if (tooltipPinned) hideTooltip(true);
   });
@@ -2954,14 +2958,142 @@ function profileMetaHtml(unit, activeSegmentId = null) {
   const rows = segments.map(seg => {
     const status = metaStatus(seg.statusId);
     const description = String(status.description || "").trim();
-    return `<div class="unit-profile-meta-row${activeSegmentId === seg.id ? " active" : ""}"><i style="background:${escapeHtml(status.color)}"></i><div class="unit-profile-meta-copy"><div class="unit-profile-meta-top"><strong>${escapeHtml(status.label)}</strong><span>${escapeHtml(formatWeekRange(seg.start, seg.end))}</span></div>${description ? `<p>${multilineHtml(description)}</p>` : ""}</div></div>`;
+    const labelAttrs = description
+      ? ` class="unit-profile-meta-label has-description" data-meta-label="${escapeHtml(status.label)}" data-meta-description="${escapeHtml(description)}" tabindex="0" role="button" aria-label="${escapeHtml(`${status.label}: ${description}`)}"`
+      : ` class="unit-profile-meta-label"`;
+    return `<div class="unit-profile-meta-row${activeSegmentId === seg.id ? " active" : ""}"><i style="background:${escapeHtml(status.color)}"></i><div class="unit-profile-meta-copy"><div class="unit-profile-meta-top"><strong${labelAttrs}>${escapeHtml(status.label)}</strong><span>${escapeHtml(formatWeekRange(seg.start, seg.end))}</span></div></div></div>`;
   }).join("");
   return `<section class="unit-profile-section unit-profile-meta-section"><div class="unit-profile-section-title">PVP Meta</div><div class="unit-profile-meta-list">${rows}</div></section>`;
 }
 
-function profileScrollableNotesHtml(title, text, emptyText, extraClass = "") {
+function profileScrollableNotesHtml(title, text, emptyText, extraClass = "", expandable = false) {
   const content = String(text || "").trim();
-  return `<section class="unit-profile-section unit-profile-scroll-notes ${extraClass}"><div class="unit-profile-section-title">${escapeHtml(title)}</div><div class="unit-profile-note-scroll">${content ? `<div class="unit-profile-note-copy">${multilineHtml(content)}</div>` : `<div class="unit-profile-note-empty">${escapeHtml(emptyText)}</div>`}</div></section>`;
+  const readerAttrs = expandable && content ? ` data-note-reader="true" data-note-title="${escapeHtml(title)}"` : "";
+  const readerButton = expandable && content
+    ? `<button class="unit-profile-note-expand" type="button" aria-label="Open full ${escapeHtml(title)}" hidden><span aria-hidden="true">i</span></button>`
+    : "";
+  return `<section class="unit-profile-section unit-profile-scroll-notes ${extraClass}"${readerAttrs}><div class="unit-profile-section-heading"><div class="unit-profile-section-title">${escapeHtml(title)}</div>${readerButton}</div><div class="unit-profile-note-scroll">${content ? `<div class="unit-profile-note-copy">${multilineHtml(content)}</div>` : `<div class="unit-profile-note-empty">${escapeHtml(emptyText)}</div>`}</div></section>`;
+}
+
+function bindProfileMetaTooltips(root) {
+  root?.querySelectorAll(".unit-profile-meta-label[data-meta-description]").forEach(label => {
+    const metaLabel = label.dataset.metaLabel || label.textContent || "PVP Meta";
+    const description = label.dataset.metaDescription || "";
+    const htmlFactory = () => `<strong>${escapeHtml(metaLabel)}</strong><div class="app-tooltip-description">${multilineHtml(description)}</div>`;
+    bindAppTooltip(label, htmlFactory);
+    label.addEventListener("focus", () => {
+      const rect = label.getBoundingClientRect();
+      showAppTooltip({ clientX: rect.left + rect.width / 2, clientY: rect.bottom }, htmlFactory);
+    });
+    label.addEventListener("blur", hideAppTooltip);
+    label.addEventListener("pointerdown", event => {
+      if (event.pointerType !== "touch") return;
+      showAppTooltip(event, htmlFactory);
+    });
+    label.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      const rect = label.getBoundingClientRect();
+      showAppTooltip({ clientX: rect.left + rect.width / 2, clientY: rect.bottom }, htmlFactory);
+    });
+  });
+}
+
+function openUnitNoteReader(title, text, sourceButton = null) {
+  const content = String(text || "").trim();
+  if (!content) return;
+  closeUnitNoteReader(true);
+  hideAppTooltip();
+  unitNoteReaderReturnFocus = sourceButton instanceof HTMLElement ? sourceButton : null;
+
+  const overlay = document.createElement("div");
+  overlay.className = "unit-note-reader-overlay";
+  overlay.innerHTML = `
+    <article class="unit-note-reader-card" role="dialog" aria-modal="true" aria-label="${escapeHtml(title)} full notes">
+      <header class="unit-note-reader-header">
+        <div><span>FULL NOTES</span><h2>${escapeHtml(title)}</h2></div>
+        <button class="unit-note-reader-close" type="button" aria-label="Close full notes">×</button>
+      </header>
+      <div class="unit-note-reader-body">${multilineHtml(content)}</div>
+    </article>`;
+  overlay.addEventListener("click", event => { if (event.target === overlay) closeUnitNoteReader(); });
+  overlay.querySelector(".unit-note-reader-close")?.addEventListener("click", () => closeUnitNoteReader());
+  overlay.addEventListener("keydown", event => {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      overlay.querySelector(".unit-note-reader-close")?.focus({ preventScroll: true });
+    }
+  });
+  document.body.appendChild(overlay);
+  unitNoteReaderOverlay = overlay;
+  overlay.querySelector(".unit-note-reader-close")?.focus({ preventScroll: true });
+}
+
+function closeUnitNoteReader(immediate = false) {
+  if (!unitNoteReaderOverlay) return;
+  const overlay = unitNoteReaderOverlay;
+  if (overlay.classList.contains("closing") && !immediate) return;
+  const returnFocus = unitNoteReaderReturnFocus;
+  unitNoteReaderOverlay = null;
+  unitNoteReaderReturnFocus = null;
+  let finished = false;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    overlay.remove();
+    if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true });
+  };
+  if (immediate || window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches) {
+    finish();
+    return;
+  }
+  overlay.classList.add("closing");
+  overlay.addEventListener("animationend", finish, { once: true });
+  setTimeout(finish, 260);
+}
+
+function bindProfileNoteReaders(root) {
+  unitProfileOverflowObserver?.disconnect();
+  unitProfileOverflowObserver = null;
+  const sections = [...(root?.querySelectorAll('.unit-profile-scroll-notes[data-note-reader="true"]') || [])];
+  if (!sections.length) return;
+
+  const updateSection = section => {
+    const scroller = section.querySelector(".unit-profile-note-scroll");
+    const copy = section.querySelector(".unit-profile-note-copy");
+    const button = section.querySelector(".unit-profile-note-expand");
+    if (!scroller || !copy || !button) return;
+    const overflowed = scroller.scrollHeight > scroller.clientHeight + 2;
+    button.hidden = !overflowed;
+    section.classList.toggle("has-note-overflow", overflowed);
+  };
+
+  sections.forEach(section => {
+    const button = section.querySelector(".unit-profile-note-expand");
+    button?.addEventListener("click", event => {
+      event.stopPropagation();
+      const copy = section.querySelector(".unit-profile-note-copy");
+      openUnitNoteReader(section.dataset.noteTitle || "Notes", copy?.innerText || copy?.textContent || "", button);
+    });
+  });
+
+  if (typeof ResizeObserver === "function") {
+    unitProfileOverflowObserver = new ResizeObserver(entries => {
+      entries.forEach(entry => {
+        const section = entry.target.closest?.('.unit-profile-scroll-notes[data-note-reader="true"]') || entry.target;
+        if (section?.matches?.('.unit-profile-scroll-notes[data-note-reader="true"]')) updateSection(section);
+      });
+    });
+    sections.forEach(section => {
+      unitProfileOverflowObserver.observe(section);
+      const scroller = section.querySelector(".unit-profile-note-scroll");
+      if (scroller) unitProfileOverflowObserver.observe(scroller);
+    });
+  }
+
+  const updateAll = () => sections.forEach(updateSection);
+  requestAnimationFrame(() => requestAnimationFrame(updateAll));
+  setTimeout(updateAll, 120);
 }
 
 function profilePanelHeaderHtml(unit, label, emptyMessage) {
@@ -2998,22 +3130,22 @@ function openUnitProfile(unitId, activeSegmentId = null) {
         <section class="unit-profile-panel unit-profile-pilot-panel">
           <div class="unit-profile-pilot-primary">
             ${profilePanelHeaderHtml(pilot, "PILOT", "No paired pilot")}
-            ${pilot ? profileScrollableNotesHtml("Pilot Notes", [pilot.notesPvp, pilot.notesPve].filter(Boolean).join("\n\n"), "No pilot notes added.", "unit-profile-pilot-notes") : ""}
+            ${pilot ? profileScrollableNotesHtml("Pilot Notes", [pilot.notesPvp, pilot.notesPve].filter(Boolean).join("\n\n"), "No pilot notes added.", "unit-profile-pilot-notes", false) : ""}
           </div>
         </section>
         <section class="unit-profile-ms-notes-band" aria-label="Mobile Suit notes">
           <div class="unit-profile-ms-note-cell unit-profile-ms-pvp-cell">
-            ${ms ? profileScrollableNotesHtml("PVP Notes", ms.notesPvp, "No PVP notes added.", "unit-profile-pvp-notes") : `<div class="unit-profile-note-empty standalone">No paired MS PVP notes.</div>`}
+            ${ms ? profileScrollableNotesHtml("PVP Notes", ms.notesPvp, "No PVP notes added.", "unit-profile-pvp-notes", true) : `<div class="unit-profile-note-empty standalone">No paired MS PVP notes.</div>`}
           </div>
           <div class="unit-profile-ms-note-cell unit-profile-ms-pve-cell">
-            ${ms ? profileScrollableNotesHtml("PVE Notes", ms.notesPve, "No PVE notes added.", "unit-profile-pve-notes") : `<div class="unit-profile-note-empty standalone">No paired MS PVE notes.</div>`}
+            ${ms ? profileScrollableNotesHtml("PVE Notes", ms.notesPve, "No PVE notes added.", "unit-profile-pve-notes", true) : `<div class="unit-profile-note-empty standalone">No paired MS PVE notes.</div>`}
           </div>
         </section>
       </div>
     </article>`;
 
   overlay.addEventListener("click", event => { if (event.target === overlay) closeUnitProfile(); });
-  overlay.querySelector(".unit-profile-close")?.addEventListener("click", closeUnitProfile);
+  overlay.querySelector(".unit-profile-close")?.addEventListener("click", () => closeUnitProfile());
   overlay.querySelectorAll(".unit-profile-image").forEach(img => {
     img.addEventListener("error", () => {
       img.style.display = "none";
@@ -3025,10 +3157,15 @@ function openUnitProfile(unitId, activeSegmentId = null) {
   document.body.classList.add("unit-profile-open");
   unitProfileOverlay = overlay;
   bindProfileTagTooltips(overlay);
+  bindProfileMetaTooltips(overlay);
+  bindProfileNoteReaders(overlay);
   overlay.querySelector(".unit-profile-close")?.focus({ preventScroll: true });
 }
 
 function closeUnitProfile(immediate = false) {
+  closeUnitNoteReader(true);
+  unitProfileOverflowObserver?.disconnect();
+  unitProfileOverflowObserver = null;
   if (profileOpenTimer) {
     clearTimeout(profileOpenTimer);
     profileOpenTimer = null;
