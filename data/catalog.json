@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-20T14:16:40.563Z",
+  "generatedAt": "2026-07-20T14:41:25.531Z",
   "sources": [
     "https://altema.jp/gundamuce/msrea/4",
     "https://altema.jp/gundamuce/chararea/4",
@@ -23,7 +23,7 @@
     {
       "id": "altema-ms-1abc48640f",
       "kind": "ms",
-      "name": "キュベレイ(覚醒)",
+      "name": "Qubeley (Awakening)",
       "icon": "icons/altema/ms-キュベレイ-覚醒-999d8817.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/412.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/412",
@@ -31,7 +31,11 @@
       "role": "汎用",
       "rating": "9.5",
       "nameJa": "キュベレイ(覚醒)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "AMX-004 Qubeley",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/AMX-004_Qubeley",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-b24601d773",
@@ -49,7 +53,7 @@
     {
       "id": "altema-ms-d2f343a057",
       "kind": "ms",
-      "name": "ユニコーンガンダム(NT-D/覚醒)",
+      "name": "Unicorn Gundam (NT-D/Awakening)",
       "icon": "icons/altema/ms-ユニコーンガンダム-nt-d-覚醒-a105d5b8.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/392.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/392",
@@ -57,7 +61,11 @@
       "role": "強襲",
       "rating": "9.5",
       "nameJa": "ユニコーンガンダム(NT-D/覚醒)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-0 Unicorn Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-0_Unicorn_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-a5ddc83f9e",
@@ -88,7 +96,7 @@
     {
       "id": "altema-ms-50698b2013",
       "kind": "ms",
-      "name": "ユニコーンガンダム ペルフェクティビリティ・ディバイン",
+      "name": "Unicorn Gundam Perfectibility Divine",
       "icon": "icons/altema/ms-ユニコーンガンダム-ペルフェクティビリティ・ディバイン-2fc35ee6.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/403.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/403",
@@ -96,7 +104,11 @@
       "role": "重装",
       "rating": "9",
       "nameJa": "ユニコーンガンダム ペルフェクティビリティ・ディバイン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-0 Unicorn Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-0_Unicorn_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-a2a10846b5",
@@ -114,7 +126,7 @@
     {
       "id": "altema-ms-d945240dd9",
       "kind": "ms",
-      "name": "キュベレイ(赤)",
+      "name": "Qubeley (red)",
       "icon": "icons/altema/ms-キュベレイ-赤-239366a0.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/341.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/341",
@@ -122,7 +134,11 @@
       "role": "強襲",
       "rating": "9",
       "nameJa": "キュベレイ(赤)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "AMX-004 Qubeley",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/AMX-004_Qubeley",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-60f183bba0",
@@ -205,7 +221,7 @@
     {
       "id": "altema-ms-f9283c4908",
       "kind": "ms",
-      "name": "スーパーエンゲージガンダム(UR)",
+      "name": "Super Engage Gundam (UR)",
       "icon": "icons/altema/ms-スーパーエンゲージガンダム-ur-d21bfb41.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/377.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/377",
@@ -213,7 +229,11 @@
       "role": "狙撃",
       "rating": "8.5",
       "nameJa": "スーパーエンゲージガンダム(UR)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "Super Engage Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Super_Engage_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-809b666b2a",
@@ -322,7 +342,7 @@
     {
       "id": "altema-ms-91e5d561eb",
       "kind": "ms",
-      "name": "ユニコーンガンダム(HML装備)",
+      "name": "Unicorn Gundam (HML equipment)",
       "icon": "icons/altema/ms-ユニコーンガンダム-hml装備-8f43d70a.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/320.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/320",
@@ -330,7 +350,11 @@
       "role": "汎用",
       "rating": "8.5",
       "nameJa": "ユニコーンガンダム(HML装備)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-0 Unicorn Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-0_Unicorn_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-203ce71f56",
@@ -413,7 +437,7 @@
     {
       "id": "altema-ms-95a24b8805",
       "kind": "ms",
-      "name": "エンゲージガンダム(ガンダムパンチ装備)",
+      "name": "Engage Gundam (gundam punch equipment)",
       "icon": "icons/altema/ms-エンゲージガンダム-ガンダムパンチ装備-28af01d2.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/402.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/402",
@@ -421,7 +445,11 @@
       "role": "汎用",
       "rating": "8",
       "nameJa": "エンゲージガンダム(ガンダムパンチ装備)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-78GPZ01 Engage Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-78GPZ01_Engage_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-6630de5312",
@@ -478,7 +506,7 @@
     {
       "id": "altema-ms-b12ad5f83f",
       "kind": "ms",
-      "name": "エンゲージガンダム ブースター装備",
+      "name": "Engage Gundam Booster Equipment",
       "icon": "icons/altema/ms-エンゲージガンダム-ブースター装備-7de44788.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/386.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/386",
@@ -486,7 +514,10 @@
       "role": "汎用",
       "rating": "8",
       "nameJa": "エンゲージガンダム ブースター装備",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Engage Gundam Booster Equipment",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Engage_Gundam_Booster_Equipment"
     },
     {
       "id": "altema-ms-5fde54be58",
@@ -543,7 +574,7 @@
     {
       "id": "altema-ms-18fdf77c41",
       "kind": "ms",
-      "name": "エンゲージガンダム",
+      "name": "Engage Gundam",
       "icon": "icons/altema/ms-エンゲージガンダム-5ed80825.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/359.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/359",
@@ -551,7 +582,10 @@
       "role": "汎用",
       "rating": "8",
       "nameJa": "エンゲージガンダム",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "verified-cache-exact-ja",
+      "nameSourceTitle": "RX-78GPZ01 Engage Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-78GPZ01_Engage_Gundam"
     },
     {
       "id": "altema-ms-da50d85eea",
@@ -647,7 +681,7 @@
     {
       "id": "altema-ms-35600068ef",
       "kind": "ms",
-      "name": "ジオング(狙撃)",
+      "name": "Zeong (sniper)",
       "icon": "icons/altema/ms-ジオング-狙撃-fbb0a177.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/307.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/307",
@@ -655,7 +689,11 @@
       "role": "狙撃",
       "rating": "8",
       "nameJa": "ジオング(狙撃)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "MSN-02 Zeong",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/MSN-02_Zeong",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-107f17fa88",
@@ -712,7 +750,7 @@
     {
       "id": "altema-ms-e7eb8d6c44",
       "kind": "ms",
-      "name": "ジ・O(木星帰りの男)",
+      "name": "The-O (GBWC) (The man returning from Jupiter)",
       "icon": "icons/altema/ms-ジ・o-木星帰りの男-f3f09c9b.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/259.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/259",
@@ -720,7 +758,11 @@
       "role": "重装",
       "rating": "8",
       "nameJa": "ジ・O(木星帰りの男)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "The-O (GBWC)",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/The-O_(GBWC)",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-ff7df87259",
@@ -738,7 +780,7 @@
     {
       "id": "altema-ms-0a6cc73f56",
       "kind": "ms",
-      "name": "RX-78F00 HMT ガンダム高機動型",
+      "name": "HMT Gundam High Mobility Type",
       "icon": "icons/altema/ms-rx-78f00-hmt-ガンダム高機動型-2e093dda.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/197.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/197",
@@ -746,12 +788,15 @@
       "role": "砲撃",
       "rating": "8",
       "nameJa": "RX-78F00 HMT ガンダム高機動型",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "RX-78F00 HMT Gundam High Mobility Type",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-78F00_HMT_Gundam_High_Mobility_Type"
     },
     {
       "id": "altema-ms-fa4e7f562c",
       "kind": "ms",
-      "name": "エンゲージゼロ・ヨンファヴィン",
+      "name": "Engage Zero Yonghwavin",
       "icon": "icons/altema/ms-エンゲージゼロ・ヨンファヴィン-1671d9bb.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/180.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/180",
@@ -759,7 +804,10 @@
       "role": "支援",
       "rating": "8",
       "nameJa": "エンゲージゼロ・ヨンファヴィン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "AMX-00Z Engage Zero Yonghwavin",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/AMX-00Z_Engage_Zero_Yonghwavin"
     },
     {
       "id": "altema-ms-29b2f318d9",
@@ -777,7 +825,7 @@
     {
       "id": "altema-ms-ec2a7ec729",
       "kind": "ms",
-      "name": "ユニコーンガンダム(PF)",
+      "name": "Unicorn Gundam (P.F.)",
       "icon": "icons/altema/ms-ユニコーンガンダム-pf-ebdcecab.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/156.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/156",
@@ -785,7 +833,11 @@
       "role": "汎用",
       "rating": "8",
       "nameJa": "ユニコーンガンダム(PF)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-0 Unicorn Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-0_Unicorn_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-a6adc87a3e",
@@ -959,7 +1011,7 @@
     {
       "id": "altema-ms-58ee868e62",
       "kind": "ms",
-      "name": "エンゲージゼロ・ヴァイスクレーエ",
+      "name": "Engage Zero Weisskrähe",
       "icon": "icons/altema/ms-エンゲージゼロ・ヴァイスクレーエ-bd87887e.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/401.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/401",
@@ -967,7 +1019,10 @@
       "role": "支援",
       "rating": "7.5",
       "nameJa": "エンゲージゼロ・ヴァイスクレーエ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Engage Zero Weisskrähe",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Engage_Zero_Weisskr%C3%A4he"
     },
     {
       "id": "altema-ms-6591ca1a95",
@@ -1245,7 +1300,7 @@
     {
       "id": "altema-ms-c1006bbef5",
       "kind": "ms",
-      "name": "ガンダムEX",
+      "name": "RX-78(G)E Gundam EX",
       "icon": "icons/altema/ms-ガンダムex-f332deb3.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/324.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/324",
@@ -1253,7 +1308,10 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "ガンダムEX",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "RX-78(G)E Gundam EX",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-78(G)E_Gundam_EX"
     },
     {
       "id": "altema-ms-8b48c7ba43",
@@ -1271,7 +1329,7 @@
     {
       "id": "altema-ms-66e4a95ab9",
       "kind": "ms",
-      "name": "リ・ガズィ",
+      "name": "Re-GZ",
       "icon": "icons/altema/ms-リ・ガズィ-67015dfa.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/321.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/321",
@@ -1279,7 +1337,10 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "リ・ガズィ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "RGZ-91 Re-GZ",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RGZ-91_Re-GZ"
     },
     {
       "id": "altema-ms-d118fc499f",
@@ -1310,7 +1371,7 @@
     {
       "id": "altema-ms-4490f83422",
       "kind": "ms",
-      "name": "グフ・カスタム(UR)",
+      "name": "Gouf Custom (UR)",
       "icon": "icons/altema/ms-グフ・カスタム-ur-68b06e95.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/314.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/314",
@@ -1318,7 +1379,11 @@
       "role": "強襲",
       "rating": "7.5",
       "nameJa": "グフ・カスタム(UR)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "MS-07B-3 Gouf Custom",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/MS-07B-3_Gouf_Custom",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-2ce94f3a64",
@@ -1349,7 +1414,7 @@
     {
       "id": "altema-ms-daffb6a69a",
       "kind": "ms",
-      "name": "アッガイ(ダリル機)",
+      "name": "Acguy (daryl machine)",
       "icon": "icons/altema/ms-アッガイ-ダリル機-6e0a401c.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/308.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/308",
@@ -1357,12 +1422,16 @@
       "role": "支援",
       "rating": "7.5",
       "nameJa": "アッガイ(ダリル機)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "MSM-04 Acguy",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/MSM-04_Acguy",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-7b54f85d34",
       "kind": "ms",
-      "name": "ローゼン・ズール",
+      "name": "Rozen Zulu",
       "icon": "icons/altema/ms-ローゼン・ズール-3b0f4155.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/305.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/305",
@@ -1370,7 +1439,10 @@
       "role": "強襲",
       "rating": "7.5",
       "nameJa": "ローゼン・ズール",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "YAMS-132 Rozen Zulu",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/YAMS-132_Rozen_Zulu"
     },
     {
       "id": "altema-ms-4864e2fe11",
@@ -1414,7 +1486,7 @@
     {
       "id": "altema-ms-82ba58035f",
       "kind": "ms",
-      "name": "ギーセン・ドーガ(ハイデマリー機)",
+      "name": "Giessen Doga (Heidemarie machine)",
       "icon": "icons/altema/ms-ギーセン・ドーガ-ハイデマリー機-f303eac2.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/294.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/294",
@@ -1422,7 +1494,11 @@
       "role": "強襲",
       "rating": "7.5",
       "nameJa": "ギーセン・ドーガ(ハイデマリー機)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "MSN-03B Giessen Doga",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/MSN-03B_Giessen_Doga",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-e543472e28",
@@ -1674,7 +1750,7 @@
     {
       "id": "altema-ms-87f71d8bc2",
       "kind": "ms",
-      "name": "マグナ・マーテル（覚醒）",
+      "name": "Magna Mater (Awakening)",
       "icon": "icons/altema/ms-マグナ・マーテル-覚醒-ac0d7f69.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/251.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/251",
@@ -1682,7 +1758,11 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "マグナ・マーテル（覚醒）",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "Magna Mater",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Magna_Mater",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-6b0e731cb7",
@@ -1947,7 +2027,7 @@
     {
       "id": "altema-ms-9a77ddfa45",
       "kind": "ms",
-      "name": "ガンダム・エアリアル(改修型)",
+      "name": "Gundam Aerial Rebuild",
       "icon": "icons/altema/ms-ガンダム・エアリアル-改修型-4c3aee08.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/220.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/220",
@@ -1955,7 +2035,10 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "ガンダム・エアリアル(改修型)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "XVX-016RN Gundam Aerial Rebuild",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/XVX-016RN_Gundam_Aerial_Rebuild"
     },
     {
       "id": "altema-ms-9c7fee4f78",
@@ -2090,7 +2173,7 @@
     {
       "id": "altema-ms-29c1498920",
       "kind": "ms",
-      "name": "ディジェ(ルオ商会仕様)",
+      "name": "Dijeh (Luo Chamber of Commerce specifications)",
       "icon": "icons/altema/ms-ディジェ-ルオ商会仕様-0ec10053.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/203.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/203",
@@ -2098,7 +2181,11 @@
       "role": "白兵",
       "rating": "7.5",
       "nameJa": "ディジェ(ルオ商会仕様)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "MSK-008 Dijeh",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/MSK-008_Dijeh",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-af5c2279fd",
@@ -2116,7 +2203,7 @@
     {
       "id": "altema-ms-51f8254741",
       "kind": "ms",
-      "name": "ドーベン・ウルフ(指揮官機)",
+      "name": "Döven Wolf (commander plane)",
       "icon": "icons/altema/ms-ドーベン・ウルフ-指揮官機-27d7b93d.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/200.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/200",
@@ -2124,7 +2211,11 @@
       "role": "支援",
       "rating": "7.5",
       "nameJa": "ドーベン・ウルフ(指揮官機)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "AMX-014 Döven Wolf",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/AMX-014_D%C3%B6ven_Wolf",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-bcfab5b47e",
@@ -2181,7 +2272,7 @@
     {
       "id": "altema-ms-3e2cd3bfa0",
       "kind": "ms",
-      "name": "エンゲージゼロ・ヨンファヴィン(覚醒)",
+      "name": "Engage Zero Yonghwavin (Awakening)",
       "icon": "icons/altema/ms-エンゲージゼロ・ヨンファヴィン-覚醒-1f9bb4d0.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/194.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/194",
@@ -2189,7 +2280,11 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "エンゲージゼロ・ヨンファヴィン(覚醒)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "AMX-00Z Engage Zero Yonghwavin",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/AMX-00Z_Engage_Zero_Yonghwavin",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-a85f7f74e8",
@@ -2207,7 +2302,7 @@
     {
       "id": "altema-ms-4464fcc410",
       "kind": "ms",
-      "name": "マグナ・マーテル",
+      "name": "Magna Mater",
       "icon": "icons/altema/ms-マグナ・マーテル-493c5228.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/191.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/191",
@@ -2215,12 +2310,15 @@
       "role": "白兵",
       "rating": "7.5",
       "nameJa": "マグナ・マーテル",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "verified-cache-exact-ja",
+      "nameSourceTitle": "Magna Mater",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Magna_Mater"
     },
     {
       "id": "altema-ms-873126c934",
       "kind": "ms",
-      "name": "ジオング(砲撃)",
+      "name": "Zeong (shelling)",
       "icon": "icons/altema/ms-ジオング-砲撃-b2082b69.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/190.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/190",
@@ -2228,12 +2326,16 @@
       "role": "砲撃",
       "rating": "7.5",
       "nameJa": "ジオング(砲撃)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "MSN-02 Zeong",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/MSN-02_Zeong",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-93d963bcef",
       "kind": "ms",
-      "name": "メッサーF01型",
+      "name": "Messer Type-F01",
       "icon": "icons/altema/ms-メッサーf01型-f20d2f29.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/189.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/189",
@@ -2241,7 +2343,10 @@
       "role": "重装",
       "rating": "7.5",
       "nameJa": "メッサーF01型",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Me02R-F01 Messer Type-F01",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Me02R-F01_Messer_Type-F01"
     },
     {
       "id": "altema-ms-3263ece0e2",
@@ -2272,7 +2377,7 @@
     {
       "id": "altema-ms-1b8f170024",
       "kind": "ms",
-      "name": "ユニコーンガンダム(白き一角獣)",
+      "name": "Unicorn Gundam (white unicorn)",
       "icon": "icons/altema/ms-ユニコーンガンダム-白き一角獣-0d2e9d5f.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/185.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/185",
@@ -2280,7 +2385,11 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "ユニコーンガンダム(白き一角獣)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-0 Unicorn Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-0_Unicorn_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-956bfd7a09",
@@ -2415,7 +2524,7 @@
     {
       "id": "altema-ms-2ef96dc7cc",
       "kind": "ms",
-      "name": "エンゲージゼロ(サイコミュ試験型)",
+      "name": "Engage Zero Psycommu Test Type",
       "icon": "icons/altema/ms-エンゲージゼロ-サイコミュ試験型-d6d4914a.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/169.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/169",
@@ -2423,7 +2532,10 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "エンゲージゼロ(サイコミュ試験型)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "ORX-00Z Engage Zero Psycommu Test Type",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/ORX-00Z_Engage_Zero_Psycommu_Test_Type"
     },
     {
       "id": "altema-ms-459b3fed2e",
@@ -2467,7 +2579,7 @@
     {
       "id": "altema-ms-53dbd82793",
       "kind": "ms",
-      "name": "ギャプラン・トレーナー",
+      "name": "Gaplant Trainer",
       "icon": "icons/altema/ms-ギャプラン・トレーナー-f51c541c.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/163.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/163",
@@ -2475,12 +2587,15 @@
       "role": "強襲",
       "rating": "7.5",
       "nameJa": "ギャプラン・トレーナー",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Gaplant Trainer",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Gaplant_Trainer"
     },
     {
       "id": "altema-ms-1e4c56c646",
       "kind": "ms",
-      "name": "エンゲージゼロ(インコム搭載型)",
+      "name": "Engage Zero INCOM-equipped Type",
       "icon": "icons/altema/ms-エンゲージゼロ-インコム搭載型-7f97e043.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/162.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/162",
@@ -2488,7 +2603,10 @@
       "role": "支援",
       "rating": "7.5",
       "nameJa": "エンゲージゼロ(インコム搭載型)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "ORX-00Z-2 Engage Zero INCOM-equipped Type",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/ORX-00Z-2_Engage_Zero_INCOM-equipped_Type"
     },
     {
       "id": "altema-ms-7a577e2eff",
@@ -2662,7 +2780,7 @@
     {
       "id": "altema-ms-c383a6c9e8",
       "kind": "ms",
-      "name": "エンゲージガンダム(ファンネル装備型)",
+      "name": "Engage Gundam (Funnel equipped type)",
       "icon": "icons/altema/ms-エンゲージガンダム-ファンネル装備型-1cfe44cf.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/137.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/137",
@@ -2670,7 +2788,11 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "エンゲージガンダム(ファンネル装備型)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-78GPZ01 Engage Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-78GPZ01_Engage_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-a0e8db2799",
@@ -2701,7 +2823,7 @@
     {
       "id": "altema-ms-12a3cacfc6",
       "kind": "ms",
-      "name": "キュベレイ(紫)",
+      "name": "Qubeley (purple)",
       "icon": "icons/altema/ms-キュベレイ-紫-108ffe8b.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/131.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/131",
@@ -2709,7 +2831,11 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "キュベレイ(紫)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "AMX-004 Qubeley",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/AMX-004_Qubeley",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-e68c7d100c",
@@ -2792,7 +2918,7 @@
     {
       "id": "altema-ms-837f0ef2ea",
       "kind": "ms",
-      "name": "エンゲージガンダム(ブースター装備)",
+      "name": "Engage Gundam Booster Equipment",
       "icon": "icons/altema/ms-エンゲージガンダム-ブースター装備-0b4fc330.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/121.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/121",
@@ -2800,7 +2926,10 @@
       "role": "強襲",
       "rating": "7.5",
       "nameJa": "エンゲージガンダム(ブースター装備)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Engage Gundam Booster Equipment",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Engage_Gundam_Booster_Equipment"
     },
     {
       "id": "altema-ms-9c61afa559",
@@ -2818,7 +2947,7 @@
     {
       "id": "altema-ms-43ac16944d",
       "kind": "ms",
-      "name": "ジ・O",
+      "name": "The-O (GBWC)",
       "icon": "icons/altema/ms-ジ・o-a7732c64.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/117.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/117",
@@ -2826,12 +2955,15 @@
       "role": "重装",
       "rating": "7.5",
       "nameJa": "ジ・O",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "verified-cache-exact-ja",
+      "nameSourceTitle": "The-O (GBWC)",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/The-O_(GBWC)"
     },
     {
       "id": "altema-ms-7a93785aba",
       "kind": "ms",
-      "name": "エンゲージゼロ・追加ブースター装備型",
+      "name": "Engage Zero Additional Booster Equipment Type",
       "icon": "icons/altema/ms-エンゲージゼロ・追加ブースター装備型-9975875c.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/115.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/115",
@@ -2839,7 +2971,10 @@
       "role": "強襲",
       "rating": "7.5",
       "nameJa": "エンゲージゼロ・追加ブースター装備型",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "RX-78MS00Z-B Engage Zero Additional Booster Equipment Type",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-78MS00Z-B_Engage_Zero_Additional_Booster_Equipment_Type"
     },
     {
       "id": "altema-ms-b50f8ccadc",
@@ -3039,7 +3174,7 @@
     {
       "id": "altema-ms-c70ce53fcf",
       "kind": "ms",
-      "name": "ユニコーンガンダム(NT-D)",
+      "name": "Unicorn Gundam (NT-D)",
       "icon": "icons/altema/ms-ユニコーンガンダム-nt-d-3ad3ad03.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/86.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/86",
@@ -3047,7 +3182,11 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "ユニコーンガンダム(NT-D)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-0 Unicorn Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-0_Unicorn_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-8a181e1e9c",
@@ -3091,7 +3230,7 @@
     {
       "id": "altema-ms-25b3386b9f",
       "kind": "ms",
-      "name": "ザクⅠ(シャア機)",
+      "name": "Zaku I (Char machine)",
       "icon": "icons/altema/ms-ザクi-シャア機-db90b446.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/70.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/70",
@@ -3099,7 +3238,11 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "ザクⅠ(シャア機)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "MS-05A Zaku I",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/MS-05A_Zaku_I",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-cc6f4d4b18",
@@ -3117,7 +3260,7 @@
     {
       "id": "altema-ms-0401deeb4e",
       "kind": "ms",
-      "name": "リ・ガズィ",
+      "name": "Re-GZ",
       "icon": "icons/altema/ms-リ・ガズィ-d5d43612.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/48.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/48",
@@ -3125,7 +3268,10 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "リ・ガズィ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "RGZ-91 Re-GZ",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RGZ-91_Re-GZ"
     },
     {
       "id": "altema-ms-73f191c7b7",
@@ -3169,7 +3315,7 @@
     {
       "id": "altema-ms-e73997f31f",
       "kind": "ms",
-      "name": "ケンプファー",
+      "name": "Kämpfer",
       "icon": "icons/altema/ms-ケンプファー-dda88747.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/36.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/36",
@@ -3177,7 +3323,10 @@
       "role": "強襲",
       "rating": "7.5",
       "nameJa": "ケンプファー",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "MS-18E Kämpfer",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/MS-18E_K%C3%A4mpfer"
     },
     {
       "id": "altema-ms-3c37b1e9ea",
@@ -3273,7 +3422,7 @@
     {
       "id": "altema-ms-ee3a0c29c7",
       "kind": "ms",
-      "name": "ユニコーンガンダム",
+      "name": "Unicorn Gundam",
       "icon": "icons/altema/ms-ユニコーンガンダム-ae920ba4.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/7.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/7",
@@ -3281,12 +3430,15 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "ユニコーンガンダム",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "verified-cache-exact-ja",
+      "nameSourceTitle": "RX-0 Unicorn Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-0_Unicorn_Gundam"
     },
     {
       "id": "altema-pilot-ed2e9b835f",
       "kind": "pilot",
-      "name": "ジュドー・アーシタ(C0459)",
+      "name": "Judau Ashta(C0459)",
       "icon": "icons/altema/pilot-ジュドー・アーシタ-c0459-a1f48607.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/369.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/369",
@@ -3294,12 +3446,15 @@
       "role": "",
       "rating": "9.5",
       "nameJa": "ジュドー・アーシタ(C0459)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Judau Ashta",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Judau_Ashta"
     },
     {
       "id": "altema-pilot-ec22701c11",
       "kind": "pilot",
-      "name": "ハマーン・カーン(C0456)",
+      "name": "Haman Karn(C0456)",
       "icon": "icons/altema/pilot-ハマーン・カーン-c0456-2c9a0699.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/366.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/366",
@@ -3307,12 +3462,15 @@
       "role": "",
       "rating": "9.5",
       "nameJa": "ハマーン・カーン(C0456)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Haman Karn",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Haman_Karn"
     },
     {
       "id": "altema-pilot-017c77fcbf",
       "kind": "pilot",
-      "name": "アイーダ・スルガン(C0438)",
+      "name": "Aida Surugan(C0438)",
       "icon": "icons/altema/pilot-アイーダ・スルガン-c0438-a41aedea.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/349.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/349",
@@ -3320,12 +3478,15 @@
       "role": "",
       "rating": "9.5",
       "nameJa": "アイーダ・スルガン(C0438)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Aida Surugan",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Aida_Surugan"
     },
     {
       "id": "altema-pilot-80d31b2c8a",
       "kind": "pilot",
-      "name": "バナージ・リンクス(C0036)",
+      "name": "Banagher Links(C0036)",
       "icon": "icons/altema/pilot-バナージ・リンクス-c0036-272ddaa7.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/346.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/346",
@@ -3333,12 +3494,15 @@
       "role": "",
       "rating": "9.5",
       "nameJa": "バナージ・リンクス(C0036)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Banagher Links",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Banagher_Links"
     },
     {
       "id": "altema-pilot-24935b807c",
       "kind": "pilot",
-      "name": "フル・フロンタル",
+      "name": "Full Frontal",
       "icon": "icons/altema/pilot-フル・フロンタル-f4045a20.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/345.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/345",
@@ -3346,12 +3510,15 @@
       "role": "",
       "rating": "9.5",
       "nameJa": "フル・フロンタル",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Full Frontal",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Full_Frontal"
     },
     {
       "id": "altema-pilot-375cf3b8ae",
       "kind": "pilot",
-      "name": "ギム・ギンガナム(C0452)",
+      "name": "Gym Ghingham(C0452)",
       "icon": "icons/altema/pilot-ギム・ギンガナム-c0452-4561026f.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/362.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/362",
@@ -3359,12 +3526,15 @@
       "role": "",
       "rating": "9.0",
       "nameJa": "ギム・ギンガナム(C0452)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Gym Ghingham",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Gym_Ghingham"
     },
     {
       "id": "altema-pilot-db58cfa01b",
       "kind": "pilot",
-      "name": "バナージ・リンクス",
+      "name": "Banagher Links",
       "icon": "icons/altema/pilot-バナージ・リンクス-433b7b77.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/357.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/357",
@@ -3372,12 +3542,15 @@
       "role": "",
       "rating": "9.0",
       "nameJa": "バナージ・リンクス",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Banagher Links",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Banagher_Links"
     },
     {
       "id": "altema-pilot-d0358fb6e8",
       "kind": "pilot",
-      "name": "ララァ・スン",
+      "name": "Lalah Sune",
       "icon": "icons/altema/pilot-ララァ・スン-9798f5d7.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/317.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/317",
@@ -3385,12 +3558,15 @@
       "role": "",
       "rating": "9.0",
       "nameJa": "ララァ・スン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Lalah Sune",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Lalah_Sune"
     },
     {
       "id": "altema-pilot-26445a22b3",
       "kind": "pilot",
-      "name": "ハマーン・カーン(C0378)",
+      "name": "Haman Karn(C0378)",
       "icon": "icons/altema/pilot-ハマーン・カーン-c0378-f9dbb10f.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/296.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/296",
@@ -3398,12 +3574,15 @@
       "role": "",
       "rating": "9.0",
       "nameJa": "ハマーン・カーン(C0378)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Haman Karn",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Haman_Karn"
     },
     {
       "id": "altema-pilot-0ca67d36be",
       "kind": "pilot",
-      "name": "アムロ・レイ(C0374)",
+      "name": "Amuro Ray(C0374)",
       "icon": "icons/altema/pilot-アムロ・レイ-c0374-c5a25560.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/293.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/293",
@@ -3411,12 +3590,15 @@
       "role": "",
       "rating": "9.0",
       "nameJa": "アムロ・レイ(C0374)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-8332bc59a6",
       "kind": "pilot",
-      "name": "マ・クベ",
+      "name": "M'Quve",
       "icon": "icons/altema/pilot-マ・クベ-8cca753f.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/167.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/167",
@@ -3424,12 +3606,15 @@
       "role": "",
       "rating": "9.0",
       "nameJa": "マ・クベ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "M'Quve",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/M'Quve"
     },
     {
       "id": "altema-pilot-41dbffb1b7",
       "kind": "pilot",
-      "name": "ラライヤ・アクパール",
+      "name": "Raraiya Akuparl",
       "icon": "icons/altema/pilot-ラライヤ・アクパール-2e4057e0.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/359.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/359",
@@ -3437,12 +3622,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "ラライヤ・アクパール",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Raraiya Akuparl",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Raraiya_Akuparl"
     },
     {
       "id": "altema-pilot-b10b14dc08",
       "kind": "pilot",
-      "name": "マ・クベ(C0428)",
+      "name": "M'Quve(C0428)",
       "icon": "icons/altema/pilot-マ・クベ-c0428-da16691e.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/341.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/341",
@@ -3450,12 +3638,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "マ・クベ(C0428)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "M'Quve",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/M'Quve"
     },
     {
       "id": "altema-pilot-426dfa9883",
       "kind": "pilot",
-      "name": "ギム・ギンガナム",
+      "name": "Gym Ghingham",
       "icon": "icons/altema/pilot-ギム・ギンガナム-0fd8db72.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/333.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/333",
@@ -3463,12 +3654,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "ギム・ギンガナム",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Gym Ghingham",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Gym_Ghingham"
     },
     {
       "id": "altema-pilot-190ecf9c6c",
       "kind": "pilot",
-      "name": "ユート・オールディス(C0417)",
+      "name": "Yuto Aldiss(C0417)",
       "icon": "icons/altema/pilot-ユート・オールディス-c0417-d0153ec4.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/331.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/331",
@@ -3476,12 +3670,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "ユート・オールディス(C0417)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Yuto Aldiss",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Yuto_Aldiss"
     },
     {
       "id": "altema-pilot-63439ec4a0",
       "kind": "pilot",
-      "name": "ウッソ・エヴィン(C0412)",
+      "name": "Uso Ewin(C0412)",
       "icon": "icons/altema/pilot-ウッソ・エヴィン-c0412-ff4f246f.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/325.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/325",
@@ -3489,12 +3686,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "ウッソ・エヴィン(C0412)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Uso Ewin",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Uso_Ewin"
     },
     {
       "id": "altema-pilot-d7ed21f7c0",
       "kind": "pilot",
-      "name": "トビア・アロナクス",
+      "name": "Tobia Arronax",
       "icon": "icons/altema/pilot-トビア・アロナクス-af53c4ca.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/321.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/321",
@@ -3502,12 +3702,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "トビア・アロナクス",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Tobia Arronax",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Tobia_Arronax"
     },
     {
       "id": "altema-pilot-aa245e5844",
       "kind": "pilot",
-      "name": "ベルリ・ゼナム",
+      "name": "Bellri Zenam",
       "icon": "icons/altema/pilot-ベルリ・ゼナム-e4edab77.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/312.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/312",
@@ -3515,12 +3718,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "ベルリ・ゼナム",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Bellri Zenam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Bellri_Zenam"
     },
     {
       "id": "altema-pilot-b858c0e66b",
       "kind": "pilot",
-      "name": "ロラン・セアック",
+      "name": "Loran Cehack",
       "icon": "icons/altema/pilot-ロラン・セアック-9e44898a.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/306.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/306",
@@ -3528,12 +3734,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "ロラン・セアック",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Loran Cehack",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Loran_Cehack"
     },
     {
       "id": "altema-pilot-47b805db42",
       "kind": "pilot",
-      "name": "ヤザン・ゲーブル",
+      "name": "Yazan Gable",
       "icon": "icons/altema/pilot-ヤザン・ゲーブル-13123e97.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/292.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/292",
@@ -3541,12 +3750,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "ヤザン・ゲーブル",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Yazan Gable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Yazan_Gable"
     },
     {
       "id": "altema-pilot-f3ea09cb9a",
       "kind": "pilot",
-      "name": "ウッソ・エヴィン(C0373)",
+      "name": "Uso Ewin(C0373)",
       "icon": "icons/altema/pilot-ウッソ・エヴィン-c0373-a4c454cc.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/291.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/291",
@@ -3554,12 +3766,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "ウッソ・エヴィン(C0373)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Uso Ewin",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Uso_Ewin"
     },
     {
       "id": "altema-pilot-2e789b44cf",
       "kind": "pilot",
-      "name": "アムロ・レイ(C0364)",
+      "name": "Amuro Ray(C0364)",
       "icon": "icons/altema/pilot-アムロ・レイ-c0364-023ba8b6.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/284.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/284",
@@ -3567,12 +3782,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "アムロ・レイ(C0364)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-712c4fced3",
       "kind": "pilot",
-      "name": "ジュドー・アーシタ(C0361)",
+      "name": "Judau Ashta(C0361)",
       "icon": "icons/altema/pilot-ジュドー・アーシタ-c0361-36d9c057.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/282.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/282",
@@ -3580,12 +3798,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "ジュドー・アーシタ(C0361)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Judau Ashta",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Judau_Ashta"
     },
     {
       "id": "altema-pilot-712c503ca0",
       "kind": "pilot",
-      "name": "バナージ・リンクス(C0355)",
+      "name": "Banagher Links(C0355)",
       "icon": "icons/altema/pilot-バナージ・リンクス-c0355-694634e6.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/277.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/277",
@@ -3593,12 +3814,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "バナージ・リンクス(C0355)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Banagher Links",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Banagher_Links"
     },
     {
       "id": "altema-pilot-e8af881f81",
       "kind": "pilot",
-      "name": "ヨナ・バシュタ(C0340)",
+      "name": "Jona Basta(C0340)",
       "icon": "icons/altema/pilot-ヨナ・バシュタ-c0340-7945e328.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/261.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/261",
@@ -3606,12 +3830,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "ヨナ・バシュタ(C0340)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Jona Basta",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Jona_Basta"
     },
     {
       "id": "altema-pilot-9f7a43d973",
       "kind": "pilot",
-      "name": "アムロ・レイ(C0312)",
+      "name": "Amuro Ray(C0312)",
       "icon": "icons/altema/pilot-アムロ・レイ-c0312-ae1a38e6.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/239.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/239",
@@ -3619,12 +3846,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "アムロ・レイ(C0312)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-380ae7d94b",
       "kind": "pilot",
-      "name": "シーブック・アノー(C0281)",
+      "name": "Seabook Arno(C0281)",
       "icon": "icons/altema/pilot-シーブック・アノー-c0281-35d7ba3d.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/205.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/205",
@@ -3632,12 +3862,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "シーブック・アノー(C0281)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Seabook Arno",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Seabook_Arno"
     },
     {
       "id": "altema-pilot-248947cf83",
       "kind": "pilot",
-      "name": "スレッガー・ロウ",
+      "name": "Sleggar Law",
       "icon": "icons/altema/pilot-スレッガー・ロウ-6e073183.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/127.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/127",
@@ -3645,12 +3878,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "スレッガー・ロウ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Sleggar Law",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Sleggar_Law"
     },
     {
       "id": "altema-pilot-af2b5ab3c1",
       "kind": "pilot",
-      "name": "フォウ・ムラサメ",
+      "name": "Four Murasame",
       "icon": "icons/altema/pilot-フォウ・ムラサメ-931a38e3.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/119.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/119",
@@ -3658,12 +3894,15 @@
       "role": "",
       "rating": "8.5",
       "nameJa": "フォウ・ムラサメ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Four Murasame",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Four_Murasame"
     },
     {
       "id": "altema-pilot-0b699d0736",
       "kind": "pilot",
-      "name": "アゴス・ラガート(C0462)",
+      "name": "Agos Lagarto(C0462)",
       "icon": "icons/altema/pilot-アゴス・ラガート-c0462-f2906662.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/372.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/372",
@@ -3671,12 +3910,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "アゴス・ラガート(C0462)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Agos Lagarto",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Agos_Lagarto"
     },
     {
       "id": "altema-pilot-c2f3a099fa",
       "kind": "pilot",
-      "name": "クリム・ニック(C0461)",
+      "name": "Klimton Nicchini(C0461)",
       "icon": "icons/altema/pilot-クリム・ニック-c0461-a9bf16ab.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/371.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/371",
@@ -3684,12 +3926,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "クリム・ニック(C0461)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Klimton Nicchini",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Klimton_Nicchini"
     },
     {
       "id": "altema-pilot-afda2d87c0",
       "kind": "pilot",
-      "name": "カイ・シデン(C0458)",
+      "name": "Kai Shiden(C0458)",
       "icon": "icons/altema/pilot-カイ・シデン-c0458-eb161bd3.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/368.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/368",
@@ -3697,12 +3942,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "カイ・シデン(C0458)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Kai Shiden",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Kai_Shiden"
     },
     {
       "id": "altema-pilot-c2f3391db1",
       "kind": "pilot",
-      "name": "ベルリ・ゼナム(C0454)",
+      "name": "Bellri Zenam(C0454)",
       "icon": "icons/altema/pilot-ベルリ・ゼナム-c0454-2dcfa652.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/364.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/364",
@@ -3710,12 +3958,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ベルリ・ゼナム(C0454)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Bellri Zenam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Bellri_Zenam"
     },
     {
       "id": "altema-pilot-b06c96715e",
       "kind": "pilot",
-      "name": "ユート・オールディス(C0446)",
+      "name": "Yuto Aldiss(C0446)",
       "icon": "icons/altema/pilot-ユート・オールディス-c0446-f200c80a.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/356.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/356",
@@ -3723,12 +3974,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ユート・オールディス(C0446)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Yuto Aldiss",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Yuto_Aldiss"
     },
     {
       "id": "altema-pilot-eb05b7b012",
       "kind": "pilot",
-      "name": "フォウ・ムラサメ(C0442)",
+      "name": "Four Murasame(C0442)",
       "icon": "icons/altema/pilot-フォウ・ムラサメ-c0442-56c3da07.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/353.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/353",
@@ -3736,12 +3990,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "フォウ・ムラサメ(C0442)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Four Murasame",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Four_Murasame"
     },
     {
       "id": "altema-pilot-e2892cbf0f",
       "kind": "pilot",
-      "name": "ハサウェイ・ノア(C0441)",
+      "name": "Hathaway Noa(C0441)",
       "icon": "icons/altema/pilot-ハサウェイ・ノア-c0441-84bbf6e2.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/352.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/352",
@@ -3749,12 +4006,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ハサウェイ・ノア(C0441)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Hathaway Noa",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Hathaway_Noa"
     },
     {
       "id": "altema-pilot-dccd3a5e38",
       "kind": "pilot",
-      "name": "ロラン・セアック(C0429)",
+      "name": "Loran Cehack(C0429)",
       "icon": "icons/altema/pilot-ロラン・セアック-c0429-9148eb82.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/342.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/342",
@@ -3762,12 +4022,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ロラン・セアック(C0429)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Loran Cehack",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Loran_Cehack"
     },
     {
       "id": "altema-pilot-b50a6e2c43",
       "kind": "pilot",
-      "name": "ユート・オールディス(C0427)",
+      "name": "Yuto Aldiss(C0427)",
       "icon": "icons/altema/pilot-ユート・オールディス-c0427-8dd99c3c.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/340.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/340",
@@ -3775,12 +4038,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ユート・オールディス(C0427)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Yuto Aldiss",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Yuto_Aldiss"
     },
     {
       "id": "altema-pilot-dcc1b2d471",
       "kind": "pilot",
-      "name": "ブラン・ブルターク",
+      "name": "Buran Blutarch",
       "icon": "icons/altema/pilot-ブラン・ブルターク-9dea42ed.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/337.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/337",
@@ -3788,12 +4054,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ブラン・ブルターク",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Buran Blutarch",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Buran_Blutarch"
     },
     {
       "id": "altema-pilot-8ed98e5053",
       "kind": "pilot",
-      "name": "アイーダ・スルガン",
+      "name": "Aida Surugan",
       "icon": "icons/altema/pilot-アイーダ・スルガン-d06e7b4a.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/335.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/335",
@@ -3801,12 +4070,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "アイーダ・スルガン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Aida Surugan",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Aida_Surugan"
     },
     {
       "id": "altema-pilot-778a734904",
       "kind": "pilot",
-      "name": "エル・ビアンノ",
+      "name": "Elle Vianno",
       "icon": "icons/altema/pilot-エル・ビアンノ-c6c51fc2.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/329.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/329",
@@ -3814,12 +4086,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "エル・ビアンノ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Elle Vianno",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Elle_Vianno"
     },
     {
       "id": "altema-pilot-28782dd8a9",
       "kind": "pilot",
-      "name": "エマ・シーン",
+      "name": "Emma Sheen",
       "icon": "icons/altema/pilot-エマ・シーン-36d2a988.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/322.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/322",
@@ -3827,12 +4102,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "エマ・シーン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Emma Sheen",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Emma_Sheen"
     },
     {
       "id": "altema-pilot-95d9010edb",
       "kind": "pilot",
-      "name": "ユート・オールディス",
+      "name": "Yuto Aldiss",
       "icon": "icons/altema/pilot-ユート・オールディス-1c32f09d.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/313.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/313",
@@ -3840,12 +4118,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ユート・オールディス",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Yuto Aldiss",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Yuto_Aldiss"
     },
     {
       "id": "altema-pilot-46fe5e2735",
       "kind": "pilot",
-      "name": "アマテ・ユズリハ(C0390)",
+      "name": "Amate Yuzuriha(C0390)",
       "icon": "icons/altema/pilot-アマテ・ユズリハ-c0390-feb8ceb2.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/309.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/309",
@@ -3853,12 +4134,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "アマテ・ユズリハ(C0390)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amate Yuzuriha",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amate_Yuzuriha"
     },
     {
       "id": "altema-pilot-1d6257be5b",
       "kind": "pilot",
-      "name": "アムロ・レイ(C0383)",
+      "name": "Amuro Ray(C0383)",
       "icon": "icons/altema/pilot-アムロ・レイ-c0383-c13741de.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/307.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/307",
@@ -3866,12 +4150,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "アムロ・レイ(C0383)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-fbc790b740",
       "kind": "pilot",
-      "name": "フォルド・ロムフェロー",
+      "name": "Ford Romfellow",
       "icon": "icons/altema/pilot-フォルド・ロムフェロー-96e8a1b2.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/302.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/302",
@@ -3879,12 +4166,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "フォルド・ロムフェロー",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Ford Romfellow",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Ford_Romfellow"
     },
     {
       "id": "altema-pilot-5b3e5dcf11",
       "kind": "pilot",
-      "name": "サフィラ・ガードナー(C0290)",
+      "name": "Saphira Gardner(C0290)",
       "icon": "icons/altema/pilot-サフィラ・ガードナー-c0290-31c1c026.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/297.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/297",
@@ -3892,12 +4182,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "サフィラ・ガードナー(C0290)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Saphira Gardner",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Saphira_Gardner"
     },
     {
       "id": "altema-pilot-0c646484e2",
       "kind": "pilot",
-      "name": "カテジナ・ルース",
+      "name": "Katejina Loos",
       "icon": "icons/altema/pilot-カテジナ・ルース-4bbb71d4.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/287.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/287",
@@ -3905,12 +4198,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "カテジナ・ルース",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Katejina Loos",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Katejina_Loos"
     },
     {
       "id": "altema-pilot-aeb0880921",
       "kind": "pilot",
-      "name": "マシュマー・セロ(C0362)",
+      "name": "Mashymre Cello(C0362)",
       "icon": "icons/altema/pilot-マシュマー・セロ-c0362-b46e2d5d.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/283.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/283",
@@ -3918,12 +4214,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "マシュマー・セロ(C0362)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Mashymre Cello",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Mashymre_Cello"
     },
     {
       "id": "altema-pilot-78d3e44fa4",
       "kind": "pilot",
-      "name": "ヨナ・バシュタ",
+      "name": "Jona Basta",
       "icon": "icons/altema/pilot-ヨナ・バシュタ-eec42e97.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/272.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/272",
@@ -3931,12 +4230,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ヨナ・バシュタ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Jona Basta",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Jona_Basta"
     },
     {
       "id": "altema-pilot-385af4de68",
       "kind": "pilot",
-      "name": "シャア・アズナブル(C0338)",
+      "name": "Char Aznable(C0338)",
       "icon": "icons/altema/pilot-シャア・アズナブル-c0338-ba6d60f3.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/264.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/264",
@@ -3944,12 +4246,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "シャア・アズナブル(C0338)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-74c6c4407f",
       "kind": "pilot",
-      "name": "クリスチーナ・マッケンジー(C0326)",
+      "name": "Christina Mackenzie(C0326)",
       "icon": "icons/altema/pilot-クリスチーナ・マッケンジー-c0326-2f4b7247.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/252.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/252",
@@ -3957,12 +4262,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "クリスチーナ・マッケンジー(C0326)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Christina Mackenzie",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Christina_Mackenzie"
     },
     {
       "id": "altema-pilot-62c5b745df",
       "kind": "pilot",
-      "name": "エルピー・プル(C0320)",
+      "name": "Elpeo Ple(C0320)",
       "icon": "icons/altema/pilot-エルピー・プル-c0320-32893503.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/242.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/242",
@@ -3970,12 +4278,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "エルピー・プル(C0320)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Elpeo Ple",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Elpeo_Ple"
     },
     {
       "id": "altema-pilot-30f86b843d",
       "kind": "pilot",
-      "name": "プルツー(C0232)",
+      "name": "Ple Two(C0232)",
       "icon": "icons/altema/pilot-プルツー-c0232-139ded15.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/226.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/226",
@@ -3983,7 +4294,10 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "プルツー(C0232)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Ple Two",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Ple_Two"
     },
     {
       "id": "altema-pilot-8ca8dad7f6",
@@ -4001,7 +4315,7 @@
     {
       "id": "altema-pilot-1063a3ff2f",
       "kind": "pilot",
-      "name": "パプテマス・シロッコ(C0293)",
+      "name": "Paptimus Scirocco(C0293)",
       "icon": "icons/altema/pilot-パプテマス・シロッコ-c0293-22b4802a.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/217.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/217",
@@ -4009,12 +4323,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "パプテマス・シロッコ(C0293)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Paptimus Scirocco",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Paptimus_Scirocco"
     },
     {
       "id": "altema-pilot-a169346046",
       "kind": "pilot",
-      "name": "ファラ・グリフォン",
+      "name": "Fuala Griffon",
       "icon": "icons/altema/pilot-ファラ・グリフォン-c7ad8001.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/171.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/171",
@@ -4022,12 +4339,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ファラ・グリフォン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Fuala Griffon",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Fuala_Griffon"
     },
     {
       "id": "altema-pilot-749b1c0d20",
       "kind": "pilot",
-      "name": "アムロ・レイ(C0219)",
+      "name": "Amuro Ray(C0219)",
       "icon": "icons/altema/pilot-アムロ・レイ-c0219-58da5990.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/158.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/158",
@@ -4035,12 +4355,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "アムロ・レイ(C0219)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-d318f057c5",
       "kind": "pilot",
-      "name": "ペッシェ・モンターニュ(C0201)",
+      "name": "Peche Montagne(C0201)",
       "icon": "icons/altema/pilot-ペッシェ・モンターニュ-c0201-0ce49821.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/146.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/146",
@@ -4048,12 +4371,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ペッシェ・モンターニュ(C0201)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Peche Montagne",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Peche_Montagne"
     },
     {
       "id": "altema-pilot-ab2b50ffba",
       "kind": "pilot",
-      "name": "レーン・エイム",
+      "name": "Lane Aim",
       "icon": "icons/altema/pilot-レーン・エイム-c4733f3c.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/136.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/136",
@@ -4061,12 +4387,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "レーン・エイム",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Lane Aim",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Lane_Aim"
     },
     {
       "id": "altema-pilot-d8962712ac",
       "kind": "pilot",
-      "name": "バナージ・リンクス(C0180)",
+      "name": "Banagher Links(C0180)",
       "icon": "icons/altema/pilot-バナージ・リンクス-c0180-1b6178d1.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/128.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/128",
@@ -4074,12 +4403,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "バナージ・リンクス(C0180)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Banagher Links",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Banagher_Links"
     },
     {
       "id": "altema-pilot-57e0564ac4",
       "kind": "pilot",
-      "name": "ルー・ルカ",
+      "name": "Roux Louka",
       "icon": "icons/altema/pilot-ルー・ルカ-6a8cd51f.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/125.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/125",
@@ -4087,12 +4419,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ルー・ルカ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Roux Louka",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Roux_Louka"
     },
     {
       "id": "altema-pilot-aa6757fed8",
       "kind": "pilot",
-      "name": "ダリル・ローレンツ(C0173)",
+      "name": "Daryl Lorenz(C0173)",
       "icon": "icons/altema/pilot-ダリル・ローレンツ-c0173-dd1748ae.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/115.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/115",
@@ -4100,12 +4435,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ダリル・ローレンツ(C0173)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Daryl Lorenz",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Daryl_Lorenz"
     },
     {
       "id": "altema-pilot-4a326c9eaa",
       "kind": "pilot",
-      "name": "ヨナ・バシュタ(C0064)",
+      "name": "Jona Basta(C0064)",
       "icon": "icons/altema/pilot-ヨナ・バシュタ-c0064-98440f95.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/113.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/113",
@@ -4113,12 +4451,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ヨナ・バシュタ(C0064)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Jona Basta",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Jona_Basta"
     },
     {
       "id": "altema-pilot-22196578c2",
       "kind": "pilot",
-      "name": "ジュドー・アーシタ",
+      "name": "Judau Ashta",
       "icon": "icons/altema/pilot-ジュドー・アーシタ-d78df26b.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/93.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/93",
@@ -4126,12 +4467,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ジュドー・アーシタ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Judau Ashta",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Judau_Ashta"
     },
     {
       "id": "altema-pilot-03dbe75644",
       "kind": "pilot",
-      "name": "ユッタ・カーシム(C0067)",
+      "name": "Jutta Qasim(C0067)",
       "icon": "icons/altema/pilot-ユッタ・カーシム-c0067-f5c16afd.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/90.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/90",
@@ -4139,12 +4483,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "ユッタ・カーシム(C0067)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Jutta Qasim",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Jutta_Qasim"
     },
     {
       "id": "altema-pilot-4af862efbc",
       "kind": "pilot",
-      "name": "アナベル・ガトー(C0110)",
+      "name": "Anavel Gato(C0110)",
       "icon": "icons/altema/pilot-アナベル・ガトー-c0110-dc552e50.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/86.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/86",
@@ -4152,12 +4499,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "アナベル・ガトー(C0110)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Anavel Gato",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Anavel_Gato"
     },
     {
       "id": "altema-pilot-0c54b31f6a",
       "kind": "pilot",
-      "name": "シャア・アズナブル(C0083)",
+      "name": "Char Aznable(C0083)",
       "icon": "icons/altema/pilot-シャア・アズナブル-c0083-0de114f9.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/77.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/77",
@@ -4165,12 +4515,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "シャア・アズナブル(C0083)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-9dd9bea963",
       "kind": "pilot",
-      "name": "イオ・フレミング",
+      "name": "Io Fleming",
       "icon": "icons/altema/pilot-イオ・フレミング-d5b3b80e.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/20.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/20",
@@ -4178,12 +4531,15 @@
       "role": "",
       "rating": "8.0",
       "nameJa": "イオ・フレミング",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Io Fleming",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Io_Fleming"
     },
     {
       "id": "altema-pilot-d3843e25b1",
       "kind": "pilot",
-      "name": "リディ・マーセナス(C0460)",
+      "name": "Riddhe Marcenas(C0460)",
       "icon": "icons/altema/pilot-リディ・マーセナス-c0460-b2319c94.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/370.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/370",
@@ -4191,12 +4547,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "リディ・マーセナス(C0460)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Riddhe Marcenas",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Riddhe_Marcenas"
     },
     {
       "id": "altema-pilot-9ab28f00bb",
       "kind": "pilot",
-      "name": "アナベル・ガトー(C0457)",
+      "name": "Anavel Gato(C0457)",
       "icon": "icons/altema/pilot-アナベル・ガトー-c0457-9053faf3.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/367.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/367",
@@ -4204,12 +4563,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アナベル・ガトー(C0457)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Anavel Gato",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Anavel_Gato"
     },
     {
       "id": "altema-pilot-0c240808d3",
       "kind": "pilot",
-      "name": "ペッシェ・モンターニュ(C0455)",
+      "name": "Peche Montagne(C0455)",
       "icon": "icons/altema/pilot-ペッシェ・モンターニュ-c0455-602ec13e.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/365.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/365",
@@ -4217,12 +4579,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ペッシェ・モンターニュ(C0455)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Peche Montagne",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Peche_Montagne"
     },
     {
       "id": "altema-pilot-d6e32f2afc",
       "kind": "pilot",
-      "name": "レーン・エイム",
+      "name": "Lane Aim",
       "icon": "icons/altema/pilot-レーン・エイム-1a9c5c50.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/361.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/361",
@@ -4230,12 +4595,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "レーン・エイム",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Lane Aim",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Lane_Aim"
     },
     {
       "id": "altema-pilot-e8b9cdc046",
       "kind": "pilot",
-      "name": "フル・フロンタル(C0451)",
+      "name": "Full Frontal(C0451)",
       "icon": "icons/altema/pilot-フル・フロンタル-c0451-7724fb9c.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/360.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/360",
@@ -4243,12 +4611,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "フル・フロンタル(C0451)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Full Frontal",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Full_Frontal"
     },
     {
       "id": "altema-pilot-9f90bfedda",
       "kind": "pilot",
-      "name": "ペッシェ・モンターニュ(C0445)",
+      "name": "Peche Montagne(C0445)",
       "icon": "icons/altema/pilot-ペッシェ・モンターニュ-c0445-527ef6c0.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/355.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/355",
@@ -4256,12 +4627,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ペッシェ・モンターニュ(C0445)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Peche Montagne",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Peche_Montagne"
     },
     {
       "id": "altema-pilot-67bb2fb272",
       "kind": "pilot",
-      "name": "コレン・ナンダー",
+      "name": "Corin Nander",
       "icon": "icons/altema/pilot-コレン・ナンダー-25dec175.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/348.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/348",
@@ -4269,12 +4643,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "コレン・ナンダー",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Corin Nander",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Corin_Nander"
     },
     {
       "id": "altema-pilot-f412af4e11",
       "kind": "pilot",
-      "name": "クワトロ・バジーナ(C0436)",
+      "name": "Char Aznable(C0436)",
       "icon": "icons/altema/pilot-クワトロ・バジーナ-c0436-80ca4f08.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/347.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/347",
@@ -4282,12 +4659,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "クワトロ・バジーナ(C0436)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-a070d6ca6f",
       "kind": "pilot",
-      "name": "カクリコン・カクーラー(C0431)",
+      "name": "Kacricon Cacooler(C0431)",
       "icon": "icons/altema/pilot-カクリコン・カクーラー-c0431-0bc805f4.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/344.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/344",
@@ -4295,7 +4675,10 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "カクリコン・カクーラー(C0431)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Kacricon Cacooler",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Kacricon_Cacooler"
     },
     {
       "id": "altema-pilot-7f0e447291",
@@ -4313,7 +4696,7 @@
     {
       "id": "altema-pilot-45ac45f3dc",
       "kind": "pilot",
-      "name": "シャア・アズナブル",
+      "name": "Char Aznable",
       "icon": "icons/altema/pilot-シャア・アズナブル-e4eff756.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/338.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/338",
@@ -4321,12 +4704,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シャア・アズナブル",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-9cbd6e0cc9",
       "kind": "pilot",
-      "name": "キンケドゥ・ナウ(C0423)",
+      "name": "Seabook Arno(C0423)",
       "icon": "icons/altema/pilot-キンケドゥ・ナウ-c0423-0a14f48f.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/336.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/336",
@@ -4334,12 +4720,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "キンケドゥ・ナウ(C0423)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Seabook Arno",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Seabook_Arno"
     },
     {
       "id": "altema-pilot-73ffc2b42c",
       "kind": "pilot",
-      "name": "ジョニー・ライデン(C0418)",
+      "name": "Johnny Ridden(C0418)",
       "icon": "icons/altema/pilot-ジョニー・ライデン-c0418-b23c0dac.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/332.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/332",
@@ -4347,12 +4736,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ジョニー・ライデン(C0418)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Johnny Ridden",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Johnny_Ridden"
     },
     {
       "id": "altema-pilot-2bed55a6f2",
       "kind": "pilot",
-      "name": "ジェリド・メサ(C0414)",
+      "name": "Jerid Messa(C0414)",
       "icon": "icons/altema/pilot-ジェリド・メサ-c0414-0ce897f7.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/328.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/328",
@@ -4360,12 +4752,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ジェリド・メサ(C0414)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Jerid Messa",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Jerid_Messa"
     },
     {
       "id": "altema-pilot-ad23c9f216",
       "kind": "pilot",
-      "name": "ソシエ・ハイム",
+      "name": "Sochie Heim",
       "icon": "icons/altema/pilot-ソシエ・ハイム-28882a8a.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/327.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/327",
@@ -4373,12 +4768,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ソシエ・ハイム",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Sochie Heim",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Sochie_Heim"
     },
     {
       "id": "altema-pilot-d940217bba",
       "kind": "pilot",
-      "name": "ラカン・ダカラン",
+      "name": "Rakan Dahkaran",
       "icon": "icons/altema/pilot-ラカン・ダカラン-d21b2628.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/324.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/324",
@@ -4386,12 +4784,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ラカン・ダカラン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Rakan Dahkaran",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Rakan_Dahkaran"
     },
     {
       "id": "altema-pilot-dc7f9c1e89",
       "kind": "pilot",
-      "name": "クリム・ニック",
+      "name": "Klimton Nicchini",
       "icon": "icons/altema/pilot-クリム・ニック-1a0f536a.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/323.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/323",
@@ -4399,12 +4800,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "クリム・ニック",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Klimton Nicchini",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Klimton_Nicchini"
     },
     {
       "id": "altema-pilot-03d050e137",
       "kind": "pilot",
-      "name": "シャア・アズナブル(GQ)",
+      "name": "Char Aznable (GQ)",
       "icon": "icons/altema/pilot-シャア・アズナブル-gq-a4be66e9.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/320.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/320",
@@ -4412,12 +4816,16 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シャア・アズナブル(GQ)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-pilot-812e8e22b5",
       "kind": "pilot",
-      "name": "ルー・ルカ",
+      "name": "Roux Louka",
       "icon": "icons/altema/pilot-ルー・ルカ-a38ccbd7.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/318.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/318",
@@ -4425,12 +4833,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ルー・ルカ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Roux Louka",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Roux_Louka"
     },
     {
       "id": "altema-pilot-fcc73b3333",
       "kind": "pilot",
-      "name": "シュウジ・イトウ(C0395)",
+      "name": "Shūji Itō(C0395)",
       "icon": "icons/altema/pilot-シュウジ・イトウ-c0395-c6270c76.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/315.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/315",
@@ -4438,12 +4849,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シュウジ・イトウ(C0395)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Shūji Itō",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Sh%C5%ABji_It%C5%8D"
     },
     {
       "id": "altema-pilot-9dfde3100e",
       "kind": "pilot",
-      "name": "ハリー・オード",
+      "name": "Harry Ord",
       "icon": "icons/altema/pilot-ハリー・オード-4b58eb7d.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/310.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/310",
@@ -4451,12 +4865,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ハリー・オード",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Harry Ord",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Harry_Ord"
     },
     {
       "id": "altema-pilot-ce83d07b1b",
       "kind": "pilot",
-      "name": "シーマ・ガラハウ(C0385)",
+      "name": "Cima Garahau(C0385)",
       "icon": "icons/altema/pilot-シーマ・ガラハウ-c0385-90c9146b.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/304.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/304",
@@ -4464,12 +4881,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シーマ・ガラハウ(C0385)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Cima Garahau",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Cima_Garahau"
     },
     {
       "id": "altema-pilot-09f71e8f5e",
       "kind": "pilot",
-      "name": "ユッタ・カーシム(C0382)",
+      "name": "Jutta Qasim(C0382)",
       "icon": "icons/altema/pilot-ユッタ・カーシム-c0382-f529f33c.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/301.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/301",
@@ -4477,12 +4897,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ユッタ・カーシム(C0382)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Jutta Qasim",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Jutta_Qasim"
     },
     {
       "id": "altema-pilot-ee5167477b",
       "kind": "pilot",
-      "name": "シャア・アズナブル(C0380)",
+      "name": "Char Aznable(C0380)",
       "icon": "icons/altema/pilot-シャア・アズナブル-c0380-a4941d25.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/299.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/299",
@@ -4490,12 +4913,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シャア・アズナブル(C0380)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-de832415d8",
       "kind": "pilot",
-      "name": "アマテ・ユズリハ(C0377)",
+      "name": "Amate Yuzuriha(C0377)",
       "icon": "icons/altema/pilot-アマテ・ユズリハ-c0377-b4f9b7a9.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/295.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/295",
@@ -4503,12 +4929,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アマテ・ユズリハ(C0377)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amate Yuzuriha",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amate_Yuzuriha"
     },
     {
       "id": "altema-pilot-cff326badc",
       "kind": "pilot",
-      "name": "イリア・パゾム(C0371)",
+      "name": "Illia Pazom(C0371)",
       "icon": "icons/altema/pilot-イリア・パゾム-c0371-47aae00c.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/289.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/289",
@@ -4516,12 +4945,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "イリア・パゾム(C0371)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Illia Pazom",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Illia_Pazom"
     },
     {
       "id": "altema-pilot-bdfaa64fe5",
       "kind": "pilot",
-      "name": "カミーユ・ビダン(C0366)",
+      "name": "Kamille Bidan(C0366)",
       "icon": "icons/altema/pilot-カミーユ・ビダン-c0366-1930cec5.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/286.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/286",
@@ -4529,12 +4961,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "カミーユ・ビダン(C0366)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Kamille Bidan",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Kamille_Bidan"
     },
     {
       "id": "altema-pilot-191cd18643",
       "kind": "pilot",
-      "name": "イリヤ・ソラリ",
+      "name": "Iria Solari",
       "icon": "icons/altema/pilot-イリヤ・ソラリ-781821f3.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/281.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/281",
@@ -4542,12 +4977,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "イリヤ・ソラリ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Iria Solari",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Iria_Solari"
     },
     {
       "id": "altema-pilot-5736a72de4",
       "kind": "pilot",
-      "name": "アナベル・ガトー(C0358)",
+      "name": "Anavel Gato(C0358)",
       "icon": "icons/altema/pilot-アナベル・ガトー-c0358-ee5eaa52.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/280.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/280",
@@ -4555,12 +4993,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アナベル・ガトー(C0358)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Anavel Gato",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Anavel_Gato"
     },
     {
       "id": "altema-pilot-6eb6bf1239",
       "kind": "pilot",
-      "name": "アムロ・レイ",
+      "name": "Amuro Ray",
       "icon": "icons/altema/pilot-アムロ・レイ-9456166e.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/278.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/278",
@@ -4568,12 +5009,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アムロ・レイ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-51bc51eb5e",
       "kind": "pilot",
-      "name": "コウ・ウラキ(C0354)",
+      "name": "Kou Uraki(C0354)",
       "icon": "icons/altema/pilot-コウ・ウラキ-c0354-9393b9bf.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/275.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/275",
@@ -4581,12 +5025,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "コウ・ウラキ(C0354)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Kou Uraki",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Kou_Uraki"
     },
     {
       "id": "altema-pilot-bdd655d1bc",
       "kind": "pilot",
-      "name": "ゾルタン・アッカネン",
+      "name": "Zoltan Akkanen",
       "icon": "icons/altema/pilot-ゾルタン・アッカネン-781de8e3.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/273.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/273",
@@ -4594,12 +5041,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ゾルタン・アッカネン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Zoltan Akkanen",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Zoltan_Akkanen"
     },
     {
       "id": "altema-pilot-e2039eb80f",
       "kind": "pilot",
-      "name": "ノリス・パッカード(C0348)",
+      "name": "Norris Packard(C0348)",
       "icon": "icons/altema/pilot-ノリス・パッカード-c0348-26b98c14.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/271.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/271",
@@ -4607,12 +5057,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ノリス・パッカード(C0348)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Norris Packard",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Norris_Packard"
     },
     {
       "id": "altema-pilot-3dd1678a49",
       "kind": "pilot",
-      "name": "セシリー・フェアチャイルド(C0346)",
+      "name": "Cecily Fairchild(C0346)",
       "icon": "icons/altema/pilot-セシリー・フェアチャイルド-c0346-36f3c645.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/268.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/268",
@@ -4620,12 +5073,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "セシリー・フェアチャイルド(C0346)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Cecily Fairchild",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Cecily_Fairchild"
     },
     {
       "id": "altema-pilot-4425b37569",
       "kind": "pilot",
-      "name": "シーブック・アノー(C0345)",
+      "name": "Seabook Arno(C0345)",
       "icon": "icons/altema/pilot-シーブック・アノー-c0345-9bbc4f27.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/267.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/267",
@@ -4633,12 +5089,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シーブック・アノー(C0345)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Seabook Arno",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Seabook_Arno"
     },
     {
       "id": "altema-pilot-f0bfe79ae6",
       "kind": "pilot",
-      "name": "ダリル・ローレンツ(C0343)",
+      "name": "Daryl Lorenz(C0343)",
       "icon": "icons/altema/pilot-ダリル・ローレンツ-c0343-8d199a50.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/265.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/265",
@@ -4646,12 +5105,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ダリル・ローレンツ(C0343)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Daryl Lorenz",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Daryl_Lorenz"
     },
     {
       "id": "altema-pilot-2630a80139",
       "kind": "pilot",
-      "name": "アンジェロ・ザウパー(C0341)",
+      "name": "Angelo Sauper(C0341)",
       "icon": "icons/altema/pilot-アンジェロ・ザウパー-c0341-0e6279a6.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/262.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/262",
@@ -4659,12 +5121,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アンジェロ・ザウパー(C0341)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Angelo Sauper",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Angelo_Sauper"
     },
     {
       "id": "altema-pilot-c7b11d16d5",
       "kind": "pilot",
-      "name": "ユウ・カジマ(C0337)",
+      "name": "Yuu Kajima(C0337)",
       "icon": "icons/altema/pilot-ユウ・カジマ-c0337-f3943398.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/259.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/259",
@@ -4672,12 +5137,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ユウ・カジマ(C0337)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Yuu Kajima",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Yuu_Kajima"
     },
     {
       "id": "altema-pilot-43457bdd11",
       "kind": "pilot",
-      "name": "サフィラ・ガードナー(C0334)",
+      "name": "Saphira Gardner(C0334)",
       "icon": "icons/altema/pilot-サフィラ・ガードナー-c0334-9dd39cdd.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/256.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/256",
@@ -4685,12 +5153,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "サフィラ・ガードナー(C0334)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Saphira Gardner",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Saphira_Gardner"
     },
     {
       "id": "altema-pilot-ff538589ec",
       "kind": "pilot",
-      "name": "バナージ・リンクス(C0331)",
+      "name": "Banagher Links(C0331)",
       "icon": "icons/altema/pilot-バナージ・リンクス-c0331-4e67fb14.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/255.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/255",
@@ -4698,12 +5169,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "バナージ・リンクス(C0331)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Banagher Links",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Banagher_Links"
     },
     {
       "id": "altema-pilot-fd5301efe9",
       "kind": "pilot",
-      "name": "ハイデマリー・ハウグ(C0327)",
+      "name": "Heidemarie Haug(C0327)",
       "icon": "icons/altema/pilot-ハイデマリー・ハウグ-c0327-c5e2c73f.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/251.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/251",
@@ -4711,12 +5185,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ハイデマリー・ハウグ(C0327)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Heidemarie Haug",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Heidemarie_Haug"
     },
     {
       "id": "altema-pilot-83edb272fb",
       "kind": "pilot",
-      "name": "ルース・カッセル(C0328)",
+      "name": "Luce Cassel(C0328)",
       "icon": "icons/altema/pilot-ルース・カッセル-c0328-be418773.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/250.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/250",
@@ -4724,12 +5201,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ルース・カッセル(C0328)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Luce Cassel",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Luce_Cassel"
     },
     {
       "id": "altema-pilot-eba4f0683b",
       "kind": "pilot",
-      "name": "ヨナ・バシュタ(C0325)",
+      "name": "Jona Basta(C0325)",
       "icon": "icons/altema/pilot-ヨナ・バシュタ-c0325-e18b90b2.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/247.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/247",
@@ -4737,12 +5217,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ヨナ・バシュタ(C0325)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Jona Basta",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Jona_Basta"
     },
     {
       "id": "altema-pilot-a715854de8",
       "kind": "pilot",
-      "name": "トビア・アロナクス",
+      "name": "Tobia Arronax",
       "icon": "icons/altema/pilot-トビア・アロナクス-30418ef1.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/246.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/246",
@@ -4750,12 +5233,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "トビア・アロナクス",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Tobia Arronax",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Tobia_Arronax"
     },
     {
       "id": "altema-pilot-971e39f094",
       "kind": "pilot",
-      "name": "クェス・パラヤ(C0321)",
+      "name": "Quess Paraya(C0321)",
       "icon": "icons/altema/pilot-クェス・パラヤ-c0321-bf3ae0fa.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/243.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/243",
@@ -4763,12 +5249,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "クェス・パラヤ(C0321)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Quess Paraya",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Quess_Paraya"
     },
     {
       "id": "altema-pilot-3ee5e6c95f",
       "kind": "pilot",
-      "name": "レーン・エイム",
+      "name": "Lane Aim",
       "icon": "icons/altema/pilot-レーン・エイム-d3d4662f.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/240.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/240",
@@ -4776,12 +5265,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "レーン・エイム",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Lane Aim",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Lane_Aim"
     },
     {
       "id": "altema-pilot-9b2886ff6c",
       "kind": "pilot",
-      "name": "レコア・ロンド",
+      "name": "Reccoa Londe",
       "icon": "icons/altema/pilot-レコア・ロンド-8ab22ceb.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/236.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/236",
@@ -4789,12 +5281,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "レコア・ロンド",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Reccoa Londe",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Reccoa_Londe"
     },
     {
       "id": "altema-pilot-7d20140422",
       "kind": "pilot",
-      "name": "ダグザ・マックール",
+      "name": "Daguza Mackle",
       "icon": "icons/altema/pilot-ダグザ・マックール-2778e60b.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/235.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/235",
@@ -4802,12 +5297,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ダグザ・マックール",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Daguza Mackle",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Daguza_Mackle"
     },
     {
       "id": "altema-pilot-c6c1ef8f76",
       "kind": "pilot",
-      "name": "ウッソ・エヴィン(C0271)",
+      "name": "Uso Ewin(C0271)",
       "icon": "icons/altema/pilot-ウッソ・エヴィン-c0271-642f1f27.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/233.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/233",
@@ -4815,12 +5313,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ウッソ・エヴィン(C0271)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Uso Ewin",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Uso_Ewin"
     },
     {
       "id": "altema-pilot-e03ae5dc19",
       "kind": "pilot",
-      "name": "フル・フロンタル",
+      "name": "Full Frontal",
       "icon": "icons/altema/pilot-フル・フロンタル-861dd830.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/232.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/232",
@@ -4828,12 +5329,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "フル・フロンタル",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Full Frontal",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Full_Frontal"
     },
     {
       "id": "altema-pilot-57fe649cf4",
       "kind": "pilot",
-      "name": "ファラ・グリフォン(C0308)",
+      "name": "Fuala Griffon(C0308)",
       "icon": "icons/altema/pilot-ファラ・グリフォン-c0308-63e786a8.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/229.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/229",
@@ -4841,12 +5345,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ファラ・グリフォン(C0308)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Fuala Griffon",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Fuala_Griffon"
     },
     {
       "id": "altema-pilot-6512fe3530",
       "kind": "pilot",
-      "name": "フォルド・ロムフェロー",
+      "name": "Ford Romfellow",
       "icon": "icons/altema/pilot-フォルド・ロムフェロー-52657e39.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/228.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/228",
@@ -4854,12 +5361,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "フォルド・ロムフェロー",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Ford Romfellow",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Ford_Romfellow"
     },
     {
       "id": "altema-pilot-b0f1b2ca4d",
       "kind": "pilot",
-      "name": "キャラ・スーン(C0267)",
+      "name": "Chara Soon(C0267)",
       "icon": "icons/altema/pilot-キャラ・スーン-c0267-dc2ef4e4.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/227.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/227",
@@ -4867,7 +5377,10 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "キャラ・スーン(C0267)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Chara Soon",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Chara_Soon"
     },
     {
       "id": "altema-pilot-201010b653",
@@ -4885,7 +5398,7 @@
     {
       "id": "altema-pilot-a91d28f299",
       "kind": "pilot",
-      "name": "マリーダ・クルス(C0299)",
+      "name": "Marida Cruz(C0299)",
       "icon": "icons/altema/pilot-マリーダ・クルス-c0299-65606e41.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/221.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/221",
@@ -4893,12 +5406,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "マリーダ・クルス(C0299)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Marida Cruz",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Marida_Cruz"
     },
     {
       "id": "altema-pilot-d81856a50e",
       "kind": "pilot",
-      "name": "トビア・アロナクス",
+      "name": "Tobia Arronax",
       "icon": "icons/altema/pilot-トビア・アロナクス-9eb9f79a.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/219.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/219",
@@ -4906,12 +5422,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "トビア・アロナクス",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Tobia Arronax",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Tobia_Arronax"
     },
     {
       "id": "altema-pilot-e3291fc9ae",
       "kind": "pilot",
-      "name": "カミーユ・ビダン(C0294)",
+      "name": "Kamille Bidan(C0294)",
       "icon": "icons/altema/pilot-カミーユ・ビダン-c0294-2f17014e.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/218.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/218",
@@ -4919,12 +5438,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "カミーユ・ビダン(C0294)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Kamille Bidan",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Kamille_Bidan"
     },
     {
       "id": "altema-pilot-539fdb735a",
       "kind": "pilot",
-      "name": "カテジナ・ルース(C0261)",
+      "name": "Katejina Loos(C0261)",
       "icon": "icons/altema/pilot-カテジナ・ルース-c0261-05f267e6.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/216.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/216",
@@ -4932,12 +5454,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "カテジナ・ルース(C0261)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Katejina Loos",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Katejina_Loos"
     },
     {
       "id": "altema-pilot-6b81f50287",
       "kind": "pilot",
-      "name": "アムロ・レイ(C0292)",
+      "name": "Amuro Ray(C0292)",
       "icon": "icons/altema/pilot-アムロ・レイ-c0292-2dbb990a.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/214.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/214",
@@ -4945,12 +5470,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アムロ・レイ(C0292)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-2fd7300b70",
       "kind": "pilot",
-      "name": "ウッソ・エヴィン",
+      "name": "Uso Ewin",
       "icon": "icons/altema/pilot-ウッソ・エヴィン-6b1dc635.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/213.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/213",
@@ -4958,12 +5486,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ウッソ・エヴィン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Uso Ewin",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Uso_Ewin"
     },
     {
       "id": "altema-pilot-1ad17499db",
       "kind": "pilot",
-      "name": "セリーヌ・ロム(C0217)",
+      "name": "Celine Rom(C0217)",
       "icon": "icons/altema/pilot-セリーヌ・ロム-c0217-a12f9859.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/210.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/210",
@@ -4971,12 +5502,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "セリーヌ・ロム(C0217)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Celine Rom",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Celine_Rom"
     },
     {
       "id": "altema-pilot-ba41174e61",
       "kind": "pilot",
-      "name": "ルース・カッセル",
+      "name": "Luce Cassel",
       "icon": "icons/altema/pilot-ルース・カッセル-dd1eaf39.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/209.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/209",
@@ -4984,12 +5518,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ルース・カッセル",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Luce Cassel",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Luce_Cassel"
     },
     {
       "id": "altema-pilot-bc0d144a5c",
       "kind": "pilot",
-      "name": "ソフィ・フラン",
+      "name": "Sophie Fran",
       "icon": "icons/altema/pilot-ソフィ・フラン-7a6ff8c4.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/208.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/208",
@@ -4997,12 +5534,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ソフィ・フラン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Sophie Fran",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Sophie_Fran"
     },
     {
       "id": "altema-pilot-d101704ddb",
       "kind": "pilot",
-      "name": "カミーユ・ビダン",
+      "name": "Kamille Bidan",
       "icon": "icons/altema/pilot-カミーユ・ビダン-78efa20b.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/206.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/206",
@@ -5010,12 +5550,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "カミーユ・ビダン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Kamille Bidan",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Kamille_Bidan"
     },
     {
       "id": "altema-pilot-6d4e58be2d",
       "kind": "pilot",
-      "name": "ガブリエル・ラミレス・ガルシア",
+      "name": "Gabriel Ramirez Garcia",
       "icon": "icons/altema/pilot-ガブリエル・ラミレス・ガルシア-1a4a12b5.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/202.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/202",
@@ -5023,7 +5566,10 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ガブリエル・ラミレス・ガルシア",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Gabriel Ramirez Garcia",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Gabriel_Ramirez_Garcia"
     },
     {
       "id": "altema-pilot-727319c30c",
@@ -5041,7 +5587,7 @@
     {
       "id": "altema-pilot-5218c73158",
       "kind": "pilot",
-      "name": "イオ・フレミング(C0279)",
+      "name": "Io Fleming(C0279)",
       "icon": "icons/altema/pilot-イオ・フレミング-c0279-c5a1c462.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/199.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/199",
@@ -5049,12 +5595,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "イオ・フレミング(C0279)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Io Fleming",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Io_Fleming"
     },
     {
       "id": "altema-pilot-120619b797",
       "kind": "pilot",
-      "name": "アムロ・レイ",
+      "name": "Amuro Ray",
       "icon": "icons/altema/pilot-アムロ・レイ-df2fd7f7.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/198.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/198",
@@ -5062,7 +5611,10 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アムロ・レイ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-b7ae5191a2",
@@ -5080,7 +5632,7 @@
     {
       "id": "altema-pilot-e7af034eab",
       "kind": "pilot",
-      "name": "クリスチーナ・マッケンジー(C0276)",
+      "name": "Christina Mackenzie(C0276)",
       "icon": "icons/altema/pilot-クリスチーナ・マッケンジー-c0276-481009c9.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/194.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/194",
@@ -5088,12 +5640,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "クリスチーナ・マッケンジー(C0276)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Christina Mackenzie",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Christina_Mackenzie"
     },
     {
       "id": "altema-pilot-abd7506db9",
       "kind": "pilot",
-      "name": "ヨナ・バシュタ(C0265)",
+      "name": "Jona Basta(C0265)",
       "icon": "icons/altema/pilot-ヨナ・バシュタ-c0265-60055ebc.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/193.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/193",
@@ -5101,12 +5656,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ヨナ・バシュタ(C0265)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Jona Basta",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Jona_Basta"
     },
     {
       "id": "altema-pilot-aeb6fdbb49",
       "kind": "pilot",
-      "name": "ジェリド・メサ(C0264)",
+      "name": "Jerid Messa(C0264)",
       "icon": "icons/altema/pilot-ジェリド・メサ-c0264-38c89d53.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/191.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/191",
@@ -5114,7 +5672,10 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ジェリド・メサ(C0264)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Jerid Messa",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Jerid_Messa"
     },
     {
       "id": "altema-pilot-7e4fb81d18",
@@ -5132,7 +5693,7 @@
     {
       "id": "altema-pilot-093dd0ac1e",
       "kind": "pilot",
-      "name": "シーマ・ガラハウ",
+      "name": "Cima Garahau",
       "icon": "icons/altema/pilot-シーマ・ガラハウ-3c08bb63.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/189.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/189",
@@ -5140,7 +5701,10 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シーマ・ガラハウ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Cima Garahau",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Cima_Garahau"
     },
     {
       "id": "altema-pilot-2d509d97fa",
@@ -5158,7 +5722,7 @@
     {
       "id": "altema-pilot-c9a4d4a74b",
       "kind": "pilot",
-      "name": "ミア・ブリンクマン",
+      "name": "Mia Brinkman",
       "icon": "icons/altema/pilot-ミア・ブリンクマン-344a0263.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/187.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/187",
@@ -5166,12 +5730,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ミア・ブリンクマン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Mia Brinkman",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Mia_Brinkman"
     },
     {
       "id": "altema-pilot-d01a119121",
       "kind": "pilot",
-      "name": "アムロ・レイ(C0229)",
+      "name": "Amuro Ray(C0229)",
       "icon": "icons/altema/pilot-アムロ・レイ-c0229-1484280c.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/185.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/185",
@@ -5179,12 +5746,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アムロ・レイ(C0229)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-86233a30b9",
       "kind": "pilot",
-      "name": "ジュドー・アーシタ(C0257)",
+      "name": "Judau Ashta(C0257)",
       "icon": "icons/altema/pilot-ジュドー・アーシタ-c0257-77816b6c.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/184.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/184",
@@ -5192,12 +5762,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ジュドー・アーシタ(C0257)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Judau Ashta",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Judau_Ashta"
     },
     {
       "id": "altema-pilot-4968d3a902",
       "kind": "pilot",
-      "name": "シャア・アズナブル(C0225)",
+      "name": "Char Aznable(C0225)",
       "icon": "icons/altema/pilot-シャア・アズナブル-c0225-e33bc326.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/183.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/183",
@@ -5205,12 +5778,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シャア・アズナブル(C0225)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-a469a089e9",
       "kind": "pilot",
-      "name": "イリア・パゾム",
+      "name": "Illia Pazom",
       "icon": "icons/altema/pilot-イリア・パゾム-a03a356b.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/182.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/182",
@@ -5218,12 +5794,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "イリア・パゾム",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Illia Pazom",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Illia_Pazom"
     },
     {
       "id": "altema-pilot-39ffde2632",
       "kind": "pilot",
-      "name": "ニムバス・シュターゼン",
+      "name": "Nimbus Schterzen",
       "icon": "icons/altema/pilot-ニムバス・シュターゼン-bee4e4ff.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/180.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/180",
@@ -5231,12 +5810,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ニムバス・シュターゼン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Nimbus Schterzen",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Nimbus_Schterzen"
     },
     {
       "id": "altema-pilot-6a180ec866",
       "kind": "pilot",
-      "name": "バナージ・リンクス",
+      "name": "Banagher Links",
       "icon": "icons/altema/pilot-バナージ・リンクス-0cb52fd3.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/179.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/179",
@@ -5244,12 +5826,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "バナージ・リンクス",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Banagher Links",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Banagher_Links"
     },
     {
       "id": "altema-pilot-fadd54a9ad",
       "kind": "pilot",
-      "name": "スレッタ・マーキュリー(C0252)",
+      "name": "Suletta Mercury(C0252)",
       "icon": "icons/altema/pilot-スレッタ・マーキュリー-c0252-3c12e014.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/178.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/178",
@@ -5257,12 +5842,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "スレッタ・マーキュリー(C0252)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Suletta Mercury",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Suletta_Mercury"
     },
     {
       "id": "altema-pilot-a05bdb9ccf",
       "kind": "pilot",
-      "name": "レッド・スネーク",
+      "name": "Yurii Ajissah",
       "icon": "icons/altema/pilot-レッド・スネーク-a88ddf89.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/176.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/176",
@@ -5270,12 +5858,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "レッド・スネーク",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Yurii Ajissah",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Yurii_Ajissah"
     },
     {
       "id": "altema-pilot-e363e1208d",
       "kind": "pilot",
-      "name": "サラ・ザビアロフ(C0247)",
+      "name": "Sarah Zabiarov(C0247)",
       "icon": "icons/altema/pilot-サラ・ザビアロフ-c0247-3b871e28.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/175.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/175",
@@ -5283,12 +5874,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "サラ・ザビアロフ(C0247)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Sarah Zabiarov",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Sarah_Zabiarov"
     },
     {
       "id": "altema-pilot-81a0c3dc48",
       "kind": "pilot",
-      "name": "コウ・ウラキ(C0227)",
+      "name": "Kou Uraki(C0227)",
       "icon": "icons/altema/pilot-コウ・ウラキ-c0227-2045e646.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/174.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/174",
@@ -5296,12 +5890,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "コウ・ウラキ(C0227)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Kou Uraki",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Kou_Uraki"
     },
     {
       "id": "altema-pilot-647980e014",
       "kind": "pilot",
-      "name": "カテジナ・ルース(C0231)",
+      "name": "Katejina Loos(C0231)",
       "icon": "icons/altema/pilot-カテジナ・ルース-c0231-5721a49e.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/173.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/173",
@@ -5309,12 +5906,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "カテジナ・ルース(C0231)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Katejina Loos",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Katejina_Loos"
     },
     {
       "id": "altema-pilot-b05a7cc7ab",
       "kind": "pilot",
-      "name": "ジュドー・アーシタ(C0223)",
+      "name": "Judau Ashta(C0223)",
       "icon": "icons/altema/pilot-ジュドー・アーシタ-c0223-602b627f.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/172.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/172",
@@ -5322,12 +5922,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ジュドー・アーシタ(C0223)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Judau Ashta",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Judau_Ashta"
     },
     {
       "id": "altema-pilot-cc03030966",
       "kind": "pilot",
-      "name": "リュース・クランゲル",
+      "name": "Luce Krangel",
       "icon": "icons/altema/pilot-リュース・クランゲル-8b7301c5.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/170.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/170",
@@ -5335,12 +5938,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "リュース・クランゲル",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Luce Krangel",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Luce_Krangel"
     },
     {
       "id": "altema-pilot-843b95ecc9",
       "kind": "pilot",
-      "name": "シャア・アズナブル(C0236)",
+      "name": "Char Aznable(C0236)",
       "icon": "icons/altema/pilot-シャア・アズナブル-c0236-c17c4485.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/169.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/169",
@@ -5348,12 +5954,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シャア・アズナブル(C0236)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-436e3c704c",
       "kind": "pilot",
-      "name": "リリス・エイデン",
+      "name": "Lilith Aiden",
       "icon": "icons/altema/pilot-リリス・エイデン-8c708bac.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/166.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/166",
@@ -5361,7 +5970,10 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "リリス・エイデン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Lilith Aiden",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Lilith_Aiden"
     },
     {
       "id": "altema-pilot-8b69714208",
@@ -5379,7 +5991,7 @@
     {
       "id": "altema-pilot-2e236e1fe0",
       "kind": "pilot",
-      "name": "アムロ・レイ(C0235)",
+      "name": "Amuro Ray(C0235)",
       "icon": "icons/altema/pilot-アムロ・レイ-c0235-d36290b2.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/163.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/163",
@@ -5387,12 +5999,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アムロ・レイ(C0235)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-96c29ca57b",
       "kind": "pilot",
-      "name": "ミシェル・ルオ",
+      "name": "Michele Luio",
       "icon": "icons/altema/pilot-ミシェル・ルオ-8c664ddf.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/162.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/162",
@@ -5400,12 +6015,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ミシェル・ルオ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Michele Luio",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Michele_Luio"
     },
     {
       "id": "altema-pilot-22cb802644",
       "kind": "pilot",
-      "name": "ロザミア・バダム(C0221)",
+      "name": "Rosamia Badam(C0221)",
       "icon": "icons/altema/pilot-ロザミア・バダム-c0221-bc67a652.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/161.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/161",
@@ -5413,12 +6031,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ロザミア・バダム(C0221)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Rosamia Badam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Rosamia_Badam"
     },
     {
       "id": "altema-pilot-5a626ff466",
       "kind": "pilot",
-      "name": "ラカン・ダカラン",
+      "name": "Rakan Dahkaran",
       "icon": "icons/altema/pilot-ラカン・ダカラン-2e10b435.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/160.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/160",
@@ -5426,12 +6047,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ラカン・ダカラン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Rakan Dahkaran",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Rakan_Dahkaran"
     },
     {
       "id": "altema-pilot-8f56fc4e12",
       "kind": "pilot",
-      "name": "レコア・ロンド(C0191)",
+      "name": "Reccoa Londe(C0191)",
       "icon": "icons/altema/pilot-レコア・ロンド-c0191-46189e10.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/159.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/159",
@@ -5439,12 +6063,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "レコア・ロンド(C0191)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Reccoa Londe",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Reccoa_Londe"
     },
     {
       "id": "altema-pilot-6668ce2488",
       "kind": "pilot",
-      "name": "ケリィ・レズナー",
+      "name": "Kelley Layzner",
       "icon": "icons/altema/pilot-ケリィ・レズナー-f95297e1.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/157.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/157",
@@ -5452,7 +6079,10 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ケリィ・レズナー",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Kelley Layzner",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Kelley_Layzner"
     },
     {
       "id": "altema-pilot-a323bb5c87",
@@ -5470,7 +6100,7 @@
     {
       "id": "altema-pilot-d44cc81a3b",
       "kind": "pilot",
-      "name": "ペッシェ・モンターニュ(C0216)",
+      "name": "Peche Montagne(C0216)",
       "icon": "icons/altema/pilot-ペッシェ・モンターニュ-c0216-3009574d.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/155.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/155",
@@ -5478,12 +6108,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ペッシェ・モンターニュ(C0216)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Peche Montagne",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Peche_Montagne"
     },
     {
       "id": "altema-pilot-dae96be844",
       "kind": "pilot",
-      "name": "リン",
+      "name": "Rin (U.C. ENGAGE)",
       "icon": "icons/altema/pilot-リン-1aae248d.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/154.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/154",
@@ -5491,12 +6124,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "リン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Rin (U.C. ENGAGE)",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Rin_(U.C._ENGAGE)"
     },
     {
       "id": "altema-pilot-13f82a2430",
       "kind": "pilot",
-      "name": "セリーヌ・ロム",
+      "name": "Celine Rom",
       "icon": "icons/altema/pilot-セリーヌ・ロム-de2ab30f.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/153.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/153",
@@ -5504,12 +6140,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "セリーヌ・ロム",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Celine Rom",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Celine_Rom"
     },
     {
       "id": "altema-pilot-36ed0e68b5",
       "kind": "pilot",
-      "name": "シャア・アズナブル(C0204)",
+      "name": "Char Aznable(C0204)",
       "icon": "icons/altema/pilot-シャア・アズナブル-c0204-acd9c10c.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/152.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/152",
@@ -5517,12 +6156,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シャア・アズナブル(C0204)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-627325bb23",
       "kind": "pilot",
-      "name": "ガウマン・ノビル",
+      "name": "Gawman Nobile",
       "icon": "icons/altema/pilot-ガウマン・ノビル-7e37043b.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/151.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/151",
@@ -5530,12 +6172,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ガウマン・ノビル",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Gawman Nobile",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Gawman_Nobile"
     },
     {
       "id": "altema-pilot-e159145cf6",
       "kind": "pilot",
-      "name": "ゾルタン・アッカネン",
+      "name": "Zoltan Akkanen",
       "icon": "icons/altema/pilot-ゾルタン・アッカネン-f78c745e.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/150.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/150",
@@ -5543,12 +6188,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ゾルタン・アッカネン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Zoltan Akkanen",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Zoltan_Akkanen"
     },
     {
       "id": "altema-pilot-bf355621a5",
       "kind": "pilot",
-      "name": "バナージ・リンクス(C0200)",
+      "name": "Banagher Links(C0200)",
       "icon": "icons/altema/pilot-バナージ・リンクス-c0200-7e368333.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/149.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/149",
@@ -5556,12 +6204,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "バナージ・リンクス(C0200)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Banagher Links",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Banagher_Links"
     },
     {
       "id": "altema-pilot-88e1557833",
       "kind": "pilot",
-      "name": "リディ・マーセナス(C0199)",
+      "name": "Riddhe Marcenas(C0199)",
       "icon": "icons/altema/pilot-リディ・マーセナス-c0199-5044fbfb.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/148.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/148",
@@ -5569,12 +6220,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "リディ・マーセナス(C0199)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Riddhe Marcenas",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Riddhe_Marcenas"
     },
     {
       "id": "altema-pilot-7d2146c52e",
       "kind": "pilot",
-      "name": "レイ",
+      "name": "Rei",
       "icon": "icons/altema/pilot-レイ-f261aeb1.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/147.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/147",
@@ -5582,12 +6236,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "レイ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Rei",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Rei"
     },
     {
       "id": "altema-pilot-965023074a",
       "kind": "pilot",
-      "name": "クリスチーナ・マッケンジー",
+      "name": "Christina Mackenzie",
       "icon": "icons/altema/pilot-クリスチーナ・マッケンジー-0119c0d8.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/145.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/145",
@@ -5595,12 +6252,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "クリスチーナ・マッケンジー",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Christina Mackenzie",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Christina_Mackenzie"
     },
     {
       "id": "altema-pilot-9f451d782a",
       "kind": "pilot",
-      "name": "ダントン・ハイレッグ",
+      "name": "Danton Hyleg",
       "icon": "icons/altema/pilot-ダントン・ハイレッグ-74b54043.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/144.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/144",
@@ -5608,12 +6268,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ダントン・ハイレッグ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Danton Hyleg",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Danton_Hyleg"
     },
     {
       "id": "altema-pilot-6b3137f0a9",
       "kind": "pilot",
-      "name": "ノン",
+      "name": "Non",
       "icon": "icons/altema/pilot-ノン-1125555b.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/143.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/143",
@@ -5621,12 +6284,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ノン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Non",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Non"
     },
     {
       "id": "altema-pilot-d2ea66d264",
       "kind": "pilot",
-      "name": "プルツー",
+      "name": "Ple Two",
       "icon": "icons/altema/pilot-プルツー-42830228.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/142.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/142",
@@ -5634,12 +6300,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "プルツー",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Ple Two",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Ple_Two"
     },
     {
       "id": "altema-pilot-31c655ea2c",
       "kind": "pilot",
-      "name": "キンケドゥ・ナウ",
+      "name": "Seabook Arno",
       "icon": "icons/altema/pilot-キンケドゥ・ナウ-4bc25693.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/141.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/141",
@@ -5647,12 +6316,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "キンケドゥ・ナウ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Seabook Arno",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Seabook_Arno"
     },
     {
       "id": "altema-pilot-bde52a689a",
       "kind": "pilot",
-      "name": "ユウ・カジマ",
+      "name": "Yuu Kajima",
       "icon": "icons/altema/pilot-ユウ・カジマ-bad83805.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/140.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/140",
@@ -5660,12 +6332,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ユウ・カジマ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Yuu Kajima",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Yuu_Kajima"
     },
     {
       "id": "altema-pilot-58b9973bd7",
       "kind": "pilot",
-      "name": "シャア・アズナブル(C0193)",
+      "name": "Char Aznable(C0193)",
       "icon": "icons/altema/pilot-シャア・アズナブル-c0193-e79ce991.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/139.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/139",
@@ -5673,12 +6348,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シャア・アズナブル(C0193)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-5fb5d245c9",
       "kind": "pilot",
-      "name": "ペッシェ・モンターニュ(C0192)",
+      "name": "Peche Montagne(C0192)",
       "icon": "icons/altema/pilot-ペッシェ・モンターニュ-c0192-7a5e209f.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/138.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/138",
@@ -5686,12 +6364,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ペッシェ・モンターニュ(C0192)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Peche Montagne",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Peche_Montagne"
     },
     {
       "id": "altema-pilot-9b79b2f3d1",
       "kind": "pilot",
-      "name": "カミーユ・ビダン(C0190)",
+      "name": "Kamille Bidan(C0190)",
       "icon": "icons/altema/pilot-カミーユ・ビダン-c0190-c6e3358c.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/137.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/137",
@@ -5699,12 +6380,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "カミーユ・ビダン(C0190)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Kamille Bidan",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Kamille_Bidan"
     },
     {
       "id": "altema-pilot-6ab531507d",
       "kind": "pilot",
-      "name": "リディ・マーセナス(C0189)",
+      "name": "Riddhe Marcenas(C0189)",
       "icon": "icons/altema/pilot-リディ・マーセナス-c0189-74ae64ab.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/135.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/135",
@@ -5712,12 +6396,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "リディ・マーセナス(C0189)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Riddhe Marcenas",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Riddhe_Marcenas"
     },
     {
       "id": "altema-pilot-74376a5902",
       "kind": "pilot",
-      "name": "シャア・アズナブル(C0147)",
+      "name": "Char Aznable(C0147)",
       "icon": "icons/altema/pilot-シャア・アズナブル-c0147-48ed6be6.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/134.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/134",
@@ -5725,7 +6412,10 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シャア・アズナブル(C0147)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-ea7ccc60d6",
@@ -5743,7 +6433,7 @@
     {
       "id": "altema-pilot-c25dabdc02",
       "kind": "pilot",
-      "name": "ペッシェ・モンターニュ(C0186)",
+      "name": "Peche Montagne(C0186)",
       "icon": "icons/altema/pilot-ペッシェ・モンターニュ-c0186-8c45fa27.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/132.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/132",
@@ -5751,12 +6441,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ペッシェ・モンターニュ(C0186)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Peche Montagne",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Peche_Montagne"
     },
     {
       "id": "altema-pilot-858022fc47",
       "kind": "pilot",
-      "name": "マシロ・オークス",
+      "name": "Mashiro Oaks",
       "icon": "icons/altema/pilot-マシロ・オークス-0f2bcbc0.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/131.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/131",
@@ -5764,12 +6457,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "マシロ・オークス",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Mashiro Oaks",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Mashiro_Oaks"
     },
     {
       "id": "altema-pilot-982e46f76b",
       "kind": "pilot",
-      "name": "シャア・アズナブル(C0181)",
+      "name": "Char Aznable(C0181)",
       "icon": "icons/altema/pilot-シャア・アズナブル-c0181-a18dc2f5.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/129.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/129",
@@ -5777,12 +6473,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シャア・アズナブル(C0181)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-f464a513ec",
       "kind": "pilot",
-      "name": "アムロ・レイ(C0167)",
+      "name": "Amuro Ray(C0167)",
       "icon": "icons/altema/pilot-アムロ・レイ-c0167-e7f3c1ef.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/126.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/126",
@@ -5790,12 +6489,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アムロ・レイ(C0167)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-7e69b0cdac",
       "kind": "pilot",
-      "name": "シロー・アマダ(C0038)",
+      "name": "Shiro Amada(C0038)",
       "icon": "icons/altema/pilot-シロー・アマダ-c0038-55cf1cc4.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/123.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/123",
@@ -5803,12 +6505,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シロー・アマダ(C0038)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Shiro Amada",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Shiro_Amada"
     },
     {
       "id": "altema-pilot-8e28c4a6ea",
       "kind": "pilot",
-      "name": "ウッソ・エヴィン(C0179)",
+      "name": "Uso Ewin(C0179)",
       "icon": "icons/altema/pilot-ウッソ・エヴィン-c0179-d410b2ce.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/122.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/122",
@@ -5816,12 +6521,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ウッソ・エヴィン(C0179)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Uso Ewin",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Uso_Ewin"
     },
     {
       "id": "altema-pilot-ef5ca73911",
       "kind": "pilot",
-      "name": "アルマ・シュティルナー",
+      "name": "Alma Stirner",
       "icon": "icons/altema/pilot-アルマ・シュティルナー-84d1d3e6.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/121.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/121",
@@ -5829,7 +6537,10 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アルマ・シュティルナー",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Alma Stirner",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Alma_Stirner"
     },
     {
       "id": "altema-pilot-b9c6806a17",
@@ -5847,7 +6558,7 @@
     {
       "id": "altema-pilot-9c4911aecb",
       "kind": "pilot",
-      "name": "ハサウェイ・ノア",
+      "name": "Hathaway Noa",
       "icon": "icons/altema/pilot-ハサウェイ・ノア-ccf62c99.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/118.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/118",
@@ -5855,12 +6566,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ハサウェイ・ノア",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Hathaway Noa",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Hathaway_Noa"
     },
     {
       "id": "altema-pilot-d74b3ed40e",
       "kind": "pilot",
-      "name": "カイ・シデン(C0178)",
+      "name": "Kai Shiden(C0178)",
       "icon": "icons/altema/pilot-カイ・シデン-c0178-879f93a3.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/117.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/117",
@@ -5868,12 +6582,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "カイ・シデン(C0178)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Kai Shiden",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Kai_Shiden"
     },
     {
       "id": "altema-pilot-9f25766eaa",
       "kind": "pilot",
-      "name": "ジョニー・ライデン",
+      "name": "Johnny Ridden",
       "icon": "icons/altema/pilot-ジョニー・ライデン-1fc64767.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/116.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/116",
@@ -5881,12 +6598,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ジョニー・ライデン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Johnny Ridden",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Johnny_Ridden"
     },
     {
       "id": "altema-pilot-8df8157f72",
       "kind": "pilot",
-      "name": "リディ・マーセナス(C0174)",
+      "name": "Riddhe Marcenas(C0174)",
       "icon": "icons/altema/pilot-リディ・マーセナス-c0174-251d1692.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/114.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/114",
@@ -5894,12 +6614,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "リディ・マーセナス(C0174)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Riddhe Marcenas",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Riddhe_Marcenas"
     },
     {
       "id": "altema-pilot-da9dd0894a",
       "kind": "pilot",
-      "name": "ウバルド・モリーナ",
+      "name": "Ubaldo Molina",
       "icon": "icons/altema/pilot-ウバルド・モリーナ-b7f6064f.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/109.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/109",
@@ -5907,12 +6630,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ウバルド・モリーナ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Ubaldo Molina",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Ubaldo_Molina"
     },
     {
       "id": "altema-pilot-e7ca11c9c2",
       "kind": "pilot",
-      "name": "ユッタ・カーシム(C0166)",
+      "name": "Jutta Qasim(C0166)",
       "icon": "icons/altema/pilot-ユッタ・カーシム-c0166-7b9fc354.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/108.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/108",
@@ -5920,12 +6646,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ユッタ・カーシム(C0166)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Jutta Qasim",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Jutta_Qasim"
     },
     {
       "id": "altema-pilot-75ca2cc7aa",
       "kind": "pilot",
-      "name": "ハマーン・カーン",
+      "name": "Haman Karn",
       "icon": "icons/altema/pilot-ハマーン・カーン-f6927ab7.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/107.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/107",
@@ -5933,7 +6662,10 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ハマーン・カーン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Haman Karn",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Haman_Karn"
     },
     {
       "id": "altema-pilot-68fb418cf1",
@@ -5951,7 +6683,7 @@
     {
       "id": "altema-pilot-4d2a6f72d2",
       "kind": "pilot",
-      "name": "ミチェル・カノ",
+      "name": "Michelle Kano",
       "icon": "icons/altema/pilot-ミチェル・カノ-f7b0b387.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/105.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/105",
@@ -5959,12 +6691,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ミチェル・カノ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Michelle Kano",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Michelle_Kano"
     },
     {
       "id": "altema-pilot-e49a792437",
       "kind": "pilot",
-      "name": "シーマ・ガラハウ(C0049)",
+      "name": "Cima Garahau(C0049)",
       "icon": "icons/altema/pilot-シーマ・ガラハウ-c0049-e8ff6729.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/104.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/104",
@@ -5972,12 +6707,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シーマ・ガラハウ(C0049)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Cima Garahau",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Cima_Garahau"
     },
     {
       "id": "altema-pilot-e3c3e30a12",
       "kind": "pilot",
-      "name": "アムロ・レイ(C0146)",
+      "name": "Amuro Ray(C0146)",
       "icon": "icons/altema/pilot-アムロ・レイ-c0146-e62bccf6.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/103.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/103",
@@ -5985,12 +6723,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アムロ・レイ(C0146)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-c6d0d17d40",
       "kind": "pilot",
-      "name": "バナージ・リンクス(C0154)",
+      "name": "Banagher Links(C0154)",
       "icon": "icons/altema/pilot-バナージ・リンクス-c0154-9e85fa35.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/102.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/102",
@@ -5998,12 +6739,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "バナージ・リンクス(C0154)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Banagher Links",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Banagher_Links"
     },
     {
       "id": "altema-pilot-2a1a0ae1b8",
       "kind": "pilot",
-      "name": "アイナ・サハリン",
+      "name": "Aina Sahalin",
       "icon": "icons/altema/pilot-アイナ・サハリン-f2045656.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/101.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/101",
@@ -6011,12 +6755,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アイナ・サハリン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Aina Sahalin",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Aina_Sahalin"
     },
     {
       "id": "altema-pilot-149f8b1044",
       "kind": "pilot",
-      "name": "シーブック・アノー(C0084)",
+      "name": "Seabook Arno(C0084)",
       "icon": "icons/altema/pilot-シーブック・アノー-c0084-50c70dc6.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/100.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/100",
@@ -6024,12 +6771,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シーブック・アノー(C0084)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Seabook Arno",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Seabook_Arno"
     },
     {
       "id": "altema-pilot-9fcf6a0169",
       "kind": "pilot",
-      "name": "セイラ・マス",
+      "name": "Sayla Mass",
       "icon": "icons/altema/pilot-セイラ・マス-cc166439.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/99.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/99",
@@ -6037,12 +6787,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "セイラ・マス",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Sayla Mass",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Sayla_Mass"
     },
     {
       "id": "altema-pilot-738e296a75",
       "kind": "pilot",
-      "name": "パプテマス・シロッコ",
+      "name": "Paptimus Scirocco",
       "icon": "icons/altema/pilot-パプテマス・シロッコ-991200af.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/98.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/98",
@@ -6050,12 +6803,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "パプテマス・シロッコ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Paptimus Scirocco",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Paptimus_Scirocco"
     },
     {
       "id": "altema-pilot-9a8a5bdd77",
       "kind": "pilot",
-      "name": "ペッシェ・モンターニュ(C0098)",
+      "name": "Peche Montagne(C0098)",
       "icon": "icons/altema/pilot-ペッシェ・モンターニュ-c0098-24fc6035.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/96.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/96",
@@ -6063,12 +6819,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ペッシェ・モンターニュ(C0098)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Peche Montagne",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Peche_Montagne"
     },
     {
       "id": "altema-pilot-e59b634778",
       "kind": "pilot",
-      "name": "コウ・ウラキ(C0009)",
+      "name": "Kou Uraki(C0009)",
       "icon": "icons/altema/pilot-コウ・ウラキ-c0009-f05af4bb.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/94.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/94",
@@ -6076,12 +6835,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "コウ・ウラキ(C0009)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Kou Uraki",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Kou_Uraki"
     },
     {
       "id": "altema-pilot-8bd53b8102",
       "kind": "pilot",
-      "name": "ドレル・ロナ",
+      "name": "Dorel Ronah",
       "icon": "icons/altema/pilot-ドレル・ロナ-9ea6cffa.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/92.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/92",
@@ -6089,12 +6851,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ドレル・ロナ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Dorel Ronah",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Dorel_Ronah"
     },
     {
       "id": "altema-pilot-b870eb2f95",
       "kind": "pilot",
-      "name": "サフィラ・ガードナー",
+      "name": "Saphira Gardner",
       "icon": "icons/altema/pilot-サフィラ・ガードナー-5e841bd8.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/91.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/91",
@@ -6102,12 +6867,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "サフィラ・ガードナー",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Saphira Gardner",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Saphira_Gardner"
     },
     {
       "id": "altema-pilot-9df44aaef6",
       "kind": "pilot",
-      "name": "マリーダ・クルス",
+      "name": "Marida Cruz",
       "icon": "icons/altema/pilot-マリーダ・クルス-383936aa.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/89.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/89",
@@ -6115,12 +6883,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "マリーダ・クルス",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Marida Cruz",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Marida_Cruz"
     },
     {
       "id": "altema-pilot-02e292275b",
       "kind": "pilot",
-      "name": "マシュマー・セロ(C0139)",
+      "name": "Mashymre Cello(C0139)",
       "icon": "icons/altema/pilot-マシュマー・セロ-c0139-96c0d9d7.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/88.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/88",
@@ -6128,12 +6899,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "マシュマー・セロ(C0139)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Mashymre Cello",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Mashymre_Cello"
     },
     {
       "id": "altema-pilot-5426445e1c",
       "kind": "pilot",
-      "name": "アムロ・レイ(C0001)",
+      "name": "Amuro Ray(C0001)",
       "icon": "icons/altema/pilot-アムロ・レイ-c0001-c66faa6b.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/84.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/84",
@@ -6141,12 +6915,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アムロ・レイ(C0001)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-6989ad14a1",
       "kind": "pilot",
-      "name": "カミーユ・ビダン(C0051)",
+      "name": "Kamille Bidan(C0051)",
       "icon": "icons/altema/pilot-カミーユ・ビダン-c0051-d0ec2002.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/82.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/82",
@@ -6154,12 +6931,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "カミーユ・ビダン(C0051)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Kamille Bidan",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Kamille_Bidan"
     },
     {
       "id": "altema-pilot-47780cfabf",
       "kind": "pilot",
-      "name": "クワトロ・バジーナ(C0016)",
+      "name": "Char Aznable(C0016)",
       "icon": "icons/altema/pilot-クワトロ・バジーナ-c0016-53a58bf2.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/81.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/81",
@@ -6167,12 +6947,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "クワトロ・バジーナ(C0016)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-2f5a548d8a",
       "kind": "pilot",
-      "name": "ダリル・ローレンツ(C0041)",
+      "name": "Daryl Lorenz(C0041)",
       "icon": "icons/altema/pilot-ダリル・ローレンツ-c0041-3e683795.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/80.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/80",
@@ -6180,12 +6963,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ダリル・ローレンツ(C0041)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Daryl Lorenz",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Daryl_Lorenz"
     },
     {
       "id": "altema-pilot-6f134dcdfb",
       "kind": "pilot",
-      "name": "ペッシェ・モンターニュ(C0020)",
+      "name": "Peche Montagne(C0020)",
       "icon": "icons/altema/pilot-ペッシェ・モンターニュ-c0020-2fbc1e80.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/78.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/78",
@@ -6193,12 +6979,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ペッシェ・モンターニュ(C0020)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Peche Montagne",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Peche_Montagne"
     },
     {
       "id": "altema-pilot-a93b609d48",
       "kind": "pilot",
-      "name": "アムロ・レイ(C0014)",
+      "name": "Amuro Ray(C0014)",
       "icon": "icons/altema/pilot-アムロ・レイ-c0014-b9040eef.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/75.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/75",
@@ -6206,12 +6995,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アムロ・レイ(C0014)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-4f8fe7346f",
       "kind": "pilot",
-      "name": "シャア・アズナブル(C0085)",
+      "name": "Char Aznable(C0085)",
       "icon": "icons/altema/pilot-シャア・アズナブル-c0085-303d90cf.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/74.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/74",
@@ -6219,12 +7011,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シャア・アズナブル(C0085)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-881c8e8f27",
       "kind": "pilot",
-      "name": "アムロ・レイ(C0060)",
+      "name": "Amuro Ray(C0060)",
       "icon": "icons/altema/pilot-アムロ・レイ-c0060-586576eb.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/73.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/73",
@@ -6232,12 +7027,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アムロ・レイ(C0060)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-d981f22176",
       "kind": "pilot",
-      "name": "バナージ・リンクス(C0036)",
+      "name": "Banagher Links(C0036)",
       "icon": "icons/altema/pilot-バナージ・リンクス-c0036-f3b0202e.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/72.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/72",
@@ -6245,12 +7043,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "バナージ・リンクス(C0036)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Banagher Links",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Banagher_Links"
     },
     {
       "id": "altema-pilot-fc96c451d0",
       "kind": "pilot",
-      "name": "アナベル・ガトー(C0043)",
+      "name": "Anavel Gato(C0043)",
       "icon": "icons/altema/pilot-アナベル・ガトー-c0043-bc866fa0.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/71.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/71",
@@ -6258,12 +7059,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アナベル・ガトー(C0043)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Anavel Gato",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Anavel_Gato"
     },
     {
       "id": "altema-pilot-ab27a3f4cc",
       "kind": "pilot",
-      "name": "ヨナ・バシュタ(C0107)",
+      "name": "Jona Basta(C0107)",
       "icon": "icons/altema/pilot-ヨナ・バシュタ-c0107-36c773aa.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/56.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/56",
@@ -6271,12 +7075,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ヨナ・バシュタ(C0107)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Jona Basta",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Jona_Basta"
     },
     {
       "id": "altema-pilot-dcfbabace3",
       "kind": "pilot",
-      "name": "ジェリド・メサ",
+      "name": "Jerid Messa",
       "icon": "icons/altema/pilot-ジェリド・メサ-f4567bc3.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/44.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/44",
@@ -6284,12 +7091,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ジェリド・メサ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Jerid Messa",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Jerid_Messa"
     },
     {
       "id": "altema-pilot-c8ae8baa5d",
       "kind": "pilot",
-      "name": "コウ・ウラキ(C0080)",
+      "name": "Kou Uraki(C0080)",
       "icon": "icons/altema/pilot-コウ・ウラキ-c0080-c4796c2a.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/42.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/42",
@@ -6297,12 +7107,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "コウ・ウラキ(C0080)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Kou Uraki",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Kou_Uraki"
     },
     {
       "id": "altema-pilot-5948226675",
       "kind": "pilot",
-      "name": "シャア・アズナブル(C0048)",
+      "name": "Char Aznable(C0048)",
       "icon": "icons/altema/pilot-シャア・アズナブル-c0048-89cfdec3.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/25.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/25",
@@ -6310,12 +7123,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シャア・アズナブル(C0048)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-05f2b75e8d",
       "kind": "pilot",
-      "name": "リディ・マーセナス(C0047)",
+      "name": "Riddhe Marcenas(C0047)",
       "icon": "icons/altema/pilot-リディ・マーセナス-c0047-dc1ce27d.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/24.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/24",
@@ -6323,7 +7139,10 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "リディ・マーセナス(C0047)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Riddhe Marcenas",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Riddhe_Marcenas"
     },
     {
       "id": "altema-pilot-69224c5e8c",
@@ -6341,7 +7160,7 @@
     {
       "id": "altema-pilot-9497c6d9e5",
       "kind": "pilot",
-      "name": "アムロ・レイ(C0033)",
+      "name": "Amuro Ray(C0033)",
       "icon": "icons/altema/pilot-アムロ・レイ-c0033-caaaf899.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/18.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/18",
@@ -6349,12 +7168,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "アムロ・レイ(C0033)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Amuro Ray",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Amuro_Ray"
     },
     {
       "id": "altema-pilot-33a61fa32e",
       "kind": "pilot",
-      "name": "ウッソ・エヴィン(C0032)",
+      "name": "Uso Ewin(C0032)",
       "icon": "icons/altema/pilot-ウッソ・エヴィン-c0032-87a7e6b7.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/17.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/17",
@@ -6362,12 +7184,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "ウッソ・エヴィン(C0032)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Uso Ewin",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Uso_Ewin"
     },
     {
       "id": "altema-pilot-fcea78aa6b",
       "kind": "pilot",
-      "name": "シャア・アズナブル(C0027)",
+      "name": "Char Aznable(C0027)",
       "icon": "icons/altema/pilot-シャア・アズナブル-c0027-21ea5b10.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/14.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/14",
@@ -6375,12 +7200,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シャア・アズナブル(C0027)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-7f4111940f",
       "kind": "pilot",
-      "name": "カミーユ・ビダン(C0015)",
+      "name": "Kamille Bidan(C0015)",
       "icon": "icons/altema/pilot-カミーユ・ビダン-c0015-d4f7c2dd.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/11.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/11",
@@ -6388,12 +7216,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "カミーユ・ビダン(C0015)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Kamille Bidan",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Kamille_Bidan"
     },
     {
       "id": "altema-pilot-34c5aa20a5",
       "kind": "pilot",
-      "name": "フル・フロンタル",
+      "name": "Full Frontal",
       "icon": "icons/altema/pilot-フル・フロンタル-1f5cfbc4.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/6.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/6",
@@ -6401,12 +7232,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "フル・フロンタル",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Full Frontal",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Full_Frontal"
     },
     {
       "id": "altema-pilot-50000640fa",
       "kind": "pilot",
-      "name": "バナージ・リンクス(C0006)",
+      "name": "Banagher Links(C0006)",
       "icon": "icons/altema/pilot-バナージ・リンクス-c0006-20dcab0b.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/5.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/5",
@@ -6414,12 +7248,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "バナージ・リンクス(C0006)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Banagher Links",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Banagher_Links"
     },
     {
       "id": "altema-pilot-0ef7c8d7b0",
       "kind": "pilot",
-      "name": "シャア・アズナブル(C0004)",
+      "name": "Char Aznable(C0004)",
       "icon": "icons/altema/pilot-シャア・アズナブル-c0004-f31d2588.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/3.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/3",
@@ -6427,12 +7264,15 @@
       "role": "",
       "rating": "7.5",
       "nameJa": "シャア・アズナブル(C0004)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Char Aznable",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Char_Aznable"
     },
     {
       "id": "altema-pilot-deccf2ebed",
       "kind": "pilot",
-      "name": "ノリス・パッカード(C0061)",
+      "name": "Norris Packard(C0061)",
       "icon": "icons/altema/pilot-ノリス・パッカード-c0061-70972136.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/29.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/29",
@@ -6440,12 +7280,15 @@
       "role": "",
       "rating": "6.5",
       "nameJa": "ノリス・パッカード(C0061)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Norris Packard",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Norris_Packard"
     },
     {
       "id": "altema-pilot-4e338b2192",
       "kind": "pilot",
-      "name": "シロー・アマダ(C0013)",
+      "name": "Shiro Amada(C0013)",
       "icon": "icons/altema/pilot-シロー・アマダ-c0013-4084c207.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/10.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/10",
@@ -6453,12 +7296,15 @@
       "role": "",
       "rating": "6.5",
       "nameJa": "シロー・アマダ(C0013)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Shiro Amada",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Shiro_Amada"
     },
     {
       "id": "altema-pilot-2ff4d6fcc7",
       "kind": "pilot",
-      "name": "リン(C0443)",
+      "name": "Rin (U.C. ENGAGE)(C0443)",
       "icon": "icons/altema/pilot-リン-c0443-c50ee284.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/354.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/chara/354",
@@ -6466,15 +7312,18 @@
       "role": "",
       "rating": "6.0",
       "nameJa": "リン(C0443)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "Rin (U.C. ENGAGE)",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/Rin_(U.C._ENGAGE)"
     }
   ],
   "nameResolution": {
     "source": "The Gundam Wiki (Fandom), with machine translation restricted to descriptors",
     "sourceUrl": "https://gundam.fandom.com/wiki/",
-    "wikiVerifiedItems": 0,
-    "wikiBaseTranslatedDescriptorItems": 0,
-    "unresolvedItems": 497,
+    "wikiVerifiedItems": 251,
+    "wikiBaseTranslatedDescriptorItems": 24,
+    "unresolvedItems": 222,
     "properNameMachineTranslationEnabled": false,
     "descriptorTranslationEnabled": true,
     "persistentCachePath": "data/gundam-wiki-name-cache.json"
