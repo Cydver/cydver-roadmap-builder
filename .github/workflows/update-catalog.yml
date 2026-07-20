@@ -17,13 +17,15 @@ jobs:
         with:
           node-version: 24
       - run: npm install
+      - name: Preserve previous catalog as a safe fallback
+        run: cp data/catalog.json "$RUNNER_TEMP/catalog-before-scrape.json"
       - name: Scrape Altema catalog and icons
         run: npm run scrape-altema
       - name: Resolve canonical English names from Gundam Wiki
         env:
+          GUNDAM_PREVIOUS_CATALOG_PATH: ${{ runner.temp }}/catalog-before-scrape.json
           GUNDAM_TRANSLATION_FALLBACK: "1"
-          GUNDAM_WIKI_MIN_INTERVAL_MS: "1800"
-          GUNDAM_WIKI_CATEGORY_BATCH_SIZE: "50"
+          GUNDAM_WIKI_MIN_INTERVAL_MS: "1400"
           GUNDAM_WIKI_MAX_RETRIES: "6"
           GUNDAM_WIKI_429_FALLBACK_MS: "60000"
         run: npm run enrich-catalog-names
