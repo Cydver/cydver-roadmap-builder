@@ -1683,6 +1683,7 @@ function onPointerUp(event) {
   // suppress or lose follow-up mouse events when pointerdown is cancelled for dragging.
   if (!endedDrag.didMove) {
     if (endedDrag.type === "unit") handleUnitClickGesture(event, endedDrag.id);
+    if (endedDrag.type === "bar") handleMetaBarClickGesture(event, endedDrag.id, endedDrag.segmentId);
     return;
   }
 
@@ -1710,6 +1711,14 @@ function handleUnitClickGesture(event, unitId) {
 
   lastUnitClick = { id: unit.id, at: now };
   if (isMs(unit) || isPilot(unit)) showTooltip(event, unit, null, { pin: true });
+}
+function handleMetaBarClickGesture(event, unitId, segmentId) {
+  const unit = state.units.find(u => u.id === unitId);
+  const segment = unit?.segments.find(s => s.id === segmentId);
+  if (!unit || !segment) return;
+
+  select(unit.id, segment.id);
+  showTooltip(event, unit, segment, { pin: true });
 }
 function finalizeUnitDrop(endedDrag) {
   const unit = state.units.find(u => u.id === endedDrag.id);
