@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-20T14:41:25.531Z",
+  "generatedAt": "2026-07-20T15:09:40.071Z",
   "sources": [
     "https://altema.jp/gundamuce/msrea/4",
     "https://altema.jp/gundamuce/chararea/4",
@@ -156,7 +156,7 @@
     {
       "id": "altema-ms-9111abdde9",
       "kind": "ms",
-      "name": "ギャン",
+      "name": "Gyan",
       "icon": "icons/altema/ms-ギャン-dfca75b9.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/209.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/209",
@@ -164,7 +164,10 @@
       "role": "支援",
       "rating": "9",
       "nameJa": "ギャン",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "YMS-15 Gyan",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/YMS-15_Gyan"
     },
     {
       "id": "altema-ms-d13c5f05f4",
@@ -195,7 +198,7 @@
     {
       "id": "altema-ms-997a2dc2d2",
       "kind": "ms",
-      "name": "ギャン(黄)",
+      "name": "Gyan (yellow)",
       "icon": "icons/altema/ms-ギャン-黄-59409bdd.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/387.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/387",
@@ -203,7 +206,11 @@
       "role": "支援",
       "rating": "8.5",
       "nameJa": "ギャン(黄)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "YMS-15 Gyan",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/YMS-15_Gyan",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-dabd48cbf1",
@@ -316,7 +323,7 @@
     {
       "id": "altema-ms-1404f75c61",
       "kind": "ms",
-      "name": "ガンダム(黄)",
+      "name": "Gundam (yellow)",
       "icon": "icons/altema/ms-ガンダム-黄-ac65deea.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/329.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/329",
@@ -324,7 +331,11 @@
       "role": "強襲",
       "rating": "8.5",
       "nameJa": "ガンダム(黄)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-78-2 Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-78-2_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-a346478475",
@@ -398,7 +409,7 @@
     {
       "id": "altema-ms-1fadd067ad",
       "kind": "ms",
-      "name": "ダハック",
+      "name": "Dahack",
       "icon": "icons/altema/ms-ダハック-61564c8a.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/417.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/417",
@@ -406,12 +417,15 @@
       "role": "強襲",
       "rating": "8",
       "nameJa": "ダハック",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "VGMM-La01b Dahack",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/VGMM-La01b_Dahack"
     },
     {
       "id": "altema-ms-3eec827955",
       "kind": "ms",
-      "name": "ガンキャノン(緑)",
+      "name": "Guncannon (green)",
       "icon": "icons/altema/ms-ガンキャノン-緑-11b4b5c0.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/414.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/414",
@@ -419,7 +433,11 @@
       "role": "支援",
       "rating": "8",
       "nameJa": "ガンキャノン(緑)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-77-2 Guncannon",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-77-2_Guncannon",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-d7906bb9ff",
@@ -724,7 +742,7 @@
     {
       "id": "altema-ms-17d0b7020c",
       "kind": "ms",
-      "name": "クィン・マンサ",
+      "name": "Queen Mansa",
       "icon": "icons/altema/ms-クィン・マンサ-71f13cfc.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/268.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/268",
@@ -732,7 +750,10 @@
       "role": "重装",
       "rating": "8",
       "nameJa": "クィン・マンサ",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "NZ-000 Queen Mansa",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/NZ-000_Queen_Mansa"
     },
     {
       "id": "altema-ms-3f46750bdb",
@@ -812,7 +833,7 @@
     {
       "id": "altema-ms-29b2f318d9",
       "kind": "ms",
-      "name": "ペーネロペー(重装)",
+      "name": "Penelope (Heavy armor)",
       "icon": "icons/altema/ms-ペーネロペー-重装-19df6bba.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/167.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/167",
@@ -820,7 +841,11 @@
       "role": "重装",
       "rating": "8",
       "nameJa": "ペーネロペー(重装)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-104FF Penelope",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-104FF_Penelope",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-ec2a7ec729",
@@ -1516,7 +1541,7 @@
     {
       "id": "altema-ms-8b73eccdeb",
       "kind": "ms",
-      "name": "ナラティブガンダム(C装備)",
+      "name": "Narrative Gundam (C equipment)",
       "icon": "icons/altema/ms-ナラティブガンダム-c装備-c1761ec0.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/290.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/290",
@@ -1524,7 +1549,11 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "ナラティブガンダム(C装備)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-9 Narrative Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-9_Narrative_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-381c0bac34",
@@ -1555,7 +1584,7 @@
     {
       "id": "altema-ms-5909d8cdf8",
       "kind": "ms",
-      "name": "ペーネロペー(汎用)",
+      "name": "Penelope (General purpose)",
       "icon": "icons/altema/ms-ペーネロペー-汎用-9346edac.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/283.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/283",
@@ -1563,7 +1592,11 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "ペーネロペー(汎用)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-104FF Penelope",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-104FF_Penelope",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-6aa3114d0e",
@@ -1646,7 +1679,7 @@
     {
       "id": "altema-ms-aee8fb886d",
       "kind": "ms",
-      "name": "ゲーマルク",
+      "name": "Geymalk",
       "icon": "icons/altema/ms-ゲーマルク-be188455.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/270.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/270",
@@ -1654,7 +1687,10 @@
       "role": "砲撃",
       "rating": "7.5",
       "nameJa": "ゲーマルク",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "AMX-015 Geymalk",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/AMX-015_Geymalk"
     },
     {
       "id": "altema-ms-359b05dc55",
@@ -1871,7 +1907,7 @@
     {
       "id": "altema-ms-d903ea3c58",
       "kind": "ms",
-      "name": "ナラティブガンダム(B装備)",
+      "name": "Narrative Gundam (B equipment)",
       "icon": "icons/altema/ms-ナラティブガンダム-b装備-dbb0da9d.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/234.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/234",
@@ -1879,7 +1915,11 @@
       "role": "支援",
       "rating": "7.5",
       "nameJa": "ナラティブガンダム(B装備)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-9 Narrative Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-9_Narrative_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-63a58cd87e",
@@ -1936,7 +1976,7 @@
     {
       "id": "altema-ms-d88432efc8",
       "kind": "ms",
-      "name": "ドム・ノーミーデス",
+      "name": "MS-09［NF］ Dom Gnomides",
       "icon": "icons/altema/ms-ドム・ノーミーデス-789041b2.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/229.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/229",
@@ -1944,7 +1984,10 @@
       "role": "重装",
       "rating": "7.5",
       "nameJa": "ドム・ノーミーデス",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "MS-09［NF］ Dom Gnomides",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/MS-09%EF%BC%BBNF%EF%BC%BD_Dom_Gnomides"
     },
     {
       "id": "altema-ms-c33d472bda",
@@ -2108,7 +2151,7 @@
     {
       "id": "altema-ms-c9ca93d8f9",
       "kind": "ms",
-      "name": "ダグ・ドール",
+      "name": "Dag Doll",
       "icon": "icons/altema/ms-ダグ・ドール-1d291a3b.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/212.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/212",
@@ -2116,7 +2159,10 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "ダグ・ドール",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "AMX-015-4S Dag Doll",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/AMX-015-4S_Dag_Doll"
     },
     {
       "id": "altema-ms-4b2f1e635d",
@@ -2220,7 +2266,7 @@
     {
       "id": "altema-ms-bcfab5b47e",
       "kind": "ms",
-      "name": "ナラティブガンダム(緑)",
+      "name": "Narrative Gundam (green)",
       "icon": "icons/altema/ms-ナラティブガンダム-緑-3de1a5aa.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/199.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/199",
@@ -2228,7 +2274,11 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "ナラティブガンダム(緑)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-9 Narrative Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-9_Narrative_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-032da1f8be",
@@ -2246,7 +2296,7 @@
     {
       "id": "altema-ms-fcca39ce6c",
       "kind": "ms",
-      "name": "リック・ドム(サンダーボルト版)",
+      "name": "Rick Dom (thunderbolt version)",
       "icon": "icons/altema/ms-リック・ドム-サンダーボルト版-17f63c13.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/196.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/196",
@@ -2254,7 +2304,11 @@
       "role": "重装",
       "rating": "7.5",
       "nameJa": "リック・ドム(サンダーボルト版)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "MS-09RS Rick Dom",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/MS-09RS_Rick_Dom",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-b1cd87d861",
@@ -2702,7 +2756,7 @@
     {
       "id": "altema-ms-d22182956a",
       "kind": "ms",
-      "name": "ティターニア",
+      "name": "Titania",
       "icon": "icons/altema/ms-ティターニア-637be23e.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/149.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/149",
@@ -2710,7 +2764,10 @@
       "role": "白兵",
       "rating": "7.5",
       "nameJa": "ティターニア",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "MS-18NF Titania",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/MS-18NF_Titania"
     },
     {
       "id": "altema-ms-8d12a88e8e",
@@ -2853,7 +2910,7 @@
     {
       "id": "altema-ms-719853693a",
       "kind": "ms",
-      "name": "高機動型ケンプファー",
+      "name": "Kämpfer High Mobility Type",
       "icon": "icons/altema/ms-高機動型ケンプファー-c233510f.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/127.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/127",
@@ -2861,7 +2918,10 @@
       "role": "強襲",
       "rating": "7.5",
       "nameJa": "高機動型ケンプファー",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "MS-18F Kämpfer High Mobility Type",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/MS-18F_K%C3%A4mpfer_High_Mobility_Type"
     },
     {
       "id": "altema-ms-2b65ca3d55",
@@ -3161,7 +3221,7 @@
     {
       "id": "altema-ms-25509e2d2e",
       "kind": "ms",
-      "name": "ガンダム(THE ORIGIN)",
+      "name": "Gundam (THE ORIGIN)",
       "icon": "icons/altema/ms-ガンダム-the-origin-29da6dfe.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/88.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/88",
@@ -3169,7 +3229,11 @@
       "role": "強襲",
       "rating": "7.5",
       "nameJa": "ガンダム(THE ORIGIN)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-78-2 Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-78-2_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-c70ce53fcf",
@@ -3217,7 +3281,7 @@
     {
       "id": "altema-ms-0d5da39bc9",
       "kind": "ms",
-      "name": "ガンダム(青)",
+      "name": "Gundam (blue)",
       "icon": "icons/altema/ms-ガンダム-青-8fc8ce93.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/82.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/82",
@@ -3225,7 +3289,11 @@
       "role": "強襲",
       "rating": "7.5",
       "nameJa": "ガンダム(青)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-78-2 Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-78-2_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-25b3386b9f",
@@ -3289,7 +3357,7 @@
     {
       "id": "altema-ms-7fa95edef7",
       "kind": "ms",
-      "name": "ナラティブガンダム",
+      "name": "Narrative Gundam",
       "icon": "icons/altema/ms-ナラティブガンダム-3039bc98.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/44.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/44",
@@ -3297,12 +3365,15 @@
       "role": "強襲",
       "rating": "7.5",
       "nameJa": "ナラティブガンダム",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "verified-cache-exact-ja",
+      "nameSourceTitle": "RX-9 Narrative Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-9_Narrative_Gundam"
     },
     {
       "id": "altema-ms-6fd6ae2c40",
       "kind": "ms",
-      "name": "ナイチンゲール",
+      "name": "Nightingale",
       "icon": "icons/altema/ms-ナイチンゲール-5d070256.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/43.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/43",
@@ -3310,7 +3381,10 @@
       "role": "強襲",
       "rating": "7.5",
       "nameJa": "ナイチンゲール",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-category-identity",
+      "nameSourceTitle": "MSN-04II Nightingale",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/MSN-04II_Nightingale"
     },
     {
       "id": "altema-ms-e73997f31f",
@@ -3357,7 +3431,7 @@
     {
       "id": "altema-ms-3d3f5553e0",
       "kind": "ms",
-      "name": "ガンダム(緑)",
+      "name": "Gundam (green)",
       "icon": "icons/altema/ms-ガンダム-緑-082fd6b6.jpg",
       "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/28.jpg",
       "sourceUrl": "https://altema.jp/gundamuce/ms/28",
@@ -3365,7 +3439,11 @@
       "role": "汎用",
       "rating": "7.5",
       "nameJa": "ガンダム(緑)",
-      "nameSource": "altema-unresolved"
+      "nameSource": "gundam-wiki",
+      "nameMatch": "wiki-base-translated-descriptor",
+      "nameSourceTitle": "RX-78-2 Gundam",
+      "nameSourceUrl": "https://gundam.fandom.com/wiki/RX-78-2_Gundam",
+      "nameTranslationProvider": "google-translate"
     },
     {
       "id": "altema-ms-1fd1daa941",
@@ -7321,9 +7399,9 @@
   "nameResolution": {
     "source": "The Gundam Wiki (Fandom), with machine translation restricted to descriptors",
     "sourceUrl": "https://gundam.fandom.com/wiki/",
-    "wikiVerifiedItems": 251,
-    "wikiBaseTranslatedDescriptorItems": 24,
-    "unresolvedItems": 222,
+    "wikiVerifiedItems": 261,
+    "wikiBaseTranslatedDescriptorItems": 36,
+    "unresolvedItems": 200,
     "properNameMachineTranslationEnabled": false,
     "descriptorTranslationEnabled": true,
     "persistentCachePath": "data/gundam-wiki-name-cache.json"

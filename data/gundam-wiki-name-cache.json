@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "generatedAt": "2026-07-20T14:41:25.543Z",
+  "version": 2,
+  "generatedAt": "2026-07-20T15:09:40.083Z",
   "source": "https://gundam.fandom.com/wiki/",
   "note": "Auto-generated cache of names verified against English Gundam Wiki content. Do not use as a manual override table.",
   "entries": {
@@ -10,7 +10,7 @@
       "displayName": "HMT Gundam High Mobility Type",
       "title": "RX-78F00 HMT Gundam High Mobility Type",
       "url": "https://gundam.fandom.com/wiki/RX-78F00_HMT_Gundam_High_Mobility_Type",
-      "verifiedAt": "2026-07-20T14:39:18.104Z"
+      "verifiedAt": "2026-07-20T15:07:44.924Z"
     },
     "ms:アッガイ": {
       "kind": "ms",
@@ -18,7 +18,7 @@
       "displayName": "Acguy",
       "title": "MSM-04 Acguy",
       "url": "https://gundam.fandom.com/wiki/MSM-04_Acguy",
-      "verifiedAt": "2026-07-20T14:39:18.143Z"
+      "verifiedAt": "2026-07-20T15:07:45.908Z"
     },
     "ms:エンゲージガンダム": {
       "kind": "ms",
@@ -26,7 +26,7 @@
       "displayName": "Engage Gundam",
       "title": "RX-78GPZ01 Engage Gundam",
       "url": "https://gundam.fandom.com/wiki/RX-78GPZ01_Engage_Gundam",
-      "verifiedAt": "2026-07-20T14:39:17.277Z"
+      "verifiedAt": "2026-07-20T15:07:44.737Z"
     },
     "ms:エンゲージガンダムブースター装備": {
       "kind": "ms",
@@ -34,7 +34,7 @@
       "displayName": "Engage Gundam Booster Equipment",
       "title": "Engage Gundam Booster Equipment",
       "url": "https://gundam.fandom.com/wiki/Engage_Gundam_Booster_Equipment",
-      "verifiedAt": "2026-07-20T14:39:17.549Z"
+      "verifiedAt": "2026-07-20T15:07:44.784Z"
     },
     "ms:エンゲージゼロインコム搭載型": {
       "kind": "ms",
@@ -42,7 +42,7 @@
       "displayName": "Engage Zero INCOM-equipped Type",
       "title": "ORX-00Z-2 Engage Zero INCOM-equipped Type",
       "url": "https://gundam.fandom.com/wiki/ORX-00Z-2_Engage_Zero_INCOM-equipped_Type",
-      "verifiedAt": "2026-07-20T14:39:21.134Z"
+      "verifiedAt": "2026-07-20T15:07:48.402Z"
     },
     "ms:エンゲージゼロヴァイスクレーエ": {
       "kind": "ms",
@@ -50,7 +50,7 @@
       "displayName": "Engage Zero Weisskrähe",
       "title": "Engage Zero Weisskrähe",
       "url": "https://gundam.fandom.com/wiki/Engage_Zero_Weisskr%C3%A4he",
-      "verifiedAt": "2026-07-20T14:39:18.142Z"
+      "verifiedAt": "2026-07-20T15:07:45.907Z"
     },
     "ms:エンゲージゼロサイコミュ試験型": {
       "kind": "ms",
@@ -58,7 +58,7 @@
       "displayName": "Engage Zero Psycommu Test Type",
       "title": "ORX-00Z Engage Zero Psycommu Test Type",
       "url": "https://gundam.fandom.com/wiki/ORX-00Z_Engage_Zero_Psycommu_Test_Type",
-      "verifiedAt": "2026-07-20T14:39:21.133Z"
+      "verifiedAt": "2026-07-20T15:07:48.401Z"
     },
     "ms:エンゲージゼロヨンファヴィン": {
       "kind": "ms",
@@ -66,7 +66,7 @@
       "displayName": "Engage Zero Yonghwavin",
       "title": "AMX-00Z Engage Zero Yonghwavin",
       "url": "https://gundam.fandom.com/wiki/AMX-00Z_Engage_Zero_Yonghwavin",
-      "verifiedAt": "2026-07-20T14:39:18.104Z"
+      "verifiedAt": "2026-07-20T15:07:44.924Z"
     },
     "ms:エンゲージゼロ追加ブースター装備型": {
       "kind": "ms",
@@ -74,7 +74,23 @@
       "displayName": "Engage Zero Additional Booster Equipment Type",
       "title": "RX-78MS00Z-B Engage Zero Additional Booster Equipment Type",
       "url": "https://gundam.fandom.com/wiki/RX-78MS00Z-B_Engage_Zero_Additional_Booster_Equipment_Type",
-      "verifiedAt": "2026-07-20T14:39:21.609Z"
+      "verifiedAt": "2026-07-20T15:07:48.472Z"
+    },
+    "ms:ガンキャノン": {
+      "kind": "ms",
+      "nameJa": "ガンキャノン",
+      "displayName": "Guncannon",
+      "title": "RX-77-2 Guncannon",
+      "url": "https://gundam.fandom.com/wiki/RX-77-2_Guncannon",
+      "verifiedAt": "2026-07-20T15:07:44.650Z"
+    },
+    "ms:ガンダム": {
+      "kind": "ms",
+      "nameJa": "ガンダム",
+      "displayName": "Gundam",
+      "title": "RX-78-2 Gundam",
+      "url": "https://gundam.fandom.com/wiki/RX-78-2_Gundam",
+      "verifiedAt": "2026-07-20T15:07:44.609Z"
     },
     "ms:ガンダムex": {
       "kind": "ms",
@@ -82,7 +98,7 @@
       "displayName": "RX-78(G)E Gundam EX",
       "title": "RX-78(G)E Gundam EX",
       "url": "https://gundam.fandom.com/wiki/RX-78(G)E_Gundam_EX",
-      "verifiedAt": "2026-07-20T14:39:18.143Z"
+      "verifiedAt": "2026-07-20T15:07:45.907Z"
     },
     "ms:ガンダムエアリアル改修型": {
       "kind": "ms",
@@ -90,7 +106,7 @@
       "displayName": "Gundam Aerial Rebuild",
       "title": "XVX-016RN Gundam Aerial Rebuild",
       "url": "https://gundam.fandom.com/wiki/XVX-016RN_Gundam_Aerial_Rebuild",
-      "verifiedAt": "2026-07-20T14:39:19.182Z"
+      "verifiedAt": "2026-07-20T15:07:47.830Z"
     },
     "ms:ギーセンドーガ": {
       "kind": "ms",
@@ -98,7 +114,7 @@
       "displayName": "Giessen Doga",
       "title": "MSN-03B Giessen Doga",
       "url": "https://gundam.fandom.com/wiki/MSN-03B_Giessen_Doga",
-      "verifiedAt": "2026-07-20T14:39:18.542Z"
+      "verifiedAt": "2026-07-20T15:07:45.995Z"
     },
     "ms:ギャプラントレーナー": {
       "kind": "ms",
@@ -106,7 +122,15 @@
       "displayName": "Gaplant Trainer",
       "title": "Gaplant Trainer",
       "url": "https://gundam.fandom.com/wiki/Gaplant_Trainer",
-      "verifiedAt": "2026-07-20T14:39:21.134Z"
+      "verifiedAt": "2026-07-20T15:07:48.401Z"
+    },
+    "ms:ギャン": {
+      "kind": "ms",
+      "nameJa": "ギャン",
+      "displayName": "Gyan",
+      "title": "YMS-15 Gyan",
+      "url": "https://gundam.fandom.com/wiki/YMS-15_Gyan",
+      "verifiedAt": "2026-07-20T15:07:44.488Z"
     },
     "ms:キュベレイ": {
       "kind": "ms",
@@ -114,7 +138,15 @@
       "displayName": "Qubeley",
       "title": "AMX-004 Qubeley",
       "url": "https://gundam.fandom.com/wiki/AMX-004_Qubeley",
-      "verifiedAt": "2026-07-20T14:39:16.488Z"
+      "verifiedAt": "2026-07-20T15:07:44.203Z"
+    },
+    "ms:クィンマンサ": {
+      "kind": "ms",
+      "nameJa": "クィン・マンサ",
+      "displayName": "Queen Mansa",
+      "title": "NZ-000 Queen Mansa",
+      "url": "https://gundam.fandom.com/wiki/NZ-000_Queen_Mansa",
+      "verifiedAt": "2026-07-20T15:07:44.863Z"
     },
     "ms:グフカスタム": {
       "kind": "ms",
@@ -122,7 +154,15 @@
       "displayName": "Gouf Custom",
       "title": "MS-07B-3 Gouf Custom",
       "url": "https://gundam.fandom.com/wiki/MS-07B-3_Gouf_Custom",
-      "verifiedAt": "2026-07-20T14:39:18.143Z"
+      "verifiedAt": "2026-07-20T15:07:45.908Z"
+    },
+    "ms:ゲーマルク": {
+      "kind": "ms",
+      "nameJa": "ゲーマルク",
+      "displayName": "Geymalk",
+      "title": "AMX-015 Geymalk",
+      "url": "https://gundam.fandom.com/wiki/AMX-015_Geymalk",
+      "verifiedAt": "2026-07-20T15:07:46.851Z"
     },
     "ms:ケンプファー": {
       "kind": "ms",
@@ -130,7 +170,7 @@
       "displayName": "Kämpfer",
       "title": "MS-18E Kämpfer",
       "url": "https://gundam.fandom.com/wiki/MS-18E_K%C3%A4mpfer",
-      "verifiedAt": "2026-07-20T14:39:22.635Z"
+      "verifiedAt": "2026-07-20T15:07:48.673Z"
     },
     "ms:ザクi": {
       "kind": "ms",
@@ -138,7 +178,7 @@
       "displayName": "Zaku I",
       "title": "MS-05A Zaku I",
       "url": "https://gundam.fandom.com/wiki/MS-05A_Zaku_I",
-      "verifiedAt": "2026-07-20T14:39:21.954Z"
+      "verifiedAt": "2026-07-20T15:07:48.632Z"
     },
     "ms:ジo": {
       "kind": "ms",
@@ -146,7 +186,7 @@
       "displayName": "The-O (GBWC)",
       "title": "The-O (GBWC)",
       "url": "https://gundam.fandom.com/wiki/The-O_(GBWC)",
-      "verifiedAt": "2026-07-20T14:39:17.580Z"
+      "verifiedAt": "2026-07-20T15:07:44.863Z"
     },
     "ms:ジオング": {
       "kind": "ms",
@@ -154,7 +194,7 @@
       "displayName": "Zeong",
       "title": "MSN-02 Zeong",
       "url": "https://gundam.fandom.com/wiki/MSN-02_Zeong",
-      "verifiedAt": "2026-07-20T14:39:17.549Z"
+      "verifiedAt": "2026-07-20T15:07:44.785Z"
     },
     "ms:スーパーエンゲージガンダム": {
       "kind": "ms",
@@ -162,7 +202,23 @@
       "displayName": "Super Engage Gundam",
       "title": "Super Engage Gundam",
       "url": "https://gundam.fandom.com/wiki/Super_Engage_Gundam",
-      "verifiedAt": "2026-07-20T14:39:17.055Z"
+      "verifiedAt": "2026-07-20T15:07:44.521Z"
+    },
+    "ms:ダグドール": {
+      "kind": "ms",
+      "nameJa": "ダグ・ドール",
+      "displayName": "Dag Doll",
+      "title": "AMX-015-4S Dag Doll",
+      "url": "https://gundam.fandom.com/wiki/AMX-015-4S_Dag_Doll",
+      "verifiedAt": "2026-07-20T15:07:47.830Z"
+    },
+    "ms:ダハック": {
+      "kind": "ms",
+      "nameJa": "ダハック",
+      "displayName": "Dahack",
+      "title": "VGMM-La01b Dahack",
+      "url": "https://gundam.fandom.com/wiki/VGMM-La01b_Dahack",
+      "verifiedAt": "2026-07-20T15:07:44.650Z"
     },
     "ms:ディジェ": {
       "kind": "ms",
@@ -170,7 +226,15 @@
       "displayName": "Dijeh",
       "title": "MSK-008 Dijeh",
       "url": "https://gundam.fandom.com/wiki/MSK-008_Dijeh",
-      "verifiedAt": "2026-07-20T14:39:19.183Z"
+      "verifiedAt": "2026-07-20T15:07:47.830Z"
+    },
+    "ms:ティターニア": {
+      "kind": "ms",
+      "nameJa": "ティターニア",
+      "displayName": "Titania",
+      "title": "MS-18NF Titania",
+      "url": "https://gundam.fandom.com/wiki/MS-18NF_Titania",
+      "verifiedAt": "2026-07-20T15:07:48.402Z"
     },
     "ms:ドーベンウルフ": {
       "kind": "ms",
@@ -178,7 +242,39 @@
       "displayName": "Döven Wolf",
       "title": "AMX-014 Döven Wolf",
       "url": "https://gundam.fandom.com/wiki/AMX-014_D%C3%B6ven_Wolf",
-      "verifiedAt": "2026-07-20T14:39:19.819Z"
+      "verifiedAt": "2026-07-20T15:07:47.866Z"
+    },
+    "ms:ドムノーミーデス": {
+      "kind": "ms",
+      "nameJa": "ドム・ノーミーデス",
+      "displayName": "MS-09［NF］ Dom Gnomides",
+      "title": "MS-09［NF］ Dom Gnomides",
+      "url": "https://gundam.fandom.com/wiki/MS-09%EF%BC%BBNF%EF%BC%BD_Dom_Gnomides",
+      "verifiedAt": "2026-07-20T15:07:47.830Z"
+    },
+    "ms:ナイチンゲール": {
+      "kind": "ms",
+      "nameJa": "ナイチンゲール",
+      "displayName": "Nightingale",
+      "title": "MSN-04II Nightingale",
+      "url": "https://gundam.fandom.com/wiki/MSN-04II_Nightingale",
+      "verifiedAt": "2026-07-20T15:07:48.672Z"
+    },
+    "ms:ナラティブガンダム": {
+      "kind": "ms",
+      "nameJa": "ナラティブガンダム",
+      "displayName": "Narrative Gundam",
+      "title": "RX-9 Narrative Gundam",
+      "url": "https://gundam.fandom.com/wiki/RX-9_Narrative_Gundam",
+      "verifiedAt": "2026-07-20T15:07:46.035Z"
+    },
+    "ms:ペーネロペー": {
+      "kind": "ms",
+      "nameJa": "ペーネロペー",
+      "displayName": "Penelope",
+      "title": "RX-104FF Penelope",
+      "url": "https://gundam.fandom.com/wiki/RX-104FF_Penelope",
+      "verifiedAt": "2026-07-20T15:07:44.924Z"
     },
     "ms:マグナマーテル": {
       "kind": "ms",
@@ -186,7 +282,7 @@
       "displayName": "Magna Mater",
       "title": "Magna Mater",
       "url": "https://gundam.fandom.com/wiki/Magna_Mater",
-      "verifiedAt": "2026-07-20T14:39:19.181Z"
+      "verifiedAt": "2026-07-20T15:07:46.852Z"
     },
     "ms:メッサーf01型": {
       "kind": "ms",
@@ -194,7 +290,7 @@
       "displayName": "Messer Type-F01",
       "title": "Me02R-F01 Messer Type-F01",
       "url": "https://gundam.fandom.com/wiki/Me02R-F01_Messer_Type-F01",
-      "verifiedAt": "2026-07-20T14:39:20.722Z"
+      "verifiedAt": "2026-07-20T15:07:48.368Z"
     },
     "ms:ユニコーンガンダム": {
       "kind": "ms",
@@ -202,7 +298,7 @@
       "displayName": "Unicorn Gundam",
       "title": "RX-0 Unicorn Gundam",
       "url": "https://gundam.fandom.com/wiki/RX-0_Unicorn_Gundam",
-      "verifiedAt": "2026-07-20T14:39:16.550Z"
+      "verifiedAt": "2026-07-20T15:07:44.267Z"
     },
     "ms:リガズィ": {
       "kind": "ms",
@@ -210,7 +306,15 @@
       "displayName": "Re-GZ",
       "title": "RGZ-91 Re-GZ",
       "url": "https://gundam.fandom.com/wiki/RGZ-91_Re-GZ",
-      "verifiedAt": "2026-07-20T14:39:18.143Z"
+      "verifiedAt": "2026-07-20T15:07:45.907Z"
+    },
+    "ms:リックドム": {
+      "kind": "ms",
+      "nameJa": "リック・ドム",
+      "displayName": "Rick Dom",
+      "title": "MS-09RS Rick Dom",
+      "url": "https://gundam.fandom.com/wiki/MS-09RS_Rick_Dom",
+      "verifiedAt": "2026-07-20T15:07:47.921Z"
     },
     "ms:ローゼンズール": {
       "kind": "ms",
@@ -218,7 +322,15 @@
       "displayName": "Rozen Zulu",
       "title": "YAMS-132 Rozen Zulu",
       "url": "https://gundam.fandom.com/wiki/YAMS-132_Rozen_Zulu",
-      "verifiedAt": "2026-07-20T14:39:18.541Z"
+      "verifiedAt": "2026-07-20T15:07:45.995Z"
+    },
+    "ms:高機動型ケンプファー": {
+      "kind": "ms",
+      "nameJa": "高機動型ケンプファー",
+      "displayName": "Kämpfer High Mobility Type",
+      "title": "MS-18F Kämpfer High Mobility Type",
+      "url": "https://gundam.fandom.com/wiki/MS-18F_K%C3%A4mpfer_High_Mobility_Type",
+      "verifiedAt": "2026-07-20T15:07:48.472Z"
     },
     "pilot:アイーダスルガン": {
       "kind": "pilot",
@@ -226,7 +338,7 @@
       "displayName": "Aida Surugan",
       "title": "Aida Surugan",
       "url": "https://gundam.fandom.com/wiki/Aida_Surugan",
-      "verifiedAt": "2026-07-20T14:41:24.435Z"
+      "verifiedAt": "2026-07-20T15:09:39.207Z"
     },
     "pilot:アイナサハリン": {
       "kind": "pilot",
@@ -234,7 +346,7 @@
       "displayName": "Aina Sahalin",
       "title": "Aina Sahalin",
       "url": "https://gundam.fandom.com/wiki/Aina_Sahalin",
-      "verifiedAt": "2026-07-20T14:41:25.529Z"
+      "verifiedAt": "2026-07-20T15:09:40.069Z"
     },
     "pilot:アゴスラガート": {
       "kind": "pilot",
@@ -242,7 +354,7 @@
       "displayName": "Agos Lagarto",
       "title": "Agos Lagarto",
       "url": "https://gundam.fandom.com/wiki/Agos_Lagarto",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:アナベルガトー": {
       "kind": "pilot",
@@ -250,7 +362,7 @@
       "displayName": "Anavel Gato",
       "title": "Anavel Gato",
       "url": "https://gundam.fandom.com/wiki/Anavel_Gato",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.209Z"
     },
     "pilot:アマテユズリハ": {
       "kind": "pilot",
@@ -258,7 +370,7 @@
       "displayName": "Amate Yuzuriha",
       "title": "Amate Yuzuriha",
       "url": "https://gundam.fandom.com/wiki/Amate_Yuzuriha",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:アムロレイ": {
       "kind": "pilot",
@@ -266,7 +378,7 @@
       "displayName": "Amuro Ray",
       "title": "Amuro Ray",
       "url": "https://gundam.fandom.com/wiki/Amuro_Ray",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.207Z"
     },
     "pilot:アルマシュティルナー": {
       "kind": "pilot",
@@ -274,7 +386,7 @@
       "displayName": "Alma Stirner",
       "title": "Alma Stirner",
       "url": "https://gundam.fandom.com/wiki/Alma_Stirner",
-      "verifiedAt": "2026-07-20T14:41:25.529Z"
+      "verifiedAt": "2026-07-20T15:09:40.069Z"
     },
     "pilot:アンジェロザウパー": {
       "kind": "pilot",
@@ -282,7 +394,7 @@
       "displayName": "Angelo Sauper",
       "title": "Angelo Sauper",
       "url": "https://gundam.fandom.com/wiki/Angelo_Sauper",
-      "verifiedAt": "2026-07-20T14:41:24.528Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:イオフレミング": {
       "kind": "pilot",
@@ -290,7 +402,7 @@
       "displayName": "Io Fleming",
       "title": "Io Fleming",
       "url": "https://gundam.fandom.com/wiki/Io_Fleming",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.209Z"
     },
     "pilot:イリアパゾム": {
       "kind": "pilot",
@@ -298,7 +410,7 @@
       "displayName": "Illia Pazom",
       "title": "Illia Pazom",
       "url": "https://gundam.fandom.com/wiki/Illia_Pazom",
-      "verifiedAt": "2026-07-20T14:41:24.528Z"
+      "verifiedAt": "2026-07-20T15:09:39.302Z"
     },
     "pilot:イリヤソラリ": {
       "kind": "pilot",
@@ -306,7 +418,7 @@
       "displayName": "Iria Solari",
       "title": "Iria Solari",
       "url": "https://gundam.fandom.com/wiki/Iria_Solari",
-      "verifiedAt": "2026-07-20T14:41:24.528Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:ウッソエヴィン": {
       "kind": "pilot",
@@ -314,7 +426,7 @@
       "displayName": "Uso Ewin",
       "title": "Uso Ewin",
       "url": "https://gundam.fandom.com/wiki/Uso_Ewin",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.207Z"
     },
     "pilot:ウバルドモリーナ": {
       "kind": "pilot",
@@ -322,7 +434,7 @@
       "displayName": "Ubaldo Molina",
       "title": "Ubaldo Molina",
       "url": "https://gundam.fandom.com/wiki/Ubaldo_Molina",
-      "verifiedAt": "2026-07-20T14:41:25.529Z"
+      "verifiedAt": "2026-07-20T15:09:40.069Z"
     },
     "pilot:エマシーン": {
       "kind": "pilot",
@@ -330,7 +442,7 @@
       "displayName": "Emma Sheen",
       "title": "Emma Sheen",
       "url": "https://gundam.fandom.com/wiki/Emma_Sheen",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:エルピープル": {
       "kind": "pilot",
@@ -338,7 +450,7 @@
       "displayName": "Elpeo Ple",
       "title": "Elpeo Ple",
       "url": "https://gundam.fandom.com/wiki/Elpeo_Ple",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:エルビアンノ": {
       "kind": "pilot",
@@ -346,7 +458,7 @@
       "displayName": "Elle Vianno",
       "title": "Elle Vianno",
       "url": "https://gundam.fandom.com/wiki/Elle_Vianno",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:カイシデン": {
       "kind": "pilot",
@@ -354,7 +466,7 @@
       "displayName": "Kai Shiden",
       "title": "Kai Shiden",
       "url": "https://gundam.fandom.com/wiki/Kai_Shiden",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:ガウマンノビル": {
       "kind": "pilot",
@@ -362,7 +474,7 @@
       "displayName": "Gawman Nobile",
       "title": "Gawman Nobile",
       "url": "https://gundam.fandom.com/wiki/Gawman_Nobile",
-      "verifiedAt": "2026-07-20T14:41:25.528Z"
+      "verifiedAt": "2026-07-20T15:09:40.068Z"
     },
     "pilot:カクリコンカクーラー": {
       "kind": "pilot",
@@ -370,7 +482,7 @@
       "displayName": "Kacricon Cacooler",
       "title": "Kacricon Cacooler",
       "url": "https://gundam.fandom.com/wiki/Kacricon_Cacooler",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.209Z"
     },
     "pilot:カテジナルース": {
       "kind": "pilot",
@@ -378,7 +490,7 @@
       "displayName": "Katejina Loos",
       "title": "Katejina Loos",
       "url": "https://gundam.fandom.com/wiki/Katejina_Loos",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:ガブリエルラミレスガルシア": {
       "kind": "pilot",
@@ -386,7 +498,7 @@
       "displayName": "Gabriel Ramirez Garcia",
       "title": "Gabriel Ramirez Garcia",
       "url": "https://gundam.fandom.com/wiki/Gabriel_Ramirez_Garcia",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:カミーユビダン": {
       "kind": "pilot",
@@ -394,7 +506,7 @@
       "displayName": "Kamille Bidan",
       "title": "Kamille Bidan",
       "url": "https://gundam.fandom.com/wiki/Kamille_Bidan",
-      "verifiedAt": "2026-07-20T14:41:24.528Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:ギムギンガナム": {
       "kind": "pilot",
@@ -402,7 +514,7 @@
       "displayName": "Gym Ghingham",
       "title": "Gym Ghingham",
       "url": "https://gundam.fandom.com/wiki/Gym_Ghingham",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.207Z"
     },
     "pilot:キャラスーン": {
       "kind": "pilot",
@@ -410,7 +522,7 @@
       "displayName": "Chara Soon",
       "title": "Chara Soon",
       "url": "https://gundam.fandom.com/wiki/Chara_Soon",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:キンケドゥナウ": {
       "kind": "pilot",
@@ -418,7 +530,7 @@
       "displayName": "Seabook Arno",
       "title": "Seabook Arno",
       "url": "https://gundam.fandom.com/wiki/Seabook_Arno",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.209Z"
     },
     "pilot:クェスパラヤ": {
       "kind": "pilot",
@@ -426,7 +538,7 @@
       "displayName": "Quess Paraya",
       "title": "Quess Paraya",
       "url": "https://gundam.fandom.com/wiki/Quess_Paraya",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:クリスチーナマッケンジー": {
       "kind": "pilot",
@@ -434,7 +546,7 @@
       "displayName": "Christina Mackenzie",
       "title": "Christina Mackenzie",
       "url": "https://gundam.fandom.com/wiki/Christina_Mackenzie",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:クリムニック": {
       "kind": "pilot",
@@ -442,7 +554,7 @@
       "displayName": "Klimton Nicchini",
       "title": "Klimton Nicchini",
       "url": "https://gundam.fandom.com/wiki/Klimton_Nicchini",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:クワトロバジーナ": {
       "kind": "pilot",
@@ -450,7 +562,7 @@
       "displayName": "Char Aznable",
       "title": "Char Aznable",
       "url": "https://gundam.fandom.com/wiki/Char_Aznable",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.209Z"
     },
     "pilot:ケリィレズナー": {
       "kind": "pilot",
@@ -458,7 +570,7 @@
       "displayName": "Kelley Layzner",
       "title": "Kelley Layzner",
       "url": "https://gundam.fandom.com/wiki/Kelley_Layzner",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.305Z"
     },
     "pilot:コウウラキ": {
       "kind": "pilot",
@@ -466,7 +578,7 @@
       "displayName": "Kou Uraki",
       "title": "Kou Uraki",
       "url": "https://gundam.fandom.com/wiki/Kou_Uraki",
-      "verifiedAt": "2026-07-20T14:41:24.528Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:コレンナンダー": {
       "kind": "pilot",
@@ -474,7 +586,7 @@
       "displayName": "Corin Nander",
       "title": "Corin Nander",
       "url": "https://gundam.fandom.com/wiki/Corin_Nander",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.209Z"
     },
     "pilot:サフィラガードナー": {
       "kind": "pilot",
@@ -482,7 +594,7 @@
       "displayName": "Saphira Gardner",
       "title": "Saphira Gardner",
       "url": "https://gundam.fandom.com/wiki/Saphira_Gardner",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:サラザビアロフ": {
       "kind": "pilot",
@@ -490,7 +602,7 @@
       "displayName": "Sarah Zabiarov",
       "title": "Sarah Zabiarov",
       "url": "https://gundam.fandom.com/wiki/Sarah_Zabiarov",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.304Z"
     },
     "pilot:シーブックアノー": {
       "kind": "pilot",
@@ -498,7 +610,7 @@
       "displayName": "Seabook Arno",
       "title": "Seabook Arno",
       "url": "https://gundam.fandom.com/wiki/Seabook_Arno",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:シーマガラハウ": {
       "kind": "pilot",
@@ -506,7 +618,7 @@
       "displayName": "Cima Garahau",
       "title": "Cima Garahau",
       "url": "https://gundam.fandom.com/wiki/Cima_Garahau",
-      "verifiedAt": "2026-07-20T14:41:24.528Z"
+      "verifiedAt": "2026-07-20T15:09:39.302Z"
     },
     "pilot:ジェリドメサ": {
       "kind": "pilot",
@@ -514,7 +626,7 @@
       "displayName": "Jerid Messa",
       "title": "Jerid Messa",
       "url": "https://gundam.fandom.com/wiki/Jerid_Messa",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.209Z"
     },
     "pilot:シャアアズナブル": {
       "kind": "pilot",
@@ -522,7 +634,7 @@
       "displayName": "Char Aznable",
       "title": "Char Aznable",
       "url": "https://gundam.fandom.com/wiki/Char_Aznable",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:シュウジイトウ": {
       "kind": "pilot",
@@ -530,7 +642,7 @@
       "displayName": "Shūji Itō",
       "title": "Shūji Itō",
       "url": "https://gundam.fandom.com/wiki/Sh%C5%ABji_It%C5%8D",
-      "verifiedAt": "2026-07-20T14:41:24.528Z"
+      "verifiedAt": "2026-07-20T15:09:39.302Z"
     },
     "pilot:ジュドーアーシタ": {
       "kind": "pilot",
@@ -538,7 +650,7 @@
       "displayName": "Judau Ashta",
       "title": "Judau Ashta",
       "url": "https://gundam.fandom.com/wiki/Judau_Ashta",
-      "verifiedAt": "2026-07-20T14:41:24.435Z"
+      "verifiedAt": "2026-07-20T15:09:39.207Z"
     },
     "pilot:ジョニーライデン": {
       "kind": "pilot",
@@ -546,7 +658,7 @@
       "displayName": "Johnny Ridden",
       "title": "Johnny Ridden",
       "url": "https://gundam.fandom.com/wiki/Johnny_Ridden",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.209Z"
     },
     "pilot:シローアマダ": {
       "kind": "pilot",
@@ -554,7 +666,7 @@
       "displayName": "Shiro Amada",
       "title": "Shiro Amada",
       "url": "https://gundam.fandom.com/wiki/Shiro_Amada",
-      "verifiedAt": "2026-07-20T14:41:25.529Z"
+      "verifiedAt": "2026-07-20T15:09:40.069Z"
     },
     "pilot:スレッガーロウ": {
       "kind": "pilot",
@@ -562,7 +674,7 @@
       "displayName": "Sleggar Law",
       "title": "Sleggar Law",
       "url": "https://gundam.fandom.com/wiki/Sleggar_Law",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:スレッタマーキュリー": {
       "kind": "pilot",
@@ -570,7 +682,7 @@
       "displayName": "Suletta Mercury",
       "title": "Suletta Mercury",
       "url": "https://gundam.fandom.com/wiki/Suletta_Mercury",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.304Z"
     },
     "pilot:セイラマス": {
       "kind": "pilot",
@@ -578,7 +690,7 @@
       "displayName": "Sayla Mass",
       "title": "Sayla Mass",
       "url": "https://gundam.fandom.com/wiki/Sayla_Mass",
-      "verifiedAt": "2026-07-20T14:41:25.529Z"
+      "verifiedAt": "2026-07-20T15:09:40.069Z"
     },
     "pilot:セシリーフェアチャイルド": {
       "kind": "pilot",
@@ -586,7 +698,7 @@
       "displayName": "Cecily Fairchild",
       "title": "Cecily Fairchild",
       "url": "https://gundam.fandom.com/wiki/Cecily_Fairchild",
-      "verifiedAt": "2026-07-20T14:41:24.528Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:セリーヌロム": {
       "kind": "pilot",
@@ -594,7 +706,7 @@
       "displayName": "Celine Rom",
       "title": "Celine Rom",
       "url": "https://gundam.fandom.com/wiki/Celine_Rom",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:ソシエハイム": {
       "kind": "pilot",
@@ -602,7 +714,7 @@
       "displayName": "Sochie Heim",
       "title": "Sochie Heim",
       "url": "https://gundam.fandom.com/wiki/Sochie_Heim",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.209Z"
     },
     "pilot:ソフィフラン": {
       "kind": "pilot",
@@ -610,7 +722,7 @@
       "displayName": "Sophie Fran",
       "title": "Sophie Fran",
       "url": "https://gundam.fandom.com/wiki/Sophie_Fran",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:ゾルタンアッカネン": {
       "kind": "pilot",
@@ -618,7 +730,7 @@
       "displayName": "Zoltan Akkanen",
       "title": "Zoltan Akkanen",
       "url": "https://gundam.fandom.com/wiki/Zoltan_Akkanen",
-      "verifiedAt": "2026-07-20T14:41:24.528Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:ダグザマックール": {
       "kind": "pilot",
@@ -626,7 +738,7 @@
       "displayName": "Daguza Mackle",
       "title": "Daguza Mackle",
       "url": "https://gundam.fandom.com/wiki/Daguza_Mackle",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:ダリルローレンツ": {
       "kind": "pilot",
@@ -634,7 +746,7 @@
       "displayName": "Daryl Lorenz",
       "title": "Daryl Lorenz",
       "url": "https://gundam.fandom.com/wiki/Daryl_Lorenz",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.209Z"
     },
     "pilot:ダントンハイレッグ": {
       "kind": "pilot",
@@ -642,7 +754,7 @@
       "displayName": "Danton Hyleg",
       "title": "Danton Hyleg",
       "url": "https://gundam.fandom.com/wiki/Danton_Hyleg",
-      "verifiedAt": "2026-07-20T14:41:25.529Z"
+      "verifiedAt": "2026-07-20T15:09:40.069Z"
     },
     "pilot:トビアアロナクス": {
       "kind": "pilot",
@@ -650,7 +762,7 @@
       "displayName": "Tobia Arronax",
       "title": "Tobia Arronax",
       "url": "https://gundam.fandom.com/wiki/Tobia_Arronax",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.207Z"
     },
     "pilot:ドレルロナ": {
       "kind": "pilot",
@@ -658,7 +770,7 @@
       "displayName": "Dorel Ronah",
       "title": "Dorel Ronah",
       "url": "https://gundam.fandom.com/wiki/Dorel_Ronah",
-      "verifiedAt": "2026-07-20T14:41:25.529Z"
+      "verifiedAt": "2026-07-20T15:09:40.069Z"
     },
     "pilot:ニムバスシュターゼン": {
       "kind": "pilot",
@@ -666,7 +778,7 @@
       "displayName": "Nimbus Schterzen",
       "title": "Nimbus Schterzen",
       "url": "https://gundam.fandom.com/wiki/Nimbus_Schterzen",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.304Z"
     },
     "pilot:ノリスパッカード": {
       "kind": "pilot",
@@ -674,7 +786,7 @@
       "displayName": "Norris Packard",
       "title": "Norris Packard",
       "url": "https://gundam.fandom.com/wiki/Norris_Packard",
-      "verifiedAt": "2026-07-20T14:41:24.528Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:ノン": {
       "kind": "pilot",
@@ -682,7 +794,7 @@
       "displayName": "Non",
       "title": "Non",
       "url": "https://gundam.fandom.com/wiki/Non",
-      "verifiedAt": "2026-07-20T14:41:25.529Z"
+      "verifiedAt": "2026-07-20T15:09:40.069Z"
     },
     "pilot:ハイデマリーハウグ": {
       "kind": "pilot",
@@ -690,7 +802,7 @@
       "displayName": "Heidemarie Haug",
       "title": "Heidemarie Haug",
       "url": "https://gundam.fandom.com/wiki/Heidemarie_Haug",
-      "verifiedAt": "2026-07-20T14:41:24.528Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:ハサウェイノア": {
       "kind": "pilot",
@@ -698,7 +810,7 @@
       "displayName": "Hathaway Noa",
       "title": "Hathaway Noa",
       "url": "https://gundam.fandom.com/wiki/Hathaway_Noa",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:バナージリンクス": {
       "kind": "pilot",
@@ -706,7 +818,7 @@
       "displayName": "Banagher Links",
       "title": "Banagher Links",
       "url": "https://gundam.fandom.com/wiki/Banagher_Links",
-      "verifiedAt": "2026-07-20T14:41:24.435Z"
+      "verifiedAt": "2026-07-20T15:09:39.207Z"
     },
     "pilot:パプテマスシロッコ": {
       "kind": "pilot",
@@ -714,7 +826,7 @@
       "displayName": "Paptimus Scirocco",
       "title": "Paptimus Scirocco",
       "url": "https://gundam.fandom.com/wiki/Paptimus_Scirocco",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:ハマーンカーン": {
       "kind": "pilot",
@@ -722,7 +834,7 @@
       "displayName": "Haman Karn",
       "title": "Haman Karn",
       "url": "https://gundam.fandom.com/wiki/Haman_Karn",
-      "verifiedAt": "2026-07-20T14:41:24.435Z"
+      "verifiedAt": "2026-07-20T15:09:39.207Z"
     },
     "pilot:ハリーオード": {
       "kind": "pilot",
@@ -730,7 +842,7 @@
       "displayName": "Harry Ord",
       "title": "Harry Ord",
       "url": "https://gundam.fandom.com/wiki/Harry_Ord",
-      "verifiedAt": "2026-07-20T14:41:24.528Z"
+      "verifiedAt": "2026-07-20T15:09:39.302Z"
     },
     "pilot:ファラグリフォン": {
       "kind": "pilot",
@@ -738,7 +850,7 @@
       "displayName": "Fuala Griffon",
       "title": "Fuala Griffon",
       "url": "https://gundam.fandom.com/wiki/Fuala_Griffon",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:フォウムラサメ": {
       "kind": "pilot",
@@ -746,7 +858,7 @@
       "displayName": "Four Murasame",
       "title": "Four Murasame",
       "url": "https://gundam.fandom.com/wiki/Four_Murasame",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:フォルドロムフェロー": {
       "kind": "pilot",
@@ -754,7 +866,7 @@
       "displayName": "Ford Romfellow",
       "title": "Ford Romfellow",
       "url": "https://gundam.fandom.com/wiki/Ford_Romfellow",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:ブランブルターク": {
       "kind": "pilot",
@@ -762,7 +874,7 @@
       "displayName": "Buran Blutarch",
       "title": "Buran Blutarch",
       "url": "https://gundam.fandom.com/wiki/Buran_Blutarch",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:プルツー": {
       "kind": "pilot",
@@ -770,7 +882,7 @@
       "displayName": "Ple Two",
       "title": "Ple Two",
       "url": "https://gundam.fandom.com/wiki/Ple_Two",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:フルフロンタル": {
       "kind": "pilot",
@@ -778,7 +890,7 @@
       "displayName": "Full Frontal",
       "title": "Full Frontal",
       "url": "https://gundam.fandom.com/wiki/Full_Frontal",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.207Z"
     },
     "pilot:ペッシェモンターニュ": {
       "kind": "pilot",
@@ -786,7 +898,7 @@
       "displayName": "Peche Montagne",
       "title": "Peche Montagne",
       "url": "https://gundam.fandom.com/wiki/Peche_Montagne",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:ベルリゼナム": {
       "kind": "pilot",
@@ -794,7 +906,7 @@
       "displayName": "Bellri Zenam",
       "title": "Bellri Zenam",
       "url": "https://gundam.fandom.com/wiki/Bellri_Zenam",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.207Z"
     },
     "pilot:マクベ": {
       "kind": "pilot",
@@ -802,7 +914,7 @@
       "displayName": "M'Quve",
       "title": "M'Quve",
       "url": "https://gundam.fandom.com/wiki/M'Quve",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.207Z"
     },
     "pilot:マシュマーセロ": {
       "kind": "pilot",
@@ -810,7 +922,7 @@
       "displayName": "Mashymre Cello",
       "title": "Mashymre Cello",
       "url": "https://gundam.fandom.com/wiki/Mashymre_Cello",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:マシロオークス": {
       "kind": "pilot",
@@ -818,7 +930,7 @@
       "displayName": "Mashiro Oaks",
       "title": "Mashiro Oaks",
       "url": "https://gundam.fandom.com/wiki/Mashiro_Oaks",
-      "verifiedAt": "2026-07-20T14:41:25.529Z"
+      "verifiedAt": "2026-07-20T15:09:40.069Z"
     },
     "pilot:マリーダクルス": {
       "kind": "pilot",
@@ -826,7 +938,7 @@
       "displayName": "Marida Cruz",
       "title": "Marida Cruz",
       "url": "https://gundam.fandom.com/wiki/Marida_Cruz",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:ミアブリンクマン": {
       "kind": "pilot",
@@ -834,7 +946,7 @@
       "displayName": "Mia Brinkman",
       "title": "Mia Brinkman",
       "url": "https://gundam.fandom.com/wiki/Mia_Brinkman",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.304Z"
     },
     "pilot:ミシェルルオ": {
       "kind": "pilot",
@@ -842,7 +954,7 @@
       "displayName": "Michele Luio",
       "title": "Michele Luio",
       "url": "https://gundam.fandom.com/wiki/Michele_Luio",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.304Z"
     },
     "pilot:ミチェルカノ": {
       "kind": "pilot",
@@ -850,7 +962,7 @@
       "displayName": "Michelle Kano",
       "title": "Michelle Kano",
       "url": "https://gundam.fandom.com/wiki/Michelle_Kano",
-      "verifiedAt": "2026-07-20T14:41:25.529Z"
+      "verifiedAt": "2026-07-20T15:09:40.069Z"
     },
     "pilot:ヤザンゲーブル": {
       "kind": "pilot",
@@ -858,7 +970,7 @@
       "displayName": "Yazan Gable",
       "title": "Yazan Gable",
       "url": "https://gundam.fandom.com/wiki/Yazan_Gable",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:ユートオールディス": {
       "kind": "pilot",
@@ -866,7 +978,7 @@
       "displayName": "Yuto Aldiss",
       "title": "Yuto Aldiss",
       "url": "https://gundam.fandom.com/wiki/Yuto_Aldiss",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.207Z"
     },
     "pilot:ユウカジマ": {
       "kind": "pilot",
@@ -874,7 +986,7 @@
       "displayName": "Yuu Kajima",
       "title": "Yuu Kajima",
       "url": "https://gundam.fandom.com/wiki/Yuu_Kajima",
-      "verifiedAt": "2026-07-20T14:41:24.528Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:ユッタカーシム": {
       "kind": "pilot",
@@ -882,7 +994,7 @@
       "displayName": "Jutta Qasim",
       "title": "Jutta Qasim",
       "url": "https://gundam.fandom.com/wiki/Jutta_Qasim",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.209Z"
     },
     "pilot:ヨナバシュタ": {
       "kind": "pilot",
@@ -890,7 +1002,7 @@
       "displayName": "Jona Basta",
       "title": "Jona Basta",
       "url": "https://gundam.fandom.com/wiki/Jona_Basta",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:ラカンダカラン": {
       "kind": "pilot",
@@ -898,7 +1010,7 @@
       "displayName": "Rakan Dahkaran",
       "title": "Rakan Dahkaran",
       "url": "https://gundam.fandom.com/wiki/Rakan_Dahkaran",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.209Z"
     },
     "pilot:ララァスン": {
       "kind": "pilot",
@@ -906,7 +1018,7 @@
       "displayName": "Lalah Sune",
       "title": "Lalah Sune",
       "url": "https://gundam.fandom.com/wiki/Lalah_Sune",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.207Z"
     },
     "pilot:ラライヤアクパール": {
       "kind": "pilot",
@@ -914,7 +1026,7 @@
       "displayName": "Raraiya Akuparl",
       "title": "Raraiya Akuparl",
       "url": "https://gundam.fandom.com/wiki/Raraiya_Akuparl",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.207Z"
     },
     "pilot:リディマーセナス": {
       "kind": "pilot",
@@ -922,7 +1034,7 @@
       "displayName": "Riddhe Marcenas",
       "title": "Riddhe Marcenas",
       "url": "https://gundam.fandom.com/wiki/Riddhe_Marcenas",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.209Z"
     },
     "pilot:リュースクランゲル": {
       "kind": "pilot",
@@ -930,7 +1042,7 @@
       "displayName": "Luce Krangel",
       "title": "Luce Krangel",
       "url": "https://gundam.fandom.com/wiki/Luce_Krangel",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.304Z"
     },
     "pilot:リリスエイデン": {
       "kind": "pilot",
@@ -938,7 +1050,7 @@
       "displayName": "Lilith Aiden",
       "title": "Lilith Aiden",
       "url": "https://gundam.fandom.com/wiki/Lilith_Aiden",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.304Z"
     },
     "pilot:リン": {
       "kind": "pilot",
@@ -946,7 +1058,7 @@
       "displayName": "Rin (U.C. ENGAGE)",
       "title": "Rin (U.C. ENGAGE)",
       "url": "https://gundam.fandom.com/wiki/Rin_(U.C._ENGAGE)",
-      "verifiedAt": "2026-07-20T14:41:25.528Z"
+      "verifiedAt": "2026-07-20T15:09:40.068Z"
     },
     "pilot:ルースカッセル": {
       "kind": "pilot",
@@ -954,7 +1066,7 @@
       "displayName": "Luce Cassel",
       "title": "Luce Cassel",
       "url": "https://gundam.fandom.com/wiki/Luce_Cassel",
-      "verifiedAt": "2026-07-20T14:41:24.528Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:ルールカ": {
       "kind": "pilot",
@@ -962,7 +1074,7 @@
       "displayName": "Roux Louka",
       "title": "Roux Louka",
       "url": "https://gundam.fandom.com/wiki/Roux_Louka",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.209Z"
     },
     "pilot:レーンエイム": {
       "kind": "pilot",
@@ -970,7 +1082,7 @@
       "displayName": "Lane Aim",
       "title": "Lane Aim",
       "url": "https://gundam.fandom.com/wiki/Lane_Aim",
-      "verifiedAt": "2026-07-20T14:41:24.437Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     },
     "pilot:レイ": {
       "kind": "pilot",
@@ -978,7 +1090,7 @@
       "displayName": "Rei",
       "title": "Rei",
       "url": "https://gundam.fandom.com/wiki/Rei",
-      "verifiedAt": "2026-07-20T14:41:25.528Z"
+      "verifiedAt": "2026-07-20T15:09:40.068Z"
     },
     "pilot:レコアロンド": {
       "kind": "pilot",
@@ -986,7 +1098,7 @@
       "displayName": "Reccoa Londe",
       "title": "Reccoa Londe",
       "url": "https://gundam.fandom.com/wiki/Reccoa_Londe",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.303Z"
     },
     "pilot:レッドスネーク": {
       "kind": "pilot",
@@ -994,7 +1106,7 @@
       "displayName": "Yurii Ajissah",
       "title": "Yurii Ajissah",
       "url": "https://gundam.fandom.com/wiki/Yurii_Ajissah",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.304Z"
     },
     "pilot:ロザミアバダム": {
       "kind": "pilot",
@@ -1002,7 +1114,7 @@
       "displayName": "Rosamia Badam",
       "title": "Rosamia Badam",
       "url": "https://gundam.fandom.com/wiki/Rosamia_Badam",
-      "verifiedAt": "2026-07-20T14:41:24.529Z"
+      "verifiedAt": "2026-07-20T15:09:39.304Z"
     },
     "pilot:ロランセアック": {
       "kind": "pilot",
@@ -1010,7 +1122,7 @@
       "displayName": "Loran Cehack",
       "title": "Loran Cehack",
       "url": "https://gundam.fandom.com/wiki/Loran_Cehack",
-      "verifiedAt": "2026-07-20T14:41:24.436Z"
+      "verifiedAt": "2026-07-20T15:09:39.208Z"
     }
   }
 }
