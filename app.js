@@ -619,7 +619,8 @@ function normalizeState() {
       stackOrder: Number(u.stackOrder) || 0,
       icon: u.icon || "",
       tags: cleanTags(rawTags),
-      note: u.note || "",
+      notesPvp: String(u.notesPvp ?? u.pvpNotes ?? u.note ?? "").trim(),
+      notesPve: String(u.notesPve ?? u.pveNotes ?? "").trim(),
       segments
     };
   });
@@ -1314,7 +1315,8 @@ function renderForm() {
   f.metaEnd.disabled = !segment;
   f.metaStatus.disabled = !segment;
   f.tags.value = unit.tags.join(", ");
-  f.note.value = unit.note;
+  f.notesPvp.value = unit.notesPvp || "";
+  f.notesPve.value = unit.notesPve || "";
   document.getElementById("btnDeleteSegment").disabled = !segment;
   renderTagPreview();
 }
@@ -1331,7 +1333,8 @@ function applyForm(options = {}) {
   unit.week = normalizeWeek(f.week.value);
   unit.lane = normalizeLane(f.lane.value);
   unit.tags = cleanTags(f.tags.value.split(","));
-  unit.note = f.note.value.trim();
+  unit.notesPvp = f.notesPvp.value.trim();
+  unit.notesPve = f.notesPve.value.trim();
   const segment = selectedSegment(unit);
   if (segment && hasMetaBars(unit)) {
     segment.start = normalizeWeek(f.metaStart.value);
@@ -1490,7 +1493,8 @@ function addUnit(partial = {}) {
     stackOrder: Number(partial.stackOrder) || 0,
     icon: partial.icon || "",
     tags: cleanTags(partial.tags || partial.badges || []),
-    note: partial.note || "",
+    notesPvp: String(partial.notesPvp ?? partial.pvpNotes ?? partial.note ?? "").trim(),
+    notesPve: String(partial.notesPve ?? partial.pveNotes ?? "").trim(),
     segments
   };
   state.units.push(newUnit);
@@ -1873,7 +1877,8 @@ function openUnitContextMenu(event, unitId, segmentId = null) {
   }
   items.push(
     { label: "Rename unit…", action: () => renameUnit(unitId) },
-    { label: "Edit note…", action: () => editUnitNote(unitId) },
+    { label: "Edit PVP notes…", action: () => editUnitNotes(unitId, "notesPvp") },
+    { label: "Edit PVE notes…", action: () => editUnitNotes(unitId, "notesPve") },
     { label: "Edit tags…", action: () => editUnitTags(unitId) },
     { label: "Row position", children: [
       { label: `${normalizeRowOffset(unit?.rowOffset) === -0.5 ? "✓ " : ""}${rowOffsetLabel(-0.5, unit?.tier)}`, action: () => setUnitRowOffset(unitId, -0.5) },
@@ -2007,16 +2012,17 @@ function renameUnit(unitId) {
   renderAll();
   autoSave();
 }
-function editUnitNote(unitId) {
+function editUnitNotes(unitId, fieldName = "notesPvp") {
   const unit = state.units.find(u => u.id === unitId);
   if (!unit) return;
-  const value = prompt("Edit note:", unit.note || "");
-  if (value === null) return;
-  unit.note = value.trim();
-  selectedId = unit.id;
-  state.updated = new Date().toISOString();
-  renderAll();
-  autoSave();
+  openSelectedUnitDialog(unitId);
+  requestAnimationFrame(() => {
+    const field = els.editForm.elements[fieldName];
+    if (!field) return;
+    field.focus();
+    const end = field.value.length;
+    field.setSelectionRange?.(end, end);
+  });
 }
 function editUnitTags(unitId) {
   const unit = state.units.find(u => u.id === unitId);
@@ -2618,7 +2624,8 @@ function renderCatalog() {
         kind: item.kind || item.type || "custom",
         icon: item.icon || "",
         tags: [],
-        note: item.sourceUrl ? `Source: ${item.sourceUrl}` : ""
+        notesPvp: "",
+        notesPve: ""
       });
     });
     els.catalogList.appendChild(node);
@@ -2643,11 +2650,23 @@ function showTooltip(event, unit, segment = null, options = {}) {
   const segmentsHtml = metaUnit ? segmentListHtml(metaUnit, activeId) : "";
   const rowLabel = normalizeRowOffset(unit.rowOffset) ? rowOffsetLabel(unit.rowOffset, unit.tier) : tierById(unit.tier).label;
   const tagHtml = unit.tags.length ? `<div class="tooltip-tags">Tags: ${unit.tags.map(tag => `<span class="tooltip-tag ${tagClass(tag)}">${escapeHtml(tag)}</span>`).join(" ")}</div>` : "";
-  tooltipEl.innerHTML = `<strong>${escapeHtml(title)}</strong><div>${escapeHtml(rowLabel)} · ${escapeHtml(formatWeek(unit.week))}</div>${segmentsHtml}${tagHtml}${unit.note ? `<p>${escapeHtml(unit.note)}</p>` : ""}`;
+  const notesHtml = tooltipNotesHtml(unit);
+  tooltipEl.innerHTML = `<strong>${escapeHtml(title)}</strong><div>${escapeHtml(rowLabel)} · ${escapeHtml(formatWeek(unit.week))}</div>${segmentsHtml}${tagHtml}${notesHtml}`;
   document.body.appendChild(tooltipEl);
   moveTooltip(event, true);
   tooltipPinned = shouldPin;
 }
+
+function multilineHtml(text) {
+  return escapeHtml(String(text || "").trim()).replace(/\r?\n/g, "<br>");
+}
+function tooltipNotesHtml(unit) {
+  const sections = [];
+  if (unit.notesPvp) sections.push(`<div class="tooltip-note-section"><div class="tooltip-note-title">PVP</div><div class="tooltip-note-body">${multilineHtml(unit.notesPvp)}</div></div>`);
+  if (unit.notesPve) sections.push(`<div class="tooltip-note-section"><div class="tooltip-note-title">PVE</div><div class="tooltip-note-body">${multilineHtml(unit.notesPve)}</div></div>`);
+  return sections.length ? `<div class="tooltip-notes">${sections.join("")}</div>` : "";
+}
+
 function segmentListHtml(unit, activeSegmentId = null) {
   const segments = (unit.segments || []).slice().sort((a, b) => a.start - b.start || a.end - b.end);
   if (!segments.length) return "";
