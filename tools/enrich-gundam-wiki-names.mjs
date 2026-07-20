@@ -5,21 +5,27 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const catalogPath = path.join(root, 'data', 'catalog.json');
+const verifiedNameCachePath = path.join(root, 'data', 'gundam-wiki-name-cache.json');
 
 const WIKI_API = process.env.GUNDAM_WIKI_API_URL || 'https://gundam.fandom.com/api.php';
 const WIKI_BASE = process.env.GUNDAM_WIKI_BASE_URL || 'https://gundam.fandom.com/wiki/';
 const USER_AGENT = process.env.GUNDAM_WIKI_USER_AGENT ||
   'CydverPullRoadmapCatalogBot/1.1 (GitHub Actions catalog name resolver)';
-const CONCURRENCY = Math.max(1, Number(process.env.GUNDAM_WIKI_CONCURRENCY || 4));
-const WAIT_MS = Math.max(0, Number(process.env.GUNDAM_WIKI_WAIT_MS || 120));
+const CONCURRENCY = 1;
+const WAIT_MS = Math.max(0, Number(process.env.GUNDAM_WIKI_WAIT_MS || 0));
+const WIKI_MIN_INTERVAL_MS = Math.max(250, Number(process.env.GUNDAM_WIKI_MIN_INTERVAL_MS || 1250));
 const SEARCH_LIMIT = Math.max(3, Math.min(12, Number(process.env.GUNDAM_WIKI_SEARCH_LIMIT || 6)));
-const MAX_RETRIES = Math.max(1, Number(process.env.GUNDAM_WIKI_MAX_RETRIES || 4));
+const MAX_RETRIES = Math.max(1, Number(process.env.GUNDAM_WIKI_MAX_RETRIES || 6));
+const WIKI_429_FALLBACK_MS = Math.max(5000, Number(process.env.GUNDAM_WIKI_429_FALLBACK_MS || 60000));
 const TRANSLATION_ENABLED = !/^(0|false|no)$/i.test(process.env.GUNDAM_TRANSLATION_FALLBACK || '1');
 const GOOGLE_TRANSLATE_URL = process.env.GUNDAM_GOOGLE_TRANSLATE_URL || 'https://translate.googleapis.com/translate_a/single';
 const MYMEMORY_TRANSLATE_URL = process.env.GUNDAM_MYMEMORY_TRANSLATE_URL || 'https://api.mymemory.translated.net/get';
 
 const wikiSearchCache = new Map();
 const translationCache = new Map();
+let verifiedNameCache = { version: 1, entries: {} };
+let nextWikiRequestAt = 0;
+let globalWikiPauseUntil = 0;
 
 async function main() {
   if (process.argv.includes('--self-test')) {
@@ -30,9 +36,13 @@ async function main() {
   const catalog = JSON.parse(await readFile(catalogPath, 'utf8'));
   if (!Array.isArray(catalog.items)) throw new Error('data/catalog.json does not contain an items array.');
 
+  verifiedNameCache = await loadVerifiedNameCache();
+  const cacheEntriesBefore = Object.keys(verifiedNameCache.entries || {}).length;
+
   const groups = groupItemsByLookup(catalog.items);
   console.log(`Resolving ${groups.length} unique names for ${catalog.items.length} catalog items...`);
-  console.log('Resolution order: verified Japanese Gundam Wiki match -> canonical base + translated descriptor -> translated name verified in Gundam Wiki -> machine-translation fallback.');
+  console.log('Resolution order: persistent verified Gundam Wiki cache -> rate-limited Japanese Gundam Wiki match -> verified canonical base + translated descriptor. Proper MS/pilot names are never machine-translated.');
+  console.log(`Loaded ${cacheEntriesBefore} persistent verified Gundam Wiki name cache entries.`);
 
   const resolutions = new Map();
   const unresolved = [];
@@ -49,8 +59,6 @@ async function main() {
         console.warn(`[${index + 1}/${groups.length}] UNRESOLVED ${group.kind}: ${group.lookupName}`);
       }
     } catch (error) {
-      // One unusual name or temporary third-party failure must not prevent the rest of the
-      // catalog from being generated. Keep the original name and surface the failure.
       unresolved.push(group);
       console.warn(`[${index + 1}/${groups.length}] ERROR ${group.kind} ${group.lookupName}: ${error.message}`);
     }
@@ -58,7 +66,7 @@ async function main() {
 
   const counts = {
     wikiVerified: 0,
-    machineTranslated: 0,
+    wikiBaseTranslatedDescriptor: 0,
     unresolved: 0
   };
 
@@ -77,14 +85,14 @@ async function main() {
       };
     }
 
-    if (resolution.source === 'gundam-wiki') counts.wikiVerified += 1;
-    else counts.machineTranslated += 1;
+    if (resolution.matchType === 'wiki-base-translated-descriptor') counts.wikiBaseTranslatedDescriptor += 1;
+    else counts.wikiVerified += 1;
 
     const enriched = {
       ...item,
       name: composeCatalogDisplayName(rawName, item.kind, resolution.displayName),
       nameJa: rawName,
-      nameSource: resolution.source,
+      nameSource: 'gundam-wiki',
       nameMatch: resolution.matchType
     };
 
@@ -102,22 +110,27 @@ async function main() {
     ...catalog,
     generatedAt: new Date().toISOString(),
     sources: sourceList,
-    note: 'Generated from Altema list pages. English names are resolved wiki-first using Japanese-name and full-page content matches. Non-standard forms use canonical wiki base names plus translated descriptors when possible; translated full names are checked against English Gundam Wiki content before falling back to machine translation. Unresolved names keep the original Altema name and never fail the whole catalog update.',
+    note: 'Generated from Altema list pages. Canonical MS and pilot proper names come only from verified English Gundam Wiki matches or the persistent auto-generated verified-name cache. Machine translation is used only for variant/state descriptors after a canonical base name has been verified. If no canonical base can be verified, the original Japanese Altema name is retained.',
     nameResolution: {
-      source: 'The Gundam Wiki (Fandom) with machine-translation fallback',
+      source: 'The Gundam Wiki (Fandom), with machine translation restricted to descriptors',
       sourceUrl: WIKI_BASE,
       wikiVerifiedItems: counts.wikiVerified,
-      machineTranslatedItems: counts.machineTranslated,
+      wikiBaseTranslatedDescriptorItems: counts.wikiBaseTranslatedDescriptor,
       unresolvedItems: counts.unresolved,
-      translationFallbackEnabled: TRANSLATION_ENABLED
+      properNameMachineTranslationEnabled: false,
+      descriptorTranslationEnabled: TRANSLATION_ENABLED,
+      persistentCachePath: 'data/gundam-wiki-name-cache.json'
     },
     items
   };
 
   await writeFile(catalogPath, JSON.stringify(result, null, 2), 'utf8');
-  console.log(`Wrote enriched data/catalog.json: ${counts.wikiVerified} wiki-verified, ${counts.machineTranslated} machine-translated fallback, ${counts.unresolved} unresolved.`);
+  await saveVerifiedNameCache();
+  const cacheEntriesAfter = Object.keys(verifiedNameCache.entries || {}).length;
+  console.log(`Wrote enriched data/catalog.json: ${counts.wikiVerified} wiki-verified, ${counts.wikiBaseTranslatedDescriptor} verified-base + translated-descriptor, ${counts.unresolved} unresolved.`);
+  console.log(`Persistent verified Gundam Wiki cache: ${cacheEntriesAfter} entries (${cacheEntriesAfter - cacheEntriesBefore >= 0 ? '+' : ''}${cacheEntriesAfter - cacheEntriesBefore} this run).`);
 
-  await writeActionSummary({ counts, unresolved, totalItems: items.length, uniqueNames: groups.length });
+  await writeActionSummary({ counts, unresolved, totalItems: items.length, uniqueNames: groups.length, cacheEntriesBefore, cacheEntriesAfter });
 }
 
 function composeCatalogDisplayName(rawName, kind, canonicalName) {
@@ -191,66 +204,86 @@ async function resolveJapaneseName(rawName, kind) {
   let baseResolution = null;
 
   for (const query of buildSearchQueries(fullName, kind)) {
+    const cached = getVerifiedCachedName(kind, query);
+    if (cached) {
+      const isExact = normalizeForMatch(query) === normalizeForMatch(fullName);
+      if (isExact) return { ...cached, matchType: 'verified-cache-exact-ja' };
+      if (!baseResolution || query.length > baseResolution.query.length) {
+        baseResolution = { query, match: cached, displayName: cached.displayName, cached: true };
+      }
+      continue;
+    }
+
     const pages = await safeSearchWikiPages(query, true);
     const match = chooseVerifiedJapaneseCandidate(pages, query, kind);
     if (!match) continue;
 
-    const displayName = match.extractedEnglishName || canonicalDisplayName(match.title, kind);
+    const displayName = sanitizeTranslatedDisplayName(
+      match.extractedEnglishName || canonicalDisplayName(match.title, kind),
+      kind
+    );
+    if (!displayName) continue;
+
+    const verified = wikiResolution(match, displayName, 'exact-ja');
+    setVerifiedCachedName(kind, query, verified);
+
     const isExact = normalizeForMatch(query) === normalizeForMatch(fullName);
+    if (isExact) return verified;
 
-    if (isExact) {
-      return wikiResolution(match, displayName, 'exact-ja');
-    }
-
-    // Never collapse a non-standard form to its base article. Keep the verified base as an
-    // anchor, then translate and (where possible) wiki-verify the remaining descriptor.
     if (!baseResolution || query.length > baseResolution.query.length) {
-      baseResolution = { query, match, displayName };
+      baseResolution = { query, match, displayName, cached: false };
     }
+  }
+
+  // Critical safety rule: never machine-translate a whole MS or pilot proper name.
+  // Without a verified canonical base, keep the original Japanese Altema name.
+  if (!baseResolution) return null;
+
+  const remainder = extractRemainder(fullName, baseResolution.query);
+  if (!remainder) {
+    return {
+      source: 'gundam-wiki',
+      title: baseResolution.match.title,
+      url: baseResolution.match.url || wikiUrl(baseResolution.match.title),
+      displayName: baseResolution.displayName,
+      matchType: baseResolution.cached ? 'verified-cache-base' : 'wiki-base-ja'
+    };
   }
 
   if (!TRANSLATION_ENABLED) return null;
 
-  const translated = await translateHybridName(fullName, kind, baseResolution);
-  if (!translated?.text) {
-    // A verified base is still preferable to losing the variant entirely. Preserve the
-    // original Japanese remainder if translation services are unavailable.
-    if (baseResolution) {
-      const hybrid = combineCanonicalBaseWithRemainder(fullName, baseResolution.query, baseResolution.displayName, null);
-      if (hybrid) {
-        return {
-          source: 'gundam-wiki',
-          title: baseResolution.match.title,
-          url: wikiUrl(baseResolution.match.title),
-          displayName: hybrid,
-          matchType: 'wiki-base-ja-descriptor'
-        };
-      }
-    }
-    return null;
-  }
+  const translatedRemainder = await translateJapaneseText(stripWrapperPunctuation(remainder));
+  if (!translatedRemainder?.text) return null;
 
-  const verified = await verifyTranslatedNameAgainstWiki(translated.text, kind);
-  if (verified) {
+  const combined = combineCanonicalBaseWithRemainder(
+    fullName,
+    baseResolution.query,
+    baseResolution.displayName,
+    translatedRemainder.text
+  );
+  if (!combined) return null;
+
+  // We may opportunistically verify the composed variant against Wiki, but verification
+  // failure never causes the verified base to be replaced by a machine-translated name.
+  const verifiedVariant = await verifyTranslatedNameAgainstWiki(combined, kind);
+  if (verifiedVariant) {
     return {
       source: 'gundam-wiki',
-      title: verified.title,
-      url: wikiUrl(verified.title),
-      displayName: verified.displayName,
-      matchType: baseResolution ? 'wiki-base-translated-descriptor-verified' : 'translated-wiki-verified',
-      translationProvider: translated.provider
+      title: verifiedVariant.title,
+      url: wikiUrl(verifiedVariant.title),
+      displayName: verifiedVariant.displayName,
+      matchType: 'wiki-base-translated-descriptor-verified',
+      translationProvider: translatedRemainder.provider
     };
   }
 
-  // Last resort: use machine translation rather than failing the Action or replacing a
-  // variant with only its base unit. Provenance stays explicit in catalog.json.
   return {
-    source: 'machine-translation',
-    displayName: sanitizeTranslatedDisplayName(translated.text, kind),
-    matchType: baseResolution ? 'wiki-base-machine-translated-descriptor' : 'machine-translation-fallback',
-    translationProvider: translated.provider,
-    title: baseResolution?.match?.title || '',
-    url: baseResolution?.match?.title ? wikiUrl(baseResolution.match.title) : ''
+    source: 'gundam-wiki',
+    title: baseResolution.match.title,
+    url: baseResolution.match.url || wikiUrl(baseResolution.match.title),
+    displayName: combined,
+    matchType: 'wiki-base-translated-descriptor',
+    translationProvider: translatedRemainder.provider
   };
 }
 
@@ -268,27 +301,6 @@ function wikiUrl(title) {
   return `${WIKI_BASE}${encodeURIComponent(clean(title).replace(/ /g, '_'))}`;
 }
 
-async function translateHybridName(fullName, kind, baseResolution) {
-  if (baseResolution) {
-    const remainder = extractRemainder(fullName, baseResolution.query);
-    if (remainder) {
-      const translatedRemainder = await translateJapaneseText(stripWrapperPunctuation(remainder));
-      if (translatedRemainder?.text) {
-        return {
-          text: combineCanonicalBaseWithRemainder(
-            fullName,
-            baseResolution.query,
-            baseResolution.displayName,
-            translatedRemainder.text
-          ),
-          provider: translatedRemainder.provider
-        };
-      }
-    }
-  }
-
-  return await translateJapaneseText(fullName);
-}
 
 function extractRemainder(fullName, baseQuery) {
   const full = clean(fullName);
@@ -424,40 +436,30 @@ async function searchWikiPages(query, quoted = true) {
   if (wikiSearchCache.has(cacheKey)) return wikiSearchCache.get(cacheKey);
 
   const promise = (async () => {
-    const searchParams = new URLSearchParams({
-      action: 'query',
-      format: 'json',
-      formatversion: '2',
-      utf8: '1',
-      list: 'search',
-      srsearch: quoted ? `\"${query}\"` : query,
-      srnamespace: '0',
-      srlimit: String(SEARCH_LIMIT),
-      srprop: 'snippet|titlesnippet'
-    });
-
-    const searchJson = await fetchJsonWithRetry(`${WIKI_API}?${searchParams.toString()}`, 'Gundam Wiki');
-    const hits = Array.isArray(searchJson?.query?.search) ? searchJson.query.search : [];
-    const pageIds = hits.map(hit => hit.pageid).filter(Number.isFinite);
-    if (!pageIds.length) return [];
-
-    const detailsParams = new URLSearchParams({
+    // generator=search returns search-ranked pages and their details in one API request,
+    // cutting the previous two-request search+details pattern in half.
+    const params = new URLSearchParams({
       action: 'query',
       format: 'json',
       formatversion: '2',
       utf8: '1',
       redirects: '1',
-      pageids: pageIds.join('|'),
+      generator: 'search',
+      gsrsearch: quoted ? `"${query}"` : query,
+      gsrnamespace: '0',
+      gsrlimit: String(SEARCH_LIMIT),
       prop: 'extracts|categories|pageprops',
       explaintext: '1',
       exsectionformat: 'plain',
       cllimit: 'max'
     });
 
-    const detailsJson = await fetchJsonWithRetry(`${WIKI_API}?${detailsParams.toString()}`, 'Gundam Wiki');
-    const pages = Array.isArray(detailsJson?.query?.pages) ? detailsJson.query.pages : [];
-    const indexById = new Map(hits.map((hit, index) => [hit.pageid, index + 1]));
-    return pages.map(page => ({ ...page, index: indexById.get(page.pageid) || SEARCH_LIMIT + 1 }));
+    const json = await fetchWikiJsonWithRetry(`${WIKI_API}?${params.toString()}`);
+    const pages = Array.isArray(json?.query?.pages) ? json.query.pages : [];
+    return pages.map((page, index) => ({
+      ...page,
+      index: Number.isFinite(page.index) ? page.index : index + 1
+    }));
   })();
 
   wikiSearchCache.set(cacheKey, promise);
@@ -601,6 +603,75 @@ async function translateWithMyMemory(text) {
   return translated ? { text: decodeHtmlEntities(translated), provider: 'mymemory' } : null;
 }
 
+async function fetchWikiJsonWithRetry(url) {
+  let lastError;
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt += 1) {
+    await waitForWikiRequestSlot();
+    try {
+      const response = await fetch(url, {
+        redirect: 'follow',
+        signal: AbortSignal.timeout(25000),
+        headers: {
+          'user-agent': USER_AGENT,
+          'accept': 'application/json,text/plain;q=0.9,*/*;q=0.8',
+          'accept-language': 'en-US,en;q=0.9,ja;q=0.8',
+          'cache-control': 'no-cache'
+        }
+      });
+
+      nextWikiRequestAt = Date.now() + WIKI_MIN_INTERVAL_MS;
+
+      if (response.status === 429) {
+        const retryAfterMs = parseRetryAfterMs(response.headers.get('retry-after')) || WIKI_429_FALLBACK_MS;
+        globalWikiPauseUntil = Math.max(globalWikiPauseUntil, Date.now() + retryAfterMs);
+        throw new WikiRateLimitError(`HTTP 429`, retryAfterMs);
+      }
+      if (response.status >= 500) throw new Error(`HTTP ${response.status}`);
+      if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
+      return await response.json();
+    } catch (error) {
+      lastError = error;
+      if (attempt >= MAX_RETRIES) break;
+
+      const delay = error instanceof WikiRateLimitError
+        ? error.retryAfterMs
+        : Math.min(30000, 1000 * (2 ** (attempt - 1)));
+
+      if (error instanceof WikiRateLimitError) {
+        console.warn(`Gundam Wiki rate-limited the resolver (attempt ${attempt}/${MAX_RETRIES}). Pausing all Wiki traffic for ${Math.ceil(delay / 1000)}s...`);
+      } else {
+        console.warn(`Gundam Wiki failed (attempt ${attempt}/${MAX_RETRIES}): ${error.message}. Retrying in ${Math.ceil(delay / 1000)}s...`);
+      }
+      await sleep(delay);
+    }
+  }
+  throw new Error(`Gundam Wiki failed after ${MAX_RETRIES} attempts: ${lastError?.message || 'unknown error'}`);
+}
+
+class WikiRateLimitError extends Error {
+  constructor(message, retryAfterMs) {
+    super(message);
+    this.name = 'WikiRateLimitError';
+    this.retryAfterMs = retryAfterMs;
+  }
+}
+
+async function waitForWikiRequestSlot() {
+  const now = Date.now();
+  const waitUntil = Math.max(nextWikiRequestAt, globalWikiPauseUntil);
+  if (waitUntil > now) await sleep(waitUntil - now);
+  nextWikiRequestAt = Date.now() + WIKI_MIN_INTERVAL_MS;
+}
+
+function parseRetryAfterMs(value) {
+  const text = clean(value);
+  if (!text) return 0;
+  const seconds = Number(text);
+  if (Number.isFinite(seconds) && seconds >= 0) return seconds * 1000;
+  const date = Date.parse(text);
+  return Number.isFinite(date) ? Math.max(0, date - Date.now()) : 0;
+}
+
 async function fetchJsonWithRetry(url, label = 'Request') {
   let lastError;
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt += 1) {
@@ -615,14 +686,13 @@ async function fetchJsonWithRetry(url, label = 'Request') {
           'cache-control': 'no-cache'
         }
       });
-
       if (response.status === 429 || response.status >= 500) throw new Error(`HTTP ${response.status}`);
       if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
       return await response.json();
     } catch (error) {
       lastError = error;
       if (attempt >= MAX_RETRIES) break;
-      const delay = Math.min(5000, 500 * (2 ** (attempt - 1)));
+      const delay = Math.min(10000, 500 * (2 ** (attempt - 1)));
       console.warn(`${label} failed (attempt ${attempt}/${MAX_RETRIES}): ${error.message}. Retrying...`);
       await sleep(delay);
     }
@@ -644,7 +714,7 @@ async function mapLimit(items, limit, worker) {
   await Promise.all(runners);
 }
 
-async function writeActionSummary({ counts, unresolved, totalItems, uniqueNames }) {
+async function writeActionSummary({ counts, unresolved, totalItems, uniqueNames, cacheEntriesBefore, cacheEntriesAfter }) {
   const summaryPath = process.env.GITHUB_STEP_SUMMARY;
   if (!summaryPath) return;
 
@@ -656,8 +726,10 @@ async function writeActionSummary({ counts, unresolved, totalItems, uniqueNames 
     `- Catalog items: ${totalItems}`,
     `- Unique names checked: ${uniqueNames}`,
     `- Wiki-verified items: ${counts.wikiVerified}`,
-    `- Machine-translation fallbacks: ${counts.machineTranslated}`,
-    `- Unresolved items kept in original Altema form: ${counts.unresolved}`,
+    `- Verified canonical base + translated descriptor items: ${counts.wikiBaseTranslatedDescriptor}`,
+    `- Unresolved items kept in original Japanese Altema form: ${counts.unresolved}`,
+    `- Persistent verified-name cache: ${cacheEntriesAfter} entries (${cacheEntriesAfter - cacheEntriesBefore >= 0 ? '+' : ''}${cacheEntriesAfter - cacheEntriesBefore} this run)`,
+    '- Proper MS/pilot names machine-translated: 0',
     '',
     unresolved.length ? '### Unresolved unique names' : 'No unresolved unique names.',
     unresolved.length ? `${unresolvedLines}${more}` : '',
@@ -665,6 +737,63 @@ async function writeActionSummary({ counts, unresolved, totalItems, uniqueNames 
   ].join('\n');
 
   await appendFile(summaryPath, body, 'utf8');
+}
+
+async function loadVerifiedNameCache() {
+  try {
+    const parsed = JSON.parse(await readFile(verifiedNameCachePath, 'utf8'));
+    if (!parsed || typeof parsed !== 'object') throw new Error('cache root is not an object');
+    return {
+      version: 1,
+      entries: parsed.entries && typeof parsed.entries === 'object' ? parsed.entries : {}
+    };
+  } catch (error) {
+    if (error?.code !== 'ENOENT') console.warn(`Ignoring unreadable verified-name cache: ${error.message}`);
+    return { version: 1, entries: {} };
+  }
+}
+
+async function saveVerifiedNameCache() {
+  const orderedEntries = Object.fromEntries(
+    Object.entries(verifiedNameCache.entries || {}).sort(([a], [b]) => a.localeCompare(b, 'en'))
+  );
+  const payload = {
+    version: 1,
+    generatedAt: new Date().toISOString(),
+    source: WIKI_BASE,
+    note: 'Auto-generated cache of names verified against English Gundam Wiki content. Do not use as a manual override table.',
+    entries: orderedEntries
+  };
+  await writeFile(verifiedNameCachePath, JSON.stringify(payload, null, 2), 'utf8');
+}
+
+function verifiedCacheKey(kind, japaneseName) {
+  return `${kind}:${normalizeForMatch(japaneseName)}`;
+}
+
+function getVerifiedCachedName(kind, japaneseName) {
+  const entry = verifiedNameCache.entries?.[verifiedCacheKey(kind, japaneseName)];
+  if (!entry?.displayName || !entry?.title) return null;
+  return {
+    source: 'gundam-wiki',
+    title: clean(entry.title),
+    url: clean(entry.url) || wikiUrl(entry.title),
+    displayName: clean(entry.displayName),
+    matchType: 'verified-cache'
+  };
+}
+
+function setVerifiedCachedName(kind, japaneseName, resolution) {
+  if (!resolution?.displayName || !resolution?.title) return;
+  verifiedNameCache.entries ||= {};
+  verifiedNameCache.entries[verifiedCacheKey(kind, japaneseName)] = {
+    kind,
+    nameJa: clean(japaneseName),
+    displayName: clean(resolution.displayName),
+    title: clean(resolution.title),
+    url: clean(resolution.url) || wikiUrl(resolution.title),
+    verifiedAt: new Date().toISOString()
+  };
 }
 
 function normalizeForMatch(value) {
@@ -757,6 +886,9 @@ function runSelfTests() {
     }
   ], 'Unicorn Gundam Perfectibility Divine', 'ms');
   assert(verifiedVariant?.displayName === 'Unicorn Gundam Perfectibility Divine', 'Translated non-standard form should be verified from English wiki page content rather than replaced by the broader article title.');
+
+  assert(parseRetryAfterMs('60') === 60000, 'Retry-After seconds should be honored.');
+  assert(combineCanonicalBaseWithRemainder('サザビー(紫)', 'サザビー', 'Sazabi', 'purple') === 'Sazabi (purple)', 'Only descriptors should be machine-translated after a verified canonical base.');
 
   const deepJapaneseWithoutAdjacentEnglish = chooseVerifiedJapaneseCandidate([
     {
