@@ -253,6 +253,11 @@ function rowOffsetForBar(unit) {
   const baseCenter = dynamicBarTop(unit.tier) + BAR_H / 2;
   return offset < 0 ? -Math.round(baseCenter) : Math.max(0, Math.round(tierHeight(unit.tier) - baseCenter));
 }
+function normalizePotentialLevel(value) {
+  if (value === "" || value === null || value === undefined) return null;
+  const n = Number(value);
+  return Number.isFinite(n) ? clamp(Math.round(n), 0, 5) : null;
+}
 function isPilot(unit) { return String(unit?.kind || "").toLowerCase() === "pilot"; }
 function isMs(unit) { return String(unit?.kind || "").toLowerCase() === "ms"; }
 function hasMetaBars(unit) { return !isPilot(unit); }
@@ -629,6 +634,8 @@ function normalizeState() {
       stackOrder: Number(u.stackOrder) || 0,
       icon: u.icon || "",
       tags: cleanTags(rawTags),
+      minPotential: String(kind).toLowerCase() === "ms" ? normalizePotentialLevel(u.minPotential ?? u.minimumPotential ?? u.minP) : null,
+      idealPotential: String(kind).toLowerCase() === "ms" ? normalizePotentialLevel(u.idealPotential ?? u.recommendedPotential ?? u.idealP) : null,
       notesPvp: pilotNotes,
       notesPve: String(kind).toLowerCase() === "pilot" ? "" : rawNotesPve,
       segments
@@ -1326,6 +1333,9 @@ function renderForm() {
   f.metaEnd.disabled = !segment;
   f.metaStatus.disabled = !segment;
   f.tags.value = unit.tags.join(", ");
+  if (f.minPotential) f.minPotential.value = isPilot(unit) || unit.minPotential == null ? "" : String(unit.minPotential);
+  if (f.idealPotential) f.idealPotential.value = isPilot(unit) || unit.idealPotential == null ? "" : String(unit.idealPotential);
+  els.editForm.querySelectorAll(".investment-editor").forEach(node => node.classList.toggle("hidden", !isMs(unit)));
   f.notesPvp.value = unit.notesPvp || "";
   f.notesPve.value = unit.notesPve || "";
   const pilotNotesOnly = isPilot(unit);
@@ -1350,6 +1360,16 @@ function applyForm(options = {}) {
   unit.week = normalizeWeek(f.week.value);
   unit.lane = normalizeLane(f.lane.value);
   unit.tags = cleanTags(f.tags.value.split(","));
+  if (!isMs(unit)) {
+    unit.minPotential = null;
+    unit.idealPotential = null;
+  } else {
+    unit.minPotential = normalizePotentialLevel(f.minPotential?.value);
+    unit.idealPotential = normalizePotentialLevel(f.idealPotential?.value);
+    if (unit.minPotential != null && unit.idealPotential != null && unit.idealPotential < unit.minPotential) {
+      unit.idealPotential = unit.minPotential;
+    }
+  }
   const formNotesPvp = f.notesPvp.value.trim();
   const formNotesPve = f.notesPve.value.trim();
   if (isPilot(unit)) {
@@ -1375,7 +1395,7 @@ function applyForm(options = {}) {
 }
 
 function bindAutoApplyForm() {
-  const immediateNames = new Set(["kind", "tier", "rowOffset", "week", "lane", "segment", "metaStart", "metaEnd", "metaStatus", "tags"]);
+  const immediateNames = new Set(["kind", "tier", "rowOffset", "week", "lane", "segment", "metaStart", "metaEnd", "metaStatus", "tags", "minPotential", "idealPotential"]);
   els.editForm.querySelectorAll("input, select, textarea").forEach(input => {
     if (input.name === "segment") return;
     const handler = () => scheduleAutoApply(immediateNames.has(input.name) ? 40 : 420);
@@ -1520,6 +1540,8 @@ function addUnit(partial = {}) {
     stackOrder: Number(partial.stackOrder) || 0,
     icon: partial.icon || "",
     tags: cleanTags(partial.tags || partial.badges || []),
+    minPotential: String(newUnitKind).toLowerCase() === "ms" ? normalizePotentialLevel(partial.minPotential ?? partial.minimumPotential ?? partial.minP) : null,
+    idealPotential: String(newUnitKind).toLowerCase() === "ms" ? normalizePotentialLevel(partial.idealPotential ?? partial.recommendedPotential ?? partial.idealP) : null,
     notesPvp: String(newUnitKind).toLowerCase() === "pilot" ? [rawNotesPvp, rawNotesPve].filter(Boolean).join("\n\n") : rawNotesPvp,
     notesPve: String(newUnitKind).toLowerCase() === "pilot" ? "" : rawNotesPve,
     segments
@@ -2693,6 +2715,8 @@ function renderCatalog() {
         kind: item.kind || item.type || "custom",
         icon: item.icon || "",
         tags: [],
+        minPotential: null,
+        idealPotential: null,
         notesPvp: "",
         notesPve: ""
       });
@@ -2770,8 +2794,9 @@ function showTooltip(event, unit, segment = null, options = {}) {
   const segmentsHtml = metaUnit ? segmentListHtml(metaUnit, activeId) : "";
   const rowLabel = normalizeRowOffset(unit.rowOffset) ? rowOffsetLabel(unit.rowOffset, unit.tier) : tierById(unit.tier).label;
   const tagHtml = unit.tags.length ? `<div class="tooltip-tags">Tags: ${unit.tags.map(tag => `<span class="tooltip-tag ${tagClass(tag)}">${escapeHtml(tag)}</span>`).join(" ")}</div>` : "";
+  const investmentHtml = tooltipInvestmentHtml(unit);
   const notesHtml = tooltipNotesHtml(unit);
-  tooltipEl.innerHTML = `<strong>${escapeHtml(title)}</strong><div>${escapeHtml(rowLabel)} · ${escapeHtml(formatWeek(unit.week))}</div>${segmentsHtml}${tagHtml}${notesHtml}`;
+  tooltipEl.innerHTML = `<strong>${escapeHtml(title)}</strong><div>${escapeHtml(rowLabel)} · ${escapeHtml(formatWeek(unit.week))}</div>${segmentsHtml}${tagHtml}${investmentHtml}${notesHtml}`;
   document.body.appendChild(tooltipEl);
   moveTooltip(event, true);
   tooltipPinned = shouldPin;
@@ -2780,6 +2805,17 @@ function showTooltip(event, unit, segment = null, options = {}) {
 function multilineHtml(text) {
   return escapeHtml(String(text || "").trim()).replace(/\r?\n/g, "<br>");
 }
+function tooltipInvestmentHtml(unit) {
+  if (!isMs(unit)) return "";
+  const minimum = normalizePotentialLevel(unit.minPotential);
+  const ideal = normalizePotentialLevel(unit.idealPotential);
+  if (minimum == null && ideal == null) return "";
+  const rows = [];
+  if (minimum != null) rows.push(`<div class="tooltip-investment-row"><span>Minimum</span><strong>P${minimum}</strong></div>`);
+  if (ideal != null) rows.push(`<div class="tooltip-investment-row"><span>Ideal</span><strong>P${ideal}</strong></div>`);
+  return `<div class="tooltip-investment"><div class="tooltip-note-title">Investment</div>${rows.join("")}</div>`;
+}
+
 function tooltipNotesHtml(unit) {
   if (isPilot(unit)) {
     const notes = [unit.notesPvp, unit.notesPve].filter(Boolean).join("\n\n");

@@ -248,6 +248,10 @@ textarea { resize: vertical; min-height: 80px; }
 .tooltip-segment i { width: 9px; height: 9px; border-radius: 999px; flex: 0 0 auto; box-shadow: 0 0 0 1px rgba(255,255,255,.34); }
 .tooltip-segment.active span { color: #ffffff; font-weight: 900; }
 
+.tooltip-investment { margin-top: 9px; padding-top: 7px; border-top: 1px solid rgba(255,255,255,.1); display: grid; gap: 4px; }
+.tooltip-investment-row { display: flex; justify-content: space-between; gap: 16px; color: #dce4f0; line-height: 1.35; }
+.tooltip-investment-row span { color: var(--muted); }
+.tooltip-investment-row strong { color: #f4f8ff; }
 .tooltip-notes { margin-top: 9px; display: grid; gap: 8px; }
 .tooltip-note-section { padding-top: 7px; border-top: 1px solid rgba(255,255,255,.1); }
 .tooltip-note-title { margin-bottom: 3px; color: var(--muted); font-size: 11px; font-weight: 950; letter-spacing: .08em; text-transform: uppercase; }
