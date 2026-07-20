@@ -2541,12 +2541,55 @@ async function loadCatalog() {
     els.catalogStatus.textContent = `Could not load local catalog: ${error.message}`;
   }
 }
+const CATALOG_ATTRIBUTE_LABELS = Object.freeze({
+  "赤": "red",
+  "青": "blue",
+  "緑": "green",
+  "黄": "yellow",
+  "紫": "purple"
+});
+const CATALOG_ROLE_LABELS = Object.freeze({
+  "砲撃": "bombardment",
+  "狙撃": "sniper",
+  "強襲": "raid",
+  "白兵": "close combat",
+  "汎用": "generic",
+  "重装": "armored",
+  "支援": "support"
+});
+function catalogDisplayKind(item) {
+  return String(item.kind || item.type || "").trim().toLowerCase();
+}
+function catalogDisplayAttribute(item) {
+  const raw = String(item.attribute || "").trim();
+  return CATALOG_ATTRIBUTE_LABELS[raw] || raw.toLowerCase();
+}
+function catalogDisplayRole(item) {
+  const raw = String(item.role || "").trim();
+  return CATALOG_ROLE_LABELS[raw] || raw.toLowerCase();
+}
+function catalogDisplayRating(item) {
+  const raw = String(item.rating ?? "").trim();
+  if (!raw) return "";
+  const value = Number.parseFloat(raw);
+  return Number.isFinite(value) ? value.toFixed(1) : raw.replace(/点$/u, "").trim();
+}
+function catalogSearchHaystack(item) {
+  return [
+    item.name,
+    catalogDisplayKind(item),
+    catalogDisplayAttribute(item),
+    catalogDisplayRole(item),
+    catalogDisplayRating(item),
+    item.attribute,
+    item.role
+  ].filter(Boolean).join(" ").toLowerCase();
+}
 function renderCatalog() {
   const template = document.getElementById("catalogItemTemplate");
   const list = catalog.filter(item => {
     const kindOk = filterKind === "all" || item.kind === filterKind || item.type === filterKind;
-    const haystack = `${item.name || ""} ${item.kind || item.type || ""} ${item.attribute || ""} ${item.role || ""} ${item.rating || ""}`.toLowerCase();
-    return kindOk && (!searchTerm || haystack.includes(searchTerm));
+    return kindOk && (!searchTerm || catalogSearchHaystack(item).includes(searchTerm));
   }).slice(0, 250);
   els.catalogList.innerHTML = "";
   list.forEach(item => {
@@ -2555,8 +2598,19 @@ function renderCatalog() {
     img.src = item.icon || "";
     img.alt = item.name || "";
     img.onerror = () => { img.src = placeholderDataUrl(item.name); };
-    node.querySelector("strong").textContent = item.name || "Unnamed";
-    const meta = [item.kind || item.type, item.attribute, item.role, item.rating ? `${item.rating}点` : ""].filter(Boolean).join(" · ");
+
+    const fullName = item.name || "Unnamed";
+    const nameEl = node.querySelector("strong");
+    nameEl.textContent = fullName;
+    nameEl.title = fullName;
+    node.querySelector(".catalog-main").title = fullName;
+
+    const meta = [
+      catalogDisplayKind(item),
+      catalogDisplayAttribute(item),
+      catalogDisplayRole(item),
+      catalogDisplayRating(item)
+    ].filter(Boolean).join(" · ");
     node.querySelector("small").textContent = meta;
     node.querySelector("button").addEventListener("click", () => {
       addUnit({
