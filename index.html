@@ -20,7 +20,7 @@
       <div class="toolbar-group" aria-label="Export and share">
         <button id="btnExportJson">Export JSON</button>
         <button id="btnExportPng">Export PNG</button>
-        <button id="btnCopyShareLink">Copy Share Link</button>
+        <button id="btnPrivateShare">Private Share</button>
       </div>
       <div class="toolbar-group" aria-label="Project storage">
         <label class="fileBtn">Import JSON<input id="importJson" type="file" accept="application/json" /></label>
@@ -165,6 +165,54 @@
         <button value="default" type="submit">Save</button>
       </div>
     </form>
+  </dialog>
+
+
+  <dialog id="privateShareDialog" class="status-dialog private-share-dialog">
+    <div class="private-share-head">
+      <div>
+        <h2>Private seasonal share</h2>
+        <p class="hint">Create one encrypted link for this roadmap season. Updates keep the same link but always use a fresh encryption IV.</p>
+      </div>
+      <button id="btnClosePrivateShare" type="button">Close</button>
+    </div>
+
+    <div class="field">
+      <label for="privateShareSeason">Season label <span class="label-note">Builder only</span></label>
+      <input id="privateShareSeason" type="text" placeholder="e.g. Summer 2026" />
+    </div>
+    <div class="field">
+      <label for="privateShareViewerUrl">Viewer URL</label>
+      <input id="privateShareViewerUrl" type="url" placeholder="https://username.github.io/roadmap-viewer/" />
+    </div>
+
+    <div class="private-share-current">
+      <div class="private-share-meta">
+        <span>Current share ID</span>
+        <strong id="privateShareId">None</strong>
+      </div>
+      <div class="private-share-meta">
+        <span>Encrypted filename</span>
+        <code id="privateShareFilename">—</code>
+      </div>
+    </div>
+
+    <div class="row gap private-share-actions">
+      <button id="btnPrivateCreate" type="button" class="primary-action">Create New Season</button>
+      <button id="btnPrivateUpdate" type="button">Update Current Season</button>
+      <button id="btnPrivateRestore" type="button">Restore Existing Link</button>
+    </div>
+
+    <div class="field private-share-link-field">
+      <label for="privateShareLink">Private clan link</label>
+      <textarea id="privateShareLink" rows="3" readonly placeholder="Create a season to generate a private link."></textarea>
+    </div>
+    <div class="row gap private-share-copy-row">
+      <button id="btnPrivateCopy" type="button">Copy Private Link</button>
+    </div>
+
+    <p class="private-share-path">After creating or updating, place the downloaded <code>.uce.enc</code> file in <code>Viewer/data/private/</code>, commit, and push to GitHub Pages.</p>
+    <p class="private-share-warning">Anyone with the complete private link can decrypt this season. Keep the link inside your clan.</p>
   </dialog>
 
   <dialog id="unitEditDialog" class="status-dialog unit-edit-dialog">

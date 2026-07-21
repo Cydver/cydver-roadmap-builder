@@ -2013,3 +2013,24 @@ button.danger:hover,
   outline: calc(2px * var(--textBoost, 1)) solid rgba(239,252,255,.96);
   outline-offset: calc(3px * var(--textBoost, 1));
 }
+
+
+/* Private seasonal sharing */
+.private-share-dialog { width: min(620px, calc(100vw - 32px)); }
+.private-share-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.private-share-head h2 { margin-bottom: 6px; }
+.private-share-head .hint { margin: 0; max-width: 470px; }
+.private-share-current { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 10px; margin: 12px 0; }
+.private-share-meta { min-width: 0; padding: 10px 12px; border: 1px solid rgba(120, 220, 240, .14); background: rgba(5, 14, 19, .54); border-radius: 8px; }
+.private-share-meta span { display: block; margin-bottom: 5px; color: var(--muted); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+.private-share-meta strong, .private-share-meta code { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text); }
+.private-share-actions { flex-wrap: wrap; margin: 4px 0 12px; }
+.private-share-link-field textarea { min-height: 74px; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; line-height: 1.45; }
+.private-share-copy-row { justify-content: flex-end; margin-top: -4px; }
+.private-share-path, .private-share-warning { margin: 12px 0 0; padding: 10px 12px; border-left: 2px solid rgba(102, 224, 240, .62); background: rgba(5, 16, 21, .52); color: var(--muted); font-size: 12px; line-height: 1.45; }
+.private-share-warning { border-left-color: rgba(255, 193, 92, .78); color: #d7c7a3; }
+.private-share-dialog button:disabled { opacity: .42; cursor: not-allowed; }
+@media (max-width: 640px) {
+  .private-share-current { grid-template-columns: 1fr; }
+  .private-share-head { align-items: stretch; }
+}

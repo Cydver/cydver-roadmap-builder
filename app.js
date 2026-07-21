@@ -84,6 +84,7 @@ const META_LABEL_MIN_RENDERED_HEIGHT = 9;
 const BAR_BOTTOM_PAD = 34;
 const STORAGE_KEY = "gundam-u-c-e-roadmap-builder-v1";
 const ZOOM_STORAGE_KEY = "gundam-u-c-e-roadmap-builder-zoom-v2";
+const PRIVATE_SHARE_STORAGE_KEY = "gundam-u-c-e-roadmap-builder-private-share-v1";
 
 const DEFAULT_ROADMAP = {
   updated: new Date().toISOString(),
@@ -193,6 +194,12 @@ const els = {
   statusForm: document.getElementById("statusForm"),
   tierDialog: document.getElementById("tierDialog"),
   tierForm: document.getElementById("tierForm"),
+  privateShareDialog: document.getElementById("privateShareDialog"),
+  privateShareSeason: document.getElementById("privateShareSeason"),
+  privateShareViewerUrl: document.getElementById("privateShareViewerUrl"),
+  privateShareId: document.getElementById("privateShareId"),
+  privateShareFilename: document.getElementById("privateShareFilename"),
+  privateShareLink: document.getElementById("privateShareLink"),
   unitEditDialog: document.getElementById("unitEditDialog"),
   unitEditDialogBody: document.getElementById("unitEditDialogBody"),
   contextMenu: document.getElementById("contextMenu")
@@ -1084,7 +1091,12 @@ function bindUI() {
   ensureTagDescriptionEditor();
   document.getElementById("btnAddBlank").addEventListener("click", () => addUnit({ name: "New Unit", kind: "custom" }));
   document.getElementById("btnExportJson").addEventListener("click", exportJson);
-  document.getElementById("btnCopyShareLink").addEventListener("click", copyShareLink);
+  document.getElementById("btnPrivateShare").addEventListener("click", openPrivateShareDialog);
+  document.getElementById("btnClosePrivateShare").addEventListener("click", closePrivateShareDialog);
+  document.getElementById("btnPrivateCreate").addEventListener("click", createNewPrivateShare);
+  document.getElementById("btnPrivateUpdate").addEventListener("click", updateCurrentPrivateShare);
+  document.getElementById("btnPrivateRestore").addEventListener("click", restoreExistingPrivateShare);
+  document.getElementById("btnPrivateCopy").addEventListener("click", copyPrivateShareLink);
   document.getElementById("btnSaveLocal").addEventListener("click", saveLocal);
   document.getElementById("btnClearLocal").addEventListener("click", clearLocal);
   document.getElementById("btnExportPng").addEventListener("click", exportPng);
@@ -2686,7 +2698,7 @@ function autoSave(options = {}) {
   }
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   editDialogSavePending = false;
-  setStatus("Auto-saved locally. Export JSON or copy a share link when ready.");
+  setStatus("Auto-saved locally. Export JSON or create/update a private season share when ready.");
 }
 function loadLocal() {
   const saved = localStorage.getItem(STORAGE_KEY);
@@ -2972,28 +2984,224 @@ function renderTagPreview() {
   });
 }
 
-function base64urlEncode(text) {
-  const bytes = new TextEncoder().encode(text);
+function bytesToBase64url(bytes) {
   let binary = "";
-  bytes.forEach(b => binary += String.fromCharCode(b));
+  const chunkSize = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    const chunk = bytes.subarray(i, i + chunkSize);
+    for (let j = 0; j < chunk.length; j++) binary += String.fromCharCode(chunk[j]);
+  }
   return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
 }
-function base64urlDecode(text) {
-  const padded = text.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((text.length + 3) % 4);
+function base64urlToBytes(text) {
+  const clean = String(text || "").trim();
+  const padded = clean.replace(/-/g, "+").replace(/_/g, "/") + "===".slice((clean.length + 3) % 4);
   const binary = atob(padded);
-  const bytes = Uint8Array.from(binary, ch => ch.charCodeAt(0));
-  return new TextDecoder().decode(bytes);
+  return Uint8Array.from(binary, ch => ch.charCodeAt(0));
 }
-async function copyShareLink() {
-  normalizeState();
-  const payload = { v: 4, updated: new Date().toISOString(), months: state.months, monthWeeks: getMonthWeeks(), tiers: state.tiers, metaStatuses: state.metaStatuses, tagDescriptions: state.tagDescriptions, units: state.units };
-  const encoded = base64urlEncode(JSON.stringify(payload));
-  const url = `${location.origin}${location.pathname}#roadmap=${encoded}`;
+function base64urlDecode(text) {
+  return new TextDecoder().decode(base64urlToBytes(text));
+}
+function defaultPrivateShareSeasonLabel() {
+  return `Roadmap ${new Intl.DateTimeFormat(undefined, { month: "short", year: "numeric" }).format(new Date())}`;
+}
+function validPrivateShareId(value) {
+  return /^[A-Za-z0-9_-]{8,32}$/.test(String(value || ""));
+}
+function normalizePrivateViewerUrl(value) {
+  const raw = String(value || "").trim();
+  if (!raw) throw new Error("Enter the GitHub Pages URL for the Viewer first.");
+  let url;
+  try { url = new URL(raw); }
+  catch { throw new Error("Viewer URL must be a complete http:// or https:// URL."); }
+  if (!/^https?:$/.test(url.protocol)) throw new Error("Viewer URL must use http:// or https://.");
+  url.hash = "";
+  return url.toString();
+}
+function loadPrivateShareConfig() {
   try {
-    await navigator.clipboard.writeText(url);
-    setStatus(url.length > 12000 ? `Share link copied, but it is long (${url.length.toLocaleString()} characters). Published JSON is better for large roadmaps.` : "Share link copied.");
+    const parsed = JSON.parse(localStorage.getItem(PRIVATE_SHARE_STORAGE_KEY) || "null");
+    if (!parsed || !validPrivateShareId(parsed.shareId)) return null;
+    const keyBytes = base64urlToBytes(parsed.key);
+    if (keyBytes.length !== 32) return null;
+    return {
+      version: 1,
+      shareId: parsed.shareId,
+      key: parsed.key,
+      viewerUrl: String(parsed.viewerUrl || ""),
+      seasonLabel: String(parsed.seasonLabel || "")
+    };
   } catch {
-    prompt("Copy this share link:", url);
+    return null;
+  }
+}
+function savePrivateShareConfig(config) {
+  localStorage.setItem(PRIVATE_SHARE_STORAGE_KEY, JSON.stringify({
+    version: 1,
+    shareId: config.shareId,
+    key: config.key,
+    viewerUrl: config.viewerUrl,
+    seasonLabel: config.seasonLabel
+  }));
+}
+function privateShareFilename(config) {
+  return config?.shareId ? `${config.shareId}.uce.enc` : "—";
+}
+function buildPrivateShareLink(config) {
+  const url = new URL(normalizePrivateViewerUrl(config.viewerUrl));
+  url.hash = new URLSearchParams({ private: config.shareId, key: config.key }).toString();
+  return url.toString();
+}
+function refreshPrivateShareDialog(config = loadPrivateShareConfig()) {
+  if (!els.privateShareDialog) return;
+  if (config) {
+    els.privateShareSeason.value = config.seasonLabel || defaultPrivateShareSeasonLabel();
+    els.privateShareViewerUrl.value = config.viewerUrl || "";
+    els.privateShareId.textContent = config.shareId;
+    els.privateShareFilename.textContent = privateShareFilename(config);
+    try { els.privateShareLink.value = buildPrivateShareLink(config); }
+    catch { els.privateShareLink.value = ""; }
+  } else {
+    if (!els.privateShareSeason.value) els.privateShareSeason.value = defaultPrivateShareSeasonLabel();
+    els.privateShareId.textContent = "None";
+    els.privateShareFilename.textContent = "—";
+    els.privateShareLink.value = "";
+  }
+  const hasCurrent = Boolean(config);
+  document.getElementById("btnPrivateUpdate").disabled = !hasCurrent;
+  document.getElementById("btnPrivateCopy").disabled = !hasCurrent;
+}
+function openPrivateShareDialog() {
+  refreshPrivateShareDialog();
+  if (!els.privateShareDialog.open) els.privateShareDialog.showModal();
+}
+function closePrivateShareDialog() {
+  if (els.privateShareDialog?.open) els.privateShareDialog.close();
+}
+function privateShareInputs() {
+  return {
+    seasonLabel: sanitizeText(els.privateShareSeason.value) || defaultPrivateShareSeasonLabel(),
+    viewerUrl: normalizePrivateViewerUrl(els.privateShareViewerUrl.value)
+  };
+}
+function randomPrivateShareId() {
+  return bytesToBase64url(crypto.getRandomValues(new Uint8Array(9)));
+}
+function newPrivateShareConfig() {
+  const inputs = privateShareInputs();
+  return {
+    version: 1,
+    shareId: randomPrivateShareId(),
+    key: bytesToBase64url(crypto.getRandomValues(new Uint8Array(32))),
+    viewerUrl: inputs.viewerUrl,
+    seasonLabel: inputs.seasonLabel
+  };
+}
+async function compressPrivateRoadmap(bytes) {
+  if (typeof CompressionStream !== "function") return { compression: "none", bytes };
+  const stream = new Blob([bytes]).stream().pipeThrough(new CompressionStream("gzip"));
+  return { compression: "gzip", bytes: new Uint8Array(await new Response(stream).arrayBuffer()) };
+}
+async function encryptPrivateRoadmap(config) {
+  if (!globalThis.crypto?.subtle) throw new Error("Private sharing requires a secure browser context (HTTPS, localhost, or a trusted local file).");
+  normalizeState();
+  const updated = new Date().toISOString();
+  const payload = { ...state, updated };
+  const plainBytes = new TextEncoder().encode(JSON.stringify(payload));
+  const compressed = await compressPrivateRoadmap(plainBytes);
+  const keyBytes = base64urlToBytes(config.key);
+  if (keyBytes.length !== 32) throw new Error("Private share key is invalid. Create a new season.");
+  const key = await crypto.subtle.importKey("raw", keyBytes, { name: "AES-GCM" }, false, ["encrypt"]);
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const additionalData = new TextEncoder().encode(`gundam-uce-roadmap-private:v1:${config.shareId}`);
+  const encrypted = new Uint8Array(await crypto.subtle.encrypt({
+    name: "AES-GCM",
+    iv,
+    additionalData,
+    tagLength: 128
+  }, key, compressed.bytes));
+  const envelope = {
+    format: "gundam-uce-roadmap-private",
+    version: 1,
+    cipher: "AES-GCM-256",
+    compression: compressed.compression,
+    shareId: config.shareId,
+    updated,
+    iv: bytesToBase64url(iv),
+    data: bytesToBase64url(encrypted)
+  };
+  return new Blob([JSON.stringify(envelope)], { type: "application/octet-stream" });
+}
+async function downloadPrivateShare(config, actionLabel) {
+  const blob = await encryptPrivateRoadmap(config);
+  downloadBlob(blob, privateShareFilename(config));
+  savePrivateShareConfig(config);
+  refreshPrivateShareDialog(config);
+  setStatus(`${actionLabel}. Put ${privateShareFilename(config)} in Viewer/data/private/ and push it. JSON export remains unchanged.`);
+}
+async function createNewPrivateShare() {
+  try {
+    const existing = loadPrivateShareConfig();
+    if (existing && !confirm("Create a new season link? The current season link will remain valid for its existing encrypted file.")) return;
+    const config = newPrivateShareConfig();
+    await downloadPrivateShare(config, `Created private season “${config.seasonLabel}”`);
+  } catch (error) {
+    alert(`Could not create private share: ${error.message}`);
+  }
+}
+async function updateCurrentPrivateShare() {
+  try {
+    const existing = loadPrivateShareConfig();
+    if (!existing) throw new Error("No current private season exists. Create a new season first.");
+    const inputs = privateShareInputs();
+    const config = { ...existing, ...inputs };
+    await downloadPrivateShare(config, `Updated private season “${config.seasonLabel}”`);
+  } catch (error) {
+    alert(`Could not update private share: ${error.message}`);
+  }
+}
+async function copyPrivateShareLink() {
+  try {
+    const existing = loadPrivateShareConfig();
+    if (!existing) throw new Error("No current private season exists.");
+    const inputs = privateShareInputs();
+    const config = { ...existing, ...inputs };
+    savePrivateShareConfig(config);
+    refreshPrivateShareDialog(config);
+    const link = buildPrivateShareLink(config);
+    try {
+      await navigator.clipboard.writeText(link);
+      setStatus("Private season link copied. Anyone with the complete link can decrypt this season.");
+    } catch {
+      prompt("Copy this private season link:", link);
+    }
+  } catch (error) {
+    alert(`Could not copy private link: ${error.message}`);
+  }
+}
+function restoreExistingPrivateShare() {
+  const input = prompt("Paste the existing private season link:");
+  if (!input) return;
+  try {
+    const url = new URL(input.trim());
+    const params = new URLSearchParams(url.hash.replace(/^#/, ""));
+    const shareId = params.get("private") || "";
+    const key = params.get("key") || "";
+    if (!validPrivateShareId(shareId)) throw new Error("The link does not contain a valid private share ID.");
+    if (base64urlToBytes(key).length !== 32) throw new Error("The link does not contain a valid AES-256 key.");
+    url.hash = "";
+    const config = {
+      version: 1,
+      shareId,
+      key,
+      viewerUrl: url.toString(),
+      seasonLabel: sanitizeText(els.privateShareSeason.value) || defaultPrivateShareSeasonLabel()
+    };
+    savePrivateShareConfig(config);
+    refreshPrivateShareDialog(config);
+    setStatus(`Restored private season ${shareId}. Update Current Season will keep this same clan link.`);
+  } catch (error) {
+    alert(`Could not restore private share: ${error.message}`);
   }
 }
 function loadFromShareHash() {
