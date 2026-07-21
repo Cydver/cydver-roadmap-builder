@@ -259,7 +259,7 @@ textarea { resize: vertical; min-height: 80px; }
   color: #eef4fc;
   font-size: 12px;
   line-height: 1.4;
-  backdrop-filter: blur(18px);
+  contain: layout style;
 }
 .tooltip.unit-tooltip-card.pinned {
   border-color: rgba(71,169,255,.48);
@@ -1971,7 +1971,6 @@ button.danger:hover,
 
 .meta-bar.meta-owner-highlight {
   opacity: 1;
-  filter: saturate(1.16) brightness(1.11);
   box-shadow:
     0 7px 18px rgba(0,0,0,.4),
     0 0 0 calc(2px * var(--textBoost, 1)) rgba(233,251,255,.86),
@@ -1981,13 +1980,11 @@ button.danger:hover,
 }
 .meta-link.meta-owner-highlight {
   opacity: 1;
-  filter: saturate(1.14) brightness(1.1);
   box-shadow:
     0 0 0 calc(1.5px * var(--textBoost, 1)) rgba(225,249,255,.62),
     0 0 calc(10px * var(--textBoost, 1)) rgba(74,211,255,.3);
 }
 .unit-card.meta-owner-highlight {
-  filter: brightness(1.11) saturate(1.04) drop-shadow(0 0 calc(7px * var(--textBoost, 1)) rgba(183,239,255,.36));
 }
 .unit-card.meta-owner-highlight:not(.selected) {
   outline: calc(2px * var(--textBoost, 1)) solid rgba(239,252,255,.96);
