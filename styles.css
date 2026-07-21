@@ -166,12 +166,12 @@ textarea { resize: vertical; min-height: 80px; }
 .unit-card.dragging { opacity: .9; z-index: 80; box-shadow: 0 20px 44px rgba(0,0,0,.55); }
 .unit-card:active { cursor: grabbing; }
 .unit-card.selected { outline: 3px solid var(--accent); outline-offset: 2px; z-index: 30; }
-.unit-card.must-p5 { border-color: rgba(255,59,77,.96); box-shadow: 0 0 0 4px rgba(255,59,77,.78), 0 10px 24px rgba(0,0,0,.35); }
-.unit-card.buff { border-color: rgba(67,220,125,.96); box-shadow: 0 0 0 4px rgba(67,220,125,.74), 0 10px 24px rgba(0,0,0,.35); }
-.unit-card.must-p5.buff { border-color: rgba(255,59,77,.96); box-shadow: 0 0 0 4px rgba(255,59,77,.82), 0 0 0 8px rgba(67,220,125,.66), 0 10px 24px rgba(0,0,0,.35); }
-.unit-card.must-p5.selected { box-shadow: 0 0 0 4px rgba(255,59,77,.88), 0 14px 30px rgba(0,0,0,.45); }
-.unit-card.buff.selected { box-shadow: 0 0 0 4px rgba(67,220,125,.84), 0 14px 30px rgba(0,0,0,.45); }
-.unit-card.must-p5.buff.selected { box-shadow: 0 0 0 4px rgba(255,59,77,.9), 0 0 0 8px rgba(67,220,125,.72), 0 14px 30px rgba(0,0,0,.45); }
+.unit-card.must-p5 { border-color: rgba(255,59,77,.96); box-shadow: 0 0 0 calc(4px * var(--textBoost, 1)) rgba(255,59,77,.86), 0 0 calc(16px * var(--textBoost, 1)) rgba(255,59,77,.52), 0 10px 24px rgba(0,0,0,.35); }
+.unit-card.buff { border-color: rgba(67,220,125,.96); box-shadow: 0 0 0 calc(4px * var(--textBoost, 1)) rgba(67,220,125,.82), 0 0 calc(16px * var(--textBoost, 1)) rgba(67,220,125,.46), 0 10px 24px rgba(0,0,0,.35); }
+.unit-card.must-p5.buff { border-color: rgba(255,59,77,.96); box-shadow: 0 0 0 calc(4px * var(--textBoost, 1)) rgba(255,59,77,.9), 0 0 0 calc(8px * var(--textBoost, 1)) rgba(67,220,125,.74), 0 0 calc(12px * var(--textBoost, 1)) rgba(255,59,77,.44), 0 0 calc(20px * var(--textBoost, 1)) rgba(67,220,125,.38), 0 10px 24px rgba(0,0,0,.35); }
+.unit-card.must-p5.selected { box-shadow: 0 0 0 calc(4px * var(--textBoost, 1)) rgba(255,59,77,.94), 0 0 calc(18px * var(--textBoost, 1)) rgba(255,59,77,.58), 0 14px 30px rgba(0,0,0,.45); }
+.unit-card.buff.selected { box-shadow: 0 0 0 calc(4px * var(--textBoost, 1)) rgba(67,220,125,.9), 0 0 calc(18px * var(--textBoost, 1)) rgba(67,220,125,.52), 0 14px 30px rgba(0,0,0,.45); }
+.unit-card.must-p5.buff.selected { box-shadow: 0 0 0 calc(4px * var(--textBoost, 1)) rgba(255,59,77,.95), 0 0 0 calc(8px * var(--textBoost, 1)) rgba(67,220,125,.8), 0 0 calc(14px * var(--textBoost, 1)) rgba(255,59,77,.5), 0 0 calc(22px * var(--textBoost, 1)) rgba(67,220,125,.44), 0 14px 30px rgba(0,0,0,.45); }
 .unit-card.between-row { border-style: double; }
 .unit-card img { width: 100%; height: 100%; object-fit: cover; display: block; background: linear-gradient(135deg, #1a2330, #0c1118); }
 .unit-card .placeholder { width: 100%; height: 100%; display: grid; place-items: center; text-align: center; padding: 12px; color: var(--muted); font-weight: 800; background: linear-gradient(135deg,#111827,#0a0d14); }
