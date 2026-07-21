@@ -14,13 +14,19 @@
       </div>
     </div>
     <div class="toolbar">
-      <button id="btnAddBlank">+ Blank Unit</button>
-      <button id="btnExportJson">Export JSON</button>
-      <button id="btnCopyShareLink">Copy Share Link</button>
-      <label class="fileBtn">Import JSON<input id="importJson" type="file" accept="application/json" /></label>
-      <button id="btnSaveLocal">Save Local</button>
-      <button id="btnClearLocal" class="danger">Clear Local</button>
-      <button id="btnExportPng">Export PNG</button>
+      <div class="toolbar-group toolbar-group-create" aria-label="Create">
+        <button id="btnAddBlank" class="primary-action">+ Blank Unit</button>
+      </div>
+      <div class="toolbar-group" aria-label="Export and share">
+        <button id="btnExportJson">Export JSON</button>
+        <button id="btnExportPng">Export PNG</button>
+        <button id="btnCopyShareLink">Copy Share Link</button>
+      </div>
+      <div class="toolbar-group" aria-label="Project storage">
+        <label class="fileBtn">Import JSON<input id="importJson" type="file" accept="application/json" /></label>
+        <button id="btnSaveLocal">Save Local</button>
+        <button id="btnClearLocal" class="danger">Clear Local</button>
+      </div>
     </div>
   </header>
 

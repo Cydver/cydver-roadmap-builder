@@ -764,6 +764,14 @@ function buildStaticGrid() {
       openTierEditor(tier.id);
     });
     els.roadmap.appendChild(label);
+
+    const rail = document.createElement("div");
+    rail.className = "tier-accent-rail";
+    rail.style.left = `${LEFT_W}px`;
+    rail.style.top = `${tierY(tier.id)}px`;
+    rail.style.width = `${Math.max(0, baseChartWidth() - LEFT_W)}px`;
+    rail.style.setProperty("--tier-color", tier.color);
+    els.roadmap.appendChild(rail);
   });
 
   const monthBoundaries = new Set([0]);
@@ -937,7 +945,7 @@ function renderLegend() {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "legend-item";
-    btn.innerHTML = `<i class="dot" style="background:${status.color}"></i><span>${escapeHtml(status.label)}</span>`;
+    btn.innerHTML = `<i class="legend-swatch" style="--legend-color:${status.color}"></i><span>${escapeHtml(status.label)}</span>`;
     const description = String(status.description || "").trim();
     btn.setAttribute("aria-label", description ? `${status.label}: ${description}` : `Edit meta status: ${status.label}`);
     bindAppTooltip(btn, () => `<strong>${escapeHtml(status.label)}</strong>${description ? `<div class="app-tooltip-description">${multilineHtml(description)}</div>` : `<div>Click to edit this meta status.</div>`}`);
