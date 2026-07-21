@@ -109,6 +109,7 @@ let profileReturnFocus = null;
 let unitNoteReaderOverlay = null;
 let unitNoteReaderReturnFocus = null;
 let unitProfileOverflowObserver = null;
+let unitProfileLayoutObserver = null;
 let autoApplyTimer = null;
 let zoomScale = Number(localStorage.getItem(ZOOM_STORAGE_KEY) || "1") || 1;
 
@@ -3055,6 +3056,8 @@ function closeUnitNoteReader(immediate = false) {
 function bindProfileNoteReaders(root) {
   unitProfileOverflowObserver?.disconnect();
   unitProfileOverflowObserver = null;
+  unitProfileLayoutObserver?.disconnect();
+  unitProfileLayoutObserver = null;
   const sections = [...(root?.querySelectorAll('.unit-profile-scroll-notes[data-note-reader="true"]') || [])];
   if (!sections.length) return;
 
@@ -3094,6 +3097,78 @@ function bindProfileNoteReaders(root) {
   const updateAll = () => sections.forEach(updateSection);
   requestAnimationFrame(() => requestAnimationFrame(updateAll));
   setTimeout(updateAll, 120);
+}
+
+
+function profileRequiredContentBottom(panel, target) {
+  if (!panel || !target) return 0;
+  const panelRect = panel.getBoundingClientRect();
+  const targetRect = target.getBoundingClientRect();
+  const panelStyle = getComputedStyle(panel);
+  const paddingBottom = Number.parseFloat(panelStyle.paddingBottom) || 0;
+  const fullTargetHeight = Math.max(targetRect.height, target.scrollHeight || 0);
+  return Math.ceil((targetRect.top - panelRect.top) + fullTargetHeight + paddingBottom);
+}
+
+function updateUnitProfileAdaptiveRows(root) {
+  const grid = root?.querySelector('.unit-profile-grid-lshape');
+  if (!grid) return;
+
+  // Mobile uses one continuous stacked scroll surface; row sizing only applies to desktop.
+  if (window.matchMedia?.('(max-width: 820px)')?.matches) {
+    grid.style.removeProperty('--profile-top-row');
+    return;
+  }
+
+  const gridHeight = grid.clientHeight;
+  if (gridHeight <= 0) return;
+
+  const msPanel = grid.querySelector(':scope > .unit-profile-ms-panel');
+  const pilotPrimary = grid.querySelector(':scope > .unit-profile-pilot-panel > .unit-profile-pilot-primary');
+  const metaList = msPanel?.querySelector('.unit-profile-meta-list');
+  const pilotNotes = pilotPrimary?.querySelector('.unit-profile-pilot-notes .unit-profile-note-scroll');
+
+  // Measure the deepest real content node, not the scroll container itself: a flexing scroll
+  // container is always at least as tall as its assigned row and would make every unit look
+  // artificially identical. The last meta row / pilot note copy reveal the true content depth.
+  const msTarget = metaList?.querySelector('.unit-profile-meta-row:last-child') || metaList || msPanel?.lastElementChild;
+  const pilotTarget = pilotNotes?.querySelector('.unit-profile-note-copy, .unit-profile-note-empty') || pilotNotes || pilotPrimary?.lastElementChild;
+  const msRequired = profileRequiredContentBottom(msPanel, msTarget);
+  const pilotRequired = profileRequiredContentBottom(pilotPrimary, pilotTarget);
+
+  // Notes are the flexible, lower-priority region, but always retain a usable preview floor.
+  // On shorter windows that floor shrinks modestly; on taller windows it is capped so unused
+  // top-row space naturally flows back into PVP/PVE notes.
+  const notesFloor = clamp(Math.round(gridHeight * 0.24), 130, 190);
+  const maxTop = Math.max(0, gridHeight - notesFloor);
+  const topFloor = Math.min(maxTop, clamp(Math.round(gridHeight * 0.4), 250, 330));
+  const desiredTop = Math.max(topFloor, msRequired, pilotRequired);
+  const topHeight = Math.min(maxTop, Math.ceil(desiredTop));
+
+  grid.style.setProperty('--profile-top-row', `${topHeight}px`);
+}
+
+function bindUnitProfileAdaptiveRows(root) {
+  unitProfileLayoutObserver?.disconnect();
+  unitProfileLayoutObserver = null;
+
+  const card = root?.querySelector('.unit-profile-card');
+  if (!card) return;
+
+  let frame = 0;
+  const update = () => {
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => updateUnitProfileAdaptiveRows(root));
+  };
+
+  if (typeof ResizeObserver === 'function') {
+    unitProfileLayoutObserver = new ResizeObserver(update);
+    unitProfileLayoutObserver.observe(card);
+  }
+
+  requestAnimationFrame(() => requestAnimationFrame(update));
+  setTimeout(update, 120);
+  if (document.fonts?.ready) document.fonts.ready.then(update).catch(() => {});
 }
 
 function profilePanelHeaderHtml(unit, label, emptyMessage) {
@@ -3158,6 +3233,7 @@ function openUnitProfile(unitId, activeSegmentId = null) {
   unitProfileOverlay = overlay;
   bindProfileTagTooltips(overlay);
   bindProfileMetaTooltips(overlay);
+  bindUnitProfileAdaptiveRows(overlay);
   bindProfileNoteReaders(overlay);
   overlay.querySelector(".unit-profile-close")?.focus({ preventScroll: true });
 }

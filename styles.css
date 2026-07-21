@@ -694,21 +694,14 @@ body.unit-profile-open { overflow: hidden; }
 }
 /*
  * Current L-shaped structure: top-left MS overview, top-right Pilot,
- * and a full-width MS notes band split evenly into PVP/PVE.
+ * and a full-width MS notes band using the same 60/40 column balance.
+ * The top row is measured from real rendered content; notes receive the remainder.
  */
-/*
- * Give overview/meta the majority of the profile height. Notes are deliberately
- * the lowest-priority region: they keep a usable floor, then scroll internally.
- * Meta-dense units can claim a little more room without growing the modal.
- */
-.unit-profile-grid-lshape {
-  grid-template-rows: minmax(0, 2fr) minmax(120px, 1fr);
-}
-.unit-profile-grid-lshape.meta-dense {
-  grid-template-rows: minmax(0, 5fr) minmax(110px, 2fr);
-}
+.unit-profile-grid-lshape,
+.unit-profile-grid-lshape.meta-dense,
 .unit-profile-grid-lshape.meta-very-dense {
-  grid-template-rows: minmax(0, 3fr) minmax(100px, 1fr);
+  /* JS replaces the fallback with the measured content depth of the top row. */
+  grid-template-rows: var(--profile-top-row, minmax(0, 2fr)) minmax(120px, 1fr);
 }
 .unit-profile-grid-lshape > .unit-profile-ms-panel {
   grid-column: 1;
