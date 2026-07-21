@@ -1970,7 +1970,7 @@ button.danger:hover,
   bottom: 0;
   z-index: 9;
   pointer-events: none;
-  background: rgba(1, 5, 9, .62);
+  background: rgba(1, 5, 9, .80);
   opacity: 0;
   transition: opacity .1s ease-out;
   contain: strict;

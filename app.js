@@ -145,12 +145,32 @@ function createLayoutGeometryCache() {
     laneOwners: new Map(),
     cardRectsByLeft: null,
     betweenSafeComputed: false,
+    wideWeeks: null,
+    weekBoundaryXs: null,
     baseChartHeight: null
   };
 }
 let layoutGeometryCache = createLayoutGeometryCache();
+let roadmapImageReuseCache = new Map();
 function invalidateLayoutGeometryCache() {
   layoutGeometryCache = createLayoutGeometryCache();
+}
+function captureRoadmapImagesForRender() {
+  const next = new Map();
+  els.roadmap?.querySelectorAll(".unit-card[data-id] > img").forEach(img => {
+    const unitId = img.parentElement?.dataset?.id;
+    if (unitId) next.set(unitId, img);
+  });
+  roadmapImageReuseCache = next;
+}
+function reusableRoadmapImage(unit) {
+  if (!unit?.icon) return null;
+  const img = roadmapImageReuseCache.get(unit.id);
+  roadmapImageReuseCache.delete(unit.id);
+  if (!img || img.getAttribute("src") !== unit.icon) return null;
+  img.alt = unit.name;
+  img.crossOrigin = "anonymous";
+  return img;
 }
 
 const els = {
@@ -253,40 +273,48 @@ function formatWeek(week) {
 function formatWeekRange(start, end) {
   return start === end ? formatWeek(start) : `${formatWeek(start)}–${formatWeek(end)}`;
 }
-function weekNeedsWideColumn(week) {
-  const targetWeek = normalizeWeek(week);
+function wideWeekSet() {
+  if (layoutGeometryCache.wideWeeks) return layoutGeometryCache.wideWeeks;
   const slots = new Map();
+  const wideWeeks = new Set();
   for (const unit of state.units || []) {
-    if (normalizeWeek(unit.week) !== targetWeek || !normalizeRowOffset(unit.rowOffset)) continue;
-    const key = rowSlotKey(unit);
-    if (!key.startsWith("between:")) continue;
-    const entry = slots.get(key) || { ms: false, pilot: false };
-    if (isMs(unit)) entry.ms = true;
-    if (isPilot(unit)) entry.pilot = true;
-    slots.set(key, entry);
-    if (entry.ms && entry.pilot) return true;
+    if (!normalizeRowOffset(unit.rowOffset)) continue;
+    const rowKey = rowSlotKey(unit);
+    if (!rowKey.startsWith("between:")) continue;
+    const week = normalizeWeek(unit.week);
+    const key = `${week}|${rowKey}`;
+    const flags = slots.get(key) || 0;
+    const next = flags | (isMs(unit) ? 1 : 0) | (isPilot(unit) ? 2 : 0);
+    slots.set(key, next);
+    if (next === 3) wideWeeks.add(week);
   }
-  return false;
+  layoutGeometryCache.wideWeeks = wideWeeks;
+  return wideWeeks;
 }
+function weekNeedsWideColumn(week) { return wideWeekSet().has(normalizeWeek(week)); }
 function weekWidth(week) { return weekNeedsWideColumn(week) ? WIDE_CELL_W : CELL_W; }
+function ensureWeekBoundaryXs() {
+  if (layoutGeometryCache.weekBoundaryXs) return layoutGeometryCache.weekBoundaryXs;
+  const total = weekCount();
+  const boundaries = new Array(total + 1);
+  boundaries[0] = LEFT_W;
+  for (let week = 1; week <= total; week++) boundaries[week] = boundaries[week - 1] + weekWidth(week);
+  layoutGeometryCache.weekBoundaryXs = boundaries;
+  return boundaries;
+}
 function weekX(week) {
-  let x = LEFT_W;
   const target = clamp(Math.round(Number(week) || 1), 1, weekCount());
-  for (let w = 1; w < target; w++) x += weekWidth(w);
-  return x;
+  return ensureWeekBoundaryXs()[target - 1];
 }
 function weekBoundaryX(completedWeeks) {
-  let x = LEFT_W;
   const count = clamp(Math.round(Number(completedWeeks) || 0), 0, weekCount());
-  for (let w = 1; w <= count; w++) x += weekWidth(w);
-  return x;
+  return ensureWeekBoundaryXs()[count];
 }
 function weekSpanWidth(start, end) {
   const first = Math.min(normalizeWeek(start), normalizeWeek(end));
   const last = Math.max(normalizeWeek(start), normalizeWeek(end));
-  let width = 0;
-  for (let w = first; w <= last; w++) width += weekWidth(w);
-  return width;
+  const boundaries = ensureWeekBoundaryXs();
+  return boundaries[last] - boundaries[first - 1];
 }
 function monthPixelWidth(index) {
   const counts = getMonthWeeks();
@@ -902,6 +930,7 @@ function normalizeState() {
 }
 
 function renderAll() {
+  captureRoadmapImagesForRender();
   metaOwnerHoverId = null;
   metaOwnerHighlightedId = null;
   metaFocusDimmerEl = null;
@@ -913,6 +942,7 @@ function renderAll() {
   renderUnits();
   renderForm();
   applyZoom();
+  roadmapImageReuseCache.clear();
 }
 
 function buildStaticGrid() {
@@ -1422,8 +1452,8 @@ function renderUnits() {
     card.setAttribute("aria-label", unit.name);
 
     if (unit.icon) {
-      const img = document.createElement("img");
-      img.src = unit.icon;
+      const img = reusableRoadmapImage(unit) || document.createElement("img");
+      if (!img.getAttribute("src")) img.src = unit.icon;
       img.alt = unit.name;
       img.crossOrigin = "anonymous";
       img.onerror = () => { img.replaceWith(placeholder(unit.name)); };
@@ -2263,14 +2293,13 @@ function handleUnitClickGesture(event, unitId) {
 
   lastUnitClick = { id: unit.id, at: now };
   if (profileOpenTimer) clearTimeout(profileOpenTimer);
-  profileOpenTimer = null;
   if (isMs(unit) || isPilot(unit)) {
-    // Open immediately. A second click at the original card position is bridged
-    // through the profile overlay below, preserving Builder double-click editing
-    // without charging every single-click profile a 420ms intent delay.
-    openUnitProfile(unit.id, null, {
-      builderDoubleClickBridge: { unitId: unit.id, at: now, x: event.clientX, y: event.clientY }
-    });
+    // Preserve Builder's deliberate single-click vs double-click distinction.
+    // A short intent delay avoids flashing Full Profile when the user means to edit.
+    profileOpenTimer = setTimeout(() => {
+      profileOpenTimer = null;
+      if (lastUnitClick.id === unit.id) openUnitProfile(unit.id);
+    }, 420);
   }
 }
 function handleMetaBarClickGesture(event, unitId, segmentId) {
@@ -3976,7 +4005,7 @@ function profilePanelHeaderHtml(unit, label, emptyMessage) {
   return `<div class="unit-profile-hero">${profileArtHtml(unit, label)}<div class="unit-profile-identity"><span class="unit-profile-eyebrow">${escapeHtml(label)}</span><h2>${escapeHtml(unit.name)}</h2>${profileContextHtml(unit)}${profileTagsHtml(unit)}</div></div>`;
 }
 
-function openUnitProfile(unitId, activeSegmentId = null, options = {}) {
+function openUnitProfile(unitId, activeSegmentId = null) {
   const clicked = state.units.find(unit => unit.id === unitId);
   if (!clicked || (!isMs(clicked) && !isPilot(clicked))) return;
   hideTooltip(true);
@@ -4022,21 +4051,6 @@ function openUnitProfile(unitId, activeSegmentId = null, options = {}) {
     </article>
     <button class="unit-profile-nav unit-profile-nav-next" type="button" aria-label="${escapeHtml(next ? `Next MS: ${next.name}` : "No next MS")}" ${next ? "" : "disabled"}><span aria-hidden="true">›</span></button>`;
 
-  const doubleClickBridge = options?.builderDoubleClickBridge || null;
-  if (doubleClickBridge) {
-    const bridgePointerDown = event => {
-      if (event.button !== 0) return;
-      const elapsed = performance.now() - doubleClickBridge.at;
-      const distance = Math.hypot(event.clientX - doubleClickBridge.x, event.clientY - doubleClickBridge.y);
-      if (elapsed > 500 || distance > 24) return;
-      event.preventDefault();
-      event.stopPropagation();
-      lastUnitClick = { id: null, at: 0 };
-      closeUnitProfile(true);
-      openSelectedUnitDialog(doubleClickBridge.unitId);
-    };
-    overlay.addEventListener("pointerdown", bridgePointerDown, { capture: true, once: true });
-  }
   overlay.addEventListener("click", event => { if (event.target === overlay) closeUnitProfile(); });
   overlay.querySelector(".unit-profile-close")?.addEventListener("click", () => closeUnitProfile());
   overlay.querySelector(".unit-profile-nav-prev")?.addEventListener("click", event => {
