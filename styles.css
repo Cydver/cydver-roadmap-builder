@@ -1829,13 +1829,14 @@ button.danger:hover,
   letter-spacing: .08em;
 }
 
-/* At low effective card sizes, preserve the artwork instead of letting metadata cover it. */
+/* Stage card metadata at low effective sizes: artwork first, then tags, then the nameplate. */
 .unit-card .tags,
 .unit-card .nameplate {
   transition: opacity .12s ease, visibility 0s linear 0s;
 }
 .unit-card.icon-only .tags,
-.unit-card.icon-only .nameplate {
+.unit-card.icon-only .nameplate,
+.unit-card.tags-only .nameplate {
   opacity: 0;
   visibility: hidden;
   transition: opacity .1s ease, visibility 0s linear .1s;

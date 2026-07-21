@@ -57,6 +57,9 @@ const MAX_ZOOM = 1.6;
 const ZOOM_BUTTON_STEP = 0.1;
 const TIER_LABEL_ABBREVIATIONS = { human: "HR", must: "MP", ideal: "IP", luxury: "LP", skip: "S" };
 const CARD_DETAILS_MIN_VISUAL_SIZE = 56;
+const CARD_TAGS_MIN_BOTTOM_GAP = 2;
+const CARD_NAME_MIN_VISUAL_SIZE = 72;
+const CARD_NAME_MIN_TAG_GAP = 8;
 const MUST_P5_TAG = "Must P5";
 const BUFF_TAG = "Buff";
 const TAG_ORDER = new Map(TAG_OPTIONS.map((tag, i) => [tag.toLowerCase(), i]));
@@ -2320,21 +2323,29 @@ function updateUnitCardDetailVisibility() {
     const tags = card.querySelector(".tags");
     const nameplate = card.querySelector(".nameplate");
     const visualSize = Math.min(cardRect.width, cardRect.height);
+
+    if (isMs(unit)) {
+      const hasTags = Boolean(tags?.children.length);
+      const tagsRect = hasTags ? tags.getBoundingClientRect() : null;
+      const nameRect = nameplate?.getBoundingClientRect();
+      const tagsFitCard = !tagsRect || tagsRect.bottom <= cardRect.bottom - CARD_TAGS_MIN_BOTTOM_GAP;
+      const nameHasRoom = visualSize >= CARD_NAME_MIN_VISUAL_SIZE
+        && (!tagsRect || !nameRect || nameRect.top - tagsRect.bottom >= CARD_NAME_MIN_TAG_GAP);
+      const iconOnly = visualSize < CARD_DETAILS_MIN_VISUAL_SIZE || !tagsFitCard;
+
+      card.classList.toggle("icon-only", iconOnly);
+      card.classList.toggle("tags-only", !iconOnly && !nameHasRoom);
+      return;
+    }
+
     let detailsCollide = false;
     if (tags?.children.length && nameplate) {
       const tagsRect = tags.getBoundingClientRect();
       const nameRect = nameplate.getBoundingClientRect();
-      let collisionLimit = nameRect.top - 2;
-      const tagCount = Math.min(unit?.tags?.length || 0, MAX_TAGS);
-      if (isMs(unit) && tagCount >= 4 && tagCount <= TAGS_PER_COLUMN) {
-        const renderedScale = card.offsetWidth ? cardRect.width / card.offsetWidth : zoomScale;
-        const namePaddingTop = parseFloat(getComputedStyle(nameplate).paddingTop) || 0;
-        const overlapAllowance = Math.min((tagCount - 3) * 3, namePaddingTop * renderedScale);
-        collisionLimit = nameRect.top + overlapAllowance;
-      }
-      detailsCollide = tagsRect.bottom >= collisionLimit;
+      detailsCollide = tagsRect.bottom >= nameRect.top - 2;
     }
     card.classList.toggle("icon-only", visualSize < CARD_DETAILS_MIN_VISUAL_SIZE || detailsCollide);
+    card.classList.remove("tags-only");
   });
 }
 function updateMetaBarLabelVisibility() {
