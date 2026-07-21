@@ -1880,6 +1880,7 @@ button.danger:hover,
   transition: opacity .14s ease, filter .14s ease;
 }
 .lane-track.meta-owner-highlight {
+  z-index: 11;
   background: linear-gradient(90deg, rgba(73,194,235,.025), rgba(73,194,235,.14) 9%, rgba(73,194,235,.11) 91%, rgba(73,194,235,.025));
   box-shadow:
     inset 0 calc(1px * var(--textBoost, 1)) rgba(178,237,255,.28),
@@ -1918,6 +1919,7 @@ button.danger:hover,
   box-shadow: 0 0 calc(3px * var(--textBoost, 1)) rgba(88,205,243,.12);
 }
 .meta-owner-tether.meta-owner-highlight {
+  z-index: 12;
   opacity: 1;
   background: rgba(211,249,255,.96);
   box-shadow:
@@ -1947,6 +1949,7 @@ button.danger:hover,
   transform: translate(-50%, -50%) rotate(45deg);
 }
 .meta-owner-node.meta-owner-highlight {
+  z-index: 13;
   background: #e9fbff;
   border-color: #f7feff;
   box-shadow:
@@ -1955,6 +1958,25 @@ button.danger:hover,
 }
 .meta-owner-node.card-port.meta-owner-highlight { transform: translate(-50%, -50%) scale(1.16); }
 .meta-owner-node.lane-node.meta-owner-highlight { transform: translate(-50%, -50%) rotate(45deg) scale(1.2); }
+
+
+/* One-element focus dimmer: preserves strong ownership isolation without
+   restyling every unrelated meta mark on hover. */
+.meta-focus-dimmer {
+  position: absolute;
+  left: var(--left);
+  top: calc(var(--monthH) + var(--weekH));
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  pointer-events: none;
+  background: rgba(1, 5, 9, .62);
+  opacity: 0;
+  transition: opacity .1s ease-out;
+  contain: strict;
+}
+.meta-focus-dimmer.active { opacity: 1; }
+.meta-bar.selected:not(.meta-owner-highlight) { z-index: 8; }
 
 /* Interaction becomes unmistakable by creating a temporary focus+context view. */
 .meta-owner-context-active .meta-bar:not(.meta-owner-highlight) {
@@ -1976,9 +1998,10 @@ button.danger:hover,
     0 0 0 calc(2px * var(--textBoost, 1)) rgba(233,251,255,.86),
     0 0 calc(12px * var(--textBoost, 1)) rgba(74,211,255,.4),
     inset 0 1px 0 rgba(255,255,255,.22);
-  z-index: 9;
+  z-index: 13;
 }
 .meta-link.meta-owner-highlight {
+  z-index: 12;
   opacity: 1;
   box-shadow:
     0 0 0 calc(1.5px * var(--textBoost, 1)) rgba(225,249,255,.62),

@@ -114,6 +114,7 @@ let suppressRoadmapClick = false;
 let lastUnitClick = { id: null, at: 0 };
 let metaOwnerHoverId = null;
 let metaOwnerHighlightedId = null;
+let metaFocusDimmerEl = null;
 let profileOpenTimer = null;
 let unitProfileOverlay = null;
 let profileReturnFocus = null;
@@ -903,6 +904,7 @@ function normalizeState() {
 function renderAll() {
   metaOwnerHoverId = null;
   metaOwnerHighlightedId = null;
+  metaFocusDimmerEl = null;
   normalizeState();
   buildStaticGrid();
   renderLegend();
@@ -1022,6 +1024,11 @@ function buildStaticGrid() {
       els.roadmap.appendChild(track);
     }
   });
+
+  metaFocusDimmerEl = document.createElement("div");
+  metaFocusDimmerEl.className = "meta-focus-dimmer";
+  metaFocusDimmerEl.setAttribute("aria-hidden", "true");
+  els.roadmap.appendChild(metaFocusDimmerEl);
 }
 
 function buildTierSelect() {
@@ -1732,10 +1739,11 @@ function updateMetaOwnerHighlight() {
   if (activeId === metaOwnerHighlightedId) return;
   if (metaOwnerHighlightedId) setMetaOwnerHighlightState(metaOwnerHighlightedId, false);
   if (activeId) setMetaOwnerHighlightState(activeId, true);
-  // Do not toggle a roadmap-wide ancestor state here. Descendant selectors
-  // caused every meta mark to be restyled on each hover, which is especially
-  // expensive in Firefox on large roadmaps. The active owner already has a
-  // strong lane band, tether, nodes, bar treatment, and card outline.
+  // Dim the rest of the timeline with one compositor-friendly overlay instead
+  // of restyling every unrelated bar/tether. Active-owner marks are elevated
+  // above this layer in CSS, so the focus+context effect stays strong without
+  // a roadmap-wide selector invalidation on every hover.
+  metaFocusDimmerEl?.classList.toggle("active", !!activeId);
   els.roadmap.classList.remove("meta-owner-context-active");
   metaOwnerHighlightedId = activeId;
 }
@@ -2255,12 +2263,14 @@ function handleUnitClickGesture(event, unitId) {
 
   lastUnitClick = { id: unit.id, at: now };
   if (profileOpenTimer) clearTimeout(profileOpenTimer);
+  profileOpenTimer = null;
   if (isMs(unit) || isPilot(unit)) {
-    // Delay the focused profile just enough to preserve the builder's double-click-to-edit gesture.
-    profileOpenTimer = setTimeout(() => {
-      profileOpenTimer = null;
-      if (lastUnitClick.id === unit.id) openUnitProfile(unit.id);
-    }, 420);
+    // Open immediately. A second click at the original card position is bridged
+    // through the profile overlay below, preserving Builder double-click editing
+    // without charging every single-click profile a 420ms intent delay.
+    openUnitProfile(unit.id, null, {
+      builderDoubleClickBridge: { unitId: unit.id, at: now, x: event.clientX, y: event.clientY }
+    });
   }
 }
 function handleMetaBarClickGesture(event, unitId, segmentId) {
@@ -3610,7 +3620,7 @@ function profileArtHtml(unit, typeLabel) {
     return `<div class="unit-profile-art empty"><div class="unit-profile-placeholder">?</div><span>${escapeHtml(typeLabel)}</span></div>`;
   }
   const image = unit.icon
-    ? `<img class="unit-profile-image" src="${escapeHtml(unit.icon)}" alt="${escapeHtml(unit.name)}"><div class="unit-profile-placeholder image-fallback">${escapeHtml(initials(unit.name))}</div>`
+    ? `<img class="unit-profile-image" src="${escapeHtml(unit.icon)}" alt="${escapeHtml(unit.name)}" decoding="async"><div class="unit-profile-placeholder image-fallback">${escapeHtml(initials(unit.name))}</div>`
     : `<div class="unit-profile-placeholder">${escapeHtml(initials(unit.name))}</div>`;
   return `<div class="unit-profile-art">${image}</div>`;
 }
@@ -3966,7 +3976,7 @@ function profilePanelHeaderHtml(unit, label, emptyMessage) {
   return `<div class="unit-profile-hero">${profileArtHtml(unit, label)}<div class="unit-profile-identity"><span class="unit-profile-eyebrow">${escapeHtml(label)}</span><h2>${escapeHtml(unit.name)}</h2>${profileContextHtml(unit)}${profileTagsHtml(unit)}</div></div>`;
 }
 
-function openUnitProfile(unitId, activeSegmentId = null) {
+function openUnitProfile(unitId, activeSegmentId = null, options = {}) {
   const clicked = state.units.find(unit => unit.id === unitId);
   if (!clicked || (!isMs(clicked) && !isPilot(clicked))) return;
   hideTooltip(true);
@@ -4012,6 +4022,21 @@ function openUnitProfile(unitId, activeSegmentId = null) {
     </article>
     <button class="unit-profile-nav unit-profile-nav-next" type="button" aria-label="${escapeHtml(next ? `Next MS: ${next.name}` : "No next MS")}" ${next ? "" : "disabled"}><span aria-hidden="true">›</span></button>`;
 
+  const doubleClickBridge = options?.builderDoubleClickBridge || null;
+  if (doubleClickBridge) {
+    const bridgePointerDown = event => {
+      if (event.button !== 0) return;
+      const elapsed = performance.now() - doubleClickBridge.at;
+      const distance = Math.hypot(event.clientX - doubleClickBridge.x, event.clientY - doubleClickBridge.y);
+      if (elapsed > 500 || distance > 24) return;
+      event.preventDefault();
+      event.stopPropagation();
+      lastUnitClick = { id: null, at: 0 };
+      closeUnitProfile(true);
+      openSelectedUnitDialog(doubleClickBridge.unitId);
+    };
+    overlay.addEventListener("pointerdown", bridgePointerDown, { capture: true, once: true });
+  }
   overlay.addEventListener("click", event => { if (event.target === overlay) closeUnitProfile(); });
   overlay.querySelector(".unit-profile-close")?.addEventListener("click", () => closeUnitProfile());
   overlay.querySelector(".unit-profile-nav-prev")?.addEventListener("click", event => {
@@ -4035,8 +4060,14 @@ function openUnitProfile(unitId, activeSegmentId = null) {
   bindProfileTagTooltips(overlay);
   bindProfileMetaTooltips(overlay);
   bindProfileAltemaTooltips(overlay);
-  bindUnitProfileAdaptiveRows(overlay);
-  bindProfileNoteReaders(overlay);
+  // Let the profile shell paint before installing geometry/overflow observers.
+  // Those observers are important for adaptive sizing, but they do not need to
+  // block the click-to-profile response on large Firefox roadmaps.
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    if (unitProfileOverlay !== overlay || !overlay.isConnected) return;
+    bindUnitProfileAdaptiveRows(overlay);
+    bindProfileNoteReaders(overlay);
+  }));
   overlay.querySelector(".unit-profile-close")?.focus({ preventScroll: true });
 }
 
