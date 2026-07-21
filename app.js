@@ -122,7 +122,29 @@ let unitNoteReaderReturnFocus = null;
 let unitProfileOverflowObserver = null;
 let unitProfileLayoutObserver = null;
 let autoApplyTimer = null;
+let editFormDirty = false;
+let editDialogSavePending = false;
 let zoomScale = Number(localStorage.getItem(ZOOM_STORAGE_KEY) || "1") || 1;
+
+function createLayoutGeometryCache() {
+  return {
+    slotLayouts: new Map(),
+    visibleLaneCounts: new Map(),
+    maxIconStackHeights: new Map(),
+    dynamicBarTops: new Map(),
+    betweenSafeHeights: new Map(),
+    tierHeights: new Map(),
+    tierYs: new Map(),
+    iconXs: new Map(),
+    iconYs: new Map(),
+    iconRects: new Map(),
+    baseChartHeight: null
+  };
+}
+let layoutGeometryCache = createLayoutGeometryCache();
+function invalidateLayoutGeometryCache() {
+  layoutGeometryCache = createLayoutGeometryCache();
+}
 
 const els = {
   roadmap: document.getElementById("roadmap"),
@@ -382,11 +404,27 @@ function slotLayoutForGroup(group) {
   return { layout, groupHeight: Math.max(ICON_W, y - ICON_STACK_GAP), groupWidth: ICON_W, compact };
 }
 function sameSlotOffset(unit) {
-  const group = sameSlotGroup(unit);
-  if (group.length <= 1) return { x: 0, y: 0, z: 0, index: 0, count: 1, groupHeight: ICON_W, groupWidth: ICON_W, size: ICON_W, compact: false };
-  const { layout, groupHeight, groupWidth, compact } = slotLayoutForGroup(group);
-  const slot = layout.get(unit.id) || { x: 0, y: 0, z: 0, index: 0, size: ICON_W };
-  return { ...slot, count: group.length, groupHeight, groupWidth, compact };
+  if (!unit) return { x: 0, y: 0, z: 0, index: 0, count: 1, groupHeight: ICON_W, groupWidth: ICON_W, size: ICON_W, compact: false };
+  const key = visualSlotKey(unit);
+  let cached = layoutGeometryCache.slotLayouts.get(key);
+  if (!cached) {
+    const group = sameSlotGroup(unit);
+    if (group.length <= 1) {
+      cached = {
+        byId: new Map([[unit.id, { x: 0, y: 0, z: 0, index: 0, count: 1, groupHeight: ICON_W, groupWidth: ICON_W, size: ICON_W, compact: false }]])
+      };
+    } else {
+      const { layout, groupHeight, groupWidth, compact } = slotLayoutForGroup(group);
+      const byId = new Map();
+      group.forEach(member => {
+        const slot = layout.get(member.id) || { x: 0, y: 0, z: 0, index: 0, size: ICON_W };
+        byId.set(member.id, { ...slot, count: group.length, groupHeight, groupWidth, compact });
+      });
+      cached = { byId };
+    }
+    layoutGeometryCache.slotLayouts.set(key, cached);
+  }
+  return cached.byId.get(unit.id) || { x: 0, y: 0, z: 0, index: 0, count: 1, groupHeight: ICON_W, groupWidth: ICON_W, size: ICON_W, compact: false };
 }
 function iconSize(unit) { return sameSlotOffset(unit).size || ICON_W; }
 function unitZIndex(unit, slot = sameSlotOffset(unit), isDragging = false) {
@@ -396,8 +434,15 @@ function unitZIndex(unit, slot = sameSlotOffset(unit), isDragging = false) {
   return 20 + stack * 2 + (slot?.z || 0) + selectedBoost;
 }
 function iconRect(unit) {
+  if (!unit) return { left: 0, top: 0, right: 0, bottom: 0 };
+  const cached = layoutGeometryCache.iconRects.get(unit.id);
+  if (cached) return cached;
   const size = iconSize(unit);
-  return { left: iconX(unit), top: iconY(unit), right: iconX(unit) + size, bottom: iconY(unit) + size };
+  const left = iconX(unit);
+  const top = iconY(unit);
+  const rect = { left, top, right: left + size, bottom: top + size };
+  layoutGeometryCache.iconRects.set(unit.id, rect);
+  return rect;
 }
 function rectsOverlap(a, b) {
   return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
@@ -437,19 +482,24 @@ function refreshUnitZIndices() {
 }
 function slotGroupHeight(group) { return slotLayoutForGroup(group).groupHeight || ICON_W; }
 function maxIconStackVisualHeight(tierId) {
+  if (layoutGeometryCache.maxIconStackHeights.has(tierId)) return layoutGeometryCache.maxIconStackHeights.get(tierId);
   const seen = new Set();
-  const heights = [ICON_W];
+  let maxHeight = ICON_W;
   for (const unit of state.units || []) {
     if (unit.tier !== tierId) continue;
     const key = visualSlotKey(unit);
     if (seen.has(key)) continue;
     seen.add(key);
-    heights.push(slotGroupHeight(sameSlotGroup(unit)));
+    maxHeight = Math.max(maxHeight, sameSlotOffset(unit).groupHeight || ICON_W);
   }
-  return Math.max(...heights);
+  layoutGeometryCache.maxIconStackHeights.set(tierId, maxHeight);
+  return maxHeight;
 }
 function dynamicBarTop(tierId) {
-  return Math.max(BAR_TOP, ICON_TOP + maxIconStackVisualHeight(tierId) + 18);
+  if (layoutGeometryCache.dynamicBarTops.has(tierId)) return layoutGeometryCache.dynamicBarTops.get(tierId);
+  const value = Math.max(BAR_TOP, ICON_TOP + maxIconStackVisualHeight(tierId) + 18);
+  layoutGeometryCache.dynamicBarTops.set(tierId, value);
+  return value;
 }
 function kindSort(kind) {
   if (kind === "pilot") return 0;
@@ -462,17 +512,23 @@ function hasMustP5(unit) { return hasTag(unit, MUST_P5_TAG); }
 function hasBuff(unit) { return hasTag(unit, BUFF_TAG); }
 function hasVisibleMetaSegments(unit) { return hasMetaBars(unit) && Array.isArray(unit?.segments) && unit.segments.length > 0; }
 function visibleLaneCount(tierId) {
+  if (layoutGeometryCache.visibleLaneCounts.has(tierId)) return layoutGeometryCache.visibleLaneCounts.get(tierId);
   let maxLane = 0;
   for (const unit of state.units || []) {
     if (unit.tier === tierId && hasVisibleMetaSegments(unit)) maxLane = Math.max(maxLane, Number(unit.lane) || 0);
   }
+  layoutGeometryCache.visibleLaneCounts.set(tierId, maxLane);
   return maxLane;
 }
 function betweenBoundaryMetaSafeHeight(tierId) {
+  if (layoutGeometryCache.betweenSafeHeights.has(tierId)) return layoutGeometryCache.betweenSafeHeights.get(tierId);
   const tiers = getTiers();
   const index = tiers.findIndex(tier => tier.id === tierId);
   const nextTier = index >= 0 ? tiers[index + 1] : null;
-  if (!nextTier) return 0;
+  if (!nextTier) {
+    layoutGeometryCache.betweenSafeHeights.set(tierId, 0);
+    return 0;
+  }
   const boundaryKey = `between:${tierId}|${nextTier.id}`;
   const seenSlots = new Set();
   let requiredHeight = 0;
@@ -483,10 +539,9 @@ function betweenBoundaryMetaSafeHeight(tierId) {
     if (seenSlots.has(slotKey)) continue;
     seenSlots.add(slotKey);
 
-    const group = sameSlotGroup(seed);
-    const layout = slotLayoutForGroup(group);
-    const groupWidth = layout.groupWidth || ICON_W;
-    const groupHalfHeight = (layout.groupHeight || ICON_W) / 2;
+    const slot = sameSlotOffset(seed);
+    const groupWidth = slot.groupWidth || ICON_W;
+    const groupHalfHeight = (slot.groupHeight || ICON_W) / 2;
     const maxGroupLeft = Math.max(LEFT_W, baseChartWidth() - groupWidth);
     const groupLeft = clamp(weekX(seed.week) + Math.round((weekWidth(seed.week) - groupWidth) / 2), LEFT_W, maxGroupLeft);
     const groupRight = groupLeft + groupWidth;
@@ -511,19 +566,26 @@ function betweenBoundaryMetaSafeHeight(tierId) {
       requiredHeight = Math.max(requiredHeight, lowestCrossingBarBottom + groupHalfHeight + 12);
     }
   }
+  layoutGeometryCache.betweenSafeHeights.set(tierId, requiredHeight);
   return requiredHeight;
 }
 function tierHeight(tierId) {
+  if (layoutGeometryCache.tierHeights.has(tierId)) return layoutGeometryCache.tierHeights.get(tierId);
   const lanes = visibleLaneCount(tierId);
   const iconContentHeight = ICON_TOP + maxIconStackVisualHeight(tierId) + 28;
   const minHeight = Math.max(BLANK_TIER_H, iconContentHeight);
   const betweenSafeHeight = betweenBoundaryMetaSafeHeight(tierId);
-  if (!lanes) return Math.max(minHeight, betweenSafeHeight);
-  return Math.max(minHeight, dynamicBarTop(tierId) + lanes * BAR_GAP + BAR_BOTTOM_PAD, betweenSafeHeight);
+  const value = !lanes
+    ? Math.max(minHeight, betweenSafeHeight)
+    : Math.max(minHeight, dynamicBarTop(tierId) + lanes * BAR_GAP + BAR_BOTTOM_PAD, betweenSafeHeight);
+  layoutGeometryCache.tierHeights.set(tierId, value);
+  return value;
 }
 function tierY(tierId) {
+  if (layoutGeometryCache.tierYs.has(tierId)) return layoutGeometryCache.tierYs.get(tierId);
   let y = HEADER_H;
   for (const tier of getTiers()) {
+    layoutGeometryCache.tierYs.set(tier.id, y);
     if (tier.id === tierId) return y;
     y += tierHeight(tier.id);
   }
@@ -536,20 +598,26 @@ function laneY(unitOrTier, laneMaybe) {
 }
 function laneCenterY(tier, lane) { return laneY(tier, lane) + BAR_H / 2; }
 function iconY(unit) {
+  if (layoutGeometryCache.iconYs.has(unit.id)) return layoutGeometryCache.iconYs.get(unit.id);
   const slot = sameSlotOffset(unit);
   const size = slot.size || ICON_W;
   const rowOffset = normalizeRowOffset(unit.rowOffset);
   let top = tierY(unit.tier) + ICON_TOP + slot.y;
   if (rowOffset > 0) top = tierY(unit.tier) + tierHeight(unit.tier) - slot.groupHeight / 2 + slot.y;
   if (rowOffset < 0) top = tierY(unit.tier) - slot.groupHeight / 2 + slot.y;
-  return clamp(top, HEADER_H - size / 2, baseChartHeight() - size);
+  const value = clamp(top, HEADER_H - size / 2, baseChartHeight() - size);
+  layoutGeometryCache.iconYs.set(unit.id, value);
+  return value;
 }
 function iconX(unit) {
+  if (layoutGeometryCache.iconXs.has(unit.id)) return layoutGeometryCache.iconXs.get(unit.id);
   const slot = sameSlotOffset(unit);
   const groupWidth = slot.groupWidth || ICON_W;
   const maxGroupLeft = Math.max(LEFT_W, baseChartWidth() - groupWidth);
   const groupLeft = clamp(weekX(unit.week) + Math.round((weekWidth(unit.week) - groupWidth) / 2), LEFT_W, maxGroupLeft);
-  return groupLeft + slot.x;
+  const value = groupLeft + slot.x;
+  layoutGeometryCache.iconXs.set(unit.id, value);
+  return value;
 }
 function normalizeWeek(n) { return clamp(Math.round(Number(n) || 1), 1, weekCount()); }
 function normalizeLane(n) { return clamp(Math.round(Number(n) || 1), 1, 99); }
@@ -594,7 +662,11 @@ function chartPoint(event) {
   return { x: (event.clientX - rect.left) / zoomScale, y: (event.clientY - rect.top) / zoomScale };
 }
 function baseChartWidth() { return weekBoundaryX(weekCount()); }
-function baseChartHeight() { return HEADER_H + getTiers().reduce((sum, t) => sum + tierHeight(t.id), 0); }
+function baseChartHeight() {
+  if (layoutGeometryCache.baseChartHeight != null) return layoutGeometryCache.baseChartHeight;
+  layoutGeometryCache.baseChartHeight = HEADER_H + getTiers().reduce((sum, t) => sum + tierHeight(t.id), 0);
+  return layoutGeometryCache.baseChartHeight;
+}
 function setStatus(message) { els.saveStatus.textContent = message; }
 function sanitizeText(text) { return String(text || "").replace(/\s+/g, " ").trim(); }
 function cleanTags(tags) {
@@ -663,6 +735,7 @@ function init() {
 }
 
 function normalizeState() {
+  invalidateLayoutGeometryCache();
   const unitsBeforeNormalize = Array.isArray(state.units) ? state.units : [];
   const monthsNeedDefault = !Array.isArray(state.months) || !state.months.length || isGenericMonthLabels(state.months);
   if (monthsNeedDefault) {
@@ -933,6 +1006,10 @@ function bindUI() {
   document.getElementById("btnCancelTierEdit").addEventListener("click", () => els.tierDialog.close());
   document.getElementById("btnCloseUnitEdit").addEventListener("click", closeSelectedUnitDialog);
   els.unitEditDialog.addEventListener("close", restoreEditFormHome);
+  els.unitEditDialog.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    closeSelectedUnitDialog();
+  });
   els.unitEditDialog.addEventListener("click", (event) => {
     if (event.target === els.unitEditDialog) closeSelectedUnitDialog();
   });
@@ -963,6 +1040,10 @@ function bindUI() {
   window.addEventListener("scroll", hideContextMenu, true);
   els.editForm.elements.tags.addEventListener("input", renderTagPreview);
   els.editForm.elements.segment.addEventListener("change", () => {
+    if (els.unitEditDialog?.open && editFormDirty) {
+      applyForm({ render: false, save: false });
+      editDialogSavePending = true;
+    }
     selectedSegmentId = els.editForm.elements.segment.value;
     renderForm();
     refreshSelectionUi();
@@ -1242,6 +1323,8 @@ function openSelectedUnitDialog(unitId) {
     editFormHomeNextSibling = els.editForm.nextSibling;
   }
   els.unitEditDialogBody.appendChild(els.editForm);
+  editFormDirty = false;
+  editDialogSavePending = false;
   renderForm();
   if (!els.unitEditDialog.open) els.unitEditDialog.showModal();
 }
@@ -1251,8 +1334,19 @@ function restoreEditFormHome() {
   else editFormHomeParent.appendChild(els.editForm);
 }
 function closeSelectedUnitDialog() {
-  if (els.unitEditDialog?.open) els.unitEditDialog.close();
-  else restoreEditFormHome();
+  if (!els.unitEditDialog?.open) {
+    restoreEditFormHome();
+    return;
+  }
+  const shouldCommit = editFormDirty;
+  const shouldSave = shouldCommit || editDialogSavePending;
+  if (shouldCommit) applyForm({ render: false, save: false });
+  els.unitEditDialog.close();
+  restoreEditFormHome();
+  if (shouldSave) renderAll();
+  if (shouldSave) autoSave({ force: true });
+  editFormDirty = false;
+  editDialogSavePending = false;
 }
 
 function renderUnits() {
@@ -1691,15 +1785,22 @@ function applyForm(options = {}) {
   for (const tier of getTiers()) reflowLanes(tier.id);
   syncPilotLanes();
   state.updated = new Date().toISOString();
-  renderAll();
-  autoSave();
+  editFormDirty = false;
+  if (options.render !== false) renderAll();
+  if (options.save !== false) autoSave();
 }
 
 function bindAutoApplyForm() {
   const immediateNames = new Set(["kind", "tier", "rowOffset", "week", "lane", "segment", "metaStart", "metaEnd", "metaStatus", "tags", "minPotential", "idealPotential"]);
   els.editForm.querySelectorAll("input, select, textarea").forEach(input => {
     if (input.name === "segment") return;
-    const handler = () => scheduleAutoApply(immediateNames.has(input.name) ? 40 : 420);
+    const handler = () => {
+      if (els.unitEditDialog?.open) {
+        editFormDirty = true;
+        return;
+      }
+      scheduleAutoApply(immediateNames.has(input.name) ? 40 : 420);
+    };
     input.addEventListener("input", handler);
     input.addEventListener("change", handler);
   });
@@ -1724,6 +1825,10 @@ function scheduleAutoApply(delay = 250) {
 }
 
 function addSegmentToSelected(startOverride = null, statusOverride = null) {
+  if (els.unitEditDialog?.open && editFormDirty) {
+    applyForm({ render: false, save: false });
+    editDialogSavePending = true;
+  }
   const unit = getSelected();
   if (!unit) return;
   const desiredWeek = startOverride ? normalizeWeek(startOverride) : null;
@@ -1787,6 +1892,10 @@ function smartAddSegmentAtWeek(unit, week, statusId = null) {
 }
 
 function deleteSelectedSegment() {
+  if (els.unitEditDialog?.open && editFormDirty) {
+    applyForm({ render: false, save: false });
+    editDialogSavePending = true;
+  }
   const unit = getSelected();
   if (!unit || !unit.segments.length) return;
   const segmentId = selectedSegment(unit)?.id;
@@ -2441,8 +2550,14 @@ function saveLocal() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   setStatus(`Saved locally at ${new Date().toLocaleTimeString()}.`);
 }
-function autoSave() {
+function autoSave(options = {}) {
+  if (!options.force && els.unitEditDialog?.open) {
+    editDialogSavePending = true;
+    setStatus("Editing… changes will auto-save when the unit editor closes.");
+    return;
+  }
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  editDialogSavePending = false;
   setStatus("Auto-saved locally. Export JSON or copy a share link when ready.");
 }
 function loadLocal() {
@@ -2620,7 +2735,12 @@ function tagListFromInput() { return cleanTags(els.editForm.elements.tags.value.
 function setTagList(tags, apply = false) {
   els.editForm.elements.tags.value = cleanTags(tags).join(", ");
   renderTagPreview();
-  if (apply && getSelected()) applyForm();
+  if (!apply || !getSelected()) return;
+  if (els.unitEditDialog?.open) {
+    editFormDirty = true;
+    return;
+  }
+  applyForm();
 }
 function addTagFromDropdown() {
   if (!getSelected()) return;

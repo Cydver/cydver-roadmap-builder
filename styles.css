@@ -1959,16 +1959,13 @@ button.danger:hover,
 /* Interaction becomes unmistakable by creating a temporary focus+context view. */
 .meta-owner-context-active .meta-bar:not(.meta-owner-highlight) {
   opacity: .24;
-  filter: saturate(.52) brightness(.68);
 }
 .meta-owner-context-active .meta-link:not(.meta-owner-highlight) {
   opacity: .1;
-  filter: saturate(.45) brightness(.64);
 }
 .meta-owner-context-active .meta-owner-tether:not(.meta-owner-highlight),
 .meta-owner-context-active .meta-owner-node:not(.meta-owner-highlight) {
   opacity: .12;
-  filter: saturate(.35) brightness(.65);
 }
 .meta-owner-context-active .lane-track:not(.meta-owner-highlight)::before { opacity: .12; }
 
