@@ -76,6 +76,8 @@ const BAR_GAP = 23;
 const BAR_H = 18;
 const META_LINK_H = BAR_H;
 const META_LINK_OVERLAP = 3;
+const META_BAR_EDGE_INSET = 6;
+const META_LABEL_MIN_RENDERED_HEIGHT = 9;
 const BAR_BOTTOM_PAD = 34;
 const STORAGE_KEY = "gundam-u-c-e-roadmap-builder-v1";
 const ZOOM_STORAGE_KEY = "gundam-u-c-e-roadmap-builder-zoom-v2";
@@ -151,6 +153,30 @@ function legibleTextScale(scale = zoomScale) {
 function barLabelTextScale(scale = zoomScale) {
   const normalized = clamp(Number(scale) || 1, MIN_ZOOM, MAX_ZOOM);
   return clamp(Math.pow(1 / normalized, 0.9), 1, 3.4);
+}
+function parseHexColor(value) {
+  const match = /^#([0-9a-f]{6})$/i.exec(String(value || "").trim());
+  if (!match) return null;
+  const hex = match[1];
+  return [parseInt(hex.slice(0, 2), 16), parseInt(hex.slice(2, 4), 16), parseInt(hex.slice(4, 6), 16)];
+}
+function relativeLuminance(rgb) {
+  if (!rgb) return 0;
+  const linear = rgb.map(channel => {
+    const value = channel / 255;
+    return value <= 0.04045 ? value / 12.92 : Math.pow((value + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2];
+}
+function metaBarTextPresentation(color) {
+  const background = relativeLuminance(parseHexColor(color));
+  const light = [248, 251, 255];
+  const dark = [7, 13, 18];
+  const lightContrast = (relativeLuminance(light) + 0.05) / (background + 0.05);
+  const darkContrast = (background + 0.05) / (relativeLuminance(dark) + 0.05);
+  return darkContrast > lightContrast
+    ? { color: "#070d12", tone: "dark" }
+    : { color: "#f8fbff", tone: "light" };
 }
 function fontPx(px, scale = zoomScale) { return Math.round(px * legibleTextScale(scale) * 10) / 10; }
 function barFontPx(px, scale = zoomScale) { return Math.round(px * barLabelTextScale(scale) * 10) / 10; }
@@ -1238,23 +1264,30 @@ function renderUnits() {
       const rect = segmentBarRect(unit, segment);
       const bar = document.createElement("div");
       const selected = selectedId === unit.id && selectedSegmentId === segment.id;
-      const isFirstSegment = index === 0;
-      const isLastSegment = index === visibleSegments.length - 1;
-      bar.className = `meta-bar${selected ? " selected" : ""}${isFirstSegment ? " segment-first" : " segment-inner-left"}${isLastSegment ? " segment-last" : " segment-inner-right"}`;
+      const joinsPrevious = index > 0 && metaSegmentsTouch(visibleSegments[index - 1], segment);
+      const joinsNext = index < visibleSegments.length - 1 && metaSegmentsTouch(segment, visibleSegments[index + 1]);
+      bar.className = `meta-bar${selected ? " selected" : ""}${joinsPrevious ? " segment-inner-left" : " segment-first"}${joinsNext ? " segment-inner-right" : " segment-last"}`;
       bar.dataset.id = unit.id;
       bar.dataset.segmentId = segment.id;
+      bar.dataset.statusId = segment.statusId;
       bar.style.left = `${rect.x}px`;
       bar.style.top = `${rect.y}px`;
       bar.style.width = `${rect.w}px`;
-      bar.style.setProperty("--bar", segmentColor(segment));
+      const color = segmentColor(segment);
+      const textPresentation = metaBarTextPresentation(color);
+      bar.style.setProperty("--bar", color);
+      bar.style.setProperty("--bar-text", textPresentation.color);
+      bar.dataset.textTone = textPresentation.tone;
       const label = document.createElement("span");
       label.className = "bar-label";
-      label.textContent = `${unit.name} - ${metaStatus(segment.statusId).label}`;
+      label.dataset.fullLabel = `${unit.name} - ${metaStatus(segment.statusId).label}`;
+      label.dataset.unitLabel = unit.name;
+      label.textContent = label.dataset.fullLabel;
       const left = document.createElement("span");
-      left.className = `handle left${isFirstSegment ? "" : " internal"}`;
+      left.className = `handle left${joinsPrevious ? " internal" : ""}`;
       left.dataset.handle = "left";
       const right = document.createElement("span");
-      right.className = `handle right${isLastSegment ? "" : " internal"}`;
+      right.className = `handle right${joinsNext ? " internal" : ""}`;
       right.dataset.handle = "right";
       bar.append(label, left, right);
       bar.addEventListener("pointerdown", (event) => beginDragBar(event, unit.id, segment.id));
@@ -1292,16 +1325,23 @@ function segmentBarRect(unit, segment) {
   const start = Math.min(normalizeWeek(segment.start), normalizeWeek(segment.end));
   const end = Math.max(normalizeWeek(segment.start), normalizeWeek(segment.end));
   return {
-    x: weekX(start) + 12,
+    x: weekX(start) + META_BAR_EDGE_INSET,
     y: laneY(unit),
-    w: Math.max(4, weekSpanWidth(start, end) - 24),
+    w: Math.max(4, weekSpanWidth(start, end) - META_BAR_EDGE_INSET * 2),
     h: BAR_H
   };
+}
+function metaSegmentsTouch(previousSegment, nextSegment) {
+  if (!previousSegment || !nextSegment) return false;
+  const previousEnd = Math.max(normalizeWeek(previousSegment.start), normalizeWeek(previousSegment.end));
+  const nextStart = Math.min(normalizeWeek(nextSegment.start), normalizeWeek(nextSegment.end));
+  return nextStart <= previousEnd + 1;
 }
 function metaSegmentLinks(unit) {
   const segments = sortedVisibleSegments(unit);
   const links = [];
   for (let i = 1; i < segments.length; i++) {
+    if (!metaSegmentsTouch(segments[i - 1], segments[i])) continue;
     const previous = segmentBarRect(unit, segments[i - 1]);
     const next = segmentBarRect(unit, segments[i]);
     const x = previous.x + previous.w - META_LINK_OVERLAP;
@@ -2288,9 +2328,30 @@ function updateUnitCardDetailVisibility() {
     card.classList.toggle("icon-only", visualSize < CARD_DETAILS_MIN_VISUAL_SIZE || detailsCollide);
   });
 }
+function updateMetaBarLabelVisibility() {
+  if (!els.roadmap) return;
+  els.roadmap.querySelectorAll(".meta-bar").forEach(bar => {
+    const label = bar.querySelector(".bar-label");
+    if (!label) return;
+    label.hidden = false;
+    const renderedHeight = bar.getBoundingClientRect().height;
+    if (renderedHeight < META_LABEL_MIN_RENDERED_HEIGHT) {
+      label.hidden = true;
+      return;
+    }
+    const fullLabel = label.dataset.fullLabel || label.textContent || "";
+    const unitLabel = label.dataset.unitLabel || fullLabel;
+    label.textContent = fullLabel;
+    if (label.scrollWidth <= label.clientWidth + 1) return;
+    label.textContent = unitLabel;
+    if (label.scrollWidth <= label.clientWidth + 1) return;
+    label.hidden = true;
+  });
+}
 function updateAdaptiveRoadmapPresentation() {
   updateAdaptiveTierLabels();
   updateUnitCardDetailVisibility();
+  updateMetaBarLabelVisibility();
 }
 
 function applyZoom() {
@@ -2681,10 +2742,12 @@ function drawBarToCanvas(ctx, unit, segment) {
   const { x, y, w } = segmentBarRect(unit, segment);
   const segments = sortedVisibleSegments(unit);
   const index = segments.findIndex(s => s.id === segment.id);
-  const roundLeft = index <= 0;
-  const roundRight = index === -1 || index === segments.length - 1;
-  roundedRectSides(ctx, x, y, w, BAR_H, BAR_H / 2, roundLeft, roundRight);
-  ctx.fillStyle = segmentColor(segment);
+  const joinsPrevious = index > 0 && metaSegmentsTouch(segments[index - 1], segment);
+  const joinsNext = index >= 0 && index < segments.length - 1 && metaSegmentsTouch(segment, segments[index + 1]);
+  roundedRectSides(ctx, x, y, w, BAR_H, BAR_H / 2, !joinsPrevious, !joinsNext);
+  const color = segmentColor(segment);
+  const textPresentation = metaBarTextPresentation(color);
+  ctx.fillStyle = color;
   ctx.fill();
   ctx.strokeStyle = "rgba(255,255,255,.28)";
   ctx.lineWidth = 1;
@@ -2693,15 +2756,17 @@ function drawBarToCanvas(ctx, unit, segment) {
   ctx.clip();
   const text = `${unit.name} - ${metaStatus(segment.statusId).label}`;
   ctx.globalAlpha = 1;
-  ctx.font = canvasBarFont(950, 12);
+  ctx.font = canvasBarFont(850, 12);
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.lineJoin = "round";
   ctx.miterLimit = 2;
-  ctx.lineWidth = Math.max(2, barFontPx(12) * 0.16);
-  ctx.strokeStyle = "rgba(0,0,0,.72)";
-  ctx.strokeText(text, x + w / 2, y + BAR_H / 2 + 0.5, Math.max(20, w - 14));
-  ctx.fillStyle = "#ffffff";
+  if (textPresentation.tone === "light") {
+    ctx.lineWidth = Math.max(1, barFontPx(12) * 0.08);
+    ctx.strokeStyle = "rgba(0,0,0,.58)";
+    ctx.strokeText(text, x + w / 2, y + BAR_H / 2 + 0.5, Math.max(20, w - 14));
+  }
+  ctx.fillStyle = textPresentation.color;
   ctx.fillText(text, x + w / 2, y + BAR_H / 2 + 0.5, Math.max(20, w - 14));
   ctx.restore();
 }

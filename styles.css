@@ -1840,3 +1840,15 @@ button.danger:hover,
   visibility: hidden;
   transition: opacity .1s ease, visibility 0s linear .1s;
 }
+
+/* Meta timeline refinement: adaptive labels + contrast-aware typography. */
+.meta-bar .bar-label {
+  color: var(--bar-text, #f8fbff);
+  -webkit-text-stroke: calc(.18px * var(--barTextBoost, var(--textBoost))) rgba(0,0,0,.62);
+  text-shadow: 0 1px 1px rgba(0,0,0,.72), 0 0 3px rgba(0,0,0,.48);
+}
+.meta-bar[data-text-tone="dark"] .bar-label {
+  -webkit-text-stroke: 0;
+  text-shadow: 0 1px 0 rgba(255,255,255,.16);
+}
+.meta-bar .bar-label[hidden] { display: none !important; }
