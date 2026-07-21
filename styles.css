@@ -2041,3 +2041,17 @@ button.danger:hover,
   color: var(--tooltip-status-color, #f7f9fc);
   text-shadow: 0 0 10px color-mix(in srgb, var(--tooltip-status-color, #f7f9fc) 25%, transparent);
 }
+
+/* --- Shared roadmap tag contrast parity with Viewer --- */
+/* Keep the Builder's canonical roadmap-card tag palette, but use the same
+   high-contrast foreground choices as Viewer on these bright semantic chips. */
+.tag.pvp { color: #16070b; text-shadow: none; }
+.tag.pve { color: #06101d; text-shadow: none; }
+.tag.buff { color: #06120a; text-shadow: none; }
+.tag.core { color: #130d00; text-shadow: none; }
+.tag.tech { color: #100718; text-shadow: none; }
+.tag.def { color: #06120c; text-shadow: none; }
+.tag.sub { color: #06120f; text-shadow: none; }
+.tag.cb { color: #170a00; text-shadow: none; }
+.tag.must-p5 { color: #160407; text-shadow: none; }
+.tag.custom { background: #657386; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.52); }
