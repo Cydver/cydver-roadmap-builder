@@ -3144,13 +3144,18 @@ function updateUnitProfileAdaptiveRows(root) {
   const msRequired = profileRequiredContentBottom(msPanel, msTarget);
   const pilotRequired = profileRequiredContentBottom(pilotPrimary, pilotTarget);
 
+  // Leave a small measured safety margin above the exact content bottom. Without it,
+  // fractional font/layout rounding can produce a 1-2px scroll range even when every
+  // visible line appears to fit, which makes an unnecessary scrollbar flash into view.
+  const topContentBuffer = 12;
+
   // Notes are the flexible, lower-priority region, but always retain a usable preview floor.
   // On shorter windows that floor shrinks modestly; on taller windows it is capped so unused
   // top-row space naturally flows back into PVP/PVE notes.
   const notesFloor = clamp(Math.round(gridHeight * 0.24), 130, 190);
   const maxTop = Math.max(0, gridHeight - notesFloor);
   const topFloor = Math.min(maxTop, clamp(Math.round(gridHeight * 0.4), 250, 330));
-  const desiredTop = Math.max(topFloor, msRequired, pilotRequired);
+  const desiredTop = Math.max(topFloor, msRequired + topContentBuffer, pilotRequired + topContentBuffer);
   const topHeight = Math.min(maxTop, Math.ceil(desiredTop));
 
   grid.style.setProperty('--profile-top-row', `${topHeight}px`);
@@ -3179,6 +3184,66 @@ function bindUnitProfileAdaptiveRows(root) {
   if (document.fonts?.ready) document.fonts.ready.then(update).catch(() => {});
 }
 
+function profileTimelineMsUnits() {
+  return state.units
+    .filter(isMs)
+    .slice()
+    .sort((a, b) =>
+      normalizeWeek(a.week) - normalizeWeek(b.week)
+      || (tierIndex(a.tier) + normalizeRowOffset(a.rowOffset)) - (tierIndex(b.tier) + normalizeRowOffset(b.rowOffset))
+      || (Number(a.stackOrder) || 0) - (Number(b.stackOrder) || 0)
+      || a.name.localeCompare(b.name)
+      || a.id.localeCompare(b.id)
+    );
+}
+
+function profileNavigationTargets(clicked, ms) {
+  const timeline = profileTimelineMsUnits();
+  if (!timeline.length) return { previous: null, next: null };
+
+  if (ms) {
+    const index = timeline.findIndex(unit => unit.id === ms.id);
+    if (index >= 0) {
+      return {
+        previous: index > 0 ? timeline[index - 1] : null,
+        next: index < timeline.length - 1 ? timeline[index + 1] : null
+      };
+    }
+  }
+
+  // A standalone pilot can still move into the MS timeline from its visual position.
+  const anchorWeek = normalizeWeek(clicked?.week);
+  const anchorRow = tierIndex(clicked?.tier) + normalizeRowOffset(clicked?.rowOffset);
+  let insertion = timeline.findIndex(unit =>
+    normalizeWeek(unit.week) > anchorWeek
+    || (normalizeWeek(unit.week) === anchorWeek
+      && tierIndex(unit.tier) + normalizeRowOffset(unit.rowOffset) > anchorRow)
+  );
+  if (insertion < 0) insertion = timeline.length;
+  return {
+    previous: insertion > 0 ? timeline[insertion - 1] : null,
+    next: insertion < timeline.length ? timeline[insertion] : null
+  };
+}
+
+function navigateUnitProfile(direction) {
+  if (!unitProfileOverlay) return;
+  const targetId = direction < 0
+    ? unitProfileOverlay.dataset.previousMsId
+    : unitProfileOverlay.dataset.nextMsId;
+  if (!targetId) return;
+
+  const originalReturnFocus = profileReturnFocus;
+  openUnitProfile(targetId);
+  profileReturnFocus = originalReturnFocus;
+
+  const selector = direction < 0 ? ".unit-profile-nav-prev" : ".unit-profile-nav-next";
+  requestAnimationFrame(() => {
+    const button = unitProfileOverlay?.querySelector(selector);
+    if (button && !button.disabled) button.focus({ preventScroll: true });
+  });
+}
+
 function profilePanelHeaderHtml(unit, label, emptyMessage) {
   if (!unit) {
     return `<div class="unit-profile-empty">${profileArtHtml(null, label)}<div><span class="unit-profile-eyebrow">${escapeHtml(label)}</span><h2>${escapeHtml(emptyMessage)}</h2><p>This roadmap entry does not currently have a paired ${label.toLowerCase()} in the same release slot.</p></div></div>`;
@@ -3197,11 +3262,15 @@ function openUnitProfile(unitId, activeSegmentId = null) {
   const ms = isMs(clicked) ? clicked : pairedMsForPilot(clicked);
   const pilot = isPilot(clicked) ? clicked : pairedPilotForMs(clicked);
   const activeId = ms ? (activeSegmentId || selectedSegment(ms)?.id || null) : null;
+  const { previous, next } = profileNavigationTargets(clicked, ms);
   profileReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
 
   const overlay = document.createElement("div");
   overlay.className = "unit-profile-overlay";
+  overlay.dataset.previousMsId = previous?.id || "";
+  overlay.dataset.nextMsId = next?.id || "";
   overlay.innerHTML = `
+    <button class="unit-profile-nav unit-profile-nav-prev" type="button" aria-label="${escapeHtml(previous ? `Previous MS: ${previous.name}` : "No previous MS")}" ${previous ? "" : "disabled"}><span aria-hidden="true">‹</span></button>
     <article class="unit-profile-card" role="dialog" aria-modal="true" aria-label="${escapeHtml(ms?.name || pilot?.name || "Unit profile")}">
       <button class="unit-profile-close" type="button" aria-label="Close profile">×</button>
       <div class="unit-profile-grid unit-profile-grid-lshape${ms && (ms.segments || []).length >= 5 ? " meta-very-dense" : ms && (ms.segments || []).length >= 3 ? " meta-dense" : ""}">
@@ -3225,10 +3294,19 @@ function openUnitProfile(unitId, activeSegmentId = null) {
           </div>
         </section>
       </div>
-    </article>`;
+    </article>
+    <button class="unit-profile-nav unit-profile-nav-next" type="button" aria-label="${escapeHtml(next ? `Next MS: ${next.name}` : "No next MS")}" ${next ? "" : "disabled"}><span aria-hidden="true">›</span></button>`;
 
   overlay.addEventListener("click", event => { if (event.target === overlay) closeUnitProfile(); });
   overlay.querySelector(".unit-profile-close")?.addEventListener("click", () => closeUnitProfile());
+  overlay.querySelector(".unit-profile-nav-prev")?.addEventListener("click", event => {
+    event.stopPropagation();
+    navigateUnitProfile(-1);
+  });
+  overlay.querySelector(".unit-profile-nav-next")?.addEventListener("click", event => {
+    event.stopPropagation();
+    navigateUnitProfile(1);
+  });
   overlay.querySelectorAll(".unit-profile-image").forEach(img => {
     img.addEventListener("error", () => {
       img.style.display = "none";
