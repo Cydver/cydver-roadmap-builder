@@ -110,6 +110,7 @@ let drag = null;
 let panDrag = null;
 let suppressRoadmapClick = false;
 let lastUnitClick = { id: null, at: 0 };
+let metaOwnerHoverId = null;
 let profileOpenTimer = null;
 let unitProfileOverlay = null;
 let profileReturnFocus = null;
@@ -839,6 +840,9 @@ function buildStaticGrid() {
     for (let lane = 1; lane <= count; lane++) {
       const track = document.createElement("div");
       track.className = "lane-track";
+      const owner = state.units.find(unit => unit.tier === tier.id && hasVisibleMetaSegments(unit) && Number(unit.lane) === lane);
+      if (owner) track.dataset.unitId = owner.id;
+      track.setAttribute("aria-hidden", "true");
       track.style.top = `${laneY(tier.id, lane)}px`;
       track.style.width = `${Math.max(4, baseChartWidth() - LEFT_W - 20)}px`;
       els.roadmap.appendChild(track);
@@ -1254,13 +1258,21 @@ function renderUnits() {
 
     card.addEventListener("pointerdown", (event) => beginDragUnit(event, unit.id));
     card.addEventListener("contextmenu", (event) => openUnitContextMenu(event, unit.id, null));
-    card.addEventListener("mouseenter", (event) => { bringUnitToFront(unit.id); showTooltip(event, unit); });
-    card.addEventListener("mouseleave", hideTooltip);
+    card.addEventListener("mouseenter", (event) => {
+      bringUnitToFront(unit.id);
+      setMetaOwnerHover(metaOwnerForUnit(unit)?.id || null);
+      showTooltip(event, unit);
+    });
+    card.addEventListener("mouseleave", () => {
+      setMetaOwnerHover(null);
+      hideTooltip();
+    });
     card.addEventListener("pointermove", moveTooltip);
     els.roadmap.appendChild(card);
 
     if (!hasMetaBars(unit)) return;
 
+    renderMetaOwnerTether(unit);
     renderMetaSegmentLinks(unit);
     const visibleSegments = sortedVisibleSegments(unit);
     visibleSegments.forEach((segment, index) => {
@@ -1297,8 +1309,14 @@ function renderUnits() {
       bar.addEventListener("click", (event) => { event.stopPropagation(); select(unit.id, segment.id); });
       bar.addEventListener("contextmenu", (event) => openUnitContextMenu(event, unit.id, segment.id));
       bar.addEventListener("dblclick", (event) => { event.stopPropagation(); openUnitContextMenu(event, unit.id, segment.id); });
-      bar.addEventListener("mouseenter", (event) => showTooltip(event, unit, segment));
-      bar.addEventListener("mouseleave", hideTooltip);
+      bar.addEventListener("mouseenter", (event) => {
+        setMetaOwnerHover(unit.id);
+        showTooltip(event, unit, segment);
+      });
+      bar.addEventListener("mouseleave", () => {
+        setMetaOwnerHover(null);
+        hideTooltip();
+      });
       bar.addEventListener("pointermove", moveTooltip);
       els.roadmap.appendChild(bar);
     });
@@ -1371,6 +1389,114 @@ function renderMetaSegmentLinks(unit) {
     connector.style.setProperty("--link-from", link.fromColor);
     connector.style.setProperty("--link-to", link.toColor);
     els.roadmap.appendChild(connector);
+  });
+}
+function metaOwnerRouteX(unit, cardRect, cardEdgeY, laneCenter) {
+  const center = (cardRect.left + cardRect.right) / 2;
+  const peers = sameSlotGroup(unit).filter(hasVisibleMetaSegments);
+  const peerIndex = Math.max(0, peers.findIndex(peer => peer.id === unit.id));
+  const candidates = [];
+  if (peers.length <= 1) candidates.push(center);
+  const preferredSide = peerIndex % 2 ? "right" : "left";
+  const oppositeSide = preferredSide === "left" ? "right" : "left";
+  const baseLevel = Math.floor(peerIndex / 2) + 1;
+  const addSide = (side, offset) => candidates.push(side === "left" ? cardRect.left - offset : cardRect.right + offset);
+  for (let level = baseLevel; level <= baseLevel + 3; level++) {
+    const offset = 12 * level;
+    addSide(preferredSide, offset);
+    addSide(oppositeSide, offset);
+  }
+  if (peers.length > 1) candidates.push(center);
+  const top = Math.min(cardEdgeY, laneCenter);
+  const bottom = Math.max(cardEdgeY, laneCenter);
+  const isBlocked = (x) => state.units.some(other => {
+    if (other.id === unit.id) return false;
+    const rect = iconRect(other);
+    const crossesVertically = bottom > rect.top + 2 && top < rect.bottom - 2;
+    return crossesVertically && x > rect.left - 4 && x < rect.right + 4;
+  });
+  const minX = LEFT_W + 4;
+  const maxX = baseChartWidth() - 4;
+  return candidates.find(x => x >= minX && x <= maxX && !isBlocked(x)) ?? clamp(center, minX, maxX);
+}
+function metaOwnerTetherGeometry(unit) {
+  const firstSegment = sortedVisibleSegments(unit)[0];
+  if (!firstSegment) return null;
+  const slot = sameSlotOffset(unit);
+  const size = slot.size || ICON_W;
+  const cardTop = iconY(unit);
+  const cardBottom = cardTop + size;
+  const cardCenterY = cardTop + size / 2;
+  const cardRect = { left: iconX(unit), right: iconX(unit) + size, top: cardTop, bottom: cardBottom };
+  const laneCenter = laneCenterY(unit.tier, unit.lane);
+  const cardEdgeY = laneCenter >= cardCenterY ? cardBottom : cardTop;
+  const anchorX = metaOwnerRouteX(unit, cardRect, cardEdgeY, laneCenter);
+  const firstRect = segmentBarRect(unit, firstSegment);
+  const targetX = clamp(anchorX, firstRect.x, firstRect.x + firstRect.w);
+  return {
+    anchorX,
+    laneCenter,
+    stemTop: Math.min(cardEdgeY, laneCenter),
+    stemHeight: Math.abs(laneCenter - cardEdgeY),
+    cardArmTop: cardEdgeY,
+    cardArmLeft: anchorX < cardRect.left ? anchorX : cardRect.right,
+    cardArmWidth: anchorX < cardRect.left ? cardRect.left - anchorX : anchorX > cardRect.right ? anchorX - cardRect.right : 0,
+    armLeft: Math.min(anchorX, targetX),
+    armWidth: Math.abs(targetX - anchorX)
+  };
+}
+function renderMetaOwnerTether(unit) {
+  const geometry = metaOwnerTetherGeometry(unit);
+  if (!geometry) return;
+  if (geometry.stemHeight > 1) {
+    const stem = document.createElement("div");
+    stem.className = "meta-owner-tether stem";
+    stem.dataset.unitId = unit.id;
+    stem.setAttribute("aria-hidden", "true");
+    stem.style.left = `${geometry.anchorX}px`;
+    stem.style.top = `${geometry.stemTop}px`;
+    stem.style.height = `${geometry.stemHeight}px`;
+    els.roadmap.appendChild(stem);
+  }
+  if (geometry.cardArmWidth > 1) {
+    const cardArm = document.createElement("div");
+    cardArm.className = "meta-owner-tether arm card-arm";
+    cardArm.dataset.unitId = unit.id;
+    cardArm.setAttribute("aria-hidden", "true");
+    cardArm.style.left = `${geometry.cardArmLeft}px`;
+    cardArm.style.top = `${geometry.cardArmTop}px`;
+    cardArm.style.width = `${geometry.cardArmWidth}px`;
+    els.roadmap.appendChild(cardArm);
+  }
+  if (geometry.armWidth > 1) {
+    const arm = document.createElement("div");
+    arm.className = "meta-owner-tether arm";
+    arm.dataset.unitId = unit.id;
+    arm.setAttribute("aria-hidden", "true");
+    arm.style.left = `${geometry.armLeft}px`;
+    arm.style.top = `${geometry.laneCenter}px`;
+    arm.style.width = `${geometry.armWidth}px`;
+    els.roadmap.appendChild(arm);
+  }
+}
+function setMetaOwnerHover(unitId) {
+  metaOwnerHoverId = unitId || null;
+  updateMetaOwnerHighlight();
+}
+function updateMetaOwnerHighlight() {
+  if (!els.roadmap) return;
+  const activeId = metaOwnerHoverId;
+  els.roadmap.querySelectorAll(".unit-card").forEach(card => {
+    card.classList.toggle("meta-owner-highlight", !!activeId && card.dataset.id === activeId);
+  });
+  els.roadmap.querySelectorAll(".meta-bar").forEach(bar => {
+    bar.classList.toggle("meta-owner-highlight", !!activeId && bar.dataset.id === activeId);
+  });
+  els.roadmap.querySelectorAll(".meta-link").forEach(link => {
+    link.classList.toggle("meta-owner-highlight", !!activeId && link.dataset.id === activeId);
+  });
+  els.roadmap.querySelectorAll(".meta-owner-tether, .lane-track[data-unit-id]").forEach(element => {
+    element.classList.toggle("meta-owner-highlight", !!activeId && element.dataset.unitId === activeId);
   });
 }
 function placeholder(name) {
@@ -1916,6 +2042,7 @@ function reflowLanes(tierId) {
     .filter(u => u.tier === tierId && hasVisibleMetaSegments(u))
     .sort((a, b) => normalizeWeek(a.week) - normalizeWeek(b.week)
       || normalizeRowOffset(a.rowOffset) - normalizeRowOffset(b.rowOffset)
+      || sameSlotOffset(a).y - sameSlotOffset(b).y
       || a.name.localeCompare(b.name));
   units.forEach((unit, index) => { unit.lane = index + 1; });
 }
