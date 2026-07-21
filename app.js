@@ -1227,7 +1227,7 @@ function renderLegend() {
     btn.innerHTML = `<i class="legend-swatch" style="--legend-color:${status.color}"></i><span>${escapeHtml(status.label)}</span>`;
     const description = String(status.description || "").trim();
     btn.setAttribute("aria-label", description ? `${status.label}: ${description}` : `Edit meta status: ${status.label}`);
-    bindAppTooltip(btn, () => `<strong>${escapeHtml(status.label)}</strong>${description ? `<div class="app-tooltip-description">${multilineHtml(description)}</div>` : `<div>Click to edit this meta status.</div>`}`);
+    bindAppTooltip(btn, () => `<strong class="app-tooltip-status-name" style="--tooltip-status-color:${status.color}">${escapeHtml(status.label)}</strong>${description ? `<div class="app-tooltip-description">${multilineHtml(description)}</div>` : `<div>Click to edit this meta status.</div>`}`);
     btn.addEventListener("click", () => { hideAppTooltip(); openStatusEditor(status.id); });
     els.legend.appendChild(btn);
   });

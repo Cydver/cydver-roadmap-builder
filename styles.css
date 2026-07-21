@@ -2034,3 +2034,10 @@ button.danger:hover,
   .private-share-current { grid-template-columns: 1fr; }
   .private-share-head { align-items: stretch; }
 }
+
+
+/* Meta-status tooltip titles carry their actual editable status color. */
+.app-tooltip > strong.app-tooltip-status-name {
+  color: var(--tooltip-status-color, #f7f9fc);
+  text-shadow: 0 0 10px color-mix(in srgb, var(--tooltip-status-color, #f7f9fc) 25%, transparent);
+}
