@@ -56,7 +56,7 @@ const MIN_ZOOM = 0.2;
 const MAX_ZOOM = 1.6;
 const ZOOM_BUTTON_STEP = 0.1;
 const TIER_LABEL_ABBREVIATIONS = { human: "HR", must: "MP", ideal: "IP", luxury: "LP", skip: "S" };
-const CARD_DETAILS_MIN_VISUAL_SIZE = 104;
+const CARD_DETAILS_MIN_VISUAL_SIZE = 56;
 const MUST_P5_TAG = "Must P5";
 const BUFF_TAG = "Buff";
 const TAG_ORDER = new Map(TAG_OPTIONS.map((tag, i) => [tag.toLowerCase(), i]));
