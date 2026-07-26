@@ -172,7 +172,7 @@
     <div class="private-share-head">
       <div>
         <h2>Private seasonal share</h2>
-        <p class="hint">Create one encrypted link for this roadmap season. Updates keep the same link but always use a fresh encryption IV.</p>
+        <p class="hint">Create one encrypted roadmap season with a Discord-protected clan link. Updates keep the same share ID and key but always use a fresh encryption IV.</p>
       </div>
       <button id="btnClosePrivateShare" type="button">Close</button>
     </div>
@@ -211,8 +211,16 @@
       <button id="btnPrivateCopy" type="button">Copy Private Link</button>
     </div>
 
-    <p class="private-share-path">After creating or updating, place the downloaded <code>.uce.enc</code> file in <code>Viewer/data/private/</code>, commit, and push to GitHub Pages.</p>
-    <p class="private-share-warning">Anyone with the complete private link can decrypt this season. Keep the link inside your clan.</p>
+    <div class="field private-share-link-field">
+      <label for="privateShareWorkerEntry">Cloudflare <code>ROADMAP_KEYS_JSON</code> entry <span class="label-note">Keep secret</span></label>
+      <textarea id="privateShareWorkerEntry" rows="3" readonly placeholder="Create a season to generate its Worker key entry."></textarea>
+    </div>
+    <div class="row gap private-share-copy-row">
+      <button id="btnPrivateCopyWorker" type="button">Copy Worker Key Entry</button>
+    </div>
+
+    <p class="private-share-path">After creating or updating, place the downloaded <code>.uce.enc</code> file in <code>Viewer/data/private/</code>, commit and push it, then make sure this share ID/key exists in the Worker's <code>ROADMAP_KEYS_JSON</code> secret.</p>
+    <p class="private-share-warning">The clan link no longer contains the AES key. Keep the Worker key entry private; only authenticated, allowlisted Discord accounts should be able to request it.</p>
   </dialog>
 
   <dialog id="unitEditDialog" class="status-dialog unit-edit-dialog">

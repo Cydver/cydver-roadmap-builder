@@ -262,6 +262,7 @@ const els = {
   privateShareId: document.getElementById("privateShareId"),
   privateShareFilename: document.getElementById("privateShareFilename"),
   privateShareLink: document.getElementById("privateShareLink"),
+  privateShareWorkerEntry: document.getElementById("privateShareWorkerEntry"),
   unitEditDialog: document.getElementById("unitEditDialog"),
   unitEditDialogBody: document.getElementById("unitEditDialogBody"),
   contextMenu: document.getElementById("contextMenu")
@@ -1160,6 +1161,7 @@ function bindUI() {
   document.getElementById("btnPrivateUpdate").addEventListener("click", updateCurrentPrivateShare);
   document.getElementById("btnPrivateRestore").addEventListener("click", restoreExistingPrivateShare);
   document.getElementById("btnPrivateCopy").addEventListener("click", copyPrivateShareLink);
+  document.getElementById("btnPrivateCopyWorker").addEventListener("click", copyPrivateWorkerEntry);
   document.getElementById("btnSaveLocal").addEventListener("click", saveLocal);
   document.getElementById("btnClearLocal").addEventListener("click", clearLocal);
   document.getElementById("btnExportPng").addEventListener("click", exportPng);
@@ -3349,8 +3351,13 @@ function privateShareFilename(config) {
 }
 function buildPrivateShareLink(config) {
   const url = new URL(normalizePrivateViewerUrl(config.viewerUrl));
-  url.hash = new URLSearchParams({ private: config.shareId, key: config.key }).toString();
+  // The AES key deliberately stays out of the clan link. The Viewer obtains it
+  // from the Discord-protected Cloudflare Worker after authentication.
+  url.hash = new URLSearchParams({ private: config.shareId }).toString();
   return url.toString();
+}
+function buildPrivateWorkerEntry(config) {
+  return JSON.stringify({ [config.shareId]: config.key }, null, 2);
 }
 function refreshPrivateShareDialog(config = loadPrivateShareConfig()) {
   if (!els.privateShareDialog) return;
@@ -3361,15 +3368,18 @@ function refreshPrivateShareDialog(config = loadPrivateShareConfig()) {
     els.privateShareFilename.textContent = privateShareFilename(config);
     try { els.privateShareLink.value = buildPrivateShareLink(config); }
     catch { els.privateShareLink.value = ""; }
+    if (els.privateShareWorkerEntry) els.privateShareWorkerEntry.value = buildPrivateWorkerEntry(config);
   } else {
     if (!els.privateShareSeason.value) els.privateShareSeason.value = defaultPrivateShareSeasonLabel();
     els.privateShareId.textContent = "None";
     els.privateShareFilename.textContent = "—";
     els.privateShareLink.value = "";
+    if (els.privateShareWorkerEntry) els.privateShareWorkerEntry.value = "";
   }
   const hasCurrent = Boolean(config);
   document.getElementById("btnPrivateUpdate").disabled = !hasCurrent;
   document.getElementById("btnPrivateCopy").disabled = !hasCurrent;
+  document.getElementById("btnPrivateCopyWorker").disabled = !hasCurrent;
 }
 function openPrivateShareDialog() {
   refreshPrivateShareDialog();
@@ -3437,7 +3447,7 @@ async function downloadPrivateShare(config, actionLabel) {
   downloadBlob(blob, privateShareFilename(config));
   savePrivateShareConfig(config);
   refreshPrivateShareDialog(config);
-  setStatus(`${actionLabel}. Put ${privateShareFilename(config)} in Viewer/data/private/ and push it. JSON export remains unchanged.`);
+  setStatus(`${actionLabel}. Put ${privateShareFilename(config)} in Viewer/data/private/, push it, and make sure this share ID/key exists in Cloudflare ROADMAP_KEYS_JSON.`);
 }
 async function createNewPrivateShare() {
   try {
@@ -3471,12 +3481,31 @@ async function copyPrivateShareLink() {
     const link = buildPrivateShareLink(config);
     try {
       await navigator.clipboard.writeText(link);
-      setStatus("Private season link copied. Anyone with the complete link can decrypt this season.");
+      setStatus("Discord-protected clan link copied. The AES key is not included in the URL.");
     } catch {
       prompt("Copy this private season link:", link);
     }
   } catch (error) {
     alert(`Could not copy private link: ${error.message}`);
+  }
+}
+async function copyPrivateWorkerEntry() {
+  try {
+    const existing = loadPrivateShareConfig();
+    if (!existing) throw new Error("No current private season exists.");
+    const inputs = privateShareInputs();
+    const config = { ...existing, ...inputs };
+    savePrivateShareConfig(config);
+    refreshPrivateShareDialog(config);
+    const entry = buildPrivateWorkerEntry(config);
+    try {
+      await navigator.clipboard.writeText(entry);
+      setStatus("Cloudflare ROADMAP_KEYS_JSON entry copied. Keep it secret.");
+    } catch {
+      prompt("Copy this Cloudflare ROADMAP_KEYS_JSON entry:", entry);
+    }
+  } catch (error) {
+    alert(`Could not copy Worker key entry: ${error.message}`);
   }
 }
 function restoreExistingPrivateShare() {
@@ -3486,9 +3515,21 @@ function restoreExistingPrivateShare() {
     const url = new URL(input.trim());
     const params = new URLSearchParams(url.hash.replace(/^#/, ""));
     const shareId = params.get("private") || "";
-    const key = params.get("key") || "";
     if (!validPrivateShareId(shareId)) throw new Error("The link does not contain a valid private share ID.");
-    if (base64urlToBytes(key).length !== 32) throw new Error("The link does not contain a valid AES-256 key.");
+
+    // Legacy links may still contain &key=. New Discord-protected links do not,
+    // so restoring one requires the matching key from Cloudflare.
+    let key = params.get("key") || "";
+    let keyValid = false;
+    try { keyValid = base64urlToBytes(key).length === 32; } catch {}
+    if (!keyValid) {
+      key = String(prompt(
+        "This protected link does not contain its AES key. Paste the matching key from Cloudflare ROADMAP_KEYS_JSON:",
+        ""
+      ) || "").trim();
+    }
+    if (base64urlToBytes(key).length !== 32) throw new Error("A valid AES-256 key is required to restore this share.");
+
     url.hash = "";
     const config = {
       version: 1,
@@ -3499,11 +3540,12 @@ function restoreExistingPrivateShare() {
     };
     savePrivateShareConfig(config);
     refreshPrivateShareDialog(config);
-    setStatus(`Restored private season ${shareId}. Update Current Season will keep this same clan link.`);
+    setStatus(`Restored private season ${shareId}. Update Current Season will keep this same Discord-protected clan link.`);
   } catch (error) {
     alert(`Could not restore private share: ${error.message}`);
   }
 }
+
 function loadFromShareHash() {
   const match = location.hash.match(/roadmap=([^&]+)/);
   if (!match) return false;
