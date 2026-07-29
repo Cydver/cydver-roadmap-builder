@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-22T06:04:23.569Z",
-  "catalogGeneratedAt": "2026-07-22T06:04:23.405Z",
+  "generatedAt": "2026-07-29T06:07:14.963Z",
+  "catalogGeneratedAt": "2026-07-29T06:07:14.821Z",
   "instructions": [
     "This file contains only names not covered by data/canonical-name-map.json.",
     "Upload this file to ChatGPT for manual web-assisted research.",
@@ -9,10 +9,36 @@
     "After committing the updated map, rerun the Update Altema catalog GitHub Action."
   ],
   "summary": {
-    "catalogItems": 497,
-    "mappedItems": 497,
-    "unresolvedItems": 0,
-    "unresolvedUniqueNames": 0
+    "catalogItems": 499,
+    "mappedItems": 498,
+    "unresolvedItems": 1,
+    "unresolvedUniqueNames": 1
   },
-  "items": []
+  "items": [
+    {
+      "kind": "ms",
+      "suggestedMapKey": "ms|ガンダム(最終決戦仕様)",
+      "nameJa": "ガンダム(最終決戦仕様)",
+      "occurrences": 1,
+      "cardKeys": [
+        "ms:419"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/ms/419"
+      ],
+      "samples": [
+        {
+          "id": "altema-ms-8c13a7c0e3",
+          "cardKey": "ms:419",
+          "originalNameJa": "ガンダム(最終決戦仕様)",
+          "sourceUrl": "https://altema.jp/gundamuce/ms/419",
+          "attribute": "紫",
+          "role": "汎用",
+          "rating": "9.5",
+          "icon": "icons/altema/ms-ガンダム-最終決戦仕様-f971f63f.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/419.jpg"
+        }
+      ]
+    }
+  ]
 }

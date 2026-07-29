@@ -1,11 +1,23 @@
 {
-  "generatedAt": "2026-07-22T06:04:23.405Z",
+  "generatedAt": "2026-07-29T06:07:14.821Z",
   "sources": [
     "https://altema.jp/gundamuce/msrea/4",
     "https://altema.jp/gundamuce/chararea/4"
   ],
   "note": "Generated incrementally from Altema list pages. Existing local icons are reused; only new cards or missing icons are downloaded unless ALTEMA_REFRESH_ICONS=1.",
   "items": [
+    {
+      "id": "altema-ms-8c13a7c0e3",
+      "kind": "ms",
+      "name": "ガンダム(最終決戦仕様)",
+      "icon": "icons/altema/ms-ガンダム-最終決戦仕様-f971f63f.jpg",
+      "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/419.jpg",
+      "sourceUrl": "https://altema.jp/gundamuce/ms/419",
+      "attribute": "紫",
+      "role": "汎用",
+      "rating": "9.5",
+      "nameJa": "ガンダム(最終決戦仕様)"
+    },
     {
       "id": "altema-ms-1380bf1660",
       "kind": "ms",
@@ -3031,6 +3043,18 @@
       "nameJa": "ユニコーンガンダム"
     },
     {
+      "id": "altema-pilot-17702fa728",
+      "kind": "pilot",
+      "name": "Amuro Ray (C0463)",
+      "icon": "icons/altema/pilot-アムロ・レイ-c0463-e7290fe7.jpg",
+      "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/373.jpg",
+      "sourceUrl": "https://altema.jp/gundamuce/chara/373",
+      "attribute": "",
+      "role": "",
+      "rating": "9.5",
+      "nameJa": "アムロ・レイ(C0463)"
+    },
+    {
       "id": "altema-pilot-ed2e9b835f",
       "kind": "pilot",
       "name": "Judau Ashta (C0459)",
@@ -5973,8 +5997,8 @@
   ],
   "nameMapping": {
     "mapVersion": 1,
-    "mappedItems": 497,
-    "unresolvedItems": 0,
-    "unresolvedNames": 0
+    "mappedItems": 498,
+    "unresolvedItems": 1,
+    "unresolvedNames": 1
   }
 }
