@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-05T06:02:17.012Z",
+  "generatedAt": "2026-08-12T05:01:19.002Z",
   "sources": [
     "https://altema.jp/gundamuce/msrea/4",
     "https://altema.jp/gundamuce/chararea/4"
@@ -833,6 +833,18 @@
       "role": "重装",
       "rating": "8",
       "nameJa": "フルアーマー・ガンダム(サンダーボルト版)"
+    },
+    {
+      "id": "altema-ms-973c7a69dd",
+      "kind": "ms",
+      "name": "ジャムル・フィン",
+      "icon": "icons/altema/ms-ジャムル・フィン-b8a3bdba.jpg",
+      "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/421.jpg",
+      "sourceUrl": "https://altema.jp/gundamuce/ms/421",
+      "attribute": "赤",
+      "role": "砲撃",
+      "rating": "7.5",
+      "nameJa": "ジャムル・フィン"
     },
     {
       "id": "altema-ms-a441543f9b",
@@ -3883,6 +3895,18 @@
       "nameJa": "イオ・フレミング"
     },
     {
+      "id": "altema-pilot-c502122e66",
+      "kind": "pilot",
+      "name": "ダニー(C0465)",
+      "icon": "icons/altema/pilot-ダニー-c0465-8b982390.jpg",
+      "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/375.jpg",
+      "sourceUrl": "https://altema.jp/gundamuce/chara/375",
+      "attribute": "",
+      "role": "",
+      "rating": "7.5",
+      "nameJa": "ダニー(C0465)"
+    },
+    {
       "id": "altema-pilot-d3843e25b1",
       "kind": "pilot",
       "name": "Riddhe Marcenas (C0460)",
@@ -5998,7 +6022,7 @@
   "nameMapping": {
     "mapVersion": 1,
     "mappedItems": 498,
-    "unresolvedItems": 1,
-    "unresolvedNames": 1
+    "unresolvedItems": 3,
+    "unresolvedNames": 3
   }
 }

@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-05T06:02:17.163Z",
-  "catalogGeneratedAt": "2026-08-05T06:02:17.012Z",
+  "generatedAt": "2026-08-12T05:01:19.144Z",
+  "catalogGeneratedAt": "2026-08-12T05:01:19.002Z",
   "instructions": [
     "This file contains only names not covered by data/canonical-name-map.json.",
     "Upload this file to ChatGPT for manual web-assisted research.",
@@ -9,10 +9,10 @@
     "After committing the updated map, rerun the Update Altema catalog GitHub Action."
   ],
   "summary": {
-    "catalogItems": 499,
+    "catalogItems": 501,
     "mappedItems": 498,
-    "unresolvedItems": 1,
-    "unresolvedUniqueNames": 1
+    "unresolvedItems": 3,
+    "unresolvedUniqueNames": 3
   },
   "items": [
     {
@@ -37,6 +37,59 @@
           "rating": "9.5",
           "icon": "icons/altema/ms-ガンダム-最終決戦仕様-f971f63f.jpg",
           "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/419.jpg"
+        }
+      ]
+    },
+    {
+      "kind": "ms",
+      "suggestedMapKey": "ms|ジャムル・フィン",
+      "nameJa": "ジャムル・フィン",
+      "occurrences": 1,
+      "cardKeys": [
+        "ms:421"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/ms/421"
+      ],
+      "samples": [
+        {
+          "id": "altema-ms-973c7a69dd",
+          "cardKey": "ms:421",
+          "originalNameJa": "ジャムル・フィン",
+          "sourceUrl": "https://altema.jp/gundamuce/ms/421",
+          "attribute": "赤",
+          "role": "砲撃",
+          "rating": "7.5",
+          "icon": "icons/altema/ms-ジャムル・フィン-b8a3bdba.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/421.jpg"
+        }
+      ]
+    },
+    {
+      "kind": "pilot",
+      "suggestedMapKey": "pilot|ダニー",
+      "nameJa": "ダニー",
+      "occurrences": 1,
+      "pilotCardIds": [
+        "C0465"
+      ],
+      "cardKeys": [
+        "pilot:375"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/chara/375"
+      ],
+      "samples": [
+        {
+          "id": "altema-pilot-c502122e66",
+          "cardKey": "pilot:375",
+          "originalNameJa": "ダニー(C0465)",
+          "sourceUrl": "https://altema.jp/gundamuce/chara/375",
+          "attribute": "",
+          "role": "",
+          "rating": "7.5",
+          "icon": "icons/altema/pilot-ダニー-c0465-8b982390.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/375.jpg"
         }
       ]
     }
