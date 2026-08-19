@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T05:01:19.002Z",
+  "generatedAt": "2026-08-19T03:57:47.464Z",
   "sources": [
     "https://altema.jp/gundamuce/msrea/4",
     "https://altema.jp/gundamuce/chararea/4"
@@ -353,6 +353,18 @@
       "role": "汎用",
       "rating": "8.5",
       "nameJa": "ガンダムF91(最大稼働)"
+    },
+    {
+      "id": "altema-ms-b2c6bafa9f",
+      "kind": "ms",
+      "name": "ギュネイ専用ヤクト・ドーガ(UR)",
+      "icon": "icons/altema/ms-ギュネイ専用ヤクト・ドーガ-ur-c7eed4a9.jpg",
+      "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/422.jpg",
+      "sourceUrl": "https://altema.jp/gundamuce/ms/422",
+      "attribute": "赤",
+      "role": "汎用",
+      "rating": "8",
+      "nameJa": "ギュネイ専用ヤクト・ドーガ(UR)"
     },
     {
       "id": "altema-ms-1fadd067ad",
@@ -3415,6 +3427,18 @@
       "nameJa": "フォウ・ムラサメ"
     },
     {
+      "id": "altema-pilot-5cb0474c4d",
+      "kind": "pilot",
+      "name": "ギュネイ・ガス(C0466)",
+      "icon": "icons/altema/pilot-ギュネイ・ガス-c0466-da8fdd33.jpg",
+      "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/376.jpg",
+      "sourceUrl": "https://altema.jp/gundamuce/chara/376",
+      "attribute": "",
+      "role": "",
+      "rating": "8.0",
+      "nameJa": "ギュネイ・ガス(C0466)"
+    },
+    {
       "id": "altema-pilot-0b699d0736",
       "kind": "pilot",
       "name": "Agos Lagarto (C0462)",
@@ -6022,7 +6046,7 @@
   "nameMapping": {
     "mapVersion": 1,
     "mappedItems": 498,
-    "unresolvedItems": 3,
-    "unresolvedNames": 3
+    "unresolvedItems": 5,
+    "unresolvedNames": 5
   }
 }

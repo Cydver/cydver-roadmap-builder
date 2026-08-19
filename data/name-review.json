@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-12T05:01:19.144Z",
-  "catalogGeneratedAt": "2026-08-12T05:01:19.002Z",
+  "generatedAt": "2026-08-19T03:57:47.596Z",
+  "catalogGeneratedAt": "2026-08-19T03:57:47.464Z",
   "instructions": [
     "This file contains only names not covered by data/canonical-name-map.json.",
     "Upload this file to ChatGPT for manual web-assisted research.",
@@ -9,10 +9,10 @@
     "After committing the updated map, rerun the Update Altema catalog GitHub Action."
   ],
   "summary": {
-    "catalogItems": 501,
+    "catalogItems": 503,
     "mappedItems": 498,
-    "unresolvedItems": 3,
-    "unresolvedUniqueNames": 3
+    "unresolvedItems": 5,
+    "unresolvedUniqueNames": 5
   },
   "items": [
     {
@@ -42,6 +42,31 @@
     },
     {
       "kind": "ms",
+      "suggestedMapKey": "ms|ギュネイ専用ヤクト・ドーガ(UR)",
+      "nameJa": "ギュネイ専用ヤクト・ドーガ(UR)",
+      "occurrences": 1,
+      "cardKeys": [
+        "ms:422"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/ms/422"
+      ],
+      "samples": [
+        {
+          "id": "altema-ms-b2c6bafa9f",
+          "cardKey": "ms:422",
+          "originalNameJa": "ギュネイ専用ヤクト・ドーガ(UR)",
+          "sourceUrl": "https://altema.jp/gundamuce/ms/422",
+          "attribute": "赤",
+          "role": "汎用",
+          "rating": "8",
+          "icon": "icons/altema/ms-ギュネイ専用ヤクト・ドーガ-ur-c7eed4a9.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/422.jpg"
+        }
+      ]
+    },
+    {
+      "kind": "ms",
       "suggestedMapKey": "ms|ジャムル・フィン",
       "nameJa": "ジャムル・フィン",
       "occurrences": 1,
@@ -62,6 +87,34 @@
           "rating": "7.5",
           "icon": "icons/altema/ms-ジャムル・フィン-b8a3bdba.jpg",
           "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/421.jpg"
+        }
+      ]
+    },
+    {
+      "kind": "pilot",
+      "suggestedMapKey": "pilot|ギュネイ・ガス",
+      "nameJa": "ギュネイ・ガス",
+      "occurrences": 1,
+      "pilotCardIds": [
+        "C0466"
+      ],
+      "cardKeys": [
+        "pilot:376"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/chara/376"
+      ],
+      "samples": [
+        {
+          "id": "altema-pilot-5cb0474c4d",
+          "cardKey": "pilot:376",
+          "originalNameJa": "ギュネイ・ガス(C0466)",
+          "sourceUrl": "https://altema.jp/gundamuce/chara/376",
+          "attribute": "",
+          "role": "",
+          "rating": "8.0",
+          "icon": "icons/altema/pilot-ギュネイ・ガス-c0466-da8fdd33.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/376.jpg"
         }
       ]
     },
