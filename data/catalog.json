@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T03:57:47.464Z",
+  "generatedAt": "2026-08-26T04:02:02.209Z",
   "sources": [
     "https://altema.jp/gundamuce/msrea/4",
     "https://altema.jp/gundamuce/chararea/4"
@@ -353,6 +353,18 @@
       "role": "汎用",
       "rating": "8.5",
       "nameJa": "ガンダムF91(最大稼働)"
+    },
+    {
+      "id": "altema-ms-f028e9fd0c",
+      "kind": "ms",
+      "name": "カバカーリー",
+      "icon": "icons/altema/ms-カバカーリー-9ad3e371.jpg",
+      "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/423.jpg",
+      "sourceUrl": "https://altema.jp/gundamuce/ms/423",
+      "attribute": "赤",
+      "role": "強襲",
+      "rating": "8",
+      "nameJa": "カバカーリー"
     },
     {
       "id": "altema-ms-b2c6bafa9f",
@@ -3427,6 +3439,18 @@
       "nameJa": "フォウ・ムラサメ"
     },
     {
+      "id": "altema-pilot-2f3d929a6c",
+      "kind": "pilot",
+      "name": "マスク(C0467)",
+      "icon": "icons/altema/pilot-マスク-c0467-4492c721.jpg",
+      "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/377.jpg",
+      "sourceUrl": "https://altema.jp/gundamuce/chara/377",
+      "attribute": "",
+      "role": "",
+      "rating": "8.0",
+      "nameJa": "マスク(C0467)"
+    },
+    {
       "id": "altema-pilot-5cb0474c4d",
       "kind": "pilot",
       "name": "ギュネイ・ガス(C0466)",
@@ -6046,7 +6070,7 @@
   "nameMapping": {
     "mapVersion": 1,
     "mappedItems": 498,
-    "unresolvedItems": 5,
-    "unresolvedNames": 5
+    "unresolvedItems": 7,
+    "unresolvedNames": 7
   }
 }

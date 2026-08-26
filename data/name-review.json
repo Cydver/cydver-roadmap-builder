@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-19T03:57:47.596Z",
-  "catalogGeneratedAt": "2026-08-19T03:57:47.464Z",
+  "generatedAt": "2026-08-26T04:02:02.376Z",
+  "catalogGeneratedAt": "2026-08-26T04:02:02.209Z",
   "instructions": [
     "This file contains only names not covered by data/canonical-name-map.json.",
     "Upload this file to ChatGPT for manual web-assisted research.",
@@ -9,12 +9,37 @@
     "After committing the updated map, rerun the Update Altema catalog GitHub Action."
   ],
   "summary": {
-    "catalogItems": 503,
+    "catalogItems": 505,
     "mappedItems": 498,
-    "unresolvedItems": 5,
-    "unresolvedUniqueNames": 5
+    "unresolvedItems": 7,
+    "unresolvedUniqueNames": 7
   },
   "items": [
+    {
+      "kind": "ms",
+      "suggestedMapKey": "ms|カバカーリー",
+      "nameJa": "カバカーリー",
+      "occurrences": 1,
+      "cardKeys": [
+        "ms:423"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/ms/423"
+      ],
+      "samples": [
+        {
+          "id": "altema-ms-f028e9fd0c",
+          "cardKey": "ms:423",
+          "originalNameJa": "カバカーリー",
+          "sourceUrl": "https://altema.jp/gundamuce/ms/423",
+          "attribute": "赤",
+          "role": "強襲",
+          "rating": "8",
+          "icon": "icons/altema/ms-カバカーリー-9ad3e371.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/423.jpg"
+        }
+      ]
+    },
     {
       "kind": "ms",
       "suggestedMapKey": "ms|ガンダム(最終決戦仕様)",
@@ -143,6 +168,34 @@
           "rating": "7.5",
           "icon": "icons/altema/pilot-ダニー-c0465-8b982390.jpg",
           "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/375.jpg"
+        }
+      ]
+    },
+    {
+      "kind": "pilot",
+      "suggestedMapKey": "pilot|マスク",
+      "nameJa": "マスク",
+      "occurrences": 1,
+      "pilotCardIds": [
+        "C0467"
+      ],
+      "cardKeys": [
+        "pilot:377"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/chara/377"
+      ],
+      "samples": [
+        {
+          "id": "altema-pilot-2f3d929a6c",
+          "cardKey": "pilot:377",
+          "originalNameJa": "マスク(C0467)",
+          "sourceUrl": "https://altema.jp/gundamuce/chara/377",
+          "attribute": "",
+          "role": "",
+          "rating": "8.0",
+          "icon": "icons/altema/pilot-マスク-c0467-4492c721.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/377.jpg"
         }
       ]
     }
