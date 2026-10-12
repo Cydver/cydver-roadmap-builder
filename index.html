@@ -29,7 +29,6 @@
       </div>
     </div>
   </header>
-
   <main class="app-shell">
     <aside class="sidebar">
       <section class="panel">
@@ -47,7 +46,6 @@
         <div id="catalogStatus" class="status">Loading catalog…</div>
         <div id="catalogList" class="catalog-list"></div>
       </section>
-
       <section class="panel editor">
         <h2>Selected unit</h2>
         <div id="noSelection" class="empty">Select a card or meta bar.</div>
@@ -61,7 +59,6 @@
             <div class="field"><label>Release week</label><input name="week" type="number" min="1" /></div>
             <div class="field"><label>Lane</label><input name="lane" type="number" min="1" /></div>
           </div>
-
           <div class="field meta-editor"><label>Meta segment</label><select name="segment"></select></div>
           <div class="grid2 meta-editor">
             <div class="field"><label>Segment start</label><input name="metaStart" type="number" min="1" /></div>
@@ -72,12 +69,10 @@
             <button id="btnAddSegment" type="button">+ Add segment</button>
             <button id="btnDeleteSegment" type="button" class="danger">Delete segment</button>
           </div>
-
           <div class="grid2 investment-editor">
             <div class="field"><label>Minimum P</label><select name="minPotential"><option value="">—</option><option value="0">P0</option><option value="1">P1</option><option value="2">P2</option><option value="3">P3</option><option value="4">P4</option><option value="5">P5</option></select></div>
             <div class="field"><label>Ideal P</label><select name="idealPotential"><option value="">—</option><option value="0">P0</option><option value="1">P1</option><option value="2">P2</option><option value="3">P3</option><option value="4">P4</option><option value="5">P5</option></select></div>
           </div>
-
           <div class="field"><label>Tags</label><input name="tags" placeholder="PVP, PVE, Must P5, Buff, Core, Tech, Def, Sub, CB" /></div>
           <div class="tag-controls">
             <select id="tagDropdown" aria-label="Add tag">
@@ -102,7 +97,6 @@
           </div>
         </form>
       </section>
-
       <section class="panel">
         <h2>How to edit</h2>
         <ul class="instructions">
@@ -117,7 +111,6 @@
         </ul>
       </section>
     </aside>
-
     <section class="workspace">
       <div class="workspace-bar">
         <div class="legend-wrap">
@@ -137,7 +130,6 @@
       </div>
     </section>
   </main>
-
   <dialog id="statusDialog" class="status-dialog">
     <form method="dialog" id="statusForm">
       <h2>Edit meta status</h2>
@@ -152,7 +144,6 @@
       </div>
     </form>
   </dialog>
-
   <dialog id="tierDialog" class="status-dialog">
     <form method="dialog" id="tierForm">
       <h2>Edit row header</h2>
@@ -167,7 +158,6 @@
     </form>
   </dialog>
 
-
   <dialog id="privateShareDialog" class="status-dialog private-share-dialog">
     <div class="private-share-head">
       <div>
@@ -176,7 +166,6 @@
       </div>
       <button id="btnClosePrivateShare" type="button">Close</button>
     </div>
-
     <div class="field">
       <label for="privateShareSeason">Season label <span class="label-note">Builder only</span></label>
       <input id="privateShareSeason" type="text" placeholder="e.g. Summer 2026" />
@@ -185,7 +174,6 @@
       <label for="privateShareViewerUrl">Viewer URL</label>
       <input id="privateShareViewerUrl" type="url" placeholder="https://username.github.io/roadmap-viewer/" />
     </div>
-
     <div class="private-share-current">
       <div class="private-share-meta">
         <span>Current share ID</span>
@@ -196,13 +184,11 @@
         <code id="privateShareFilename">—</code>
       </div>
     </div>
-
     <div class="row gap private-share-actions">
       <button id="btnPrivateCreate" type="button" class="primary-action">Create New Season</button>
       <button id="btnPrivateUpdate" type="button">Update Current Season</button>
       <button id="btnPrivateRestore" type="button">Restore Existing Link</button>
     </div>
-
     <div class="field private-share-link-field">
       <label for="privateShareLink">Private clan link</label>
       <textarea id="privateShareLink" rows="3" readonly placeholder="Create a season to generate a private link."></textarea>
@@ -210,7 +196,6 @@
     <div class="row gap private-share-copy-row">
       <button id="btnPrivateCopy" type="button">Copy Private Link</button>
     </div>
-
     <div class="field private-share-link-field">
       <label for="privateShareWorkerEntry">Cloudflare <code>ROADMAP_KEYS_JSON</code> entry <span class="label-note">Keep secret</span></label>
       <textarea id="privateShareWorkerEntry" rows="3" readonly placeholder="Create a season to generate its Worker key entry."></textarea>
@@ -218,11 +203,9 @@
     <div class="row gap private-share-copy-row">
       <button id="btnPrivateCopyWorker" type="button">Copy Worker Key Entry</button>
     </div>
-
     <p class="private-share-path">After creating or updating, place the downloaded <code>.uce.enc</code> file in <code>Viewer/data/private/</code>, commit and push it, then make sure this share ID/key exists in the Worker's <code>ROADMAP_KEYS_JSON</code> secret.</p>
     <p class="private-share-warning">The clan link no longer contains the AES key. Keep the Worker key entry private; only authenticated, allowlisted Discord accounts should be able to request it.</p>
   </dialog>
-
   <dialog id="unitEditDialog" class="status-dialog unit-edit-dialog">
     <div class="unit-edit-dialog-head">
       <h2>Selected unit</h2>
@@ -232,7 +215,6 @@
   </dialog>
 
   <div id="contextMenu" class="context-menu hidden" role="menu"></div>
-
   <template id="catalogItemTemplate">
     <article class="catalog-item">
       <img alt="" />
@@ -245,5 +227,6 @@
   </template>
 
   <script src="app.js"></script>
+  <script src="tier-description.js?v=20261012-1"></script>
 </body>
 </html>
