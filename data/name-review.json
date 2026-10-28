@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generatedAt": "2026-08-26T04:02:02.376Z",
-  "catalogGeneratedAt": "2026-08-26T04:02:02.209Z",
+  "generatedAt": "2026-10-28T09:38:15.225Z",
+  "catalogGeneratedAt": "2026-10-28T09:38:15.063Z",
   "instructions": [
     "This file contains only names not covered by data/canonical-name-map.json.",
     "Upload this file to ChatGPT for manual web-assisted research.",
@@ -9,12 +9,37 @@
     "After committing the updated map, rerun the Update Altema catalog GitHub Action."
   ],
   "summary": {
-    "catalogItems": 505,
-    "mappedItems": 498,
-    "unresolvedItems": 7,
-    "unresolvedUniqueNames": 7
+    "catalogItems": 517,
+    "mappedItems": 500,
+    "unresolvedItems": 17,
+    "unresolvedUniqueNames": 17
   },
   "items": [
+    {
+      "kind": "ms",
+      "suggestedMapKey": "ms|Gファイター",
+      "nameJa": "Gファイター",
+      "occurrences": 1,
+      "cardKeys": [
+        "ms:430"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/ms/430"
+      ],
+      "samples": [
+        {
+          "id": "altema-ms-49cbf74fbb",
+          "cardKey": "ms:430",
+          "originalNameJa": "Gファイター",
+          "sourceUrl": "https://altema.jp/gundamuce/ms/430",
+          "attribute": "緑",
+          "role": "支援",
+          "rating": "8.5",
+          "icon": "icons/altema/ms-gファイター-01ef5ee6.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/430.jpg"
+        }
+      ]
+    },
     {
       "kind": "ms",
       "suggestedMapKey": "ms|カバカーリー",
@@ -92,6 +117,56 @@
     },
     {
       "kind": "ms",
+      "suggestedMapKey": "ms|ザメル(黄)",
+      "nameJa": "ザメル(黄)",
+      "occurrences": 1,
+      "cardKeys": [
+        "ms:427"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/ms/427"
+      ],
+      "samples": [
+        {
+          "id": "altema-ms-28d434911c",
+          "cardKey": "ms:427",
+          "originalNameJa": "ザメル(黄)",
+          "sourceUrl": "https://altema.jp/gundamuce/ms/427",
+          "attribute": "黄",
+          "role": "支援",
+          "rating": "8.5",
+          "icon": "icons/altema/ms-ザメル-黄-2f0d9209.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/427.jpg"
+        }
+      ]
+    },
+    {
+      "kind": "ms",
+      "suggestedMapKey": "ms|ジ・Oクロス",
+      "nameJa": "ジ・Oクロス",
+      "occurrences": 1,
+      "cardKeys": [
+        "ms:428"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/ms/428"
+      ],
+      "samples": [
+        {
+          "id": "altema-ms-d267d85159",
+          "cardKey": "ms:428",
+          "originalNameJa": "ジ・Oクロス",
+          "sourceUrl": "https://altema.jp/gundamuce/ms/428",
+          "attribute": "黄",
+          "role": "重装",
+          "rating": "9",
+          "icon": "icons/altema/ms-ジ・oクロス-45481578.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/428.jpg"
+        }
+      ]
+    },
+    {
+      "kind": "ms",
       "suggestedMapKey": "ms|ジャムル・フィン",
       "nameJa": "ジャムル・フィン",
       "occurrences": 1,
@@ -112,6 +187,81 @@
           "rating": "7.5",
           "icon": "icons/altema/ms-ジャムル・フィン-b8a3bdba.jpg",
           "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/421.jpg"
+        }
+      ]
+    },
+    {
+      "kind": "ms",
+      "suggestedMapKey": "ms|トリスタン",
+      "nameJa": "トリスタン",
+      "occurrences": 1,
+      "cardKeys": [
+        "ms:426"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/ms/426"
+      ],
+      "samples": [
+        {
+          "id": "altema-ms-16e5db5295",
+          "cardKey": "ms:426",
+          "originalNameJa": "トリスタン",
+          "sourceUrl": "https://altema.jp/gundamuce/ms/426",
+          "attribute": "黄",
+          "role": "汎用",
+          "rating": "8",
+          "icon": "icons/altema/ms-トリスタン-e1aeebd6.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/426.jpg"
+        }
+      ]
+    },
+    {
+      "kind": "ms",
+      "suggestedMapKey": "ms|ヒルドルブ",
+      "nameJa": "ヒルドルブ",
+      "occurrences": 1,
+      "cardKeys": [
+        "ms:431"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/ms/431"
+      ],
+      "samples": [
+        {
+          "id": "altema-ms-96aae7cf00",
+          "cardKey": "ms:431",
+          "originalNameJa": "ヒルドルブ",
+          "sourceUrl": "https://altema.jp/gundamuce/ms/431",
+          "attribute": "緑",
+          "role": "砲撃",
+          "rating": "9",
+          "icon": "icons/altema/ms-ヒルドルブ-2a931ba9.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/431.jpg"
+        }
+      ]
+    },
+    {
+      "kind": "ms",
+      "suggestedMapKey": "ms|百式(黄)",
+      "nameJa": "百式(黄)",
+      "occurrences": 1,
+      "cardKeys": [
+        "ms:425"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/ms/425"
+      ],
+      "samples": [
+        {
+          "id": "altema-ms-7ea4b17d46",
+          "cardKey": "ms:425",
+          "originalNameJa": "百式(黄)",
+          "sourceUrl": "https://altema.jp/gundamuce/ms/425",
+          "attribute": "黄",
+          "role": "強襲",
+          "rating": "8",
+          "icon": "icons/altema/ms-百式-黄-8c0ff576.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/mobile_suit/icon/425.jpg"
         }
       ]
     },
@@ -145,6 +295,34 @@
     },
     {
       "kind": "pilot",
+      "suggestedMapKey": "pilot|クァンタン・フェルモ",
+      "nameJa": "クァンタン・フェルモ",
+      "occurrences": 1,
+      "pilotCardIds": [
+        "C0470"
+      ],
+      "cardKeys": [
+        "pilot:380"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/chara/380"
+      ],
+      "samples": [
+        {
+          "id": "altema-pilot-7f0ad7ff54",
+          "cardKey": "pilot:380",
+          "originalNameJa": "クァンタン・フェルモ(C0470)",
+          "sourceUrl": "https://altema.jp/gundamuce/chara/380",
+          "attribute": "",
+          "role": "",
+          "rating": "8.0",
+          "icon": "icons/altema/pilot-クァンタン・フェルモ-c0470-74c19d7d.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/380.jpg"
+        }
+      ]
+    },
+    {
+      "kind": "pilot",
       "suggestedMapKey": "pilot|ダニー",
       "nameJa": "ダニー",
       "occurrences": 1,
@@ -168,6 +346,90 @@
           "rating": "7.5",
           "icon": "icons/altema/pilot-ダニー-c0465-8b982390.jpg",
           "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/375.jpg"
+        }
+      ]
+    },
+    {
+      "kind": "pilot",
+      "suggestedMapKey": "pilot|デメジエール・ソンネン",
+      "nameJa": "デメジエール・ソンネン",
+      "occurrences": 1,
+      "pilotCardIds": [
+        "C0475"
+      ],
+      "cardKeys": [
+        "pilot:385"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/chara/385"
+      ],
+      "samples": [
+        {
+          "id": "altema-pilot-7b9913ab0e",
+          "cardKey": "pilot:385",
+          "originalNameJa": "デメジエール・ソンネン(C0475)",
+          "sourceUrl": "https://altema.jp/gundamuce/chara/385",
+          "attribute": "",
+          "role": "",
+          "rating": "9.0",
+          "icon": "icons/altema/pilot-デメジエール・ソンネン-c0475-5ee2c70b.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/385.jpg"
+        }
+      ]
+    },
+    {
+      "kind": "pilot",
+      "suggestedMapKey": "pilot|ビーチャ・オーレグ",
+      "nameJa": "ビーチャ・オーレグ",
+      "occurrences": 1,
+      "pilotCardIds": [
+        "C0469"
+      ],
+      "cardKeys": [
+        "pilot:379"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/chara/379"
+      ],
+      "samples": [
+        {
+          "id": "altema-pilot-437c03418f",
+          "cardKey": "pilot:379",
+          "originalNameJa": "ビーチャ・オーレグ(C0469)",
+          "sourceUrl": "https://altema.jp/gundamuce/chara/379",
+          "attribute": "",
+          "role": "",
+          "rating": "8.0",
+          "icon": "icons/altema/pilot-ビーチャ・オーレグ-c0469-618f0ec1.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/379.jpg"
+        }
+      ]
+    },
+    {
+      "kind": "pilot",
+      "suggestedMapKey": "pilot|ボブ",
+      "nameJa": "ボブ",
+      "occurrences": 1,
+      "pilotCardIds": [
+        "C0471"
+      ],
+      "cardKeys": [
+        "pilot:381"
+      ],
+      "sourceUrls": [
+        "https://altema.jp/gundamuce/chara/381"
+      ],
+      "samples": [
+        {
+          "id": "altema-pilot-e9d617f0e6",
+          "cardKey": "pilot:381",
+          "originalNameJa": "ボブ(C0471)",
+          "sourceUrl": "https://altema.jp/gundamuce/chara/381",
+          "attribute": "",
+          "role": "",
+          "rating": "8.0",
+          "icon": "icons/altema/pilot-ボブ-c0471-c0281ce6.jpg",
+          "remoteIcon": "https://img.altema.jp/gundamuce/chara/icon/381.jpg"
         }
       ]
     },
